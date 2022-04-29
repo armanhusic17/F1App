@@ -1,4 +1,4 @@
-# my-project
+# F1App
 
 This is just a fun project intended for use in context of the sport of Formula One.
 
