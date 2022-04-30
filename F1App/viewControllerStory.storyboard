@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jr7-sf-Dvj">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hxe-ug-qFV">
-                                        <rect key="frame" x="0.0" y="350" width="414" height="546"/>
+                                        <rect key="frame" x="0.0" y="350" width="414" height="502"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Enter"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Show All Constructors"/>
                                         <connections>
                                             <action selector="enterApp:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jyf-mq-9xy"/>
                                         </connections>
@@ -49,19 +49,19 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Jr7-sf-Dvj" secondAttribute="trailing" id="Bir-Dx-eYj"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Jr7-sf-Dvj" secondAttribute="bottom" constant="-34" id="J7s-5u-Nwy"/>
                             <constraint firstItem="Jr7-sf-Dvj" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="dpS-7K-iYF"/>
-                            <constraint firstItem="Jr7-sf-Dvj" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="-44" id="rlM-Ci-DS4"/>
+                            <constraint firstItem="Jr7-sf-Dvj" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="rlM-Ci-DS4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="baseView" destination="Jr7-sf-Dvj" id="PBl-cs-ZHT"/>
                         <outlet property="loginButton" destination="Hxe-ug-qFV" id="U0B-ca-gyy"/>
                         <outlet property="titleImage" destination="3Aj-o4-uOq" id="xAa-i9-HaH"/>
-                        <segue destination="NAv-3K-nfW" kind="modal" identifier="enterTransition" id="ZzP-ia-vx0"/>
+                        <segue destination="NAv-3K-nfW" kind="showDetail" identifier="enterTransition" id="ZzP-ia-vx0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -164,10 +164,11 @@
                             <outlet property="delegate" destination="NAv-3K-nfW" id="tDL-ZH-mre"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="Qzc-Bq-pEe"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAY-M9-cit" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1186.9565217391305" y="123.88392857142857"/>
+            <point key="canvasLocation" x="820" y="139"/>
         </scene>
     </scenes>
     <resources>

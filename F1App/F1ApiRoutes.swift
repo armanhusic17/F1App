@@ -42,22 +42,17 @@ struct F1ApiRoutes  {
             guard let data = data else {return}
             
             do {
-                
                 let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
                 let thisArray = f1Data.data.constructorTable.constructors
-                
                 
                 for i in Range(0...thisArray.count - 1){
                     Data.teamNames.append(thisArray[i].name)
                     Data.teamNationality.append(thisArray[i].nationality)
                     Data.teamURL.append(thisArray[i].url)
                 }
-                
             } catch  {
                 print("Error decoding json data ")
             }
-          
-            
         }.resume()
         
     }

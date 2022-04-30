@@ -12,4 +12,6 @@ class Data  {
     static var teamNames:[String?] = []
     static var teamNationality:[String?] = []
     static var teamURL:[String?] = []
+    
+    
 }
