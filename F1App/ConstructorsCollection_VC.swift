@@ -14,8 +14,12 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     let names = Data.teamNames
     let nationalities = Data.teamNationality
     let teamWikis = Data.teamURL
+    
     var green = UIColor(red: 50.00/255.0, green: 200.0/255.0, blue: 15.00/255.0, alpha: 1.0)
-
+    var red = UIColor(red: 100/255.0, green: 200.0/255.0, blue: 15.00/255.0, alpha: 1.0)
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -34,14 +38,14 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
         let url = URL(string: teamWikis[indexPath.item]!)!
 
-        cell.topCellLabel.text = names[indexPath.item]
         cell.layer.borderWidth = 5
-        cell.layer.borderColor = green.cgColor
-        cell.cellBaseView.backgroundColor = .blue
+        cell.layer.borderColor = red.cgColor
+        cell.layer.cornerRadius = 15
+        
+        cell.topCellLabel.text = names[indexPath.item]
         cell.bottomCellLabel.text = nationalities[indexPath.item]
         cell.cellImage.image = UIImage.strokedCheckmark
         cell.webView.load(URLRequest(url: url ))
@@ -50,38 +54,16 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
-            
-            if cell.isSelected == true {
-
-                print("Cell is selected")
-                
-                
-            } else {
-                
-                print("Cell deselected")
-
-            }
+            print("Cell is selected")
+            cell.layer.borderColor = red.cgColor
         }
 
-       
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
-            
-            if cell.isSelected == true {
-                
-                print("Cell is selected")
-                
-            } else {
-               
-                print("Cell deselected")
-                
-            }
-            
+            print("Cell deselected")
         }
     }
     

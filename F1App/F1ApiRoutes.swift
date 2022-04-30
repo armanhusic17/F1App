@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import Alamofire
 import SwiftyJSON
 
 
@@ -25,9 +24,7 @@ struct F1ApiRoutes  {
     func allDrivers(){
         let url = "https://ergast.com/api/f1/drivers.json"
 
-        AF.request(url).response { response in
-            debugPrint(response)
-        }
+        
     }
     
     

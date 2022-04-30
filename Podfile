@@ -7,8 +7,7 @@ target 'F1App' do
 
   # Pods for F1App
 
-  pod 'Alamofire', '~> 5.5'
   pod 'SwiftyJSON'
-
+  pod 'Firebase'
 
 end
