@@ -20,9 +20,8 @@ struct F1ApiRoutes  {
      */
     
     let myData = Data()
-    
-    
-    
+
+
     func allDrivers(seasonYear:String){
         let url = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
 
@@ -31,7 +30,8 @@ struct F1ApiRoutes  {
         URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
                     
             guard let data = data else {return}
-            
+            print(response)
+
             do {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
                 
@@ -45,7 +45,7 @@ struct F1ApiRoutes  {
     
     
     
-    func allConstructors(seasonYear:String){
+    func allConstructors(seasonYear:String) {
         let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
         
         guard let unwrappedURL = URL(string: url) else {return}

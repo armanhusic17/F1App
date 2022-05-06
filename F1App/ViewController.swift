@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     let f1routes = F1ApiRoutes()
     var decodedJSONObject:String = ""
-    
+    let qTime:Double = 1.75
     
 
     override func viewDidLoad() {
@@ -37,45 +37,45 @@ class ViewController: UIViewController {
     
 
     func formatUI(){
-        showDriversButton.isUserInteractionEnabled = true
-        showConstructorsButton.isUserInteractionEnabled = true
-        showConstructorsButton  .layer.cornerRadius = 15
-        showDriversButton       .layer.cornerRadius = 15
-        progressView.isHidden                       = true
-        
-        titleImage.alpha = 0.25
+        showDriversButton       .isUserInteractionEnabled = true
+        showConstructorsButton  .isUserInteractionEnabled = true
+        showConstructorsButton  .layer.cornerRadius       = 15
+        showDriversButton       .layer.cornerRadius       = 15
+        progressView            .isHidden                 = true
+        titleImage              .alpha                    = 0.25
     }
     
     @IBAction func displayConstructors(_ sender: UIButton) {
-        showDriversButton.isUserInteractionEnabled = false
-        showConstructorsButton.isUserInteractionEnabled = false
+        showDriversButton       .isUserInteractionEnabled = false
+        showConstructorsButton  .isUserInteractionEnabled = false
 
-        Data.whichQuery = 0
+        Data.whichQuery                                 = 0
         f1routes.allConstructors(seasonYear: enterYear.text)
-        progressView.isHidden = false
-        activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.75) {
-            self.showDriversButton.isUserInteractionEnabled = true
-            self.showConstructorsButton.isUserInteractionEnabled = true
-            self.activityIndicator.stopAnimating()
-            self.progressView.isHidden = true
+        progressView            .isHidden               = false
+        activityIndicator       .startAnimating()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            self.showDriversButton      .isUserInteractionEnabled   = true
+            self.showConstructorsButton .isUserInteractionEnabled   = true
+            self.activityIndicator      .stopAnimating()
+            self.progressView           .isHidden                   = true
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
     }
     
     @IBAction func displayDrivers(_ sender: UIButton) {
-        showConstructorsButton.isUserInteractionEnabled = false
-        showDriversButton.isUserInteractionEnabled = false
-
-        Data.whichQuery = 1
-        f1routes.allDrivers(seasonYear: enterYear.text)
-        progressView.isHidden = false
-        activityIndicator.startAnimating()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.75) {
-            self.showDriversButton.isUserInteractionEnabled = true
-            self.showConstructorsButton.isUserInteractionEnabled = true
-            self.activityIndicator.stopAnimating()
-            self.progressView.isHidden = true
+        showConstructorsButton  .isUserInteractionEnabled = false
+        showDriversButton       .isUserInteractionEnabled = false
+        Data.whichQuery                                   = 1
+        f1routes                .allDrivers(seasonYear: enterYear.text)
+        progressView            .isHidden                 = false
+        activityIndicator       .startAnimating()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            self.showDriversButton      .isUserInteractionEnabled = true
+            self.showConstructorsButton .isUserInteractionEnabled = true
+            self.activityIndicator      .stopAnimating()
+            self.progressView           .isHidden                 = true
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
         

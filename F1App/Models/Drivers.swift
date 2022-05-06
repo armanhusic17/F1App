@@ -5,8 +5,6 @@
 //  Created by Arman Husic on 4/11/22.
 //
 //
-//  DriverInfo.swift
-////
 
 import Foundation
 
@@ -20,6 +18,7 @@ public struct Drivers: Codable {
 }
 
 public struct DriversData: Codable {
+    public let xmlns: String
     public let series: String
     public let url: String
     public let limit: String
@@ -28,6 +27,7 @@ public struct DriversData: Codable {
     public let driverTable: DriverTable
 
     private enum CodingKeys: String, CodingKey {
+        case xmlns
         case series
         case url
         case limit
@@ -38,7 +38,7 @@ public struct DriversData: Codable {
 }
 
 public struct DriverTable: Codable {
-    public let season: String?
+    public let season:String?
     public let drivers: [Drivers]
 
     private enum CodingKeys: String, CodingKey {
@@ -46,3 +46,27 @@ public struct DriverTable: Codable {
         case drivers = "Drivers"
     }
 }
+
+public struct Driver: Codable {
+    public let driverID: String
+    public let code:String
+    public let url:String
+    public let givenName:String
+    public let familyName:String
+    public let dateOfBirth:String
+    public let nationality:String
+    public let permanentNumber:String
+
+    
+    private enum CodingKeys: String, CodingKey {
+        case driverID = "driverId"
+        case code
+        case url
+        case givenName
+        case familyName
+        case dateOfBirth
+        case nationality
+        case permanentNumber
+    }
+}
+

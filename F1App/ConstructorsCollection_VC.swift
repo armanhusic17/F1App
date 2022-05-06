@@ -25,7 +25,6 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     var red = UIColor(red: 100/255.0, green: 200.0/255.0, blue: 15.00/255.0, alpha: 1.0)
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
