@@ -124,26 +124,13 @@ The release process is as follows:
 
 ## Set logging level
 
-### Swift
+GoogleDataTransport will follow the logging level of the underlying
+GoogleUtilities logger. If GoogleDataTransport is being used with a Firebase
+App, you can enable debug logs by adding the command line argument
+`-FIRDebugEnabled` to your app's Arguments Passed on Launch. You can disable
+debug logs with `-FIRDebugDisabled`.
 
-- Import `GoogleDataTransport` module:
-    ```swift
-    import GoogleDataTransport
-    ```
-- Set logging level global variable to the desired value before calling `FirebaseApp.configure()`:
-    ```swift
-    GDTCORConsoleLoggerLoggingLevel = GDTCORLoggingLevel.debug.rawValue
-    ```
-### Objective-C
-
-- Import `GoogleDataTransport`:
-    ```objective-c
-    #import <GoogleDataTransport/GoogleDataTransport.h>
-    ```
-- Set logging level global variable to the desired value before calling `-[FIRApp configure]`:
-    ```objective-c
-    GDTCORConsoleLoggerLoggingLevel = GDTCORLoggingLevelDebug;
-    ```
+For performance reasons, GoogleDataTransport will not log in release builds.
 
 ## Prereqs
 
@@ -209,7 +196,7 @@ GitHub Actions will verify that any code changes are done in a style compliant
 way. Install `clang-format` and `mint`:
 
 ```console
-brew install clang-format@13
+brew install clang-format@14
 brew install mint
 ```
 

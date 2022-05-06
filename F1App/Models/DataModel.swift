@@ -19,7 +19,6 @@ class Data  {
     static var driverURL:[String?] = []
     
     static var whichQuery:Int?
-    static var seasonYear:String?
     
     
 }

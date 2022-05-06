@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import SVProgressHUD
+import SVProgressHUD
 
 class ViewController: UIViewController {
     @IBOutlet weak var baseView: UIView!
@@ -44,9 +44,7 @@ class ViewController: UIViewController {
     
     @IBAction func displayConstructors(_ sender: UIButton) {
         Data.whichQuery = 0
-        Data.seasonYear = enterYear.text
-        f1routes.allConstructors()
-
+        f1routes.allConstructors(seasonYear: enterYear.text)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
@@ -54,10 +52,8 @@ class ViewController: UIViewController {
     
     @IBAction func displayDrivers(_ sender: UIButton) {
         Data.whichQuery = 1
-        Data.seasonYear = enterYear.text
-        f1routes.allDrivers()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+        f1routes.allDrivers(seasonYear: enterYear.text)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
         

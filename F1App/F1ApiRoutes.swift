@@ -23,8 +23,8 @@ struct F1ApiRoutes  {
     
     
     
-    func allDrivers(){
-        let url = "https://ergast.com/api/f1/1988/drivers.json"
+    func allDrivers(seasonYear:String){
+        let url = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
 
         guard let unwrappedURL = URL(string: url) else {return}
         
@@ -50,8 +50,8 @@ struct F1ApiRoutes  {
     
     
     
-    func allConstructors(){
-        let url = "https://ergast.com/api/f1/1988/constructors.json"
+    func allConstructors(seasonYear:String){
+        let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
         
         guard let unwrappedURL = URL(string: url) else {return}
         
