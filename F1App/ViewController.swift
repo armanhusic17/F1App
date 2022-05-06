@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 class ViewController: UIViewController {
     @IBOutlet weak var baseView: UIView!
@@ -14,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var showConstructorsButton: UIButton!
     @IBOutlet weak var showDriversButton: UIButton!
     @IBOutlet weak var enterYear: UITextView!
+    @IBOutlet weak var progressView: UIView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     let f1routes = F1ApiRoutes()
@@ -36,24 +37,45 @@ class ViewController: UIViewController {
     
 
     func formatUI(){
+        showDriversButton.isUserInteractionEnabled = true
+        showConstructorsButton.isUserInteractionEnabled = true
         showConstructorsButton  .layer.cornerRadius = 15
         showDriversButton       .layer.cornerRadius = 15
-
+        progressView.isHidden                       = true
+        
         titleImage.alpha = 0.25
     }
     
     @IBAction func displayConstructors(_ sender: UIButton) {
+        showDriversButton.isUserInteractionEnabled = false
+        showConstructorsButton.isUserInteractionEnabled = false
+
         Data.whichQuery = 0
         f1routes.allConstructors(seasonYear: enterYear.text)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+        progressView.isHidden = false
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.75) {
+            self.showDriversButton.isUserInteractionEnabled = true
+            self.showConstructorsButton.isUserInteractionEnabled = true
+            self.activityIndicator.stopAnimating()
+            self.progressView.isHidden = true
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
     }
     
     @IBAction func displayDrivers(_ sender: UIButton) {
+        showConstructorsButton.isUserInteractionEnabled = false
+        showDriversButton.isUserInteractionEnabled = false
+
         Data.whichQuery = 1
         f1routes.allDrivers(seasonYear: enterYear.text)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.75) {
+        progressView.isHidden = false
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.75) {
+            self.showDriversButton.isUserInteractionEnabled = true
+            self.showConstructorsButton.isUserInteractionEnabled = true
+            self.activityIndicator.stopAnimating()
+            self.progressView.isHidden = true
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
         

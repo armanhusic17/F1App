@@ -34,11 +34,6 @@ struct F1ApiRoutes  {
             
             do {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
-                let thisArray = f1Data.data.driverTable.drivers
-                
-                print(thisArray)
-                
-                
                 
             } catch  {
                 print("Error decoding DRIVERS json data ")
