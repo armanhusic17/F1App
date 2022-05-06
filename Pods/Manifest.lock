@@ -87,10 +87,12 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.1.0)
+  - SVProgressHUD (2.2.5)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
   - Firebase
+  - SVProgressHUD
   - SwiftyJSON
 
 SPEC REPOS:
@@ -105,6 +107,7 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - SVProgressHUD
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -118,8 +121,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 92b7b69ea5caf8018d5b33ba76ec14b471aa613d
+PODFILE CHECKSUM: 357afe6046900c16d6b52fdb1577a53ef350f640
 
 COCOAPODS: 1.11.2
