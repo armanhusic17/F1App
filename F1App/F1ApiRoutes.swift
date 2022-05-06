@@ -21,16 +21,37 @@ struct F1ApiRoutes  {
     
     let myData = Data()
     
+    
+    
     func allDrivers(){
-        let url = "https://ergast.com/api/f1/drivers.json"
+        let url = "https://ergast.com/api/f1/1988/drivers.json"
 
+        guard let unwrappedURL = URL(string: url) else {return}
         
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+                    
+            guard let data = data else {return}
+            
+            do {
+                let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
+                let thisArray = f1Data.data.driverTable.drivers
+                
+                print(thisArray)
+                
+                
+                
+            } catch  {
+                print("Error decoding DRIVERS json data ")
+            }
+        }.resume()
     }
     
     
     
+    
+    
     func allConstructors(){
-        let url = "https://ergast.com/api/f1/2021/constructors.json"
+        let url = "https://ergast.com/api/f1/1988/constructors.json"
         
         guard let unwrappedURL = URL(string: url) else {return}
         
@@ -51,7 +72,6 @@ struct F1ApiRoutes  {
                 print("Error decoding json data ")
             }
         }.resume()
-        
     }
     
     

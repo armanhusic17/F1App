@@ -13,5 +13,13 @@ class Data  {
     static var teamNationality:[String?] = []
     static var teamURL:[String?] = []
     
+ 
+    static var driverNames:[String?] = []
+    static var driverSeason:[String?] = []
+    static var driverURL:[String?] = []
+    
+    static var whichQuery:Int?
+    static var seasonYear:String?
+    
     
 }

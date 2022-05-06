@@ -11,9 +11,15 @@ import UIKit
 class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let myData = Data()
-    let names = Data.teamNames
-    let nationalities = Data.teamNationality
+    
+    let teamNames = Data.teamNames
+    let driverNames = Data.driverNames
+    
+    let teamNationality = Data.teamNationality
+    let driverSeason = Data.driverSeason
+    
     let teamWikis = Data.teamURL
+    let driverWikis = Data.driverURL
     
     var green = UIColor(red: 50.00/255.0, green: 200.0/255.0, blue: 15.00/255.0, alpha: 1.0)
     var red = UIColor(red: 100/255.0, green: 200.0/255.0, blue: 15.00/255.0, alpha: 1.0)
@@ -26,7 +32,17 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     }
         
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Data.teamNames.count
+        
+        if Data.whichQuery == 0 {
+            return Data.teamNames.count
+        }
+        
+        if Data.whichQuery == 1 {
+            return Data.driverNames.count
+        }
+        
+        return 1
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -39,16 +55,34 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
-        let url = URL(string: teamWikis[indexPath.item]!)!
-
+        
+        
         cell.layer.borderWidth = 5
         cell.layer.borderColor = red.cgColor
         cell.layer.cornerRadius = 15
         
-        cell.topCellLabel.text = names[indexPath.item]
-        cell.bottomCellLabel.text = nationalities[indexPath.item]
+        if Data.whichQuery == 0 {
+            let teamURL = URL(string: teamWikis[indexPath.item]!)!
+
+            cell.topCellLabel.text = teamNames[indexPath.item]
+            cell.bottomCellLabel.text = teamNationality[indexPath.item]
+            cell.webView.load(URLRequest(url: teamURL ))
+
+        }
+        
+        if Data.whichQuery == 1 {
+            let driverURL = URL(string: driverWikis[indexPath.item]!)!
+            
+            cell.topCellLabel.text = driverNames[indexPath.item]
+            cell.bottomCellLabel.text = driverSeason[indexPath.item]
+            cell.webView.load(URLRequest(url: driverURL ))
+
+        }
+        
+        
+        
         cell.cellImage.image = UIImage.strokedCheckmark
-        cell.webView.load(URLRequest(url: url ))
+        
         
         return cell
     }

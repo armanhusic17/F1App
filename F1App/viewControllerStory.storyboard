@@ -30,7 +30,7 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Show All Constructors"/>
                                         <connections>
-                                            <action selector="enterApp:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jyf-mq-9xy"/>
+                                            <action selector="displayConstructors:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="fDC-pW-gHh"/>
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2022-04-12 at 9.47.47 PM" translatesAutoresizingMaskIntoConstraints="NO" id="3Aj-o4-uOq">
@@ -49,20 +49,33 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Show All Drivers"/>
                                         <connections>
-                                            <action selector="enterApp:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QPz-ME-gVT"/>
+                                            <action selector="displayDrivers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="2sA-nU-YZh"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter F1 Season Year Here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Td3-NE-RTH">
+                                        <rect key="frame" x="16" y="347.5" width="382" height="25"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="UJa-Px-Y7m"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemMintColor"/>
                                 <constraints>
                                     <constraint firstItem="Hxe-ug-qFV" firstAttribute="centerY" secondItem="Jr7-sf-Dvj" secondAttribute="centerY" id="3N8-Gr-VEJ"/>
+                                    <constraint firstItem="Td3-NE-RTH" firstAttribute="leading" secondItem="mZy-Gs-2Hn" secondAttribute="leading" id="4Ln-j7-IkJ"/>
                                     <constraint firstItem="mZy-Gs-2Hn" firstAttribute="centerX" secondItem="Hxe-ug-qFV" secondAttribute="centerX" id="9LM-qx-3Ph"/>
                                     <constraint firstItem="mZy-Gs-2Hn" firstAttribute="trailing" secondItem="Hxe-ug-qFV" secondAttribute="trailing" id="A1X-iG-pdD"/>
                                     <constraint firstItem="Hxe-ug-qFV" firstAttribute="leading" secondItem="Jr7-sf-Dvj" secondAttribute="leading" constant="16" id="AKH-2E-qMe"/>
                                     <constraint firstAttribute="trailing" secondItem="3Aj-o4-uOq" secondAttribute="trailing" id="PKt-QO-0bi"/>
+                                    <constraint firstItem="Td3-NE-RTH" firstAttribute="trailing" secondItem="mZy-Gs-2Hn" secondAttribute="trailing" id="Qzl-ev-J89"/>
                                     <constraint firstItem="mZy-Gs-2Hn" firstAttribute="leading" secondItem="Hxe-ug-qFV" secondAttribute="leading" id="Wri-6r-ak9"/>
                                     <constraint firstItem="mZy-Gs-2Hn" firstAttribute="top" secondItem="Hxe-ug-qFV" secondAttribute="bottom" constant="8" id="aqD-YZ-mbW"/>
                                     <constraint firstAttribute="trailing" secondItem="Hxe-ug-qFV" secondAttribute="trailing" constant="16" id="mE9-jl-UQ3"/>
+                                    <constraint firstItem="Hxe-ug-qFV" firstAttribute="top" secondItem="Td3-NE-RTH" secondAttribute="bottom" constant="16" id="tIY-pI-Bfg"/>
                                     <constraint firstItem="3Aj-o4-uOq" firstAttribute="leading" secondItem="Jr7-sf-Dvj" secondAttribute="leading" id="xLh-M1-OPk"/>
                                     <constraint firstItem="3Aj-o4-uOq" firstAttribute="top" secondItem="Jr7-sf-Dvj" secondAttribute="top" id="xRK-vP-sCg"/>
                                 </constraints>
@@ -79,6 +92,7 @@
                     </view>
                     <connections>
                         <outlet property="baseView" destination="Jr7-sf-Dvj" id="PBl-cs-ZHT"/>
+                        <outlet property="enterYear" destination="Td3-NE-RTH" id="wjh-ja-5oj"/>
                         <outlet property="showConstructorsButton" destination="Hxe-ug-qFV" id="U0B-ca-gyy"/>
                         <outlet property="showDriversButton" destination="mZy-Gs-2Hn" id="Ydu-gE-hZ4"/>
                         <outlet property="titleImage" destination="3Aj-o4-uOq" id="xAa-i9-HaH"/>
@@ -87,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
+            <point key="canvasLocation" x="80" y="139"/>
         </scene>
         <!--Constructors CollectionVC-->
         <scene sceneID="axs-pe-j9y">
@@ -194,6 +208,9 @@
     </scenes>
     <resources>
         <image name="Screen Shot 2022-04-12 at 9.47.47 PM" width="398.5" height="291.5"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
