@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         showConstructorsButton  .isUserInteractionEnabled = false
 
         Data.whichQuery                                 = 0
-        f1routes.allConstructors(seasonYear: enterYear.text)
+        F1ApiRoutes.allConstructors(seasonYear: enterYear.text)
         progressView            .isHidden               = false
         activityIndicator       .startAnimating()
         
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
         showConstructorsButton  .isUserInteractionEnabled = false
         showDriversButton       .isUserInteractionEnabled = false
         Data.whichQuery                                   = 1
-        f1routes                .allDrivers(seasonYear: enterYear.text)
+        F1ApiRoutes                .allDrivers(seasonYear: enterYear.text)
         progressView            .isHidden                 = false
         activityIndicator       .startAnimating()
         

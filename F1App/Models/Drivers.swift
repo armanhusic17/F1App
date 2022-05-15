@@ -8,7 +8,6 @@
 
 import Foundation
 
-/// Codable struct, used for serializing JSON from the Drivers endpoint.
 public struct Drivers: Codable {
     public let data: DriversData
 
@@ -39,7 +38,7 @@ public struct DriversData: Codable {
 
 public struct DriverTable: Codable {
     public let season:String?
-    public let drivers: [Drivers]
+    public let drivers: [Driver]
 
     private enum CodingKeys: String, CodingKey {
         case season

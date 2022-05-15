@@ -22,7 +22,7 @@ struct F1ApiRoutes  {
     let myData = Data()
 
 
-    func allDrivers(seasonYear:String){
+    static func allDrivers(seasonYear:String){
         let url = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
 
         guard let unwrappedURL = URL(string: url) else {return}
@@ -36,6 +36,7 @@ struct F1ApiRoutes  {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
                 
             } catch  {
+                print(data.debugDescription)
                 print("Error decoding DRIVERS json data ")
             }
         }.resume()
@@ -45,7 +46,7 @@ struct F1ApiRoutes  {
     
     
     
-    func allConstructors(seasonYear:String) {
+    static func allConstructors(seasonYear:String) {
         let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
         
         guard let unwrappedURL = URL(string: url) else {return}
@@ -64,7 +65,7 @@ struct F1ApiRoutes  {
                     Data.teamURL.append(thisArray[i].url)
                 }
             } catch  {
-                print("Error decoding json data ")
+                print("Error decoding CONSTRUCTOR json data ")
             }
         }.resume()
     }
