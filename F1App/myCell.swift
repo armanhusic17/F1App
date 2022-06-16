@@ -18,6 +18,8 @@ class myCell: UICollectionViewCell {
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var webView: WKWebView!
     
+    @IBOutlet weak var mid1label: UILabel!
+    @IBOutlet weak var mid2label: UILabel!
     
     
 }

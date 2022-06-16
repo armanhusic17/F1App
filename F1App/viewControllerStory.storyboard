@@ -52,15 +52,15 @@
                                             <action selector="displayDrivers:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="2sA-nU-YZh"/>
                                         </connections>
                                     </button>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter F1 Season Year Here" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Td3-NE-RTH">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="2022" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Td3-NE-RTH">
                                         <rect key="frame" x="16" y="347.5" width="382" height="25"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="UJa-Px-Y7m"/>
                                         </constraints>
                                         <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="numberPad" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="one-time-code"/>
                                     </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Srw-A7-LDu">
                                         <rect key="frame" x="169.5" y="578.5" width="75" height="75"/>
@@ -171,7 +171,7 @@
                                                     <rect key="frame" x="0.0" y="50" width="314" height="161"/>
                                                 </imageView>
                                                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5E-4o-udb">
-                                                    <rect key="frame" x="0.0" y="50" width="314" height="161"/>
+                                                    <rect key="frame" x="8" y="50" width="298" height="161"/>
                                                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <wkWebViewConfiguration key="configuration">
                                                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -183,15 +183,15 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="6si-vW-OO1"/>
                                                 <constraint firstItem="E5E-4o-udb" firstAttribute="top" secondItem="VbV-IJ-rzt" secondAttribute="top" id="9mq-qH-YaA"/>
-                                                <constraint firstItem="E5E-4o-udb" firstAttribute="trailing" secondItem="VbV-IJ-rzt" secondAttribute="trailing" id="Aiz-Ur-Yxu"/>
                                                 <constraint firstItem="E5E-4o-udb" firstAttribute="bottom" secondItem="VbV-IJ-rzt" secondAttribute="bottom" id="DRb-3Y-evb"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="top" secondItem="VbV-IJ-rzt" secondAttribute="bottom" id="F5i-4v-vmP"/>
                                                 <constraint firstAttribute="trailing" secondItem="VbV-IJ-rzt" secondAttribute="trailing" id="FDe-cf-aMr"/>
                                                 <constraint firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Kfo-J9-QMn"/>
                                                 <constraint firstItem="VbV-IJ-rzt" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" id="L0t-Dt-LU1"/>
+                                                <constraint firstAttribute="trailing" secondItem="E5E-4o-udb" secondAttribute="trailing" constant="8" id="MDX-9P-kJR"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" id="REh-PC-1CV"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" id="czv-A5-4bm"/>
-                                                <constraint firstItem="E5E-4o-udb" firstAttribute="leading" secondItem="VbV-IJ-rzt" secondAttribute="leading" id="eSP-WG-AGc"/>
+                                                <constraint firstItem="E5E-4o-udb" firstAttribute="leading" secondItem="VbV-IJ-rzt" secondAttribute="leading" constant="8" id="eSP-WG-AGc"/>
                                                 <constraint firstAttribute="bottom" secondItem="1h8-8C-TE7" secondAttribute="bottom" id="nMC-m4-aqy"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" id="u6f-Nf-01f"/>
                                                 <constraint firstItem="VbV-IJ-rzt" firstAttribute="top" secondItem="uyJ-qf-Gri" secondAttribute="bottom" id="zr6-c1-L5z"/>
@@ -228,7 +228,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Screen Shot 2022-04-12 at 9.47.47 PM" width="398.5" height="291.5"/>
+        <image name="Screen Shot 2022-04-12 at 9.47.47 PM" width="387" height="248"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

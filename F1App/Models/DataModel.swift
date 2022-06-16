@@ -15,7 +15,7 @@ class Data  {
     
  
     static var driverNames:[String?] = []
-    static var driverSeason:[String?] = []
+    static var driverNationality:[String?] = []
     static var driverURL:[String?] = []
     
     static var whichQuery:Int?

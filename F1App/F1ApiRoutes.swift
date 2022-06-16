@@ -34,7 +34,13 @@ struct F1ApiRoutes  {
 
             do {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
-                
+                let driversTableArray = f1Data.data.driverTable.drivers
+                print(driversTableArray)
+                for i in Range(0...driversTableArray.count - 1) {
+                    Data.driverNames.append(driversTableArray[i].familyName)
+                    Data.driverNationality.append(driversTableArray[i].nationality)
+                    Data.driverURL.append(driversTableArray[i].url)
+                }
             } catch  {
                 print(data.debugDescription)
                 print("Error decoding DRIVERS json data ")
@@ -58,11 +64,12 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
                 let thisArray = f1Data.data.constructorTable.constructors
-                
+                print(thisArray)
                 for i in Range(0...thisArray.count - 1){
                     Data.teamNames.append(thisArray[i].name)
                     Data.teamNationality.append(thisArray[i].nationality)
                     Data.teamURL.append(thisArray[i].url)
+                    
                 }
             } catch  {
                 print("Error decoding CONSTRUCTOR json data ")
