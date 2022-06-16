@@ -37,15 +37,19 @@ class ViewController: UIViewController {
     
 
     func formatUI(){
+        
         showDriversButton       .isUserInteractionEnabled = true
         showConstructorsButton  .isUserInteractionEnabled = true
         showConstructorsButton  .layer.cornerRadius       = 15
         showDriversButton       .layer.cornerRadius       = 15
+        enterYear               .layer.cornerRadius       = 15
         progressView            .isHidden                 = true
         titleImage              .alpha                    = 0.25
+        
     }
     
     @IBAction func displayConstructors(_ sender: UIButton) {
+        
         showDriversButton       .isUserInteractionEnabled = false
         showConstructorsButton  .isUserInteractionEnabled = false
 
@@ -61,22 +65,30 @@ class ViewController: UIViewController {
             self.progressView           .isHidden                   = true
             self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
+        
     }
     
     @IBAction func displayDrivers(_ sender: UIButton) {
-        showConstructorsButton  .isUserInteractionEnabled = false
-        showDriversButton       .isUserInteractionEnabled = false
-        Data.whichQuery                                   = 1
-        F1ApiRoutes                .allDrivers(seasonYear: enterYear.text)
-        progressView            .isHidden                 = false
-        activityIndicator       .startAnimating()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
-            self.showDriversButton      .isUserInteractionEnabled = true
-            self.showConstructorsButton .isUserInteractionEnabled = true
-            self.activityIndicator      .stopAnimating()
-            self.progressView           .isHidden                 = true
-            self.performSegue(withIdentifier: "enterTransition", sender: self)
+        guard let year = Int(enterYear.text) else {return}
+        print(year)
+        if year < 2014 {
+            print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+        } else {
+            showConstructorsButton  .isUserInteractionEnabled = false
+            showDriversButton       .isUserInteractionEnabled = false
+            Data.whichQuery                                   = 1
+            F1ApiRoutes                .allDrivers(seasonYear: enterYear.text)
+            progressView            .isHidden                 = false
+            activityIndicator       .startAnimating()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+                self.showDriversButton      .isUserInteractionEnabled = true
+                self.showConstructorsButton .isUserInteractionEnabled = true
+                self.activityIndicator      .stopAnimating()
+                self.progressView           .isHidden                 = true
+                self.performSegue(withIdentifier: "enterTransition", sender: self)
+            }
         }
         
     }

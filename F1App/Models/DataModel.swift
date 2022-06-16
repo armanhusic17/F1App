@@ -21,6 +21,8 @@ class Data  {
     static var driverFirstNames:[String?] = []
     static var driverDOB:[String?] = []
     
+    static var cellIndexPassed:Int?
+    
     static var whichQuery:Int?
     
     

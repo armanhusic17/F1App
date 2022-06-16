@@ -16,5 +16,10 @@ class myCell: UICollectionViewCell {
     @IBOutlet weak var bottomCellLabel: UILabel!
     
     
+    var myCellIndexPath:Int?
     
+    func getCellIndexPath(myCell:myCell, myCellIP: Int){
+        myCellIndexPath = myCellIP
+        Data.cellIndexPassed = myCellIndexPath
+    }
 }
