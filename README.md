@@ -7,5 +7,5 @@ allowing for users to tweet to their accounts to start threads, facilitate conve
 
 Using 
 - Ergast API - routes
-- AlamoFire - cocoapods -> removed alamofire, no longer needed when using swift url session and json decoder
+- -> removed alamofire, no longer needed when using swift url session and json decoder
 - Added Google Firebase 
