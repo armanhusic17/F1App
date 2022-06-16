@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
@@ -20,11 +21,25 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     
     let teamWikis = Data.teamURL
     let driverWikis = Data.driverURL
+    let driverNumbers = Data.driverNumber
+    let driversGivenName = Data.driverFirstNames
+    let driverDOB = Data.driverDOB
+    
+    @IBOutlet weak var baseResultsView: UIView!
+    @IBOutlet weak var resultsView: UIView!
+    @IBOutlet weak var webView: WKWebView!
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resultsView.isHidden = true
     }
         
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -37,7 +52,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             return Data.driverNames.count
         }
         
-        return 1
+        return 5
         
     }
     
@@ -45,7 +60,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             let availableWidth = view.frame.width
             let availableHeight = view.frame.height
             
-        return CGSize(width: availableWidth * 0.90, height: availableHeight * 0.5)
+        return CGSize(width: availableWidth * 0.85, height: availableHeight * 0.20)
     }
     
     
@@ -58,36 +73,46 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         cell.layer.cornerRadius = 15
         
         if Data.whichQuery == 0 {
-            let teamURL = URL(string: teamWikis[indexPath.item]!)!
 
             cell.topCellLabel.text = teamNames[indexPath.item]
             cell.bottomCellLabel.text = teamNationality[indexPath.item]
-            cell.webView.load(URLRequest(url: teamURL ))
             
 
         }
         
         if Data.whichQuery == 1 {
-            let driverURL = URL(string: driverWikis[indexPath.item]!)!
             
-            cell.topCellLabel.text = driverNames[indexPath.item]
-            cell.bottomCellLabel.text = driverNationality[indexPath.item]
-            cell.webView.load(URLRequest(url: driverURL ))
+            cell.topCellLabel.text = "\(driversGivenName[indexPath.item]!) \(driverNames[indexPath.item]!) #\(driverNumbers[indexPath.item]!)"
+            cell.bottomCellLabel.text = "Nationality: \(driverNationality[indexPath.item]!), Born: \(driverDOB[indexPath.item]!)"
             
         }
         
         
         
-        cell.cellImage.image = UIImage.checkmark
         
         
         return cell
     }
     
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
-          
+            cell.self.isHidden = true
+            if Data.whichQuery == 0 {
+
+                let teamURL = URL(string: teamWikis[indexPath.item]!)!
+                webView.load(URLRequest(url: teamURL ))
+            }
+            if Data.whichQuery == 1 {
+                let driverURL = URL(string: driverWikis[indexPath.item]!)!
+                webView.load(URLRequest(url: driverURL ))
+
+            }
+            
+            resultsView.isHidden = false
+            
+            
         }
 
     }
@@ -95,8 +120,21 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell deselected")
-           
+            cell.self.isHidden = false
+            resultsView.isHidden = true
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Data.driverNationality.removeAll()
+        Data.driverURL.removeAll()
+        Data.driverNames.removeAll()
+        Data.teamURL.removeAll()
+        Data.teamNames.removeAll()
+        Data.teamNationality.removeAll()
+        print("removed all data points from the arrays holding the cells")
+        resultsView.isHidden = true
     }
     
     

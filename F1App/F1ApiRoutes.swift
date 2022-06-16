@@ -40,7 +40,11 @@ struct F1ApiRoutes  {
                     Data.driverNames.append(driversTableArray[i].familyName)
                     Data.driverNationality.append(driversTableArray[i].nationality)
                     Data.driverURL.append(driversTableArray[i].url)
+                    Data.driverNumber.append(driversTableArray[i].permanentNumber)
+                    Data.driverFirstNames.append(driversTableArray[i].givenName)
+                    Data.driverDOB.append(driversTableArray[i].dateOfBirth)
                 }
+                
             } catch  {
                 print(data.debugDescription)
                 print("Error decoding DRIVERS json data ")
