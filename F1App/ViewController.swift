@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var decodedJSONObject:String = ""
     let qTime:Double = 1.75
     
+    let SVProgress = SVProgressHUD()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
 
         print("Circuit DATA BELOW")
 
-    
+        SVProgress.backgroundColor = UIColor.purple
         
         
     }
@@ -84,6 +85,7 @@ class ViewController: UIViewController {
         print(year)
         if year < 2014 {
             print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+            
         } else {
             showConstructorsButton  .isUserInteractionEnabled = false
             showDriversButton       .isUserInteractionEnabled = false
