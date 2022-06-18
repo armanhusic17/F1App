@@ -43,6 +43,7 @@ struct F1ApiRoutes  {
                     Data.driverNumber.append(driversTableArray[i].permanentNumber)
                     Data.driverFirstNames.append(driversTableArray[i].givenName)
                     Data.driverDOB.append(driversTableArray[i].dateOfBirth)
+                    
                 }
                 
             } catch  {
