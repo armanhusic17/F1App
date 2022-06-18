@@ -15,11 +15,12 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     
     let teamNames = Data.teamNames
     let driverNames = Data.driverNames
-    
+    let constructorID = Data.constructorID
     let teamNationality = Data.teamNationality
     let driverNationality = Data.driverNationality
     
 
+    let driverCode = Data.driverCode
     let driverNumbers = Data.driverNumber
     let driversGivenName = Data.driverFirstNames
     let driverDOB = Data.driverDOB
@@ -63,7 +64,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             let availableWidth = view.frame.width
             let availableHeight = view.frame.height
             
-        return CGSize(width: availableWidth * 0.85, height: availableHeight * 0.20)
+        return CGSize(width: availableWidth * 0.85, height: availableHeight * 0.17)
     }
     
     
@@ -79,7 +80,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
 
             cell.topCellLabel.text = teamNames[indexPath.item]
             cell.bottomCellLabel.text = teamNationality[indexPath.item]
-            
+            cell.bottomCellLabel2.text = constructorID[indexPath.item]
 
         }
         
@@ -87,12 +88,14 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             
             cell.topCellLabel.text = "\(driversGivenName[indexPath.item]!) \(driverNames[indexPath.item]!) #\(driverNumbers[indexPath.item]!)"
             cell.bottomCellLabel.text = "Nationality: \(driverNationality[indexPath.item]!)\nBorn: \(driverDOB[indexPath.item]!)"
-            
+            cell.bottomCellLabel2.text = driverCode[indexPath.item]
         }
         
         if Data.whichQuery == 2 {
             cell.topCellLabel.text = circuitName[indexPath.item]
             cell.bottomCellLabel.text = circuitLocation[indexPath.item]
+            cell.bottomCellLabel2.text = circuitId[indexPath.item]?.uppercased()
+        
         }
         
         
@@ -140,7 +143,10 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         Data.circuitID.removeAll()
         Data.circuitName.removeAll()
         Data.circuitLocation.removeAll()
-
+        Data.driverCode.removeAll()
+        Data.constructorID.removeAll()
+        Data.circuitURL.removeAll()
+        
         print("removed all data points from the arrays holding the cells")
     }
     

@@ -51,6 +51,7 @@ class ViewController: UIViewController {
 
         showConstructorsButton  .layer.cornerRadius       = 15
         showDriversButton       .layer.cornerRadius       = 15
+        circuitsButton          .layer.cornerRadius       = 15
         enterYear               .layer.cornerRadius       = 15
         progressView            .isHidden                 = true
         titleImage              .alpha                    = 0.25

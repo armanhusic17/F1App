@@ -13,7 +13,7 @@ class Data  {
     static var teamNames:[String?] = []
     static var teamNationality:[String?] = []
     static var teamURL:[String?] = []
-    
+    static var constructorID:[String?] = []
     // Driver Data
     static var driverNames:[String?] = []
     static var driverNationality:[String?] = []
@@ -21,12 +21,14 @@ class Data  {
     static var driverNumber:[String?] = []
     static var driverFirstNames:[String?] = []
     static var driverDOB:[String?] = []
+    static var driverCode:[String?] = []
     
     // Circuit Data
     static var circuitID:[String?] = []
     static var circuitName:[String?] = []
     static var circuitLocation:[String?] = []
     static var circuitURL:[String?] = []
+    
     
     static var cellIndexPassed:Int?
     

@@ -43,6 +43,7 @@ struct F1ApiRoutes  {
                     Data.driverNumber.append(driversTableArray[i].permanentNumber)
                     Data.driverFirstNames.append(driversTableArray[i].givenName)
                     Data.driverDOB.append(driversTableArray[i].dateOfBirth)
+                    Data.driverCode.append(driversTableArray[i].code)
                 }
                 
             } catch  {
@@ -73,7 +74,7 @@ struct F1ApiRoutes  {
                     Data.teamNames.append(thisArray[i].name)
                     Data.teamNationality.append(thisArray[i].nationality)
                     Data.teamURL.append(thisArray[i].url)
-                    
+                    Data.constructorID.append(thisArray[i].constructorID)
                 }
             } catch  {
                 print("Error decoding CONSTRUCTOR json data ")
@@ -95,15 +96,15 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
                 let thisArray = f1Data.data.circuitTable.circuits
-                let secondArray = f1Data.data.url
-                print(thisArray)
                 
+                print("PRINTING CIRCUIT URL")
+                print(f1Data.data.url)
                 for i in Range(0...thisArray.count - 1){
                     
                     Data.circuitName.append(thisArray[i].circuitName)
                     Data.circuitID.append(thisArray[i].circuitID)
                     Data.circuitLocation.append(thisArray[i].location.country)
-                    
+//                    Data.circuitURL.append(secondArray[i].)
                 }
                 
             
