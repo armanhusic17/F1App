@@ -274,7 +274,7 @@
                                         </wkWebViewConfiguration>
                                     </wkWebView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="1" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="zf8-ht-GWi" secondAttribute="trailing" constant="16" id="O9C-mz-MSr"/>
                                     <constraint firstAttribute="bottom" secondItem="zf8-ht-GWi" secondAttribute="bottom" constant="32" id="QeP-QP-1IR"/>
