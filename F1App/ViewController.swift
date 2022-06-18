@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var decodedJSONObject:String = ""
     let qTime:Double = 1.75
     
+    let testAPI = F1ApiModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,8 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         formatUI()
+        testAPI.printFormula1Stat()
+        
     }
     
 

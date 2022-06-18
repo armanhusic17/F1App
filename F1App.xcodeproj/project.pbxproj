@@ -32,6 +32,8 @@
 		0FB765A9280540C000C32514 /* Drivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB765A7280540C000C32514 /* Drivers.swift */; };
 		0FB765AA280540C000C32514 /* Drivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB765A7280540C000C32514 /* Drivers.swift */; };
 		0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7801285B97700084D58A /* ResultsVC.swift */; };
+		0FBE43E6285D5F4100C6DFFD /* Formula1API in Frameworks */ = {isa = PBXBuildFile; productRef = 0FBE43E5285D5F4100C6DFFD /* Formula1API */; };
+		0FBE43E8285D5F8800C6DFFD /* F1ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBE43E7285D5F8800C6DFFD /* F1ApiModel.swift */; };
 		3BD825CC94A28B7F29B36EDE /* Pods_F1App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087C61132AB251D5A9399339 /* Pods_F1App.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +78,7 @@
 		0FB765A32805409A00C32514 /* Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constructors.swift; sourceTree = "<group>"; };
 		0FB765A7280540C000C32514 /* Drivers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drivers.swift; sourceTree = "<group>"; };
 		0FBC7801285B97700084D58A /* ResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsVC.swift; sourceTree = "<group>"; };
+		0FBE43E7285D5F8800C6DFFD /* F1ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1ApiModel.swift; sourceTree = "<group>"; };
 		DB43A7A1E57B04517D4BB25C /* Pods-F1App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.release.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FBE43E6285D5F4100C6DFFD /* Formula1API in Frameworks */,
 				3BD825CC94A28B7F29B36EDE /* Pods_F1App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +156,7 @@
 				0F515A2027EC1BFF002129D7 /* Info.plist */,
 				0F515A1827EC1BFE002129D7 /* F1App.xcdatamodeld */,
 				0F515A1127EC1BFE002129D7 /* SceneDelegate.swift */,
+				0FBE43E7285D5F8800C6DFFD /* F1ApiModel.swift */,
 			);
 			path = F1App;
 			sourceTree = "<group>";
@@ -209,6 +214,9 @@
 			dependencies = (
 			);
 			name = F1App;
+			packageProductDependencies = (
+				0FBE43E5285D5F4100C6DFFD /* Formula1API */,
+			);
 			productName = F1App;
 			productReference = 0F515A0C27EC1BFE002129D7 /* F1App.app */;
 			productType = "com.apple.product-type.application";
@@ -281,6 +289,9 @@
 				Base,
 			);
 			mainGroup = 0F515A0327EC1BFE002129D7;
+			packageReferences = (
+				0FBE43E4285D5F4100C6DFFD /* XCRemoteSwiftPackageReference "Formula1API" */,
+			);
 			productRefGroup = 0F515A0D27EC1BFE002129D7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -371,6 +382,7 @@
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* ConstructorsCollection_VC.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
+				0FBE43E8285D5F8800C6DFFD /* F1ApiModel.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FB765A42805409A00C32514 /* Constructors.swift in Sources */,
 				0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */,
@@ -720,6 +732,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0FBE43E4285D5F4100C6DFFD /* XCRemoteSwiftPackageReference "Formula1API" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gionoa/Formula1API.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0FBE43E5285D5F4100C6DFFD /* Formula1API */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0FBE43E4285D5F4100C6DFFD /* XCRemoteSwiftPackageReference "Formula1API" */;
+			productName = Formula1API;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0F515A1827EC1BFE002129D7 /* F1App.xcdatamodeld */ = {
