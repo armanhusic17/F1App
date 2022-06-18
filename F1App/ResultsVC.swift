@@ -44,12 +44,12 @@ class ResultsVC: UIViewController {
         
         guard let cellPath = Data.cellIndexPassed else {return}
         if Data.whichQuery == 0 {
-            let teamURL = URL(string: teamWikis[cellPath]!)!
+            guard let teamURL = URL(string: (teamWikis[cellPath])!) else {return}
             webView.load(URLRequest(url: teamURL ))
             
         }
         if Data.whichQuery == 1 {
-            let driverURL = URL(string: driverWikis[cellPath]!)!
+            guard let driverURL = URL(string: driverWikis[cellPath]!) else {return}
             webView.load(URLRequest(url: driverURL ))
 
         }
