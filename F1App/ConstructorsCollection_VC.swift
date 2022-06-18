@@ -25,7 +25,9 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     let driverDOB = Data.driverDOB
     
 
-    
+    let circuitName = Data.circuitName
+    let circuitId = Data.circuitID
+    let circuitLocation = Data.circuitLocation
     
     
     
@@ -47,6 +49,11 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         if Data.whichQuery == 1 {
             return Data.driverNames.count
         }
+        
+        if Data.whichQuery == 2 {
+            return Data.circuitName.count
+        }
+        
         
         return 5
         
@@ -83,6 +90,11 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             
         }
         
+        if Data.whichQuery == 2 {
+            cell.topCellLabel.text = circuitName[indexPath.item]
+            cell.bottomCellLabel.text = circuitLocation[indexPath.item]
+        }
+        
         
         
         
@@ -99,23 +111,9 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             print("Cell is selected")
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
 
-            
-            
-            if Data.whichQuery == 0 {
-                
+            performSegue(withIdentifier: "resultsTransition", sender: self)
+                    
 
-                
-                performSegue(withIdentifier: "resultsTransition", sender: self)
-            }
-            
-            if Data.whichQuery == 1 {
-                
-                
-                performSegue(withIdentifier: "resultsTransition", sender: self)
-            }
-            
-            
-            
         }
 
     }
@@ -138,6 +136,11 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         Data.driverFirstNames.removeAll()
         Data.driverDOB.removeAll()
         Data.driverNumber.removeAll()
+        Data.circuitURL.removeAll()
+        Data.circuitID.removeAll()
+        Data.circuitName.removeAll()
+        Data.circuitLocation.removeAll()
+
         print("removed all data points from the arrays holding the cells")
     }
     

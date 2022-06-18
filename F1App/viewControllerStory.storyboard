@@ -83,9 +83,25 @@
                                         </constraints>
                                         <color key="color" red="0.80000000000000004" green="1" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </activityIndicatorView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WCr-VL-e6l">
+                                        <rect key="frame" x="16" y="562.5" width="382" height="50"/>
+                                        <color key="backgroundColor" red="0.0" green="0.40000000000000002" blue="0.40000000000000002" alpha="0.45086659820000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="vPG-LW-X1O"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Circuits">
+                                            <fontDescription key="titleFontDescription" name="Chalkduster" family="Chalkduster" pointSize="25"/>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="displayCircuits:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kad-aU-9dC"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemMintColor"/>
                                 <constraints>
+                                    <constraint firstItem="WCr-VL-e6l" firstAttribute="top" secondItem="mZy-Gs-2Hn" secondAttribute="bottom" constant="16" id="14R-Y1-032"/>
                                     <constraint firstItem="Hxe-ug-qFV" firstAttribute="centerY" secondItem="Jr7-sf-Dvj" secondAttribute="centerY" id="3N8-Gr-VEJ"/>
                                     <constraint firstItem="Td3-NE-RTH" firstAttribute="leading" secondItem="mZy-Gs-2Hn" secondAttribute="leading" id="4Ln-j7-IkJ"/>
                                     <constraint firstItem="Td3-NE-RTH" firstAttribute="top" secondItem="fEO-uq-xNX" secondAttribute="bottom" id="8sa-pq-k4Q"/>
@@ -94,9 +110,12 @@
                                     <constraint firstItem="Hxe-ug-qFV" firstAttribute="leading" secondItem="Jr7-sf-Dvj" secondAttribute="leading" constant="16" id="AKH-2E-qMe"/>
                                     <constraint firstAttribute="trailing" secondItem="3Aj-o4-uOq" secondAttribute="trailing" id="PKt-QO-0bi"/>
                                     <constraint firstItem="Td3-NE-RTH" firstAttribute="trailing" secondItem="mZy-Gs-2Hn" secondAttribute="trailing" id="Qzl-ev-J89"/>
+                                    <constraint firstItem="WCr-VL-e6l" firstAttribute="centerX" secondItem="mZy-Gs-2Hn" secondAttribute="centerX" id="S1M-ut-GSm"/>
                                     <constraint firstItem="mZy-Gs-2Hn" firstAttribute="leading" secondItem="Hxe-ug-qFV" secondAttribute="leading" id="Wri-6r-ak9"/>
                                     <constraint firstItem="mZy-Gs-2Hn" firstAttribute="top" secondItem="Hxe-ug-qFV" secondAttribute="bottom" constant="8" id="aqD-YZ-mbW"/>
+                                    <constraint firstItem="WCr-VL-e6l" firstAttribute="trailing" secondItem="mZy-Gs-2Hn" secondAttribute="trailing" id="bNR-qK-ms0"/>
                                     <constraint firstItem="fEO-uq-xNX" firstAttribute="centerX" secondItem="Jr7-sf-Dvj" secondAttribute="centerX" id="dCx-rn-lvj"/>
+                                    <constraint firstItem="WCr-VL-e6l" firstAttribute="leading" secondItem="mZy-Gs-2Hn" secondAttribute="leading" id="etj-PC-dMx"/>
                                     <constraint firstItem="Srw-A7-LDu" firstAttribute="centerX" secondItem="mZy-Gs-2Hn" secondAttribute="centerX" id="lAI-1V-zaC"/>
                                     <constraint firstItem="Srw-A7-LDu" firstAttribute="top" secondItem="mZy-Gs-2Hn" secondAttribute="bottom" constant="32" id="lf3-Ne-jAz"/>
                                     <constraint firstAttribute="trailing" secondItem="Hxe-ug-qFV" secondAttribute="trailing" constant="16" id="mE9-jl-UQ3"/>
@@ -118,6 +137,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="fEO-uq-xNX" id="hLB-Su-al3"/>
                         <outlet property="baseView" destination="Jr7-sf-Dvj" id="PBl-cs-ZHT"/>
+                        <outlet property="circuitsButton" destination="WCr-VL-e6l" id="PT0-dJ-Nk6"/>
                         <outlet property="enterYear" destination="Td3-NE-RTH" id="wjh-ja-5oj"/>
                         <outlet property="progressView" destination="Srw-A7-LDu" id="eEf-t8-75c"/>
                         <outlet property="showConstructorsButton" destination="Hxe-ug-qFV" id="U0B-ca-gyy"/>

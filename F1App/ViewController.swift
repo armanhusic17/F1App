@@ -15,13 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var enterYear: UITextView!
     @IBOutlet weak var progressView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var circuitsButton: UIButton!
     
     
     let f1routes = F1ApiRoutes()
     var decodedJSONObject:String = ""
     let qTime:Double = 1.75
     
-    let testAPI = F1ApiModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,11 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         formatUI()
-        testAPI.printFormula1Stat()
+
+        print("Circuit DATA BELOW")
+
+    
+        
         
     }
     
@@ -43,6 +47,8 @@ class ViewController: UIViewController {
         
         showDriversButton       .isUserInteractionEnabled = true
         showConstructorsButton  .isUserInteractionEnabled = true
+        circuitsButton  .isUserInteractionEnabled = true
+
         showConstructorsButton  .layer.cornerRadius       = 15
         showDriversButton       .layer.cornerRadius       = 15
         enterYear               .layer.cornerRadius       = 15
@@ -96,6 +102,26 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func displayCircuits(_ sender: UIButton) {
+        
+        showDriversButton       .isUserInteractionEnabled = false
+        showConstructorsButton  .isUserInteractionEnabled = false
+        circuitsButton          .isUserInteractionEnabled = false
+        Data.whichQuery                                 = 2
+        F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
+        progressView            .isHidden               = false
+        activityIndicator       .startAnimating()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            self.showDriversButton      .isUserInteractionEnabled   = true
+            self.showConstructorsButton .isUserInteractionEnabled   = true
+            self.circuitsButton         .isUserInteractionEnabled   = true
+            self.activityIndicator      .stopAnimating()
+            self.progressView           .isHidden                   = true
+            self.performSegue(withIdentifier: "enterTransition", sender: self)
+        }
+        
+    }
     
     
     

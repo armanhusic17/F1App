@@ -18,6 +18,7 @@
 		0F515A3427EC1C00002129D7 /* F1AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A3327EC1C00002129D7 /* F1AppUITests.swift */; };
 		0F515A3627EC1C00002129D7 /* F1AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */; };
 		0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */; };
+		0F6EE306285D908700AF788A /* Circuits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EE305285D908700AF788A /* Circuits.swift */; };
 		0FA3B5F628068F0D00A334D8 /* ConstructorsCollection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* ConstructorsCollection_VC.swift */; };
 		0FA3B5F728068F0D00A334D8 /* ConstructorsCollection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* ConstructorsCollection_VC.swift */; };
 		0FA3B5F828068F0D00A334D8 /* ConstructorsCollection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* ConstructorsCollection_VC.swift */; };
@@ -33,7 +34,6 @@
 		0FB765AA280540C000C32514 /* Drivers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB765A7280540C000C32514 /* Drivers.swift */; };
 		0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7801285B97700084D58A /* ResultsVC.swift */; };
 		0FBE43E6285D5F4100C6DFFD /* Formula1API in Frameworks */ = {isa = PBXBuildFile; productRef = 0FBE43E5285D5F4100C6DFFD /* Formula1API */; };
-		0FBE43E8285D5F8800C6DFFD /* F1ApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBE43E7285D5F8800C6DFFD /* F1ApiModel.swift */; };
 		3BD825CC94A28B7F29B36EDE /* Pods_F1App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087C61132AB251D5A9399339 /* Pods_F1App.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +71,7 @@
 		0F515A3327EC1C00002129D7 /* F1AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1AppUITests.swift; sourceTree = "<group>"; };
 		0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1ApiRoutes.swift; sourceTree = "<group>"; };
+		0F6EE305285D908700AF788A /* Circuits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuits.swift; sourceTree = "<group>"; };
 		0F92D2CE7CF8391E4C69CD3A /* Pods-F1App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.debug.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.debug.xcconfig"; sourceTree = "<group>"; };
 		0FA3B5F528068F0D00A334D8 /* ConstructorsCollection_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructorsCollection_VC.swift; sourceTree = "<group>"; };
 		0FA3B5F92806920E00A334D8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		0FB765A32805409A00C32514 /* Constructors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constructors.swift; sourceTree = "<group>"; };
 		0FB765A7280540C000C32514 /* Drivers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drivers.swift; sourceTree = "<group>"; };
 		0FBC7801285B97700084D58A /* ResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsVC.swift; sourceTree = "<group>"; };
-		0FBE43E7285D5F8800C6DFFD /* F1ApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1ApiModel.swift; sourceTree = "<group>"; };
 		DB43A7A1E57B04517D4BB25C /* Pods-F1App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.release.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,7 +156,6 @@
 				0F515A2027EC1BFF002129D7 /* Info.plist */,
 				0F515A1827EC1BFE002129D7 /* F1App.xcdatamodeld */,
 				0F515A1127EC1BFE002129D7 /* SceneDelegate.swift */,
-				0FBE43E7285D5F8800C6DFFD /* F1ApiModel.swift */,
 			);
 			path = F1App;
 			sourceTree = "<group>";
@@ -184,6 +183,7 @@
 				0FB765A32805409A00C32514 /* Constructors.swift */,
 				0FB765A7280540C000C32514 /* Drivers.swift */,
 				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
+				0F6EE305285D908700AF788A /* Circuits.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -382,9 +382,9 @@
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* ConstructorsCollection_VC.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
-				0FBE43E8285D5F8800C6DFFD /* F1ApiModel.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FB765A42805409A00C32514 /* Constructors.swift in Sources */,
+				0F6EE306285D908700AF788A /* Circuits.swift in Sources */,
 				0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */,

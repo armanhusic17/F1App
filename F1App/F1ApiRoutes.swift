@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-
+import Formula1API
 
 
 struct F1ApiRoutes  {
@@ -82,6 +82,40 @@ struct F1ApiRoutes  {
     }
     
     
+    
+    static func allCircuits(seasonYear:String){
+        let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
+        
+        guard let unwrappedURL = URL(string: url) else {return}
+        
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+                    
+            guard let data = data else {return}
+            
+            do {
+                let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
+                let thisArray = f1Data.data.circuitTable.circuits
+                let secondArray = f1Data.data.url
+                print(thisArray)
+                
+                for i in Range(0...thisArray.count - 1){
+                    
+                    Data.circuitName.append(thisArray[i].circuitName)
+                    Data.circuitID.append(thisArray[i].circuitID)
+                    Data.circuitLocation.append(thisArray[i].location.country)
+                    
+                }
+                
+            
+                
+                
+                
+            } catch  {
+                print("Error decoding CONSTRUCTOR json data ")
+            }
+        }.resume()
+    
+    }
     
     
     

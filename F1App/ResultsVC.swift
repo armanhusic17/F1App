@@ -13,6 +13,7 @@ class ResultsVC: UIViewController {
     
     let teamWikis = Data.teamURL
     let driverWikis = Data.driverURL
+    let circuitWikis = Data.circuitURL
     
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var webView: WKWebView!
@@ -52,6 +53,12 @@ class ResultsVC: UIViewController {
             webView.load(URLRequest(url: driverURL ))
 
         }
+//        if Data.whichQuery == 2 {
+//            let circuitURL = URL(string: circuitWikis[cellPath]!)!
+//            webView.load(URLRequest(url: circuitURL ))
+//
+//        }
+        
         webView.setNeedsLayout()
         webView.scrollView.contentInsetAdjustmentBehavior = .never
 
