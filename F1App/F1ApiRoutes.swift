@@ -21,7 +21,6 @@ struct F1ApiRoutes  {
     
     let myData = Data()
 
-
     static func allDrivers(seasonYear:String){
         let url = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
 

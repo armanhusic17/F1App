@@ -53,12 +53,7 @@ class ResultsVC: UIViewController {
             webView.load(URLRequest(url: driverURL ))
 
         }
-//        if Data.whichQuery == 2 {
-//            let circuitURL = URL(string: circuitWikis[cellPath]!)!
-//            webView.load(URLRequest(url: circuitURL ))
-//
-//        }
-        
+
         webView.setNeedsLayout()
         webView.scrollView.contentInsetAdjustmentBehavior = .never
 

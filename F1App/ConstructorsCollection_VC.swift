@@ -75,6 +75,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         cell.layer.borderWidth = 5
         cell.layer.borderColor = UIColor.purple.cgColor
         cell.layer.cornerRadius = 15
+        cell.cellImage.layer.cornerRadius = 8
         
         if Data.whichQuery == 0 {
 
