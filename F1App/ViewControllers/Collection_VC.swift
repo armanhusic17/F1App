@@ -44,32 +44,8 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
         
         
-        cell.layer.borderWidth = 5
-        cell.layer.borderColor = UIColor.purple.cgColor
-        cell.layer.cornerRadius = 15
-        cell.cellImage.layer.cornerRadius = 8
-        
-        if Data.whichQuery == 0 {
-
-            cell.topCellLabel.text = collectionmodel.teamNames[indexPath.item]
-            cell.bottomCellLabel.text = collectionmodel.teamNationality[indexPath.item]
-            cell.bottomCellLabel2.text = collectionmodel.constructorID[indexPath.item]
-
-        }
-        
-        if Data.whichQuery == 1 {
-            
-            cell.topCellLabel.text = "\(collectionmodel.driversGivenName[indexPath.item]!) \(collectionmodel.driverNames[indexPath.item]!) #\(collectionmodel.driverNumbers[indexPath.item]!)"
-            cell.bottomCellLabel.text = "Nationality: \(collectionmodel.driverNationality[indexPath.item]!)\nBorn: \(collectionmodel.driverDOB[indexPath.item]!)"
-            cell.bottomCellLabel2.text = collectionmodel.driverCode[indexPath.item]
-        }
-        
-        if Data.whichQuery == 2 {
-            cell.topCellLabel.text = collectionmodel.circuitName[indexPath.item]
-            cell.bottomCellLabel.text = collectionmodel.circuitLocation[indexPath.item]
-            cell.bottomCellLabel2.text = collectionmodel.circuitId[indexPath.item]?.uppercased()
-        
-        }
+        collectionmodel.cellViewFormat(cell: cell)
+        collectionmodel.cellLogic(cell: cell, indexPath: indexPath)
         
         
         return cell
