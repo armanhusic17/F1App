@@ -9,26 +9,10 @@ import Foundation
 import UIKit
 import WebKit
 
-class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    let myData = Data()
-    
-    let teamNames = Data.teamNames
-    let driverNames = Data.driverNames
-    let constructorID = Data.constructorID
-    let teamNationality = Data.teamNationality
-    let driverNationality = Data.driverNationality
-    
+    let collectionmodel = CollectionModel()
 
-    let driverCode = Data.driverCode
-    let driverNumbers = Data.driverNumber
-    let driversGivenName = Data.driverFirstNames
-    let driverDOB = Data.driverDOB
-    
-
-    let circuitName = Data.circuitName
-    let circuitId = Data.circuitID
-    let circuitLocation = Data.circuitLocation
     
     
     
@@ -37,28 +21,16 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         collectionView.delegate = self
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-        
+    
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if Data.whichQuery == 0 {
-            return Data.teamNames.count
-        }
-        
-        if Data.whichQuery == 1 {
-            return Data.driverNames.count
-        }
-        
-        if Data.whichQuery == 2 {
-            return Data.circuitName.count
-        }
-        
-        
-        return 5
-        
+        return collectionmodel.howManyCells()
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             let availableWidth = view.frame.width
@@ -79,28 +51,25 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
         
         if Data.whichQuery == 0 {
 
-            cell.topCellLabel.text = teamNames[indexPath.item]
-            cell.bottomCellLabel.text = teamNationality[indexPath.item]
-            cell.bottomCellLabel2.text = constructorID[indexPath.item]
+            cell.topCellLabel.text = collectionmodel.teamNames[indexPath.item]
+            cell.bottomCellLabel.text = collectionmodel.teamNationality[indexPath.item]
+            cell.bottomCellLabel2.text = collectionmodel.constructorID[indexPath.item]
 
         }
         
         if Data.whichQuery == 1 {
             
-            cell.topCellLabel.text = "\(driversGivenName[indexPath.item]!) \(driverNames[indexPath.item]!) #\(driverNumbers[indexPath.item]!)"
-            cell.bottomCellLabel.text = "Nationality: \(driverNationality[indexPath.item]!)\nBorn: \(driverDOB[indexPath.item]!)"
-            cell.bottomCellLabel2.text = driverCode[indexPath.item]
+            cell.topCellLabel.text = "\(collectionmodel.driversGivenName[indexPath.item]!) \(collectionmodel.driverNames[indexPath.item]!) #\(collectionmodel.driverNumbers[indexPath.item]!)"
+            cell.bottomCellLabel.text = "Nationality: \(collectionmodel.driverNationality[indexPath.item]!)\nBorn: \(collectionmodel.driverDOB[indexPath.item]!)"
+            cell.bottomCellLabel2.text = collectionmodel.driverCode[indexPath.item]
         }
         
         if Data.whichQuery == 2 {
-            cell.topCellLabel.text = circuitName[indexPath.item]
-            cell.bottomCellLabel.text = circuitLocation[indexPath.item]
-            cell.bottomCellLabel2.text = circuitId[indexPath.item]?.uppercased()
+            cell.topCellLabel.text = collectionmodel.circuitName[indexPath.item]
+            cell.bottomCellLabel.text = collectionmodel.circuitLocation[indexPath.item]
+            cell.bottomCellLabel2.text = collectionmodel.circuitId[indexPath.item]?.uppercased()
         
         }
-        
-        
-        
         
         
         return cell
@@ -131,24 +100,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Data.driverNationality.removeAll()
-        Data.driverURL.removeAll()
-        Data.driverNames.removeAll()
-        Data.teamURL.removeAll()
-        Data.teamNames.removeAll()
-        Data.teamNationality.removeAll()
-        Data.driverFirstNames.removeAll()
-        Data.driverDOB.removeAll()
-        Data.driverNumber.removeAll()
-        Data.circuitURL.removeAll()
-        Data.circuitID.removeAll()
-        Data.circuitName.removeAll()
-        Data.circuitLocation.removeAll()
-        Data.driverCode.removeAll()
-        Data.constructorID.removeAll()
-        Data.circuitURL.removeAll()
-        
-        print("removed all data points from the arrays holding the cells")
+            collectionmodel.removeAllCellData()
     }
     
     

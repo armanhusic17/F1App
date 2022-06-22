@@ -150,10 +150,10 @@
             </objects>
             <point key="canvasLocation" x="79.710144927536234" y="138.61607142857142"/>
         </scene>
-        <!--Constructors CollectionVC-->
+        <!--CollectionVC-->
         <scene sceneID="axs-pe-j9y">
             <objects>
-                <collectionViewController id="NAv-3K-nfW" customClass="ConstructorsCollection_VC" customModule="F1App" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="NAv-3K-nfW" customClass="Collection_VC" customModule="F1App" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" dataMode="prototypes" id="8Cd-Jn-GJO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -10,6 +10,8 @@ import Foundation
 struct HomeModel {
     
     
+    var decodedJSONObject:String = ""
+    let qTime:Double = 1.75
     
     
     

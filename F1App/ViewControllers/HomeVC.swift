@@ -19,9 +19,7 @@ class HomeVC: UIViewController {
     
     
     let f1routes = F1ApiRoutes()
-    var decodedJSONObject:String = ""
-    let qTime:Double = 1.75
-
+    let homeModel = HomeModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +34,6 @@ class HomeVC: UIViewController {
         formatUI()
         recognizeTap()
         print("Circuit DATA BELOW")
-        
-        
         
     }
     
@@ -88,7 +84,7 @@ class HomeVC: UIViewController {
             progressView            .isHidden               = false
             activityIndicator       .startAnimating()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
                 self.showDriversButton      .isUserInteractionEnabled   = true
                 self.showConstructorsButton .isUserInteractionEnabled   = true
                 self.circuitsButton         .isUserInteractionEnabled   = true
@@ -115,7 +111,7 @@ class HomeVC: UIViewController {
             progressView            .isHidden                 = false
             activityIndicator       .startAnimating()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
                 self.showDriversButton      .isUserInteractionEnabled = true
                 self.showConstructorsButton .isUserInteractionEnabled = true
                 self.circuitsButton         .isUserInteractionEnabled = true
@@ -142,7 +138,7 @@ class HomeVC: UIViewController {
             progressView            .isHidden               = false
             activityIndicator       .startAnimating()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
                 self.showDriversButton      .isUserInteractionEnabled   = true
                 self.showConstructorsButton .isUserInteractionEnabled   = true
                 self.circuitsButton         .isUserInteractionEnabled   = true
