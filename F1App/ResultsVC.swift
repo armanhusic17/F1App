@@ -11,54 +11,33 @@ import WebKit
 
 class ResultsVC: UIViewController {
     
-    let teamWikis = Data.teamURL
-    let driverWikis = Data.driverURL
-    let circuitWikis = Data.circuitURL
+    // The results view controller shows the selected cell's full details - wiki page
     
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var webView: WKWebView!
+    
+    let resultsModel = ResultsModel()
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
-    func cutCorners(){
-        webView.layer.cornerRadius = 8
-        
-    }
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
         print("RESULTS HERE")
         cutCorners()
-        loadResults()
+        resultsModel.loadResults(myWebview: webView)
         
     }
+
     
-    
-    func loadResults() {
-        
-        guard let cellPath = Data.cellIndexPassed else {return}
-        if Data.whichQuery == 0 {
-            guard let teamURL = URL(string: (teamWikis[cellPath])!) else {return}
-            webView.load(URLRequest(url: teamURL ))
-            
-        }
-        if Data.whichQuery == 1 {
-            guard let driverURL = URL(string: driverWikis[cellPath]!) else {return}
-            webView.load(URLRequest(url: driverURL ))
-
-        }
-
-        webView.setNeedsLayout()
-        webView.scrollView.contentInsetAdjustmentBehavior = .never
-
+    func cutCorners(){
+        webView.layer.cornerRadius = 8
     }
-    
     
     
     

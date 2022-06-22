@@ -64,7 +64,7 @@ class ConstructorsCollection_VC : UICollectionViewController, UICollectionViewDe
             let availableWidth = view.frame.width
             let availableHeight = view.frame.height
             
-        return CGSize(width: availableWidth * 0.85, height: availableHeight * 0.17)
+        return CGSize(width: availableWidth * 0.85, height: availableHeight * 0.25)
     }
     
     
