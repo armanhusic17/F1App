@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeVC: UIViewController {
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var titleImage: UIImageView!
     @IBOutlet weak var showConstructorsButton: UIButton!
