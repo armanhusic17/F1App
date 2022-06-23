@@ -116,6 +116,7 @@ struct F1ApiRoutes  {
 //    // Race Results
 //    //
     static func getRaceResults(seasonYear:String, round:Int){
+        
         let url = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
 
         guard let unwrappedURL = URL(string: url) else {return}
@@ -126,13 +127,13 @@ struct F1ApiRoutes  {
 
             do {
                 let f1Data = try JSONDecoder().decode(RaceResults.self, from: myData)
-
-
-                print(f1Data)
-//                for i in Range(0...thisArray.count - 1){
-//                    Data.raceResultDriver.append(thisArray[i].name)
-//                }
-//
+                let thiscount = f1Data.data.raceTable.races
+                let thisArray = f1Data.data.raceTable
+                for i in Range(0...thiscount.count - 1){
+                    
+                    
+                }
+                print(f1Data.data.raceTable)
             } catch {
                 print("Error decoding RACE RESULTS json data ")
             }

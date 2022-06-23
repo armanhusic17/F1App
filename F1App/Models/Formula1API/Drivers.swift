@@ -46,26 +46,5 @@ public struct DriverTable: Codable {
     }
 }
 
-public struct Driver: Codable {
-    public let driverID: String
-    public let code:String
-    public let url:String
-    public let givenName:String
-    public let familyName:String
-    public let dateOfBirth:String
-    public let nationality:String
-    public let permanentNumber:String
 
-    
-    private enum CodingKeys: String, CodingKey {
-        case driverID = "driverId"
-        case code
-        case url
-        case givenName
-        case familyName
-        case dateOfBirth
-        case nationality
-        case permanentNumber
-    }
-}
 

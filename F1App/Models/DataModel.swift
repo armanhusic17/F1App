@@ -34,10 +34,9 @@ class Data  {
     static var raceResultDriver:[String?] = []
     static var raceResultConstructor:[String?] = []
     
-    
     // cell info
     static var cellIndexPassed:Int?
     static var whichQuery:Int?
-    
+    static var f1Season:[String?] = []
     
 }

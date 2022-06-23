@@ -16,7 +16,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
-        F1ApiRoutes.getRaceResults(seasonYear: "2008", round: 10)
+        F1ApiRoutes.getRaceResults(seasonYear: "2017", round: 11)
 
     }
     
