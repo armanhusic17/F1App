@@ -70,25 +70,19 @@ struct CollectionModel {
     
     func cellLogic(cell:myCell, indexPath:IndexPath){
         if Data.whichQuery == 0 {
-
             cell.topCellLabel.text = self.teamNames[indexPath.item]
             cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
             cell.bottomCellLabel2.text = self.constructorID[indexPath.item]
-
         }
-        
         if Data.whichQuery == 1 {
-            
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item]!) \(self.driverNames[indexPath.item]!) #\(self.driverNumbers[indexPath.item]!)"
             cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item]!)"
             cell.bottomCellLabel2.text = self.driverCode[indexPath.item]
         }
-        
         if Data.whichQuery == 2 {
             cell.topCellLabel.text = self.circuitName[indexPath.item]
             cell.bottomCellLabel.text = self.circuitLocation[indexPath.item]
             cell.bottomCellLabel2.text = self.circuitId[indexPath.item]?.uppercased()
-        
         }
     }
     

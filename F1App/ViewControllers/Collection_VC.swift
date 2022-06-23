@@ -12,13 +12,12 @@ import WebKit
 class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let collectionmodel = CollectionModel()
-
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
+        F1ApiRoutes.getRaceResults(seasonYear: "2008", round: 10)
+
     }
     
     
@@ -62,8 +61,9 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
             if Data.whichQuery != 2 {
                 performSegue(withIdentifier: "resultsTransition", sender: self)
             }
-
         }
+        
+        
 
     }
     
@@ -72,11 +72,13 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
             print("Cell deselected")
             cell.self.isHidden = false
         }
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-            collectionmodel.removeAllCellData()
+        collectionmodel.removeAllCellData()
     }
     
     

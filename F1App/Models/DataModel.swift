@@ -29,9 +29,14 @@ class Data  {
     static var circuitLocation:[String?] = []
     static var circuitURL:[String?] = []
     
+    // Race Results Sara
+    static var fastestLap:[String?] = []
+    static var raceResultDriver:[String?] = []
+    static var raceResultConstructor:[String?] = []
     
+    
+    // cell info
     static var cellIndexPassed:Int?
-    
     static var whichQuery:Int?
     
     

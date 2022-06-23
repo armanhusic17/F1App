@@ -55,7 +55,7 @@ struct F1ApiRoutes  {
     
     
     
-    
+    //
     static func allConstructors(seasonYear:String) {
         let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
         
@@ -82,7 +82,7 @@ struct F1ApiRoutes  {
     }
     
     
-    
+    // Circuits
     static func allCircuits(seasonYear:String){
         let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
         
@@ -96,8 +96,7 @@ struct F1ApiRoutes  {
                 let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
                 let thisArray = f1Data.data.circuitTable.circuits
                 
-                print("PRINTING CIRCUIT URL")
-                print(f1Data.data.url)
+                
                 for i in Range(0...thisArray.count - 1){
                     
                     Data.circuitName.append(thisArray[i].circuitName)
@@ -105,19 +104,43 @@ struct F1ApiRoutes  {
                     Data.circuitLocation.append(thisArray[i].location.country)
 //                    Data.circuitURL.append(secondArray[i].)
                 }
-                
-            
-                
-                
-                
+     
             } catch  {
-                print("Error decoding CONSTRUCTOR json data ")
+                print("Error decoding CIRCUIT json data ")
             }
         }.resume()
     
     }
     
     
+    // Race Results
+    //
+    static func getRaceResults(seasonYear:String, round:Int){
+        let url = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
+        
+        guard let unwrappedURL = URL(string: url) else {return}
+        
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+            
+            guard let data = data else {return}
+
+            do {
+                let f1Data = try JSONDecoder().decode(RaceResults.self, from: data)
+                print(f1Data)
+                
+                
+//                let thisArray = f1Data.data.raceTable.constructors
+//
+//                for i in Range(0...thisArray.count - 1){
+//                    Data.raceResultDriver.append(thisArray[i].name)
+//                }
+//
+            } catch  {
+                print("Error decoding RACE RESULTS json data ")
+            }
+        }.resume()
+    
+    }
     
     
 }

@@ -25,7 +25,6 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup aft
         
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,7 +32,6 @@ class HomeVC: UIViewController {
         
         formatUI()
         recognizeTap()
-        print("Circuit DATA BELOW")
         
     }
     
