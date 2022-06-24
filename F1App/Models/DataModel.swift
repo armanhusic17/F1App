@@ -30,9 +30,10 @@ class Data  {
     static var circuitURL:[String?] = []
     
     // Race Results Sara
-    static var fastestLap:[String?] = []
-    static var raceResultDriver:[String?] = []
-    static var raceResultConstructor:[String?] = []
+    static var raceName:[String?] = []
+    static var raceDate:[String?] = []
+    static var raceTime:[String?] = []
+    static var raceURL:[String?] = []
     
     // cell info
     static var cellIndexPassed:Int?

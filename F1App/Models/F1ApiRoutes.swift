@@ -130,8 +130,11 @@ struct F1ApiRoutes  {
                 let thisArray = f1Data.data.raceTable.races
                 
                 for i in Range(0...thisArray.count - 1){
+                    Data.raceDate.append(thisArray[i].date)
+                    Data.raceTime.append(thisArray[i].time)
+                    Data.raceURL.append(thisArray[i].url)
+                    Data.raceName.append(thisArray[i].raceName)
                     
-                    print(thisArray[i])
                 }
                 print(f1Data.data.raceTable)
             } catch {

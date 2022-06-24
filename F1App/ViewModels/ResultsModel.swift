@@ -13,7 +13,7 @@ struct ResultsModel {
     
     let teamWikis = Data.teamURL
     let driverWikis = Data.driverURL
-    let circuitWikis = Data.circuitURL
+    let raceWiki = Data.raceURL
     
     func loadResults(myWebview:WKWebView) {
         
@@ -28,7 +28,13 @@ struct ResultsModel {
             myWebview.load(URLRequest(url: driverURL ))
 
         }
+        if Data.whichQuery == 2 {
+            guard let raceURL = URL(string: raceWiki[cellPath]!) else {return}
+            myWebview.load(URLRequest(url: raceURL ))
 
+        }
+
+        
         myWebview.setNeedsLayout()
         myWebview.scrollView.contentInsetAdjustmentBehavior = .never
 

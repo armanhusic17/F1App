@@ -74,7 +74,9 @@ class HomeVC: UIViewController {
             print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
             homeModel.showAlert(passSelf: self)
         } else {
-            resultsTransition()
+            resultsTransition(f1ApiRoute: {
+                F1ApiRoutes.allConstructors(seasonYear: self.enterYear.text)
+            })
         }
         
     }
@@ -87,7 +89,9 @@ class HomeVC: UIViewController {
             print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
             homeModel.showAlert(passSelf: self)
         } else {
-            resultsTransition()
+            resultsTransition(f1ApiRoute: {
+                F1ApiRoutes.allDrivers(seasonYear: self.enterYear.text)
+            })
         }
         
     }
@@ -100,16 +104,19 @@ class HomeVC: UIViewController {
             print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
             homeModel.showAlert(passSelf: self)
         } else {
-            resultsTransition()
+            resultsTransition(f1ApiRoute: {
+                F1ApiRoutes.allCircuits(seasonYear: self.enterYear.text)
+            })
         }
         
     }
     
   
-    func resultsTransition(){
+    func resultsTransition(f1ApiRoute: @escaping () -> Void){
         showDriversButton       .isUserInteractionEnabled = false
         showConstructorsButton  .isUserInteractionEnabled = false
         circuitsButton          .isUserInteractionEnabled = false
+        f1ApiRoute()
         F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
         progressView            .isHidden               = false
         activityIndicator       .startAnimating()

@@ -29,6 +29,7 @@ struct CollectionModel {
     let circuitName = Data.circuitName
     let circuitId = Data.circuitID
     let circuitLocation = Data.circuitLocation
+    let raceURL = Data.raceURL
     
     
     func removeAllCellData(){
@@ -83,6 +84,7 @@ struct CollectionModel {
             cell.topCellLabel.text = self.circuitName[indexPath.item]
             cell.bottomCellLabel.text = self.circuitLocation[indexPath.item]
             cell.bottomCellLabel2.text = self.circuitId[indexPath.item]?.uppercased()
+            
         }
     }
     

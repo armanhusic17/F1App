@@ -45,7 +45,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath)
-        
+        F1ApiRoutes.getRaceResults(seasonYear: "2021", round: indexPath.item)
         
         return cell
     }
@@ -57,10 +57,10 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
+            
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
-            if Data.whichQuery != 2 {
-                performSegue(withIdentifier: "resultsTransition", sender: self)
-            }
+            performSegue(withIdentifier: "resultsTransition", sender: self)
+        
         }
         
         
