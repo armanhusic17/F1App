@@ -68,146 +68,62 @@ class HomeVC: UIViewController {
     
     @IBAction func displayConstructors(_ sender: UIButton) {
         guard let year = Int(enterYear.text) else {return}
-        Data.whichQuery                                 = 0
+        Data.whichQuery = 0
         
         if year < 1950 {
             print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-            showAlert()
+            homeModel.showAlert(passSelf: self)
         } else {
-        
-            showDriversButton       .isUserInteractionEnabled = false
-            showConstructorsButton  .isUserInteractionEnabled = false
-            circuitsButton          .isUserInteractionEnabled = false
-            F1ApiRoutes.allConstructors(seasonYear: enterYear.text)
-            progressView            .isHidden               = false
-            activityIndicator       .startAnimating()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
-                self.showDriversButton      .isUserInteractionEnabled   = true
-                self.showConstructorsButton .isUserInteractionEnabled   = true
-                self.circuitsButton         .isUserInteractionEnabled   = true
-                self.activityIndicator      .stopAnimating()
-                self.progressView           .isHidden                   = true
-                self.performSegue(withIdentifier: "enterTransition", sender: self)
-            }
+            resultsTransition()
         }
         
     }
     
     @IBAction func displayDrivers(_ sender: UIButton) {
         guard let year = Int(enterYear.text) else {return}
-        Data.whichQuery                                   = 1
+        Data.whichQuery = 1
         
         if year < 2014 {
             print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-            showAlert()
+            homeModel.showAlert(passSelf: self)
         } else {
-            showConstructorsButton  .isUserInteractionEnabled = false
-            showDriversButton       .isUserInteractionEnabled = false
-            circuitsButton          .isUserInteractionEnabled = false
-            F1ApiRoutes                .allDrivers(seasonYear: enterYear.text)
-            progressView            .isHidden                 = false
-            activityIndicator       .startAnimating()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
-                self.showDriversButton      .isUserInteractionEnabled = true
-                self.showConstructorsButton .isUserInteractionEnabled = true
-                self.circuitsButton         .isUserInteractionEnabled = true
-                self.activityIndicator      .stopAnimating()
-                self.progressView           .isHidden                 = true
-                self.performSegue(withIdentifier: "enterTransition", sender: self)
-            }
+            resultsTransition()
         }
         
     }
     
     @IBAction func displayCircuits(_ sender: UIButton) {
         guard let year = Int(enterYear.text) else {return}
-        Data.whichQuery                                 = 2
+        Data.whichQuery = 2
         
         if year < 1950 {
             print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
-            showAlert()
+            homeModel.showAlert(passSelf: self)
         } else {
-            showDriversButton       .isUserInteractionEnabled = false
-            showConstructorsButton  .isUserInteractionEnabled = false
-            circuitsButton          .isUserInteractionEnabled = false
-            F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
-            progressView            .isHidden               = false
-            activityIndicator       .startAnimating()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
-                self.showDriversButton      .isUserInteractionEnabled   = true
-                self.showConstructorsButton .isUserInteractionEnabled   = true
-                self.circuitsButton         .isUserInteractionEnabled   = true
-                self.activityIndicator      .stopAnimating()
-                self.progressView           .isHidden                   = true
-                self.performSegue(withIdentifier: "enterTransition", sender: self)
-            }
+            resultsTransition()
         }
         
     }
     
   
-    func showAlert(){
+    func resultsTransition(){
+        showDriversButton       .isUserInteractionEnabled = false
+        showConstructorsButton  .isUserInteractionEnabled = false
+        circuitsButton          .isUserInteractionEnabled = false
+        F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
+        progressView            .isHidden               = false
+        activityIndicator       .startAnimating()
         
-        if Data.whichQuery == 0 {
-            let alert = UIAlertController(title: "Available Years for Constructor Data", message: "Only Data 1950 - Present available.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                switch action.style{
-                    case .default:
-                    print("default")
-                    
-                    case .cancel:
-                    print("cancel")
-                    
-                    case .destructive:
-                    print("destructive")
-                    
-                }
-            }))
-            self.present(alert, animated: true, completion: nil)
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + homeModel.qTime) {
+            self.showDriversButton      .isUserInteractionEnabled   = true
+            self.showConstructorsButton .isUserInteractionEnabled   = true
+            self.circuitsButton         .isUserInteractionEnabled   = true
+            self.activityIndicator      .stopAnimating()
+            self.progressView           .isHidden                   = true
+            self.performSegue(withIdentifier: "enterTransition", sender: self)
         }
-        else if Data.whichQuery == 1 {
-            let alert = UIAlertController(title: "Available Years for Driver Data", message: "Only 2014 - Present.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                switch action.style{
-                    case .default:
-                    print("default")
-                    
-                    case .cancel:
-                    print("cancel")
-                    
-                    case .destructive:
-                    print("destructive")
-                    
-                }
-            }))
-            self.present(alert, animated: true, completion: nil)
-
-        }
-        else if Data.whichQuery == 2 {
-            let alert = UIAlertController(title: "Available Years for Circuit Data", message: "Only 1950 to Present", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
-                switch action.style{
-                    case .default:
-                    print("default")
-                    
-                    case .cancel:
-                    print("cancel")
-                    
-                    case .destructive:
-                    print("destructive")
-                    
-                }
-            }))
-            self.present(alert, animated: true, completion: nil)
-
-        }
-        
-        
     }
+    
     
     
 

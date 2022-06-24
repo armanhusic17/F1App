@@ -127,11 +127,11 @@ struct F1ApiRoutes  {
 
             do {
                 let f1Data = try JSONDecoder().decode(RaceResults.self, from: myData)
-                let thiscount = f1Data.data.raceTable.races
-                let thisArray = f1Data.data.raceTable
-                for i in Range(0...thiscount.count - 1){
+                let thisArray = f1Data.data.raceTable.races
+                
+                for i in Range(0...thisArray.count - 1){
                     
-                    
+                    print(thisArray[i])
                 }
                 print(f1Data.data.raceTable)
             } catch {
