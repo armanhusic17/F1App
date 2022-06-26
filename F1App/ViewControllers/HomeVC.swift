@@ -20,7 +20,8 @@ class HomeVC: UIViewController {
     
     let f1routes = F1ApiRoutes()
     let homeModel = HomeModel()
-
+    let collectionModel = CollectionModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup aft
@@ -104,6 +105,7 @@ class HomeVC: UIViewController {
             print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
             homeModel.showAlert(passSelf: self)
         } else {
+            Data.seasonYearSelected = enterYear.text
             resultsTransition(f1ApiRoute: {
                 F1ApiRoutes.allCircuits(seasonYear: self.enterYear.text)
             })

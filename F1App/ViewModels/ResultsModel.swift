@@ -29,14 +29,17 @@ struct ResultsModel {
 
         }
         if Data.whichQuery == 2 {
+            
             guard let raceURL = URL(string: raceWiki[cellPath]!) else {return}
+            
             myWebview.load(URLRequest(url: raceURL ))
 
         }
-
         
         myWebview.setNeedsLayout()
         myWebview.scrollView.contentInsetAdjustmentBehavior = .never
 
     }
+    
+    
 }

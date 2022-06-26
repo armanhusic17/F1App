@@ -40,4 +40,6 @@ class Data  {
     static var whichQuery:Int?
     static var f1Season:[String?] = []
     
+    static var seasonYearSelected:String?
+    
 }

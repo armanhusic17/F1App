@@ -16,7 +16,6 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
-        F1ApiRoutes.getRaceResults(seasonYear: "2017", round: 11)
 
     }
     
@@ -42,10 +41,10 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
         
-        
+        guard let season = Data.seasonYearSelected else {return UICollectionViewCell()}
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath)
-        F1ApiRoutes.getRaceResults(seasonYear: "2021", round: indexPath.item)
+        F1ApiRoutes.getRaceResults(seasonYear: season, round: indexPath.item + 1)
         
         return cell
     }

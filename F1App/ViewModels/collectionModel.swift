@@ -29,7 +29,11 @@ struct CollectionModel {
     let circuitName = Data.circuitName
     let circuitId = Data.circuitID
     let circuitLocation = Data.circuitLocation
+    
     let raceURL = Data.raceURL
+    let raceName = Data.raceName
+    let raceDate = Data.raceDate
+    let raceTime = Data.raceTime
     
     
     func removeAllCellData(){
@@ -49,6 +53,7 @@ struct CollectionModel {
         Data.driverCode.removeAll()
         Data.constructorID.removeAll()
         Data.circuitURL.removeAll()
+        Data.raceURL.removeAll()
         
         print("removed all data points from the arrays holding the cells")
     }

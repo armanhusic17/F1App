@@ -33,11 +33,19 @@ class ResultsVC: UIViewController {
         resultsModel.loadResults(myWebview: webView)
         
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+    }
 
     
     func cutCorners(){
         webView.layer.cornerRadius = 8
     }
+    
+    
     
     
     
