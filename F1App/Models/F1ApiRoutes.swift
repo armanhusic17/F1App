@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-
+import Formula1API
 
 
 struct F1ApiRoutes  {
@@ -21,7 +21,8 @@ struct F1ApiRoutes  {
     
     let myData = Data()
 
-
+    
+    // Druvers
     static func allDrivers(seasonYear:String){
         let url = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
 
@@ -30,7 +31,6 @@ struct F1ApiRoutes  {
         URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
                     
             guard let data = data else {return}
-            print(response)
 
             do {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
@@ -43,7 +43,7 @@ struct F1ApiRoutes  {
                     Data.driverNumber.append(driversTableArray[i].permanentNumber)
                     Data.driverFirstNames.append(driversTableArray[i].givenName)
                     Data.driverDOB.append(driversTableArray[i].dateOfBirth)
-                    
+                    Data.driverCode.append(driversTableArray[i].code)
                 }
                 
             } catch  {
@@ -56,7 +56,7 @@ struct F1ApiRoutes  {
     
     
     
-    
+    // Constructors
     static func allConstructors(seasonYear:String) {
         let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
         
@@ -74,7 +74,7 @@ struct F1ApiRoutes  {
                     Data.teamNames.append(thisArray[i].name)
                     Data.teamNationality.append(thisArray[i].nationality)
                     Data.teamURL.append(thisArray[i].url)
-                    
+                    Data.constructorID.append(thisArray[i].constructorID)
                 }
             } catch  {
                 print("Error decoding CONSTRUCTOR json data ")
@@ -83,8 +83,66 @@ struct F1ApiRoutes  {
     }
     
     
+    // Circuits
+    static func allCircuits(seasonYear:String){
+        let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
+        
+        guard let unwrappedURL = URL(string: url) else {return}
+        
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+                    
+            guard let data = data else {return}
+            
+            do {
+                let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
+                let thisArray = f1Data.data.circuitTable.circuits
+                
+                
+                for i in Range(0...thisArray.count - 1){
+                    
+                    Data.circuitName.append(thisArray[i].circuitName)
+                    Data.circuitID.append(thisArray[i].circuitID)
+                    Data.circuitLocation.append(thisArray[i].location.country)
+                }
+     
+            } catch  {
+                print("Error decoding CIRCUIT json data ")
+            }
+        }.resume()
     
+    }
     
+//
+//    // Race Results
+//    //
+    static func getRaceResults(seasonYear:String, round:Int){
+        
+        let url = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
+
+        guard let unwrappedURL = URL(string: url) else {return}
+
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+
+            guard let myData = data else {return}
+
+            do {
+                let f1Data = try JSONDecoder().decode(RaceResults.self, from: myData)
+                let thisArray = f1Data.data.raceTable.races
+                
+                for i in Range(0...thisArray.count - 1){
+                    Data.raceDate.append(thisArray[i].date)
+                    Data.raceTime.append(thisArray[i].time)
+                    Data.raceURL.append(thisArray[i].url)
+                    Data.raceName.append(thisArray[i].raceName)
+                    
+                }
+                print(f1Data.data.raceTable)
+            } catch {
+                print("Error decoding RACE RESULTS json data ")
+            }
+        }.resume()
+
+    }
     
     
 }

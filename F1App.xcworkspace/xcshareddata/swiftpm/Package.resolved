@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "formula1api",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gionoa/Formula1API.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "222c39cf4bb148abd9e6bf875e500936bca4c4fb"
+      }
+    }
+  ],
+  "version" : 2
+}

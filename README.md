@@ -9,3 +9,10 @@ Using
 - Ergast API - routes
 - -> removed alamofire, no longer needed when using swift url session and json decoder
 - Added Google Firebase 
+
+- Using Structs from https://github.com/gionoa/Formula1API for Data Model
+    - Drivers
+    - Constructors
+    - Circuits
+    - Race Results
+    
