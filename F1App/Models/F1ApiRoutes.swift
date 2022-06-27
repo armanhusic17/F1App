@@ -128,14 +128,17 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(RaceResults.self, from: myData)
                 let thisArray = f1Data.data.raceTable.races
-                
-                for i in Range(0...thisArray.count - 1){
-                    Data.raceDate.append(thisArray[i].date)
-                    Data.raceTime.append(thisArray[i].time)
-                    Data.raceURL.append(thisArray[i].url)
-                    Data.raceName.append(thisArray[i].raceName)
-                    
+                let thisCount = thisArray.count - 1
+                if thisCount >= 0 {
+                    for i in Range(0...thisCount){
+                        Data.raceDate.append(thisArray[i].date)
+                        Data.raceTime.append(thisArray[i].time)
+                        Data.raceURL.append(thisArray[i].url)
+                        Data.raceName.append(thisArray[i].raceName)
+                        
+                    }
                 }
+                
                 print(f1Data.data.raceTable)
             } catch {
                 print("Error decoding RACE RESULTS json data ")

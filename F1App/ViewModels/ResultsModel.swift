@@ -30,7 +30,7 @@ struct ResultsModel {
         }
         if Data.whichQuery == 2 {
             
-            guard let raceURL = URL(string: raceWiki[cellPath]!) else {return}
+            guard let raceURL = URL(string: (raceWiki[safe: cellPath] ?? "1")!) else {return}
             
             myWebview.load(URLRequest(url: raceURL ))
 

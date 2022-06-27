@@ -94,8 +94,8 @@ struct CollectionModel {
     }
     
     func cellViewFormat(cell:myCell){
-        cell.layer.borderWidth = 5
-        cell.layer.borderColor = UIColor.purple.cgColor
+        cell.layer.borderWidth = 2
+        cell.layer.borderColor = UIColor.darkText.cgColor
         cell.layer.cornerRadius = 15
         cell.cellImage.layer.cornerRadius = 8
     }

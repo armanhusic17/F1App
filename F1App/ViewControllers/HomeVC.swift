@@ -106,8 +106,9 @@ class HomeVC: UIViewController {
             homeModel.showAlert(passSelf: self)
         } else {
             Data.seasonYearSelected = enterYear.text
-            resultsTransition(f1ApiRoute: {
-                F1ApiRoutes.allCircuits(seasonYear: self.enterYear.text)
+            guard let thisSeason = Data.seasonYearSelected else { return }
+            resultsTransition(f1ApiRoute: { [self] in
+                F1ApiRoutes.allCircuits(seasonYear: thisSeason)
             })
         }
         

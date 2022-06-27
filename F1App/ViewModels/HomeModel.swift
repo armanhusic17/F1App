@@ -13,6 +13,8 @@ struct HomeModel {
     
     var decodedJSONObject:String = ""
     let qTime:Double = 1.75
+    var seasonRound:String?
+    var seasonYear:String?
     
     func showAlert(passSelf:HomeVC){
         if Data.whichQuery == 0 {
