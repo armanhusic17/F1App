@@ -209,7 +209,7 @@
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.33333333333333331" alpha="0.85078319019039739" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.83496255432533117" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="8" id="7Kf-Nm-Unj"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="8" id="7xP-Oo-5Rh"/>

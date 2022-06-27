@@ -15,6 +15,7 @@ class Data  {
     static var teamNationality:[String?] = []
     static var teamURL:[String?] = []
     static var teamImgURL: [String?] = []
+//    static var team
     
     static var constructorID:[String?] = []
     // Driver Data

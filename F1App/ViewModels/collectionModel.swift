@@ -34,26 +34,38 @@ struct CollectionModel {
     let raceName = Data.raceName
     let raceDate = Data.raceDate
     let raceTime = Data.raceTime
+    let raceSeason = Data.f1Season
     
     
     func removeAllCellData(){
+        // Driver Data
         Data.driverNationality.removeAll()
         Data.driverURL.removeAll()
         Data.driverNames.removeAll()
-        Data.teamURL.removeAll()
-        Data.teamNames.removeAll()
-        Data.teamNationality.removeAll()
         Data.driverFirstNames.removeAll()
         Data.driverDOB.removeAll()
         Data.driverNumber.removeAll()
+        Data.driverCode.removeAll()
+        
+        // Team Data
+        Data.constructorID.removeAll()
+        Data.teamURL.removeAll()
+        Data.teamNames.removeAll()
+        Data.teamNationality.removeAll()
+
+        // Circuit Data
         Data.circuitURL.removeAll()
         Data.circuitID.removeAll()
         Data.circuitName.removeAll()
         Data.circuitLocation.removeAll()
-        Data.driverCode.removeAll()
-        Data.constructorID.removeAll()
         Data.circuitURL.removeAll()
+        
+        // Circuit Data Continued
         Data.raceURL.removeAll()
+        Data.raceTime.removeAll()
+        Data.raceDate.removeAll()
+        Data.raceName.removeAll()
+        Data.f1Season.removeAll()
         
         print("removed all data points from the arrays holding the cells")
     }
@@ -78,7 +90,7 @@ struct CollectionModel {
         if Data.whichQuery == 0 {
             cell.topCellLabel.text = self.teamNames[indexPath.item]
             cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
-            cell.bottomCellLabel2.text = self.constructorID[indexPath.item]
+            cell.bottomCellLabel2.text = self.raceSeason[indexPath.item]?.capitalized
         }
         if Data.whichQuery == 1 {
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item]!) \(self.driverNames[indexPath.item]!) #\(self.driverNumbers[indexPath.item]!)"
@@ -86,16 +98,19 @@ struct CollectionModel {
             cell.bottomCellLabel2.text = self.driverCode[indexPath.item]
         }
         if Data.whichQuery == 2 {
+            guard let thisSeason = Data.seasonYearSelected else {return}
+            F1ApiRoutes.getRaceResults(seasonYear: thisSeason, round: indexPath.item)
+            
             cell.topCellLabel.text = self.circuitName[indexPath.item]
             cell.bottomCellLabel.text = self.circuitLocation[indexPath.item]
-            cell.bottomCellLabel2.text = self.circuitId[indexPath.item]?.uppercased()
+            cell.bottomCellLabel2.text =  "Formula One"
             
         }
     }
     
     func cellViewFormat(cell:myCell){
         cell.layer.borderWidth = 2
-        cell.layer.borderColor = UIColor.darkText.cgColor
+        cell.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.cornerRadius = 15
         cell.cellImage.layer.cornerRadius = 8
     }

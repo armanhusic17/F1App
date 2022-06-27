@@ -69,12 +69,16 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
                 let thisArray = f1Data.data.constructorTable.constructors
+                let season = f1Data.data.constructorTable.season?.capitalized
+                
                 print(thisArray)
+            
                 for i in Range(0...thisArray.count - 1){
                     Data.teamNames.append(thisArray[i].name)
                     Data.teamNationality.append(thisArray[i].nationality)
                     Data.teamURL.append(thisArray[i].url)
                     Data.constructorID.append(thisArray[i].constructorID)
+                    Data.f1Season.append(season)
                 }
             } catch  {
                 print("Error decoding CONSTRUCTOR json data ")
@@ -96,13 +100,16 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
                 let thisArray = f1Data.data.circuitTable.circuits
-                
-                
-                for i in Range(0...thisArray.count - 1){
-                    
-                    Data.circuitName.append(thisArray[i].circuitName)
-                    Data.circuitID.append(thisArray[i].circuitID)
-                    Data.circuitLocation.append(thisArray[i].location.country)
+                let thisCount = thisArray.count - 1
+
+                if thisCount >= 0 {
+
+                    for i in Range(0...thisArray.count - 1){
+                        
+                        Data.circuitName.append(thisArray[i].circuitName)
+                        Data.circuitID.append(thisArray[i].circuitID)
+                        Data.circuitLocation.append(thisArray[i].location.country)
+                    }
                 }
      
             } catch  {

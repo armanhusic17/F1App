@@ -34,19 +34,17 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
             let availableWidth = view.frame.width
             let availableHeight = view.frame.height
             
-        return CGSize(width: availableWidth * 0.85, height: availableHeight * 0.25)
+        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.28)
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
         
-        guard let thisSeason = Data.seasonYearSelected else {return myCell()}
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath)
 
-        F1ApiRoutes.getRaceResults(seasonYear: thisSeason, round: indexPath.item)
-
+       
         return cell
     }
     
@@ -59,11 +57,8 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
             print("Cell is selected")
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             performSegue(withIdentifier: "resultsTransition", sender: self)
-            
         }
         
-        
-
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
