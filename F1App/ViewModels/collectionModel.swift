@@ -103,7 +103,7 @@ struct CollectionModel {
             
             cell.topCellLabel.text = self.circuitName[indexPath.item]
             cell.bottomCellLabel.text = self.circuitLocation[indexPath.item]
-            cell.bottomCellLabel2.text =  "Formula One"
+//            cell.bottomCellLabel2.text =  "Formula 1 : \(self.circuitId[indexPath.item]!.capitalized)"
             
         }
     }
