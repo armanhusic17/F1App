@@ -55,9 +55,6 @@ public struct Race: Codable {
     public let circuit: Circuit
     public let date: String
     public let time: String
-    public let qualifyingResults: [QualifyingResult]?
-    public let pitStops: [PitStop]?
-    public let laps: [LapElement]?
 
 
     private enum CodingKeys: String, CodingKey {
@@ -68,8 +65,5 @@ public struct Race: Codable {
         case circuit = "Circuit"
         case date
         case time
-        case qualifyingResults = "QualifyingResults"
-        case pitStops = "PitStops"
-        case laps = "Laps"
     }
 }

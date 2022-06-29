@@ -142,7 +142,6 @@ struct F1ApiRoutes  {
                         Data.raceTime.append(thisArray[i].time)
                         Data.raceURL.append(thisArray[i].url)
                         Data.raceName.append(thisArray[i].raceName)
-                        
                     }
                 }
                 
