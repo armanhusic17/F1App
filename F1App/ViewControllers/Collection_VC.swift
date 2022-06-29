@@ -12,11 +12,13 @@ import WebKit
 class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let collectionmodel = CollectionModel()
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
 
+        
     }
     
     
@@ -43,7 +45,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath)
-
+        
        
         return cell
     }

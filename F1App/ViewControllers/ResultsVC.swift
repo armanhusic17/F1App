@@ -18,7 +18,8 @@ class ResultsVC: UIViewController {
     
     let resultsModel = ResultsModel()
     
-    
+    let F1api = F1ApiRoutes()
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -29,6 +30,8 @@ class ResultsVC: UIViewController {
         super.viewDidLoad()
     
         print("RESULTS HERE")
+        
+        
         cutCorners()
         resultsModel.loadResults(myWebview: webView)
         
