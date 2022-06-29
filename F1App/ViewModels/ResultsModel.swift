@@ -13,7 +13,7 @@ struct ResultsModel {
     
     let teamWikis = Data.teamURL
     let driverWikis = Data.driverURL
-    let raceWiki = Data.raceURL
+    let raceWiki = Data.circuitURL
     
     func loadResults(myWebview:WKWebView) {
         
@@ -30,9 +30,10 @@ struct ResultsModel {
         }
         if Data.whichQuery == 2 {
             
-            guard let raceURL = URL(string: (raceWiki[safe: cellPath] ?? "1")!) else {return}
+            guard let raceURL = URL(string: raceWiki[cellPath]!) else {return}
             
             myWebview.load(URLRequest(url: raceURL ))
+        
 
         }
         

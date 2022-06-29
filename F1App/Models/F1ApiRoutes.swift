@@ -101,14 +101,20 @@ struct F1ApiRoutes  {
                 let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
                 let thisArray = f1Data.data.circuitTable.circuits
                 let thisCount = thisArray.count - 1
+                let thisArray2 = f1Data.data.url
 
                 if thisCount >= 0 {
 
                     for i in Range(0...thisArray.count - 1){
-                        
+
                         Data.circuitName.append(thisArray[i].circuitName)
                         Data.circuitID.append(thisArray[i].circuitID)
                         Data.circuitLocation.append(thisArray[i].location.country)
+                        Data.circuitCity.append(thisArray[i].location.locality)
+                        
+                        Data.circuitURL.append("https://en.wikipedia.org/wiki/\(thisArray[i].circuitName.replacingOccurrences(of: " ", with: "_"))")
+                        
+                        
                     }
                 }
      
@@ -122,36 +128,36 @@ struct F1ApiRoutes  {
 //
 //    // Race Results
 //    //
-    static func getRaceResults(seasonYear:String, round:Int){
-        
-        let url = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
-
-        guard let unwrappedURL = URL(string: url) else {return}
-
-        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
-
-            guard let myData = data else {return}
-
-            do {
-                let f1Data = try JSONDecoder().decode(RaceResults.self, from: myData)
-                let thisArray = f1Data.data.raceTable.races
-                let thisCount = thisArray.count - 1
-                if thisCount >= 0 {
-                    for i in Range(0...thisCount){
-                        Data.raceDate.append(thisArray[i].date)
-                        Data.raceTime.append(thisArray[i].time)
-                        Data.raceURL.append(thisArray[i].url)
-                        Data.raceName.append(thisArray[i].raceName)
-                    }
-                }
-                
-                print(f1Data.data.raceTable)
-            } catch {
-                print("Error decoding RACE RESULTS json data ")
-            }
-        }.resume()
-
-    }
+//    static func getRaceResults(seasonYear:String, round:Int){
+//
+//        let url = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
+//
+//        guard let unwrappedURL = URL(string: url) else {return}
+//
+//        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+//
+//            guard let myData = data else {return}
+//
+//            do {
+//                let f1Data = try JSONDecoder().decode(RaceResults.self, from: myData)
+//                let thisArray = f1Data.data.raceTable.races
+//                let thisCount = thisArray.count - 1
+//                if thisCount >= 0 {
+//                    for i in Range(0...thisCount){
+//                        Data.raceDate.append(thisArray[i].date)
+//                        Data.raceTime.append(thisArray[i].time)
+//                        Data.raceURL.append(thisArray[i].url)
+//                        Data.raceName.append(thisArray[i].raceName)
+//                    }
+//                }
+//
+//                print(f1Data.data.raceTable)
+//            } catch {
+//                print("Error decoding RACE RESULTS json data ")
+//            }
+//        }.resume()
+//
+//    }
     
     
 }

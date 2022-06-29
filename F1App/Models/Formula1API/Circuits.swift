@@ -50,7 +50,7 @@ public struct Circuit: Codable {
     public let circuitID: String
     public let circuitName: String
     public let location: Location
-
+    
     private enum CodingKeys: String, CodingKey {
         case circuitID = "circuitId"
         case circuitName 

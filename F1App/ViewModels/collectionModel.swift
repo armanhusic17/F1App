@@ -29,6 +29,7 @@ struct CollectionModel {
     let circuitName = Data.circuitName
     let circuitId = Data.circuitID
     let circuitLocation = Data.circuitLocation
+    let circuitCity = Data.circuitCity
     
     let raceURL = Data.raceURL
     let raceName = Data.raceName
@@ -54,10 +55,11 @@ struct CollectionModel {
         Data.teamNationality.removeAll()
 
         // Circuit Data
-        Data.circuitURL.removeAll()
+        Data.circuitCity.removeAll()
         Data.circuitID.removeAll()
         Data.circuitName.removeAll()
         Data.circuitLocation.removeAll()
+        Data.circuitCity.removeAll()
         Data.circuitURL.removeAll()
         
         // Circuit Data Continued
@@ -98,13 +100,9 @@ struct CollectionModel {
             cell.bottomCellLabel2.text = self.driverCode[indexPath.item]
         }
         if Data.whichQuery == 2 {
-            guard let thisSeason = Data.seasonYearSelected else {return}
-            F1ApiRoutes.getRaceResults(seasonYear: thisSeason, round: indexPath.item)
-            
-            cell.topCellLabel.text = self.circuitName[indexPath.item]
-            cell.bottomCellLabel.text = self.circuitLocation[indexPath.item]
-//            cell.bottomCellLabel2.text =  "Formula 1 : \(self.circuitId[indexPath.item]!.capitalized)"
-            
+            cell.bottomCellLabel2.text = self.circuitName[indexPath.item]
+            cell.topCellLabel.text = self.circuitLocation[indexPath.item]
+            cell.bottomCellLabel.text = self.circuitCity[indexPath.item]
         }
     }
     

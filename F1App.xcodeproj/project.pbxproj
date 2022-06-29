@@ -39,8 +39,6 @@
 		0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D142863DAF800A07E6A /* collectionModel.swift */; };
 		0FDB0D172863E30F00A07E6A /* RaceResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D162863E30F00A07E6A /* RaceResults.swift */; };
 		0FDB0D192864028D00A07E6A /* RaceSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D182864028D00A07E6A /* RaceSchedule.swift */; };
-		0FDB0D23286411E000A07E6A /* Seasons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D22286411E000A07E6A /* Seasons.swift */; };
-		0FDB0D252864121000A07E6A /* DriverStandings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D242864121000A07E6A /* DriverStandings.swift */; };
 		3BD825CC94A28B7F29B36EDE /* Pods_F1App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087C61132AB251D5A9399339 /* Pods_F1App.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,8 +89,6 @@
 		0FDB0D142863DAF800A07E6A /* collectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionModel.swift; sourceTree = "<group>"; };
 		0FDB0D162863E30F00A07E6A /* RaceResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResults.swift; sourceTree = "<group>"; };
 		0FDB0D182864028D00A07E6A /* RaceSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceSchedule.swift; sourceTree = "<group>"; };
-		0FDB0D22286411E000A07E6A /* Seasons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seasons.swift; sourceTree = "<group>"; };
-		0FDB0D242864121000A07E6A /* DriverStandings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverStandings.swift; sourceTree = "<group>"; };
 		DB43A7A1E57B04517D4BB25C /* Pods-F1App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.release.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,8 +239,6 @@
 				0F6EE305285D908700AF788A /* Circuits.swift */,
 				0FDB0D162863E30F00A07E6A /* RaceResults.swift */,
 				0FDB0D182864028D00A07E6A /* RaceSchedule.swift */,
-				0FDB0D22286411E000A07E6A /* Seasons.swift */,
-				0FDB0D242864121000A07E6A /* DriverStandings.swift */,
 			);
 			path = Formula1API;
 			sourceTree = "<group>";
@@ -440,10 +434,8 @@
 			files = (
 				0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */,
 				0F515A1427EC1BFE002129D7 /* HomeVC.swift in Sources */,
-				0FDB0D23286411E000A07E6A /* Seasons.swift in Sources */,
 				0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */,
 				0F3703FD27F13C1400968C5F /* myCell.swift in Sources */,
-				0FDB0D252864121000A07E6A /* DriverStandings.swift in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* Collection_VC.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
