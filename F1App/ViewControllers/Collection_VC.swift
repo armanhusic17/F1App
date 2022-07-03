@@ -37,7 +37,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
             let availableWidth = view.frame.width
             let availableHeight = view.frame.height
             
-        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.40)
+        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.60)
     }
     
     
@@ -46,7 +46,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         
         cell.F1MapView.delegate = self
         
-        let initialLocation = CLLocation(latitude: Double(collectionmodel.circuitLat[indexPath.item]!)!, longitude: Double(collectionmodel.circuitLong[indexPath.item]!)!)
+        let initialLocation = CLLocation(latitude: Double(collectionmodel.circuitLat[indexPath.item] ?? "") ?? 1.0, longitude: Double(collectionmodel.circuitLong[indexPath.item] ?? "") ?? 1.0)
         cell.F1MapView.centerToLocation(initialLocation)
         
         let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
