@@ -38,7 +38,8 @@ class Data  {
     static var circuitLocation:[String?] = []
     static var circuitCity:[String?] = []
     static var circuitURL:[String?] = []
-
+    static var circuitLongitude:[String?] = []
+    static var circuitLatitude:[String?] = []
     
     // Race Results Sara
     static var raceName:[String?] = []
@@ -52,7 +53,7 @@ class Data  {
     static var f1Season:[String?] = []
     
     static var seasonYearSelected:String?
-    
+    static var cellCount:Int?
     
     
     

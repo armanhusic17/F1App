@@ -208,6 +208,22 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-3q-uiC">
+                                                    <rect key="frame" x="116" y="121" width="190" height="132"/>
+                                                    <subviews>
+                                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="hybrid" translatesAutoresizingMaskIntoConstraints="NO" id="Czo-kQ-W7Z">
+                                                            <rect key="frame" x="0.0" y="0.0" width="190" height="132"/>
+                                                            <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                        </mapView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.80000000000000004" alpha="0.50606794546771527" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="Czo-kQ-W7Z" secondAttribute="bottom" id="2TM-Xm-7HW"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Czo-kQ-W7Z" secondAttribute="trailing" id="RyQ-Vt-ifd"/>
+                                                        <constraint firstItem="Czo-kQ-W7Z" firstAttribute="leading" secondItem="Apx-3q-uiC" secondAttribute="leading" id="gAg-3P-E5I"/>
+                                                        <constraint firstItem="Czo-kQ-W7Z" firstAttribute="top" secondItem="Apx-3q-uiC" secondAttribute="top" id="m2e-xR-Qhy"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.83496255432533117" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <constraints>
@@ -217,11 +233,15 @@
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="uyJ-qf-Gri" secondAttribute="leading" id="Fpi-aL-aGd"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Oqr-Zs-Lzi"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="8" id="P50-PI-5cX"/>
+                                                <constraint firstAttribute="bottom" secondItem="Apx-3q-uiC" secondAttribute="bottom" constant="8" id="R0f-9o-99q"/>
                                                 <constraint firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" constant="4" id="X46-rn-oJp"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="centerX" secondItem="uyJ-qf-Gri" secondAttribute="centerX" id="ZlB-Ev-xqW"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="leading" secondItem="1h8-8C-TE7" secondAttribute="leading" id="chU-gG-gg3"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="centerX" secondItem="1h8-8C-TE7" secondAttribute="centerX" id="iAm-h3-pNg"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="top" secondItem="uyJ-qf-Gri" secondAttribute="bottom" id="kAd-jb-U8L"/>
+                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="8" id="lq7-4h-3Ju"/>
+                                                <constraint firstAttribute="trailing" secondItem="Apx-3q-uiC" secondAttribute="trailing" constant="8" id="nwL-JG-09V"/>
+                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="FYC-jT-tcv" secondAttribute="bottom" constant="8" id="oQK-dD-dtC"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="8" id="ub4-Mc-0IO"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="ukQ-Kr-0Gg"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="wlW-da-8p2"/>
@@ -237,10 +257,12 @@
                                 </collectionViewCellContentView>
                                 <size key="customSize" width="314" height="261"/>
                                 <connections>
+                                    <outlet property="F1MapView" destination="Czo-kQ-W7Z" id="6HF-F3-Zvm"/>
                                     <outlet property="bottomCellLabel" destination="1h8-8C-TE7" id="Vl6-Y8-OCf"/>
                                     <outlet property="bottomCellLabel2" destination="FYC-jT-tcv" id="E2P-Mc-bbB"/>
                                     <outlet property="cellBaseView" destination="BTL-hX-xyL" id="Xle-XX-TD7"/>
                                     <outlet property="cellImage" destination="Acp-AP-HL7" id="aNk-O7-NGu"/>
+                                    <outlet property="mapView" destination="Apx-3q-uiC" id="Mli-Bk-Z1B"/>
                                     <outlet property="topCellLabel" destination="uyJ-qf-Gri" id="h8Z-E6-XHC"/>
                                 </connections>
                             </collectionViewCell>
@@ -333,6 +355,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class myCell: UICollectionViewCell {
     
@@ -16,6 +17,8 @@ class myCell: UICollectionViewCell {
     @IBOutlet weak var bottomCellLabel: UILabel!
     @IBOutlet weak var bottomCellLabel2: UILabel!
     @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var F1MapView: MKMapView!
+    @IBOutlet weak var mapView: UIView!
     
     
     var myCellIndexPath:Int?
@@ -24,4 +27,7 @@ class myCell: UICollectionViewCell {
         myCellIndexPath = myCellIP
         Data.cellIndexPassed = myCellIndexPath
     }
+    
+    
+    
 }

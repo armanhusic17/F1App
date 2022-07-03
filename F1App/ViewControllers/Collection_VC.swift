@@ -8,8 +8,9 @@
 import Foundation
 import UIKit
 import WebKit
+import MapKit
 
-class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
     let collectionmodel = CollectionModel()
 
@@ -17,8 +18,8 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
-
         
+
     }
     
     
@@ -36,17 +37,26 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
             let availableWidth = view.frame.width
             let availableHeight = view.frame.height
             
-        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.28)
+        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.40)
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
         
-        collectionmodel.cellViewFormat(cell: cell)
-        collectionmodel.cellLogic(cell: cell, indexPath: indexPath)
+        cell.F1MapView.delegate = self
         
-       
+        let initialLocation = CLLocation(latitude: Double(collectionmodel.circuitLat[indexPath.item]!)!, longitude: Double(collectionmodel.circuitLong[indexPath.item]!)!)
+        cell.F1MapView.centerToLocation(initialLocation)
+        
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 200000)
+        cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
+        
+        
+        collectionmodel.cellViewFormat(cell: cell)
+        collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView)
+
+        cell.mapView.layer.cornerRadius = 12
         return cell
     }
     
@@ -78,6 +88,21 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     
+    
 
     
+}
+
+
+private extension MKMapView {
+  func centerToLocation(
+    _ location: CLLocation,
+    regionRadius: CLLocationDistance = 1000
+  ) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
 }

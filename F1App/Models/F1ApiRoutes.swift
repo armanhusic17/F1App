@@ -73,8 +73,6 @@ struct F1ApiRoutes  {
                 let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
                 let thisArray = f1Data.data.constructorTable.constructors
                 let season = f1Data.data.constructorTable.season?.capitalized
-                
-                print(thisArray)
             
                 for i in Range(0...thisArray.count - 1){
                     Data.teamNames.append(thisArray[i].name)
@@ -82,6 +80,7 @@ struct F1ApiRoutes  {
                     Data.teamURL.append(thisArray[i].url)
                     Data.constructorID.append(thisArray[i].constructorID)
                     Data.f1Season.append(season)
+                
                 }
             } catch  {
                 print("Error decoding CONSTRUCTOR json data ")
@@ -104,12 +103,11 @@ struct F1ApiRoutes  {
                 let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
                 let thisArray = f1Data.data.circuitTable.circuits
                 let thisCount = thisArray.count - 1
-                let thisArray2 = f1Data.data.url
-
+                Data.cellCount = thisCount
                 if thisCount >= 0 {
 
-                    for i in Range(0...thisArray.count - 1){
-
+                    for i in Range(0...thisCount){
+                        print(thisCount)
                         Data.circuitName.append(thisArray[i].circuitName)
                         Data.circuitID.append(thisArray[i].circuitID)
                         Data.circuitLocation.append(thisArray[i].location.country)
@@ -117,7 +115,11 @@ struct F1ApiRoutes  {
                         
                         Data.circuitURL.append("https://en.wikipedia.org/wiki/\(thisArray[i].circuitName.replacingOccurrences(of: " ", with: "_"))")
                         
+                        Data.circuitLatitude.append(thisArray[i].location.lat)
+                        Data.circuitLongitude.append(thisArray[i].location.long)
                         
+                        print(Data.circuitLatitude, Data.circuitLongitude)
+
                     }
                 }
      
