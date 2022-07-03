@@ -71,6 +71,10 @@ struct CollectionModel {
         Data.raceName.removeAll()
         Data.f1Season.removeAll()
         
+        Data.circuitLatitude.removeAll()
+        Data.circuitLongitude.removeAll()
+        
+        
         print("removed all data points from the arrays holding the cells")
     }
     
@@ -133,6 +137,8 @@ struct CollectionModel {
         cell.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.cornerRadius = 15
         cell.cellImage.layer.cornerRadius = 8
+        cell.mapView.layer.cornerRadius = 12
+        cell.F1MapView.layer.cornerRadius = 12
     }
     
     

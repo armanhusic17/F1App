@@ -56,7 +56,6 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView)
 
-        cell.mapView.layer.cornerRadius = 12
         return cell
     }
     
