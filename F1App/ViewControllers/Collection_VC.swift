@@ -34,10 +34,27 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let availableWidth = view.frame.width
-            let availableHeight = view.frame.height
-            
-        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.60)
+        let availableWidth = view.frame.width
+        let availableHeight = view.frame.height
+        let queryWidth:CGFloat?
+        let queryHeight:CGFloat?
+        
+        if Data.whichQuery == 0 {
+            queryWidth = availableWidth * 0.92
+            queryHeight = availableHeight * 0.29
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        } else if Data.whichQuery == 1 {
+            queryWidth = availableWidth * 0.92
+            queryHeight = availableHeight * 0.29
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        } else if Data.whichQuery == 2 {
+            queryWidth = availableWidth * 0.95
+            queryHeight = availableHeight * 0.60
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        }
+        
+        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
+        
     }
     
     

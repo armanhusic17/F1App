@@ -211,7 +211,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-3q-uiC">
                                                     <rect key="frame" x="8" y="121" width="298" height="132"/>
                                                     <subviews>
-                                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="hybrid" translatesAutoresizingMaskIntoConstraints="NO" id="Czo-kQ-W7Z">
+                                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybridFlyover" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Czo-kQ-W7Z">
                                                             <rect key="frame" x="0.0" y="0.0" width="298" height="132"/>
                                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                                         </mapView>

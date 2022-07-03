@@ -127,7 +127,8 @@ struct CollectionModel {
             cell.bottomCellLabel2.text = self.circuitName[indexPath.item]
             cell.topCellLabel.text = self.circuitLocation[indexPath.item]
             cell.bottomCellLabel.text = self.circuitCity[indexPath.item]
-
+            cell.mapView.layer.borderWidth = 2
+            cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
         }
     }
     
