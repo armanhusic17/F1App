@@ -123,7 +123,17 @@ struct CollectionModel {
         
             cell.F1MapView.isHidden = false
             cell.mapView.isHidden = false
-
+            
+            let initialLocation = CLLocation(latitude: Double(circuitLat[indexPath.item] ?? "") ?? 1.0, longitude: Double(circuitLong[indexPath.item] ?? "") ?? 1.0)
+            cell.F1MapView.centerToLocation(initialLocation)
+            
+            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
+            cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
+            
+            
+            
+            
+            
             cell.bottomCellLabel2.text = self.circuitName[indexPath.item]
             cell.topCellLabel.text = self.circuitLocation[indexPath.item]
             cell.bottomCellLabel.text = self.circuitCity[indexPath.item]
@@ -143,4 +153,17 @@ struct CollectionModel {
     }
     
     
+}
+
+private extension MKMapView {
+  func centerToLocation(
+    _ location: CLLocation,
+    regionRadius: CLLocationDistance = 1000
+  ) {
+    let coordinateRegion = MKCoordinateRegion(
+      center: location.coordinate,
+      latitudinalMeters: regionRadius,
+      longitudinalMeters: regionRadius)
+    setRegion(coordinateRegion, animated: true)
+  }
 }
