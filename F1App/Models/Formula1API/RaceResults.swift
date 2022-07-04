@@ -23,7 +23,7 @@ public struct RaceResultsData: Codable {
     public let limit: String
     public let offset: String
     public let total: String
-    public let raceTable: RaceTable
+    public let raceResult: RaceResult
 
     private enum CodingKeys: String, CodingKey {
         case series
@@ -31,25 +31,23 @@ public struct RaceResultsData: Codable {
         case limit
         case offset
         case total
-        case raceTable = "RaceTable"
+        case raceResult = "RaceResult"
     }
 }
 
 public struct RaceResult: Codable {
     public let number: String
     public let position: String
-    public let positionText: String
     public let points: String
-    public let driver: Driver
-    public let constructor: Constructor
+    public let driver: [Driver]
+    public let constructor: [Constructor]
     public let grid, laps, status: String
-    public let time: ResultTime?
+    public let time: Time?
     public let fastestLap: FastestLap
 
     private enum CodingKeys: String, CodingKey {
         case number
         case position
-        case positionText
         case points
         case driver = "Driver"
         case constructor = "Constructor"
@@ -59,27 +57,6 @@ public struct RaceResult: Codable {
     }
 }
 
-public struct Driver: Codable {
-    public let driverID: String
-    public let permanentNumber: String?
-    public let code: String?
-    public let url: String
-    public let givenName: String
-    public let familyName: String
-    public let dateOfBirth: String
-    public let nationality: String
-
-    private enum CodingKeys: String, CodingKey {
-        case driverID = "driverId"
-        case permanentNumber
-        case code
-        case url
-        case givenName
-        case familyName
-        case dateOfBirth
-        case nationality
-    }
-}
 
 public struct FastestLap: Codable {
     public let rank: String
@@ -108,7 +85,12 @@ public struct FastestLapTime: Codable {
     public let time: String
 }
 
-public struct ResultTime: Codable {
+public struct Time: Codable {
     public let millis: String
     public let time: String
 }
+
+/**
+ 
+ 
+ */

@@ -41,11 +41,11 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if Data.whichQuery == 0 {
             queryWidth = availableWidth * 0.92
-            queryHeight = availableHeight * 0.29
+            queryHeight = availableHeight * 0.23
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 1 {
             queryWidth = availableWidth * 0.92
-            queryHeight = availableHeight * 0.29
+            queryHeight = availableHeight * 0.25
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 2 {
             queryWidth = availableWidth * 0.95

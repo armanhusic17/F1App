@@ -55,6 +55,7 @@ public struct Race: Codable {
     public let circuit: Circuit
     public let date: String
     public let time: String
+    public let results: RaceResultsData
 
 
     private enum CodingKeys: String, CodingKey {
@@ -65,5 +66,6 @@ public struct Race: Codable {
         case circuit = "Circuit"
         case date
         case time
+        case results
     }
 }

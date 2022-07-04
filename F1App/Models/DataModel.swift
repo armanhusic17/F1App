@@ -47,6 +47,11 @@ class Data  {
     static var raceTime:[String?] = []
     static var raceURL:[String?] = []
     
+    //new race result
+    static var fastestLap:[String?] = []
+    static var rank:[String?] = []
+
+    
     // cell info
 //    static var cellIndexPassed:Int?
     static var whichQuery:Int?

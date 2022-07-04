@@ -83,4 +83,43 @@ struct HomeModel {
         
     }
     
+    // format the ui on home vc
+    func formatUI(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView){
+        
+        showDriversButton       .isUserInteractionEnabled = true
+        showConstructorsButton  .isUserInteractionEnabled = true
+        circuitsButton          .isUserInteractionEnabled = true
+
+        showConstructorsButton  .layer.cornerRadius       = 15
+        lastRaceView            .layer.cornerRadius       = 15
+        showDriversButton       .layer.cornerRadius       = 15
+        circuitsButton          .layer.cornerRadius       = 15
+        enterYear               .layer.cornerRadius       = 15
+        progressView            .isHidden                 = true
+        titleImage              .alpha                    = 0.25
+        
+    }
+    
+    func resultsTransition(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:HomeVC,f1ApiRoute: @escaping () -> Void){
+        showDriversButton       .isUserInteractionEnabled = false
+        showConstructorsButton  .isUserInteractionEnabled = false
+        circuitsButton          .isUserInteractionEnabled = false
+        f1ApiRoute()
+        F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
+        progressView            .isHidden               = false
+        activityIndicator       .startAnimating()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            showDriversButton      .isUserInteractionEnabled   = true
+            showConstructorsButton .isUserInteractionEnabled   = true
+            circuitsButton         .isUserInteractionEnabled   = true
+            activityIndicator      .stopAnimating()
+            progressView           .isHidden                   = true
+            homeSelf.performSegue(withIdentifier: "enterTransition", sender: self)
+        }
+    }
+    
+    
+    
+    
 }

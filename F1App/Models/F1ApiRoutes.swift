@@ -107,7 +107,6 @@ struct F1ApiRoutes  {
                 if thisCount >= 0 {
 
                     for i in Range(0...thisCount){
-                        print(thisCount)
                         Data.circuitName.append(thisArray[i].circuitName)
                         Data.circuitID.append(thisArray[i].circuitID)
                         Data.circuitLocation.append(thisArray[i].location.country)
@@ -118,7 +117,6 @@ struct F1ApiRoutes  {
                         Data.circuitLatitude.append(thisArray[i].location.lat)
                         Data.circuitLongitude.append(thisArray[i].location.long)
                         
-                        print(Data.circuitLatitude, Data.circuitLongitude)
 
                     }
                 }
@@ -130,7 +128,44 @@ struct F1ApiRoutes  {
     
     }
     
+    static func lastRaceResults(completionHandler: () -> Void){
+        // https://ergast.com/api/f1/current/last/results
+        
+        let url = "https://ergast.com/api/f1/current/last/results.json"
+        
+        guard let unwrappedURL = URL(string: url) else {return}
+        
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+                    
+            guard let data = data else {return}
+            
+            do {
+                let f1Data = try JSONDecoder().decode(RaceResults.self, from: data)
+                let thisArray = f1Data.data.raceResult.driver
+                
+                let arr = f1Data.data.raceResult.constructor
+                for i in Range(0...thisArray.count - 1){
+                    print(arr[i].constructorID)
+                }
+            
+     
+            } catch  {
+                print("Error decoding Fastest Lap json data ")
+            }
+        }.resume()
+        
+    }
+    
+    
+    
 
     
     
 }
+
+/**
+ 
+ https://ergast.com/api/f1/2008/results/1
+
+
+ */
