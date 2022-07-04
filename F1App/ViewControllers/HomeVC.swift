@@ -27,17 +27,9 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup aft
-        setupLastRaceResults()
     }
     
-    func setupLastRaceResults(){
-        F1ApiRoutes.lastRaceResults(completionHandler: {
-            lastRaceLabel.text = Data.fastestLap[0]
-        })
-        
-        
-    }
-    
+
     
     
     override func viewWillAppear(_ animated: Bool) {

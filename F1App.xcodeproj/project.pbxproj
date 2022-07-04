@@ -37,8 +37,6 @@
 		0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */; };
 		0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0E2863D76000A07E6A /* HomeModel.swift */; };
 		0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D142863DAF800A07E6A /* collectionModel.swift */; };
-		0FDB0D172863E30F00A07E6A /* RaceResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D162863E30F00A07E6A /* RaceResults.swift */; };
-		0FDB0D192864028D00A07E6A /* RaceSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D182864028D00A07E6A /* RaceSchedule.swift */; };
 		3BD825CC94A28B7F29B36EDE /* Pods_F1App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087C61132AB251D5A9399339 /* Pods_F1App.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,8 +85,6 @@
 		0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModel.swift; sourceTree = "<group>"; };
 		0FDB0D0E2863D76000A07E6A /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		0FDB0D142863DAF800A07E6A /* collectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionModel.swift; sourceTree = "<group>"; };
-		0FDB0D162863E30F00A07E6A /* RaceResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResults.swift; sourceTree = "<group>"; };
-		0FDB0D182864028D00A07E6A /* RaceSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceSchedule.swift; sourceTree = "<group>"; };
 		DB43A7A1E57B04517D4BB25C /* Pods-F1App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.release.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -237,8 +233,6 @@
 				0FB765A32805409A00C32514 /* Constructors.swift */,
 				0FB765A7280540C000C32514 /* Drivers.swift */,
 				0F6EE305285D908700AF788A /* Circuits.swift */,
-				0FDB0D162863E30F00A07E6A /* RaceResults.swift */,
-				0FDB0D182864028D00A07E6A /* RaceSchedule.swift */,
 			);
 			path = Formula1API;
 			sourceTree = "<group>";
@@ -441,14 +435,12 @@
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FB765A42805409A00C32514 /* Constructors.swift in Sources */,
-				0FDB0D172863E30F00A07E6A /* RaceResults.swift in Sources */,
 				0F6EE306285D908700AF788A /* Circuits.swift in Sources */,
 				0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */,
 				0FB765A8280540C000C32514 /* Drivers.swift in Sources */,
-				0FDB0D192864028D00A07E6A /* RaceSchedule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
