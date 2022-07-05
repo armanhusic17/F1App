@@ -120,6 +120,57 @@ struct HomeModel {
     }
     
     
+    // this func sets up the resulting cells from selection on homeVC
+    func setQueryNumber(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:HomeVC){
+
+        guard let year = Int(enterYear.text) else {return}
+        let targetYear:Int?
+        
+        if Data.whichQuery == 2 {
+            targetYear = 1950
+            if year < targetYear! {
+                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+               
+                resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: homeSelf ,f1ApiRoute: {
+                    F1ApiRoutes.allCircuits(seasonYear: thisSeason)
+                })
+            }
+        } else if Data.whichQuery == 1 {
+            targetYear = 2014
+            if year < targetYear! {
+                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                
+                resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: homeSelf ,f1ApiRoute: {
+                    F1ApiRoutes.allDrivers(seasonYear: thisSeason)
+                })
+            }
+        } else if Data.whichQuery == 0 {
+            targetYear = 1950
+
+            if year < targetYear! {
+                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                
+                resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: homeSelf ,f1ApiRoute: {
+                    F1ApiRoutes.allConstructors(seasonYear: thisSeason)
+                })
+            }
+        }
+       
+    }
+    
+    
     
     
 }

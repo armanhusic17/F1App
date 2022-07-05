@@ -26,12 +26,10 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup aft
+        // Do any additional setup
     }
     
 
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -59,51 +57,26 @@ class HomeVC: UIViewController {
 
     
     @IBAction func displayConstructors(_ sender: UIButton) {
-        guard let year = Int(enterYear.text) else {return}
+        // set the query number so that we can access on collectionVC and display correct number of cells
+
         Data.whichQuery = 0
         
-        if year < 1950 {
-            print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-            homeModel.showAlert(passSelf: self)
-        } else {
-            homeModel.resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self ,f1ApiRoute: {
-                F1ApiRoutes.allConstructors(seasonYear: self.enterYear.text)
-            })
-        }
-        
+        homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
     }
     
     @IBAction func displayDrivers(_ sender: UIButton) {
-        guard let year = Int(enterYear.text) else {return}
+        // set the query number so that we can access on collectionVC and display correct number of cells
         Data.whichQuery = 1
         
-        if year < 2014 {
-            print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-            homeModel.showAlert(passSelf: self)
-        } else {
-            homeModel.resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self ,f1ApiRoute: {
-                F1ApiRoutes.allDrivers(seasonYear: self.enterYear.text)
-            })
-        }
-        
+        homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
     }
     
     @IBAction func displayCircuits(_ sender: UIButton) {
-        guard let year = Int(enterYear.text) else {return}
+        // set the query number so that we can access on collectionVC and display correct number of cells
+
         Data.whichQuery = 2
-        
-        if year < 1950 {
-            print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
-            homeModel.showAlert(passSelf: self)
-        } else {
-            Data.seasonYearSelected = enterYear.text
-            guard let thisSeason = Data.seasonYearSelected else { return }
-           
-            homeModel.resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self ,f1ApiRoute: {
-                F1ApiRoutes.allCircuits(seasonYear: thisSeason)
-            })
-        }
-        
+
+        homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
     }
     
   
