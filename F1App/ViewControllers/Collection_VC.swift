@@ -19,7 +19,6 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewDidLoad()
         collectionView.delegate = self
         
-
     }
     
     
@@ -27,52 +26,30 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewWillAppear(animated)
     }
     
-    
+    // Number of cells from model
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionmodel.howManyCells()
     }
     
-    
+    // Size of cells from model
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = view.frame.width
-        let availableHeight = view.frame.height
-        let queryWidth:CGFloat?
-        let queryHeight:CGFloat?
-        
-        if Data.whichQuery == 0 {
-            queryWidth = availableWidth * 0.92
-            queryHeight = availableHeight * 0.23
-            return CGSize(width: queryWidth!, height: queryHeight!)
-        } else if Data.whichQuery == 1 {
-            queryWidth = availableWidth * 0.92
-            queryHeight = availableHeight * 0.25
-            return CGSize(width: queryWidth!, height: queryHeight!)
-        } else if Data.whichQuery == 2 {
-            queryWidth = availableWidth * 0.95
-            queryHeight = availableHeight * 0.60
-            return CGSize(width: queryWidth!, height: queryHeight!)
-        }
-        
-        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
-        
+        collectionmodel.cellSizeFromQuery(view: view)
     }
     
-    
+    // setup for each individual cell, setting mapview delegate to each cell
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
         
         cell.F1MapView.delegate = self
         
-    
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView)
 
         return cell
     }
     
-    
+    // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let cellIndexPath = indexPath.item
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
@@ -82,7 +59,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
     }
-    
+    // deselectuing a cell - hides cell
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell deselected")

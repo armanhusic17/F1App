@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 
 struct CollectionModel {
-    //
     
     let myData = Data()
     
@@ -41,6 +40,8 @@ struct CollectionModel {
     let raceSeason = Data.f1Season
     let cellCountForCircuits = Data.cellCount
     
+    // removing data from cells to be able to load the data again
+    // should expand this to actually keep the data but hide it when the old queries are selected
     func removeAllCellData(){
         // Driver Data
         Data.driverNationality.removeAll()
@@ -98,29 +99,47 @@ struct CollectionModel {
         return 1
     }
     
+    // setting size of each cell
+    func cellSizeFromQuery(view:UIView) -> CGSize{
+        let availableWidth = view.frame.width
+        let availableHeight = view.frame.height
+        let queryWidth:CGFloat?
+        let queryHeight:CGFloat?
+        
+        if Data.whichQuery == 0 {
+            queryWidth = availableWidth * 0.92
+            queryHeight = availableHeight * 0.23
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        } else if Data.whichQuery == 1 {
+            queryWidth = availableWidth * 0.92
+            queryHeight = availableHeight * 0.25
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        } else if Data.whichQuery == 2 {
+            queryWidth = availableWidth * 0.95
+            queryHeight = availableHeight * 0.60
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        }
+        return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
+
+    }
+    
+    // what data is shown in the each cell
     func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView){
         if Data.whichQuery == 0 {
-            
             cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
             cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
             cell.bottomCellLabel2.text = "\(self.constructorID[indexPath.item]?.capitalized ?? "") \(self.raceSeason[indexPath.item]?.capitalized ?? "")"
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
-
-            
         }
         if Data.whichQuery == 1 {
-            
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item]!) \(self.driverNames[indexPath.item]!) #\(self.driverNumbers[indexPath.item]!)"
             cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item]!)"
             cell.bottomCellLabel2.text = self.driverCode[indexPath.item]
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
-
-        
         }
         if Data.whichQuery == 2 {
-        
             cell.F1MapView.isHidden = false
             cell.mapView.isHidden = false
             
@@ -130,10 +149,6 @@ struct CollectionModel {
             let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
             cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
             
-            
-            
-            
-            
             cell.bottomCellLabel2.text = self.circuitName[indexPath.item]
             cell.topCellLabel.text = self.circuitLocation[indexPath.item]
             cell.bottomCellLabel.text = self.circuitCity[indexPath.item]
@@ -142,7 +157,7 @@ struct CollectionModel {
         }
     }
     
-    
+    // formatting the look of the cells
     func cellViewFormat(cell:myCell){
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.lightGray.cgColor
@@ -155,6 +170,7 @@ struct CollectionModel {
     
 }
 
+// mapkit extension
 private extension MKMapView {
   func centerToLocation(
     _ location: CLLocation,
