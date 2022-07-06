@@ -31,7 +31,6 @@ class ResultsVC: UIViewController {
     
         print("RESULTS HERE")
         
-        
         cutCorners()
         resultsModel.loadResults(myWebview: webView)
         

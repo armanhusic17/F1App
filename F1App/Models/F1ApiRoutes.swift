@@ -11,19 +11,14 @@ import SwiftyJSON
 import Formula1API
 
 
+/**
+    Here we will  set up some routes to the ergast api
+    Set up a struct that can decode the json return by ergast
+ */
 
 struct F1ApiRoutes  {
     
-    
-
-  
-    /**
-        Here we will  set up some routes to the ergast api
-        Set up a struct that can decode the json return by ergast
-     */
-    
     let myData = Data()
-
     
     // Drivers
     static func allDrivers(seasonYear:String){
@@ -56,9 +51,6 @@ struct F1ApiRoutes  {
         }.resume()
     }
     
-    
-    
-    
     // Constructors
     static func allConstructors(seasonYear:String) {
         let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
@@ -87,7 +79,6 @@ struct F1ApiRoutes  {
             }
         }.resume()
     }
-    
     
     // Circuits
     static func allCircuits(seasonYear:String){
@@ -128,14 +119,14 @@ struct F1ApiRoutes  {
     }
     
     
-
     
+
     
 }
 
 /**
  
  https://ergast.com/api/f1/2008/results/1
-
+ working on adding results that show up for drivers or teams or as a standalone not sure yet
 
  */

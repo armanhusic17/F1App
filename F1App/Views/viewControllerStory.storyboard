@@ -98,20 +98,20 @@
                                             <action selector="displayCircuits:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kad-aU-9dC"/>
                                         </connections>
                                     </button>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4f-uK-usw">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4f-uK-usw">
                                         <rect key="frame" x="8" y="524" width="398" height="304"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGd-KO-Fc2">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGd-KO-Fc2">
                                                 <rect key="frame" x="4" y="8" width="390" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="MU2-66-clF"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" white="1" alpha="0.45888979071812913" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="OGd-KO-Fc2" secondAttribute="trailing" constant="4" id="Fl4-nj-fHb"/>
                                             <constraint firstItem="OGd-KO-Fc2" firstAttribute="top" secondItem="l4f-uK-usw" secondAttribute="top" constant="8" id="MYN-cb-Chm"/>

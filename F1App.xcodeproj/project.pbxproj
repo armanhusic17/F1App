@@ -18,6 +18,7 @@
 		0F515A3427EC1C00002129D7 /* F1AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A3327EC1C00002129D7 /* F1AppUITests.swift */; };
 		0F515A3627EC1C00002129D7 /* F1AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */; };
 		0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */; };
+		0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F6BB1612875535500C5ED94 /* 107761-formula-one.json */; };
 		0F6EE306285D908700AF788A /* Circuits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EE305285D908700AF788A /* Circuits.swift */; };
 		0FA3B5F628068F0D00A334D8 /* Collection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */; };
 		0FA3B5F728068F0D00A334D8 /* Collection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */; };
@@ -74,6 +75,7 @@
 		0F515A3327EC1C00002129D7 /* F1AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1AppUITests.swift; sourceTree = "<group>"; };
 		0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1ApiRoutes.swift; sourceTree = "<group>"; };
+		0F6BB1612875535500C5ED94 /* 107761-formula-one.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "107761-formula-one.json"; sourceTree = "<group>"; };
 		0F6EE305285D908700AF788A /* Circuits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuits.swift; sourceTree = "<group>"; };
 		0F92D2CE7CF8391E4C69CD3A /* Pods-F1App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.debug.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.debug.xcconfig"; sourceTree = "<group>"; };
 		0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection_VC.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		0F515A0E27EC1BFE002129D7 /* F1App */ = {
 			isa = PBXGroup;
 			children = (
+				0F6BB1632875536300C5ED94 /* LottieAnimations */,
 				0FB765A22805408100C32514 /* Models */,
 				0FDB0D102863D77B00A07E6A /* ViewModels */,
 				0FDB0D132863D84E00A07E6A /* Views */,
@@ -178,6 +181,14 @@
 				0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */,
 			);
 			path = F1AppUITests;
+			sourceTree = "<group>";
+		};
+		0F6BB1632875536300C5ED94 /* LottieAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				0F6BB1612875535500C5ED94 /* 107761-formula-one.json */,
+			);
+			path = LottieAnimations;
 			sourceTree = "<group>";
 		};
 		0FB765A22805408100C32514 /* Models */ = {
@@ -360,6 +371,7 @@
 				0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */,
 				0F515A1F27EC1BFF002129D7 /* LaunchScreen.storyboard in Resources */,
 				0F515A1C27EC1BFF002129D7 /* Assets.xcassets in Resources */,
+				0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class HomeVC: UIViewController {
     @IBOutlet weak var baseView: UIView!
@@ -24,11 +25,28 @@ class HomeVC: UIViewController {
     let homeModel = HomeModel()
     let collectionModel = CollectionModel()
     
+    private var animationView: AnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup
+        lottieAnimationPlaying()
     }
     
+    func lottieAnimationPlaying(){
+        animationView = .init(name: "107761-formula-one")
+        animationView!.frame = lastRaceView.bounds
+        
+        // 3. Set animation content mode
+        animationView!.contentMode = .scaleAspectFit
+        // 4. Set animation loop mode
+        animationView!.loopMode = .loop
+        // 5. Adjust animation speed
+        animationView!.animationSpeed = 0.85
+        lastRaceView.addSubview(animationView!)
+        // 6. Play animation
+        animationView!.play()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,29 +76,32 @@ class HomeVC: UIViewController {
     
     @IBAction func displayConstructors(_ sender: UIButton) {
         // set the query number so that we can access on collectionVC and display correct number of cells
-
         Data.whichQuery = 0
-        
+        // teams
         homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
     }
     
     @IBAction func displayDrivers(_ sender: UIButton) {
         // set the query number so that we can access on collectionVC and display correct number of cells
         Data.whichQuery = 1
-        
+        // drivers
         homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
+     
     }
     
     @IBAction func displayCircuits(_ sender: UIButton) {
         // set the query number so that we can access on collectionVC and display correct number of cells
-
         Data.whichQuery = 2
-
+        // circuits
         homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
+        
     }
+    
+
     
   
 
+    
     
     
     

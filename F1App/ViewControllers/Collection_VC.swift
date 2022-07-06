@@ -72,6 +72,7 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         collectionmodel.removeAllCellData()
+        
     }
     
     
