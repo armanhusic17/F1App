@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */; };
 		0F3703FD27F13C1400968C5F /* myCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3703FC27F13C1400968C5F /* myCell.swift */; };
 		0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */; };
 		0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A1127EC1BFE002129D7 /* SceneDelegate.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		087C61132AB251D5A9399339 /* Pods_F1App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_F1App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
 		0F3703FC27F13C1400968C5F /* myCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myCell.swift; sourceTree = "<group>"; };
 		0F515A0C27EC1BFE002129D7 /* F1App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F1App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				0F6BB1612875535500C5ED94 /* 107761-formula-one.json */,
+				0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */,
 			);
 			path = LottieAnimations;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */,
+				0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */,
 				0F515A1F27EC1BFF002129D7 /* LaunchScreen.storyboard in Resources */,
 				0F515A1C27EC1BFF002129D7 /* Assets.xcassets in Resources */,
 				0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */,
