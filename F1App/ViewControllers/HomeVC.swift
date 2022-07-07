@@ -48,6 +48,7 @@ class HomeVC: UIViewController {
 
         // 3. Set animation content mode
         animationView!.contentMode = .scaleAspectFit
+        
         animationView2!.contentMode = .scaleAspectFit
         // 4. Set animation loop mode
         animationView!.loopMode = .loop
@@ -58,6 +59,10 @@ class HomeVC: UIViewController {
 
         subView.addSubview(animationView!)
         subView2.addSubview(animationView2!)
+        
+        subView.layer.borderWidth = 20
+        subView.layer.borderColor = UIColor.yellow.cgColor
+        subView.alpha = 0.85
         // 6. Play animation
         animationView!.play()
         animationView2!.play()

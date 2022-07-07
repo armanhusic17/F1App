@@ -107,12 +107,12 @@ struct CollectionModel {
         let queryHeight:CGFloat?
         
         if Data.whichQuery == 0 {
-            queryWidth = availableWidth * 0.92
-            queryHeight = availableHeight * 0.23
+            queryWidth = availableWidth * 0.65
+            queryHeight = availableHeight * 0.13
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 1 {
-            queryWidth = availableWidth * 0.92
-            queryHeight = availableHeight * 0.25
+            queryWidth = availableWidth * 0.75
+            queryHeight = availableHeight * 0.17
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 2 {
             queryWidth = availableWidth * 0.95
@@ -134,9 +134,10 @@ struct CollectionModel {
             cell.mapView.isHidden = true
             break
         case 1:
-            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item]!) \(self.driverNames[indexPath.item]!) #\(self.driverNumbers[indexPath.item]!)"
+            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item]!) \(self.driverNames[indexPath.item]!)"
             cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item]!)"
-            cell.bottomCellLabel2.text = self.driverCode[indexPath.item]
+            cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item]!)"
+            
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
             break
@@ -173,7 +174,7 @@ struct CollectionModel {
         cell.F1MapView.layer.cornerRadius = 12
     }
     
-
+    
     
 
     

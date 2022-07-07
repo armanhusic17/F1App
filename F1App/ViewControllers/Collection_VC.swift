@@ -12,7 +12,7 @@ import MapKit
 
 class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
-    let collectionmodel = CollectionModel()
+    var collectionmodel = CollectionModel()
 
 
     override func viewDidLoad() {
