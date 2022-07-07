@@ -91,7 +91,7 @@ struct HomeModel {
         circuitsButton          .isUserInteractionEnabled = true
 
         showConstructorsButton  .layer.cornerRadius       = 15
-        lastRaceView            .layer.cornerRadius       = 15
+        lastRaceView            .layer.cornerRadius       = 8
         showDriversButton       .layer.cornerRadius       = 15
         circuitsButton          .layer.cornerRadius       = 15
         enterYear               .layer.cornerRadius       = 15

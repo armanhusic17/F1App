@@ -60,9 +60,9 @@ class HomeVC: UIViewController {
         subView.addSubview(animationView!)
         subView2.addSubview(animationView2!)
         
-        subView.layer.borderWidth = 20
-        subView.layer.borderColor = UIColor.yellow.cgColor
-        subView.alpha = 0.85
+        subView.layer.borderWidth = 23
+        subView.layer.borderColor = UIColor.systemTeal.cgColor
+        subView.alpha = 0.80
         // 6. Play animation
         animationView!.play()
         animationView2!.play()
