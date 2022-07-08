@@ -108,11 +108,11 @@ struct CollectionModel {
         
         if Data.whichQuery == 0 {
             queryWidth = availableWidth * 0.65
-            queryHeight = availableHeight * 0.13
+            queryHeight = availableHeight * 0.15
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 1 {
             queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.17
+            queryHeight = availableHeight * 0.20
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 2 {
             queryWidth = availableWidth * 0.95
@@ -152,8 +152,8 @@ struct CollectionModel {
             cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
 
             cell.bottomCellLabel2.text = self.circuitName[indexPath.item]
-            cell.topCellLabel.text = self.circuitLocation[indexPath.item]
-            cell.bottomCellLabel.text = self.circuitCity[indexPath.item]
+            cell.topCellLabel.text = "\(self.circuitCity[indexPath.item] ?? "City"), \(self.circuitLocation[indexPath.item] ?? "Country")"
+            cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"
             cell.mapView.layer.borderWidth = 2
             cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
             break
