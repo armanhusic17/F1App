@@ -36,6 +36,9 @@ class HomeVC: UIViewController {
                                animationName2:"82023-racing-car-steering-wheel",
                                subView: lastRaceView,
                                subView2:titleAnimationview )
+        
+        F1ApiRoutes.getQualiResults()
+
     }
     
     func lottieAnimationPlaying(animationName:String, animationName2:String , subView:UIView, subView2:UIView){

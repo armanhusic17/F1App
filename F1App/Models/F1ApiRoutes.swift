@@ -33,7 +33,6 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
                 let driversTableArray = f1Data.data.driverTable.drivers
-                print(driversTableArray)
                 for i in Range(0...driversTableArray.count - 1) {
                     Data.driverNames.append(driversTableArray[i].familyName)
                     Data.driverNationality.append(driversTableArray[i].nationality)
@@ -45,7 +44,6 @@ struct F1ApiRoutes  {
                 }
                 
             } catch  {
-                print(data.debugDescription)
                 print("Error decoding DRIVERS json data ")
             }
         }.resume()
@@ -93,6 +91,7 @@ struct F1ApiRoutes  {
             do {
                 let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
                 let thisArray = f1Data.data.circuitTable.circuits
+        
                 let thisCount = thisArray.count - 1
                 Data.cellCount = thisCount
                 if thisCount >= 0 {
@@ -104,10 +103,8 @@ struct F1ApiRoutes  {
                         Data.circuitCity.append(thisArray[i].location.locality)
                         
                         Data.circuitURL.append("https://en.wikipedia.org/wiki/\(thisArray[i].circuitName.replacingOccurrences(of: " ", with: "_"))")
-                        
                         Data.circuitLatitude.append(thisArray[i].location.lat)
                         Data.circuitLongitude.append(thisArray[i].location.long)
-
                     }
                 }
      
@@ -119,8 +116,49 @@ struct F1ApiRoutes  {
     }
     
     
+    // using formulaapi call - oant specify the number of races, only returning two or one
+    static func getQualiResults(){
+        
+        Formula1API.qualifyingResults(for: Season.year(2014), limit: "3") { result in
+            
+            do {
+                let racesData = try result.get().data.raceTable.races
+                print(try result.get().data.raceTable.round)
+                
+                
+                for i in Range(0...racesData.count - 1){
+                    Data.raceName.append(racesData[i].raceName)
+                    Data.raceTime.append(racesData[i].time)
+                    Data.raceDate.append(racesData[i].date)
+                    Data.qualiResults = racesData[i].qualifyingResults!
+                    print(racesData[i].round)
+
+                }
+                
+                
+                print(Data.raceTime)
+                print(Data.raceName)
+                print(Data.raceDate)
+                print(Data.qualiResults.count)
+                print(Data.qualiResults[0])
+                print(Data.qualiResults[1])
+                print(Data.qualiResults[2])
+                
+
+
+            } catch {
+                print(error)
+            }
+            
+        }
+        
+    }
+    
+    
+    
     
 
+ 
     
 }
 
