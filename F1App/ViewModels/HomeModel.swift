@@ -215,10 +215,16 @@ struct HomeModel {
     
     
     func getLastRaceResult(enterYear:UITextView, mySelf:HomeVC){
-        F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
-            mySelf.lastRaceLabel.text = "Race Result from \(enterYear.text ?? "Year") : Round 1 \n\nRace Name : \((Data.raceName[safe: 0] ?? "") ?? ""  ) \n\n Position \(Data.qualiResults[safe: 0]?.position ?? "Loading...") : \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+        guard let year = enterYear.text else {return}
+        
+        if Int(year)! >= 2005 {
+            F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
+                mySelf.lastRaceLabel.text = "Race Result from \(enterYear.text ?? "Year") : Round 1 \n\nRace Name : \((Data.raceName[safe: 0] ?? "") ?? ""  ) \n\n Position \(Data.qualiResults[safe: 0]?.position ?? "Loading...") : \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+            }
         }
+        
+        
 
     }
     
