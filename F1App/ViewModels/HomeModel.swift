@@ -219,8 +219,9 @@ struct HomeModel {
         
         if Int(year)! >= 2005 {
             F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
+//            mySelf.lastRaceLabel.font = UIFont(name: "MarkerFelt-Thin", size: 28.0)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
-                mySelf.lastRaceLabel.text = "Race Result from \(enterYear.text ?? "Year") : Round 1 \n\nRace Name : \((Data.raceName[safe: 0] ?? "") ?? ""  ) \n\n Position \(Data.qualiResults[safe: 0]?.position ?? "Loading...") : \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+                mySelf.lastRaceLabel.text = "Race Result from \(enterYear.text ?? "Year") : Round 1 \n\nRace Name : \((Data.raceName[safe: 0] ?? "Loading...") ?? ""  ) \n\n Position \(Data.qualiResults[safe: 0]?.position ?? "Loading...") : \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
             }
         }
         
