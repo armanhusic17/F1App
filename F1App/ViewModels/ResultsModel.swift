@@ -19,15 +19,15 @@ struct ResultsModel {
         
         guard let cellPath = Data.cellIndexPassed else {return}
         if Data.whichQuery == 0 {
-            guard let teamURL = URL(string: (teamWikis[cellPath])!) else {return}
+            guard let teamURL = URL(string: (teamWikis[cellPath]) ?? "") else {return}
             myWebview.load(URLRequest(url: teamURL ))
         }
         if Data.whichQuery == 1 {
-            guard let driverURL = URL(string: driverWikis[cellPath]!) else {return}
+            guard let driverURL = URL(string: driverWikis[cellPath] ?? "") else {return}
             myWebview.load(URLRequest(url: driverURL ))
         }
         if Data.whichQuery == 2 {
-            guard let raceURL = URL(string: raceWiki[cellPath]!) else {return}
+            guard let raceURL = URL(string: raceWiki[cellPath] ?? "") else {return}
             myWebview.load(URLRequest(url: raceURL ))
         }
         

@@ -36,9 +36,14 @@ class HomeVC: UIViewController {
                                animationName2:"82023-racing-car-steering-wheel",
                                subView: lastRaceView,
                                subView2:titleAnimationview )
-        
-        F1ApiRoutes.getQualiResults()
+        F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
 
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
+            
+            self.lastRaceLabel.text = "Last Race Results \nRace Name : \(String(describing: Data.raceName[safe: 0]! ?? "Loading"))\n Position : \(Data.qualiResults[safe: 0]?.position ?? "Loading..."), \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+
+        }
+        
     }
     
     func lottieAnimationPlaying(animationName:String, animationName2:String , subView:UIView, subView2:UIView){
@@ -60,14 +65,14 @@ class HomeVC: UIViewController {
         animationView!.animationSpeed = 0.85
         animationView2!.animationSpeed = 0.5
 
-        subView.addSubview(animationView!)
+        //subView.addSubview(animationView!)
         subView2.addSubview(animationView2!)
         
         subView.layer.borderWidth = 23
         subView.layer.borderColor = UIColor.systemTeal.cgColor
         subView.alpha = 0.80
         // 6. Play animation
-        animationView!.play()
+        //animationView!.play()
         animationView2!.play()
 
     }
@@ -76,6 +81,7 @@ class HomeVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         
         homeModel.formatUI(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: titleAnimationview, titleImage: titleImage, lastRaceView: lastRaceView)
         recognizeTap()
@@ -112,7 +118,8 @@ class HomeVC: UIViewController {
         Data.whichQuery = 1
         // drivers
         homeModel.setQueryNumber(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: titleAnimationview, titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: self)
-     
+                
+
     }
     
     @IBAction func displayCircuits(_ sender: UIButton) {

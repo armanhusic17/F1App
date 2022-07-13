@@ -117,9 +117,9 @@ struct F1ApiRoutes  {
     
     
     // using formulaapi call - oant specify the number of races, only returning two or one
-    static func getQualiResults(){
+    static func getQualiResults(seasonYear:String){
         
-        Formula1API.qualifyingResults(for: Season.year(2014), limit: "3") { result in
+        Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), limit: "3") { result in
             
             do {
                 let racesData = try result.get().data.raceTable.races
