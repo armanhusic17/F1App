@@ -40,7 +40,7 @@ class HomeVC: UIViewController {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
             
-            self.lastRaceLabel.text = "Last Race Results \nRace Name : \(String(describing: Data.raceName[safe: 0]! ?? "Loading"))\n Position : \(Data.qualiResults[safe: 0]?.position ?? "Loading..."), \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+            self.lastRaceLabel.text = "Last Race Result \n\nRace Name : \(String(describing: Data.raceName[safe: 0]! ?? "Loading"))\n Position : \(Data.qualiResults[safe: 0]?.position ?? "Loading..."), \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
 
         }
         
@@ -83,7 +83,7 @@ class HomeVC: UIViewController {
         super.viewWillAppear(animated)
 
         
-        homeModel.formatUI(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: titleAnimationview, titleImage: titleImage, lastRaceView: lastRaceView)
+        homeModel.formatUI(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: titleAnimationview, titleImage: titleImage, lastRaceView: lastRaceView, lastRaceLabel: lastRaceLabel)
         recognizeTap()
         
     }

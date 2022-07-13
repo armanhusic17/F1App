@@ -116,7 +116,7 @@ struct F1ApiRoutes  {
     }
     
     
-    // using formulaapi call - oant specify the number of races, only returning two or one
+    // Query to get Last race result for homescreen
     static func getQualiResults(seasonYear:String){
         
         Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), limit: "3") { result in
@@ -125,27 +125,13 @@ struct F1ApiRoutes  {
                 let racesData = try result.get().data.raceTable.races
                 print(try result.get().data.raceTable.round)
                 
-                
                 for i in Range(0...racesData.count - 1){
                     Data.raceName.append(racesData[i].raceName)
                     Data.raceTime.append(racesData[i].time)
                     Data.raceDate.append(racesData[i].date)
                     Data.qualiResults = racesData[i].qualifyingResults!
                     print(racesData[i].round)
-
                 }
-                
-                
-                print(Data.raceTime)
-                print(Data.raceName)
-                print(Data.raceDate)
-                print(Data.qualiResults.count)
-                print(Data.qualiResults[0])
-                print(Data.qualiResults[1])
-                print(Data.qualiResults[2])
-                
-
-
             } catch {
                 print(error)
             }

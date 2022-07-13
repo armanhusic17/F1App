@@ -84,20 +84,26 @@ struct HomeModel {
     }
     
     // format the ui on home vc
-    func formatUI(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView){
+    func formatUI(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView, lastRaceLabel:UILabel){
         
         showDriversButton       .isUserInteractionEnabled = true
         showConstructorsButton  .isUserInteractionEnabled = true
         circuitsButton          .isUserInteractionEnabled = true
 
         showConstructorsButton  .layer.cornerRadius       = 15
-        lastRaceView            .layer.cornerRadius       = 8
+        lastRaceView            .layer.cornerRadius       = 25
+        lastRaceLabel           .layer.cornerRadius       = 25
         showDriversButton       .layer.cornerRadius       = 15
         circuitsButton          .layer.cornerRadius       = 15
         enterYear               .layer.cornerRadius       = 15
         progressView            .isHidden                 = true
         titleImage              .alpha                    = 0.25
         
+        lastRaceLabel           .layer.borderWidth = 1
+        lastRaceLabel           .layer.borderColor = UIColor.white.cgColor
+        lastRaceView           .layer.borderWidth = 1
+        lastRaceView           .layer.borderColor = UIColor.white.cgColor
+
     }
     
     func resultsTransition(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:HomeVC,f1ApiRoute: @escaping () -> Void){
