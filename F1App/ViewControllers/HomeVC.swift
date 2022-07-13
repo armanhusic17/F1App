@@ -51,6 +51,7 @@ class HomeVC: UIViewController , UINavigationControllerDelegate{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("DISAPPEARING")
+        dismissKeyboard()
         homeModel.clearTextFromLastRace(lastRaceLabel: lastRaceLabel, mySelf: self)
     }
     
