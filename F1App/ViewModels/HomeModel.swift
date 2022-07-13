@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Lottie
 
 struct HomeModel {
     
@@ -15,6 +16,8 @@ struct HomeModel {
     let qTime:Double = 1.75
     var seasonRound:String?
     var seasonYear:String?
+    
+
     
     func showAlert(passSelf:HomeVC){
         if Data.whichQuery == 0 {
@@ -176,6 +179,54 @@ struct HomeModel {
        
     }
     
+    
+    func lottieAnimationPlaying(animationName:String, animationName2:String , subView:UIView, subView2:UIView){
+        var animationView: AnimationView?
+        var animationView2: AnimationView?
+        animationView = .init(name: animationName)
+        animationView2 = .init(name: animationName2)
+
+        
+        animationView!.frame = subView.bounds
+        animationView2!.frame = subView2.bounds
+
+        // 3. Set animation content mode
+        animationView!.contentMode = .scaleAspectFit
+        
+        animationView2!.contentMode = .scaleAspectFit
+        // 4. Set animation loop mode
+        animationView!.loopMode = .loop
+        animationView2!.loopMode = .loop
+        // 5. Adjust animation speed
+        animationView!.animationSpeed = 0.85
+        animationView2!.animationSpeed = 0.5
+
+        //subView.addSubview(animationView!)
+        subView2.addSubview(animationView2!)
+        
+        subView.layer.borderWidth = 23
+        subView.layer.borderColor = UIColor.systemTeal.cgColor
+        subView.alpha = 0.80
+        // 6. Play animation
+        //animationView!.play()
+        animationView2!.play()
+
+    }
+    
+    func getLastRaceResult(enterYear:UITextView, mySelf:HomeVC){
+        F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
+            
+            mySelf.lastRaceLabel.text = "Last Race Result \n\nRace Name : \((Data.raceName[safe: 0] ?? "") ?? ""  ) \n Position : \(Data.qualiResults[safe: 0]?.position ?? "Loading..."), \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+
+        }
+
+    }
+    
+    func clearTextFromLastRace(lastRaceLabel:UILabel, mySelf:HomeVC){
+        mySelf.lastRaceLabel.text?.removeAll()
+    }
 
     
     

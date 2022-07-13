@@ -6,9 +6,8 @@
 //
 
 import UIKit
-import Lottie
 
-class HomeVC: UIViewController {
+class HomeVC: UIViewController , UINavigationControllerDelegate{
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var titleImage: UIImageView!
     @IBOutlet weak var showConstructorsButton: UIButton!
@@ -22,67 +21,43 @@ class HomeVC: UIViewController {
     
     
     let f1routes = F1ApiRoutes()
-    let homeModel = HomeModel()
+    var homeModel = HomeModel()
     let collectionModel = CollectionModel()
     
-    private var animationView: AnimationView?
-    private var animationView2: AnimationView?
+
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup
-        lottieAnimationPlaying(animationName: "107761-formula-one",
+        navigationController?.delegate = self
+
+        homeModel.lottieAnimationPlaying(animationName: "107761-formula-one",
                                animationName2:"82023-racing-car-steering-wheel",
                                subView: lastRaceView,
                                subView2:titleAnimationview )
-        F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
-            
-            self.lastRaceLabel.text = "Last Race Result \n\nRace Name : \(String(describing: Data.raceName[safe: 0]! ?? "Loading"))\n Position : \(Data.qualiResults[safe: 0]?.position ?? "Loading..."), \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+    }
+    
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        if viewController == self {
+            print("Showing self now")
+            homeModel.getLastRaceResult(enterYear: enterYear, mySelf: self)
 
         }
-        
     }
     
-    func lottieAnimationPlaying(animationName:String, animationName2:String , subView:UIView, subView2:UIView){
-        animationView = .init(name: animationName)
-        animationView2 = .init(name: animationName2)
-
-        
-        animationView!.frame = subView.bounds
-        animationView2!.frame = subView2.bounds
-
-        // 3. Set animation content mode
-        animationView!.contentMode = .scaleAspectFit
-        
-        animationView2!.contentMode = .scaleAspectFit
-        // 4. Set animation loop mode
-        animationView!.loopMode = .loop
-        animationView2!.loopMode = .loop
-        // 5. Adjust animation speed
-        animationView!.animationSpeed = 0.85
-        animationView2!.animationSpeed = 0.5
-
-        //subView.addSubview(animationView!)
-        subView2.addSubview(animationView2!)
-        
-        subView.layer.borderWidth = 23
-        subView.layer.borderColor = UIColor.systemTeal.cgColor
-        subView.alpha = 0.80
-        // 6. Play animation
-        //animationView!.play()
-        animationView2!.play()
-
-    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("DISAPPEARING")
+        homeModel.clearTextFromLastRace(lastRaceLabel: lastRaceLabel, mySelf: self)
+    }
     
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        
         homeModel.formatUI(showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: titleAnimationview, titleImage: titleImage, lastRaceView: lastRaceView, lastRaceLabel: lastRaceLabel)
         recognizeTap()
         
