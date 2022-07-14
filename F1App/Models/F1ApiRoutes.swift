@@ -123,7 +123,6 @@ struct F1ApiRoutes  {
             
             do {
                 let racesData = try result.get().data.raceTable.races
-                print(try result.get().data.raceTable.round)
                 
                 for i in Range(0...racesData.count - 1){
                     Data.raceName.append(racesData[i].raceName)
@@ -141,6 +140,40 @@ struct F1ApiRoutes  {
     }
     
     
+    static func getStandings(seasonYear:String){
+        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 2022), limit: "1") { result in
+            do {
+                let standings = try result.get().data.standingsTable
+                
+                for i in Range(0...standings.standingsLists.count - 1) {
+                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
+                }
+                print(Data.raceWins)
+            } catch {
+                print("Error getting srandings")
+            }
+        }
+    }
+    
+    
+    //this can work as a seasons/circuits data
+    static func getData(seasonYear:String){
+        Formula1API.raceSchedule(for: Season.year(Int(seasonYear) ?? 2022)) { result in
+            print(result)
+            
+            do {
+                let f1Data = try result.get().data.raceTable.races
+                
+                for i in Range(0...f1Data.count - 1){
+                    print(f1Data[i].raceName)
+                }
+                
+                
+            } catch {
+                print("Error")
+            }
+        }
+    }
     
     
 

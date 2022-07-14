@@ -43,6 +43,8 @@ class HomeVC: UIViewController , UINavigationControllerDelegate{
         if viewController == self {
             print("Showing self now")
             homeModel.getLastRaceResult(enterYear: enterYear, mySelf: self)
+            F1ApiRoutes.getStandings(seasonYear: enterYear.text)
+            F1ApiRoutes.getData(seasonYear: enterYear.text)
 
         }
     }

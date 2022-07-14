@@ -47,6 +47,10 @@ class Data  {
     static var raceTime:[String?] = []
     static var raceURL:[String?] = []
     
+    static var raceWins:[String?] = []
+    static var racePosition:[String?] = []
+
+    
     static var qualiResults:[QualifyingResult] = []
     
     //new race result

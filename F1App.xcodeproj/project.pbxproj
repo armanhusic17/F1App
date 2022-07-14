@@ -21,6 +21,7 @@
 		0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */; };
 		0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F6BB1612875535500C5ED94 /* 107761-formula-one.json */; };
 		0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA079287F99CC000E8F49 /* teamLH.png */; };
+		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0FA3B5F628068F0D00A334D8 /* Collection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */; };
 		0FA3B5F728068F0D00A334D8 /* Collection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */; };
 		0FA3B5F828068F0D00A334D8 /* Collection_VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */; };
@@ -73,6 +74,7 @@
 		0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1ApiRoutes.swift; sourceTree = "<group>"; };
 		0F6BB1612875535500C5ED94 /* 107761-formula-one.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "107761-formula-one.json"; sourceTree = "<group>"; };
 		0F6FA079287F99CC000E8F49 /* teamLH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teamLH.png; sourceTree = "<group>"; };
+		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F92D2CE7CF8391E4C69CD3A /* Pods-F1App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.debug.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.debug.xcconfig"; sourceTree = "<group>"; };
 		0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection_VC.swift; sourceTree = "<group>"; };
 		0FA3B5F92806920E00A334D8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				0F6FA079287F99CC000E8F49 /* teamLH.png */,
+				0F6FA07B287FB52C000E8F49 /* circuitLogo.png */,
 				0F6BB1612875535500C5ED94 /* 107761-formula-one.json */,
 				0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */,
 			);
@@ -355,6 +358,7 @@
 			files = (
 				0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */,
 				0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */,
+				0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */,
 				0F515A1F27EC1BFF002129D7 /* LaunchScreen.storyboard in Resources */,
 				0F515A1C27EC1BFF002129D7 /* Assets.xcassets in Resources */,
 				0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */,

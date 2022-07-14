@@ -132,12 +132,15 @@ struct CollectionModel {
 //            cell.bottomCellLabel2.text = "\(self.constructorID[indexPath.item]?.capitalized ?? "") \(self.raceSeason[indexPath.item]?.capitalized ?? "")"
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
+            cell.cellImage.image = UIImage(named: "F1Logo")
+
             break
         case 1: // drivers
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
             cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")"
             cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item] ?? "Driver Number")"
-            
+            cell.cellImage.image = UIImage(named: "teamLH")
+
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
             break
@@ -150,7 +153,7 @@ struct CollectionModel {
 
             let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
             cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
-
+            cell.cellImage.image = UIImage(named: "circuitLogo")
             cell.bottomCellLabel2.text = self.circuitName[indexPath.item]
             cell.topCellLabel.text = "\(self.circuitCity[indexPath.item] ?? "City"), \(self.circuitLocation[indexPath.item] ?? "Country")"
             cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"
