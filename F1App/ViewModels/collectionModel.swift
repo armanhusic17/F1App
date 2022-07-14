@@ -126,14 +126,14 @@ struct CollectionModel {
     // what data is shown in the each cell
     func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView){
         switch Data.whichQuery {
-        case 0:
+        case 0: // constructor
             cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
             cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
-            cell.bottomCellLabel2.text = "\(self.constructorID[indexPath.item]?.capitalized ?? "") \(self.raceSeason[indexPath.item]?.capitalized ?? "")"
+//            cell.bottomCellLabel2.text = "\(self.constructorID[indexPath.item]?.capitalized ?? "") \(self.raceSeason[indexPath.item]?.capitalized ?? "")"
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
             break
-        case 1:
+        case 1: // drivers
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
             cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")"
             cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item] ?? "Driver Number")"
@@ -141,7 +141,7 @@ struct CollectionModel {
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
             break
-        case 2:
+        case 2: // circuits
             cell.F1MapView.isHidden = false
             cell.mapView.isHidden = false
 

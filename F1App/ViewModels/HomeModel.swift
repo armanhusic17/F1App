@@ -134,10 +134,10 @@ struct HomeModel {
 
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
-        
+        let maxYear = 2022
         if Data.whichQuery == 2 {
             targetYear = 1950
-            if year < targetYear! {
+            if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
@@ -150,7 +150,7 @@ struct HomeModel {
             }
         } else if Data.whichQuery == 1 {
             targetYear = 2014
-            if year < targetYear! {
+            if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
@@ -164,7 +164,7 @@ struct HomeModel {
         } else if Data.whichQuery == 0 {
             targetYear = 1950
 
-            if year < targetYear! {
+            if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {

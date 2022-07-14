@@ -70,7 +70,7 @@ struct F1ApiRoutes  {
                     Data.teamURL.append(thisArray[i].url)
                     Data.constructorID.append(thisArray[i].constructorID)
                     Data.f1Season.append(season)
-                
+                    
                 }
             } catch  {
                 print("Error decoding CONSTRUCTOR json data ")
