@@ -278,7 +278,6 @@
                         <outlet property="showDriversButton" destination="mZy-Gs-2Hn" id="Ydu-gE-hZ4"/>
                         <outlet property="titleAnimationview" destination="tki-6j-Ean" id="Qmm-Im-KqX"/>
                         <outlet property="titleImage" destination="3Aj-o4-uOq" id="xAa-i9-HaH"/>
-                        <segue destination="NAv-3K-nfW" kind="show" identifier="enterTransition" id="ZzP-ia-vx0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -517,9 +516,6 @@
             <point key="canvasLocation" x="1895" y="-630"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="HfT-AR-8wi"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Screen Shot 2022-04-12 at 9.47.47 PM" width="258" height="165.33332824707031"/>
         <image name="teamLH.png" width="459" height="544"/>

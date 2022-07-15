@@ -65,6 +65,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterYear.isHidden = false
         }
         if indexPath.item == 1 {
+            Data.whichQuery = 0
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
@@ -75,6 +76,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         }
         if indexPath.item == 2 {
+            Data.whichQuery = 1
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
@@ -85,6 +87,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         }
         if indexPath.item == 3 {
+            Data.whichQuery = 2
             cell.bottomLabel.text = "Circuits"
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
@@ -122,21 +125,21 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             if indexPath.item == 1 {
                 print("Constructors is selected")
                 Data.whichQuery = 0
-                // homeCollectionTransition
                 homeModel.setQueryNum(enterYear: cell.enterYear, homeSelf: self)
+
+
             }
             if indexPath.item == 2 {
                 print("Drivers is selected")
                 Data.whichQuery = 1
-                // homeCollectionTransition
                 homeModel.setQueryNum(enterYear: cell.enterYear, homeSelf: self)
 
             }
             if indexPath.item == 3 {
                 print("Circuits is selected")
                 Data.whichQuery = 2
-                // homeCollectionTransition
                 homeModel.setQueryNum(enterYear: cell.enterYear, homeSelf: self)
+
             }
             if indexPath.item == 4 {
                 print("cell is selected")

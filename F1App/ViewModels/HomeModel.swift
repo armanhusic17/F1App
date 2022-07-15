@@ -114,7 +114,7 @@ struct HomeModel {
         showConstructorsButton  .isUserInteractionEnabled = false
         circuitsButton          .isUserInteractionEnabled = false
         f1ApiRoute()
-        F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
+        //F1ApiRoutes.allCircuits(seasonYear: enterYear.text)
         progressView            .isHidden               = false
         activityIndicator       .startAnimating()
         
@@ -126,6 +126,14 @@ struct HomeModel {
             progressView           .isHidden                   = true
             homeSelf.performSegue(withIdentifier: "enterTransition", sender: self)
         }
+    }
+    
+    func showResults(homeSelf:homeCollection, f1ApiRoute: @escaping () -> Void){
+        f1ApiRoute()
+        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
+        }
+
     }
     
     
@@ -192,8 +200,9 @@ struct HomeModel {
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                F1ApiRoutes.allCircuits(seasonYear: thisSeason)
-                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: homeSelf)
+                showResults(homeSelf: homeSelf) {
+                    F1ApiRoutes.allCircuits(seasonYear: thisSeason)
+                }
 
             }
         } else if Data.whichQuery == 1 {
@@ -204,21 +213,25 @@ struct HomeModel {
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                F1ApiRoutes.allDrivers(seasonYear: thisSeason)
-                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: homeSelf)
+                showResults(homeSelf: homeSelf) {
+                    F1ApiRoutes.allDrivers(seasonYear: thisSeason)
+                }
+                
 
             }
         } else if Data.whichQuery == 0 {
             targetYear = 1950
 
             if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                F1ApiRoutes.allConstructors(seasonYear: thisSeason)
-                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: homeSelf)
+                showResults(homeSelf: homeSelf) {
+                    F1ApiRoutes.allConstructors(seasonYear: thisSeason)
+                }
+                
 
             }
         }
