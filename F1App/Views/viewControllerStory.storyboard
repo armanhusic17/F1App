@@ -23,6 +23,13 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" id="CpY-dB-BoD">
+                            <rect key="frame" x="0.0" y="-88" width="428" height="926"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.40000000000000002" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="color" red="0.40000000000000002" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="homeCell" reuseIdentifier="myHomeCell" id="IGx-oF-udh" customClass="myHomeCell" customModule="F1App" customModuleProvider="target">
                                 <rect key="frame" x="28" y="0.0" width="372" height="205"/>
@@ -52,7 +59,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="2022" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="UzO-9O-PKE">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="2022" textAlignment="center" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UzO-9O-PKE">
                                                     <rect key="frame" x="8" y="41" width="354" height="50"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -60,7 +67,7 @@
                                                     </constraints>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="search" enablesReturnKeyAutomatically="YES" textContentType="postal-code"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -102,6 +109,7 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="aCc-ad-mg9"/>
                     <connections>
+                        <outlet property="cellActivityIndicator" destination="CpY-dB-BoD" id="okp-dN-RL1"/>
                         <segue destination="NAv-3K-nfW" kind="show" identifier="homeCollectionTransition" id="HfT-AR-8wi"/>
                     </connections>
                 </collectionViewController>

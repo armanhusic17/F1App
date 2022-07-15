@@ -109,7 +109,7 @@ struct HomeModel {
 
     }
     
-    func resultsTransition(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:HomeVC,f1ApiRoute: @escaping () -> Void){
+    func resultsTransition(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:homeCollection,f1ApiRoute: @escaping () -> Void){
         showDriversButton       .isUserInteractionEnabled = false
         showConstructorsButton  .isUserInteractionEnabled = false
         circuitsButton          .isUserInteractionEnabled = false
@@ -128,9 +128,13 @@ struct HomeModel {
         }
     }
     
-    func showResults(homeSelf:homeCollection, f1ApiRoute: @escaping () -> Void){
+    func showResults(activityIndicator:UIActivityIndicatorView, homeSelf:homeCollection, f1ApiRoute: @escaping () -> Void){
         f1ApiRoute()
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
             homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
         }
 
@@ -138,7 +142,7 @@ struct HomeModel {
     
     
     // this func sets up the resulting cells from selection on homeVC
-    func setQueryNumber(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:HomeVC){
+    func setQueryNumber(showDriversButton:UIButton, showConstructorsButton:UIButton, circuitsButton:UIButton, enterYear:UITextView, progressView:UIView , titleImage:UIImageView, lastRaceView:UIView,activityIndicator:UIActivityIndicatorView,homeSelf:homeCollection){
 
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
@@ -147,7 +151,7 @@ struct HomeModel {
             targetYear = 1950
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
+                showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
@@ -160,7 +164,7 @@ struct HomeModel {
             targetYear = 2014
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
+                showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
@@ -174,7 +178,7 @@ struct HomeModel {
 
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
+                showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
@@ -187,7 +191,7 @@ struct HomeModel {
        
     }
     
-    func setQueryNum(enterYear:UITextView,homeSelf:homeCollection){
+    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:homeCollection){
 
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
@@ -200,7 +204,7 @@ struct HomeModel {
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                showResults(homeSelf: homeSelf) {
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allCircuits(seasonYear: thisSeason)
                 }
 
@@ -213,7 +217,7 @@ struct HomeModel {
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                showResults(homeSelf: homeSelf) {
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allDrivers(seasonYear: thisSeason)
                 }
                 
@@ -228,7 +232,7 @@ struct HomeModel {
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                showResults(homeSelf: homeSelf) {
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allConstructors(seasonYear: thisSeason)
                 }
                 
@@ -273,25 +277,30 @@ struct HomeModel {
     }
     
     
-    func getLastRaceResult(enterYear:UITextView, mySelf:HomeVC){
-        guard let year = enterYear.text else {return}
-        
-        if Int(year)! >= 2005 {
-            F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
-//            mySelf.lastRaceLabel.font = UIFont(name: "MarkerFelt-Thin", size: 28.0)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
-                mySelf.lastRaceLabel.text = "Race Result from \(enterYear.text ?? "Year") : Round 1 \n\nRace Name : \((Data.raceName[safe: 0] ?? "Loading...") ?? ""  ) \n\n Position \(Data.qualiResults[safe: 0]?.position ?? "Loading...") : \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
-            }
-        }
-        
-        
-
-    }
+//    func getLastRaceResult(enterYear:UITextView, mySelf:homeCollection){
+//        guard let year = enterYear.text else {return}
+//
+//        if Int(year)! >= 2005 {
+//            F1ApiRoutes.getQualiResults(seasonYear: enterYear.text)
+////            mySelf.lastRaceLabel.font = UIFont(name: "MarkerFelt-Thin", size: 28.0)
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.98) {
+//                mySelf.lastRaceLabel.text = "Race Result from \(enterYear.text ?? "Year") : Round 1 \n\nRace Name : \((Data.raceName[safe: 0] ?? "Loading...") ?? ""  ) \n\n Position \(Data.qualiResults[safe: 0]?.position ?? "Loading...") : \(Data.qualiResults[safe: 0]?.driver.givenName ?? "Loading...") \(Data.qualiResults[safe: 0]?.driver.familyName ?? "Loading...")\n\n Constructor: \(Data.qualiResults[safe: 0]?.constructor.name ?? "Loading..." ) "
+//            }
+//        }
+//
+//
+//
+//    }
+//
+//
+//
+//    func clearTextFromLastRace(lastRaceLabel:UILabel, mySelf:homeCollection){
+//        mySelf.lastRaceLabel.text?.removeAll()
+//    }
+//
     
     
     
-    func clearTextFromLastRace(lastRaceLabel:UILabel, mySelf:HomeVC){
-        mySelf.lastRaceLabel.text?.removeAll()
-    }
+    
     
 }
