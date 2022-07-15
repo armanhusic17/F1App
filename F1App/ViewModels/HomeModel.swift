@@ -19,7 +19,7 @@ struct HomeModel {
     
 
     
-    func showAlert(passSelf:HomeVC){
+    func showAlert(passSelf:homeCollection){
         if Data.whichQuery == 0 {
             let alert = UIAlertController(title: "Available Years for Constructor Data", message: "Only Data 1950 - Present available.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -139,7 +139,7 @@ struct HomeModel {
             targetYear = 1950
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
+//                showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
@@ -152,7 +152,7 @@ struct HomeModel {
             targetYear = 2014
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
+//                showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
@@ -166,7 +166,7 @@ struct HomeModel {
 
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
+//                showAlert(passSelf: homeSelf)
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
@@ -174,6 +174,52 @@ struct HomeModel {
                 resultsTransition( showDriversButton: showDriversButton, showConstructorsButton: showConstructorsButton, circuitsButton: circuitsButton, enterYear: enterYear, progressView: progressView , titleImage: titleImage, lastRaceView: lastRaceView, activityIndicator: activityIndicator, homeSelf: homeSelf ,f1ApiRoute: {
                     F1ApiRoutes.allConstructors(seasonYear: thisSeason)
                 })
+            }
+        }
+       
+    }
+    
+    func setQueryNum(enterYear:UITextView,homeSelf:homeCollection){
+
+        guard let year = Int(enterYear.text) else {return}
+        let targetYear:Int?
+        let maxYear = 2022
+        if Data.whichQuery == 2 {
+            targetYear = 1950
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                F1ApiRoutes.allCircuits(seasonYear: thisSeason)
+                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: homeSelf)
+
+            }
+        } else if Data.whichQuery == 1 {
+            targetYear = 2014
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                F1ApiRoutes.allDrivers(seasonYear: thisSeason)
+                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: homeSelf)
+
+            }
+        } else if Data.whichQuery == 0 {
+            targetYear = 1950
+
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                F1ApiRoutes.allConstructors(seasonYear: thisSeason)
+                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: homeSelf)
+
             }
         }
        
