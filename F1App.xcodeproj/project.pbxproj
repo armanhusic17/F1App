@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */; };
+		0F1D75172880FA7600EFE42E /* homeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75162880FA7600EFE42E /* homeCollection.swift */; };
+		0F1D75192881286500EFE42E /* homeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* homeCell.swift */; };
+		0F1D751A2881286500EFE42E /* homeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* homeCell.swift */; };
+		0F1D751B2881286500EFE42E /* homeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* homeCell.swift */; };
 		0F3703FD27F13C1400968C5F /* myCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3703FC27F13C1400968C5F /* myCell.swift */; };
 		0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */; };
 		0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A1127EC1BFE002129D7 /* SceneDelegate.swift */; };
@@ -57,6 +61,8 @@
 /* Begin PBXFileReference section */
 		087C61132AB251D5A9399339 /* Pods_F1App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_F1App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
+		0F1D75162880FA7600EFE42E /* homeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeCollection.swift; sourceTree = "<group>"; };
+		0F1D75182881286500EFE42E /* homeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeCell.swift; sourceTree = "<group>"; };
 		0F3703FC27F13C1400968C5F /* myCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myCell.swift; sourceTree = "<group>"; };
 		0F515A0C27EC1BFE002129D7 /* F1App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F1App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -215,6 +221,7 @@
 				0FA3B5F528068F0D00A334D8 /* Collection_VC.swift */,
 				0FBC7801285B97700084D58A /* ResultsVC.swift */,
 				0F515A1327EC1BFE002129D7 /* HomeVC.swift */,
+				0F1D75162880FA7600EFE42E /* homeCollection.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -223,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				0F3703FC27F13C1400968C5F /* myCell.swift */,
+				0F1D75182881286500EFE42E /* homeCell.swift */,
 			);
 			path = Reuse;
 			sourceTree = "<group>";
@@ -431,8 +439,10 @@
 			files = (
 				0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */,
 				0F515A1427EC1BFE002129D7 /* HomeVC.swift in Sources */,
+				0F1D75192881286500EFE42E /* homeCell.swift in Sources */,
 				0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */,
 				0F3703FD27F13C1400968C5F /* myCell.swift in Sources */,
+				0F1D75172880FA7600EFE42E /* homeCollection.swift in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* Collection_VC.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
@@ -450,6 +460,7 @@
 			files = (
 				0FA3B5FB2806920E00A334D8 /* DataModel.swift in Sources */,
 				0F515A2A27EC1C00002129D7 /* F1AppTests.swift in Sources */,
+				0F1D751A2881286500EFE42E /* homeCell.swift in Sources */,
 				0FA3B5F728068F0D00A334D8 /* Collection_VC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +473,7 @@
 				0F515A3627EC1C00002129D7 /* F1AppUITestsLaunchTests.swift in Sources */,
 				0FA3B5F828068F0D00A334D8 /* Collection_VC.swift in Sources */,
 				0FA3B5FC2806920E00A334D8 /* DataModel.swift in Sources */,
+				0F1D751B2881286500EFE42E /* homeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

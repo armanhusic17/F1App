@@ -166,6 +166,14 @@ struct F1ApiRoutes  {
                 
                 for i in Range(0...f1Data.count - 1){
                     print(f1Data[i].raceName)
+                    print(f1Data[i].date)
+                    print(f1Data[i].circuit.location.locality)
+                    print(f1Data[i].circuit.location.country)
+                    print(f1Data[i].circuit.location.lat)
+                    print(f1Data[i].circuit.location.long)
+
+
+
                 }
                 
                 
