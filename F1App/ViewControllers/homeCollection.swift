@@ -80,11 +80,15 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.bottomLabel.text = ""
             cell.topLabel.text = "Enter F1 Season"
             cell.enterF1SeasonYear.isHidden = false
-            //cell.homeCellImageView.image = UIImage(named: "Screen Shot 2022-04-12 at 9.47.47 PM")
-            
+            cell.enterF1SeasonYear.backgroundColor = UIColor.clear
+            cell.homeCellImageView.image = UIImage(named: "Screen Shot 2022-04-12 at 9.47.47 PM")
+            cell.homeBaseView.backgroundColor = UIColor.clear
         }
         if indexPath.item == 1 {
             Data.whichQuery = 0
+            
+            cell.homeBaseView.backgroundColor = UIColor.lightGray
+            cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -93,6 +97,9 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 2 {
             Data.whichQuery = 1
+            
+            cell.homeBaseView.backgroundColor = UIColor.lightGray
+            cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -102,6 +109,9 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 3 {
             Data.whichQuery = 2
+            
+            cell.homeBaseView.backgroundColor = UIColor.lightGray
+            cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Circuits"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -111,6 +121,9 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 4 {
             Data.whichQuery = 3
+            
+            cell.homeBaseView.backgroundColor = UIColor.lightGray
+            cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Standings"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -119,9 +132,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 
         }
-        cell.homeBaseView.backgroundColor = UIColor.lightGray
-        cell.homeBaseView.alpha = 0.5
-
+        
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.systemRed.cgColor
         cell.layer.cornerRadius = 8
