@@ -14,7 +14,7 @@ class myHomeCell: UICollectionViewCell {
     @IBOutlet weak var homeBaseView: UIView!
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var topLabel: UILabel!
-    @IBOutlet weak var enterYear: UITextView!
+    @IBOutlet weak var enterF1SeasonYear: UITextView!
     
     
     

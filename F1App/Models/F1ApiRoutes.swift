@@ -118,7 +118,6 @@ struct F1ApiRoutes  {
     
     // Query to get Last race result for homescreen
     static func getQualiResults(seasonYear:String){
-        
         Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), limit: "3") { result in
             
             do {
