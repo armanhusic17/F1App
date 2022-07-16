@@ -131,7 +131,7 @@ struct HomeModel {
             let upperBound = 2004
             targetYear = 1950
             
-            if year > targetYear ?? 1950 && year < upperBound {
+            if year > targetYear ?? 1950 && year <= upperBound {
                 print(year, targetYear!, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
