@@ -77,7 +77,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="search" textContentType="postal-code"/>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="UzO-9O-PKE" firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" id="1a8-jP-9DF"/>
                                                 <constraint firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" constant="8" id="COL-6h-ihe"/>
@@ -99,7 +99,7 @@
                                         <constraint firstItem="Ts8-YY-Ivz" firstAttribute="top" secondItem="afS-eS-9vC" secondAttribute="top" constant="1" id="baO-rv-je1"/>
                                     </constraints>
                                 </collectionViewCellContentView>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <size key="customSize" width="372" height="205"/>
                                 <connections>
                                     <outlet property="bottomLabel" destination="wnU-US-zXV" id="9Rj-be-Atr"/>

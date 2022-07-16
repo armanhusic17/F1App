@@ -89,7 +89,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
             cell.layer.borderColor = UIColor.gray.cgColor
-//            cell.enterYear.isHidden = true
+            cell.enterF1SeasonYear.isHidden = true
 
 
         }
@@ -99,7 +99,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
             cell.layer.borderColor = UIColor.gray.cgColor
-//            cell.enterYear.isHidden = true
+            cell.enterF1SeasonYear.isHidden = true
 
 
         }
@@ -109,19 +109,21 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
             cell.layer.borderColor = UIColor.gray.cgColor
-//            cell.enterYear.isHidden = true
+            cell.enterF1SeasonYear.isHidden = true
 
 
         }
         if indexPath.item == 4 {
-            cell.bottomLabel.text = "F1 Data App"
+            cell.bottomLabel.text = "Standings"
             cell.topLabel.isHidden = true
             cell.layer.borderWidth = 4
             cell.layer.borderColor = UIColor.gray.cgColor
-//            cell.enterYear.isHidden = true
+            cell.enterF1SeasonYear.isHidden = true
 
 
         }
+        
+        cell.layer.cornerRadius = 4
         
         return cell
     }
@@ -143,8 +145,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                 Data.whichQuery = 0
                 
 
-                let cell = collectionView.cellForItem(at:  indexPath) as! myHomeCell
-                print(cell.enterF1SeasonYear.text)
+                let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
          
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
 
@@ -152,16 +153,14 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             if indexPath.item == 2 {
                 print("Drivers is selected")
                 Data.whichQuery = 1
-                let cell = collectionView.cellForItem(at:  indexPath) as! myHomeCell
-                print(cell.enterF1SeasonYear.text)
+                let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
 
             }
             if indexPath.item == 3 {
                 print("Circuits is selected")
                 Data.whichQuery = 2
-                let cell = collectionView.cellForItem(at:  indexPath) as! myHomeCell
-                print(cell.enterF1SeasonYear.text)
+                let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
 
             }
