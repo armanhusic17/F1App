@@ -13,7 +13,7 @@ struct HomeModel {
     
     
     var decodedJSONObject:String = ""
-    let qTime:Double = 1.0
+    let qTime:Double = 1.75
     var seasonRound:String?
     var seasonYear:String?
     
@@ -64,6 +64,26 @@ struct HomeModel {
         }
         else if Data.whichQuery == 2 {
             let alert = UIAlertController(title: "Available Years for Circuit Data", message: "Only 1950 to Present", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                switch action.style{
+                    case .default:
+                    print("default")
+                    
+                    case .cancel:
+                    print("cancel")
+                    
+                    case .destructive:
+                    print("destructive")
+                    
+                @unknown default:
+                    print("ERROR IN ALERT STYLE")
+                }
+            }))
+            passSelf.present(alert, animated: true, completion: nil)
+
+        }
+        else if Data.whichQuery == 3 {
+            let alert = UIAlertController(title: "Available Years for Standings Data", message: "Only 2004 to Present", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 switch action.style{
                     case .default:
@@ -152,6 +172,24 @@ struct HomeModel {
 
                 showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allConstructors(seasonYear: thisSeason)
+                }
+                
+
+            }
+        } else if Data.whichQuery == 3 {
+            targetYear = 2004
+
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                print(year, targetYear, maxYear)
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                print(thisSeason)
+
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                    F1ApiRoutes.getStandings(seasonYear: thisSeason)
                 }
                 
 

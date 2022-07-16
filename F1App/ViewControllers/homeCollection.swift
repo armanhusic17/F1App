@@ -58,10 +58,10 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         
         if indexPath.item == 0 {
-            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.20)
+            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.15)
 
         }
-        return CGSize(width: CGFloat((collectionView.frame.size.width / 2) - 1), height: view.frame.height * 0.35)
+        return CGSize(width: CGFloat((collectionView.frame.size.width / 2) - 1), height: view.frame.height * 0.30)
     }
     
     
@@ -77,29 +77,26 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! myHomeCell
         
         if indexPath.item == 0 {
-            cell.bottomLabel.text = "Enter F1 Season"
-            cell.topLabel.text = ""
-            cell.layer.borderWidth = 8
-            cell.layer.borderColor = UIColor.black.cgColor
+            cell.bottomLabel.text = ""
+            cell.topLabel.text = "Enter F1 Season"
             cell.enterF1SeasonYear.isHidden = false
+            //cell.homeCellImageView.image = UIImage(named: "Screen Shot 2022-04-12 at 9.47.47 PM")
+            
         }
         if indexPath.item == 1 {
             Data.whichQuery = 0
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
-            cell.layer.borderWidth = 4
-            cell.layer.borderColor = UIColor.gray.cgColor
             cell.enterF1SeasonYear.isHidden = true
-
+            cell.homeCellImageView.image = UIImage(named: "F1Logo")
 
         }
         if indexPath.item == 2 {
             Data.whichQuery = 1
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
-            cell.layer.borderWidth = 4
-            cell.layer.borderColor = UIColor.gray.cgColor
             cell.enterF1SeasonYear.isHidden = true
+            cell.homeCellImageView.image = UIImage(named: "teamLH")
 
 
         }
@@ -107,23 +104,27 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             Data.whichQuery = 2
             cell.bottomLabel.text = "Circuits"
             cell.topLabel.isHidden = true
-            cell.layer.borderWidth = 4
-            cell.layer.borderColor = UIColor.gray.cgColor
             cell.enterF1SeasonYear.isHidden = true
+            cell.homeCellImageView.image = UIImage(named: "circuitLogo")
 
 
         }
         if indexPath.item == 4 {
+            Data.whichQuery = 3
             cell.bottomLabel.text = "Standings"
             cell.topLabel.isHidden = true
-            cell.layer.borderWidth = 4
-            cell.layer.borderColor = UIColor.gray.cgColor
             cell.enterF1SeasonYear.isHidden = true
+            cell.homeCellImageView.image = UIImage(named: "F1Logo")
+
 
 
         }
-        
-        cell.layer.cornerRadius = 4
+        cell.homeBaseView.backgroundColor = UIColor.lightGray
+        cell.homeBaseView.alpha = 0.5
+
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor.systemRed.cgColor
+        cell.layer.cornerRadius = 8
         
         return cell
     }
@@ -135,38 +136,37 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
-            
+            // have to disable cells so that the user doesnt send multiple queries as the data loads
             if indexPath.item == 0 {
                 print("THIS IS THE TITLE CELL, maybe place to select year")
                 
             }
             if indexPath.item == 1 {
-                print("Constructors is selected")
+                print("Constructors cell is selected")
                 Data.whichQuery = 0
-                
-
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
-         
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
 
             }
             if indexPath.item == 2 {
-                print("Drivers is selected")
+                print("Drivers cell is selected")
                 Data.whichQuery = 1
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
 
             }
             if indexPath.item == 3 {
-                print("Circuits is selected")
+                print("Circuits cell is selected")
                 Data.whichQuery = 2
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
 
             }
             if indexPath.item == 4 {
-                print("cell is selected")
-
+                print("Standings cell is selected")
+                Data.whichQuery = 3
+                let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
             }
 
         }

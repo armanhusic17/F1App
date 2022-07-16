@@ -80,38 +80,63 @@ struct F1ApiRoutes  {
     
     // Circuits
     static func allCircuits(seasonYear:String){
-        let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
         
-        guard let unwrappedURL = URL(string: url) else {return}
-        
-        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
-                    
-            guard let data = data else {return}
+        Formula1API.raceSchedule(for: Season.year(Int(seasonYear) ?? 0)) { result in
+            print(result)
             
             do {
-                let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
-                let thisArray = f1Data.data.circuitTable.circuits
-        
-                let thisCount = thisArray.count - 1
-                Data.cellCount = thisCount
-                if thisCount >= 0 {
+                let f1Data = try result.get().data.raceTable.races
+                
+                for i in Range(0...f1Data.count - 1){
+                    
+                    Data.circuitName.append(f1Data[i].raceName)
+                    Data.circuitRaceDate.append(f1Data[i].date)
+                    Data.circuitURL.append("https://en.wikipedia.org/wiki/\(f1Data[i].circuit.circuitName.replacingOccurrences(of: " ", with: "_"))")
 
-                    for i in Range(0...thisCount){
-                        Data.circuitName.append(thisArray[i].circuitName)
-                        Data.circuitID.append(thisArray[i].circuitID)
-                        Data.circuitLocation.append(thisArray[i].location.country)
-                        Data.circuitCity.append(thisArray[i].location.locality)
-                        
-                        Data.circuitURL.append("https://en.wikipedia.org/wiki/\(thisArray[i].circuitName.replacingOccurrences(of: " ", with: "_"))")
-                        Data.circuitLatitude.append(thisArray[i].location.lat)
-                        Data.circuitLongitude.append(thisArray[i].location.long)
-                    }
+                    Data.circuitCity.append(f1Data[i].circuit.location.locality)
+                    Data.circuitLocation.append(f1Data[i].circuit.location.country)
+                    Data.circuitLatitude.append(f1Data[i].circuit.location.lat)
+                    Data.circuitLongitude.append(f1Data[i].circuit.location.long)
+
                 }
-     
-            } catch  {
-                print("Error decoding CIRCUIT json data ")
+                Data.cellCount = f1Data.count - 1
+
+            } catch {
+                print("Error")
             }
-        }.resume()
+        }
+//        let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
+//
+//        guard let unwrappedURL = URL(string: url) else {return}
+//
+//        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+//
+//            guard let data = data else {return}
+//
+//            do {
+//                let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
+//                let thisArray = f1Data.data.circuitTable.circuits
+//
+//                let thisCount = thisArray.count - 1
+//                Data.cellCount = thisCount
+//                if thisCount >= 0 {
+//
+//                    for i in Range(0...thisCount){
+//                        Data.circuitName.append(thisArray[i].circuitName)
+//                        Data.circuitID.append(thisArray[i].circuitID)
+//                        Data.circuitLocation.append(thisArray[i].location.country)
+//                        Data.circuitCity.append(thisArray[i].location.locality)
+//
+//                        Data.circuitURL.append("https://en.wikipedia.org/wiki/\(thisArray[i].circuitName.replacingOccurrences(of: " ", with: "_"))")
+//                        Data.circuitLatitude.append(thisArray[i].location.lat)
+//                        Data.circuitLongitude.append(thisArray[i].location.long)
+//                    }
+//                }
+//
+//            } catch  {
+//                print("Error decoding CIRCUIT json data ")
+//            }
+//        }.resume()
     
     }
     
@@ -140,14 +165,49 @@ struct F1ApiRoutes  {
     
     
     static func getStandings(seasonYear:String){
-        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 2022), limit: "1") { result in
+        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "2") { result in
             do {
                 let standings = try result.get().data.standingsTable
-                
                 for i in Range(0...standings.standingsLists.count - 1) {
+                    print(standings.standingsLists[i].driverStandings[i])
                     Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
+                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
+                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
+
+
                 }
-                print(Data.raceWins)
+            } catch {
+                print("Error getting srandings")
+            }
+        }
+        
+        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "1") { result in
+            do {
+                let standings = try result.get().data.standingsTable
+                for i in Range(0...standings.standingsLists.count - 1) {
+                    print(standings.standingsLists[i].driverStandings[i])
+                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
+                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
+                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
+
+
+                }
+            } catch {
+                print("Error getting srandings")
+            }
+        }
+        
+        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "3") { result in
+            do {
+                let standings = try result.get().data.standingsTable
+                for i in Range(0...standings.standingsLists.count - 1) {
+                    print(standings.standingsLists[i].driverStandings[i])
+                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
+                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
+                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
+
+
+                }
             } catch {
                 print("Error getting srandings")
             }
@@ -157,13 +217,14 @@ struct F1ApiRoutes  {
     
     //this can work as a seasons/circuits data
     static func getData(seasonYear:String){
-        Formula1API.raceSchedule(for: Season.year(Int(seasonYear) ?? 2022)) { result in
+        Formula1API.raceSchedule(for: Season.year(Int(seasonYear) ?? 0)) { result in
             print(result)
             
             do {
                 let f1Data = try result.get().data.raceTable.races
                 
                 for i in Range(0...f1Data.count - 1){
+                    
                     print(f1Data[i].raceName)
                     print(f1Data[i].date)
                     print(f1Data[i].circuit.location.locality)
@@ -171,11 +232,7 @@ struct F1ApiRoutes  {
                     print(f1Data[i].circuit.location.lat)
                     print(f1Data[i].circuit.location.long)
 
-
-
                 }
-                
-                
             } catch {
                 print("Error")
             }
