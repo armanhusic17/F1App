@@ -85,6 +85,8 @@ struct CollectionModel {
         Data.raceWins.removeAll()
         Data.racePoints.removeAll()
         Data.raceWinnerName.removeAll()
+        Data.raceDate.removeAll()
+        Data.circuitRaceDate.removeAll()
         
         print("removed all data points from the arrays holding the cells")
     }
