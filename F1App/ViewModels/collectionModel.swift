@@ -175,7 +175,7 @@ struct CollectionModel {
             cell.cellImage.image = UIImage(named: "circuitLogo")
             cell.bottomCellLabel2.text = "\(self.circuitName[indexPath.item] ?? "")"
             cell.topCellLabel.text = "\(self.circuitCity[indexPath.item] ?? "City"), \(self.circuitLocation[indexPath.item] ?? "Country")"
-            cell.bottomCellLabel.text = "Round \(indexPath.item + 1), \(self.circuitRaceDate[indexPath.item] ?? "")"
+            cell.bottomCellLabel.text = "Round \((indexPath.item + 1)), \((self.circuitRaceDate[safe: indexPath.item] ?? "") ?? "")"
             cell.mapView.layer.borderWidth = 2
             cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
             break

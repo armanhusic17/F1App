@@ -125,23 +125,49 @@ struct HomeModel {
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
         let maxYear = 2022
+        
+        
         if Data.whichQuery == 2 {
+            let upperBound = 2004
             targetYear = 1950
             
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
-                print(year, targetYear, maxYear)
-                Data.seasonYearSelected = enterYear.text                
+            if year > targetYear ?? 1950 && year < upperBound {
+                print(year, targetYear!, maxYear)
+                Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
+                print("RUNNING BEFORE 2004 QUERY")
                 print(thisSeason)
 
                 showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allCircuits(seasonYear: thisSeason)
                 }
-
             }
+            else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
+                print(year, targetYear, maxYear)
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                print("RUNNING MODERN DAY CIRCUITS QUERY")
+                print(thisSeason)
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                    F1ApiRoutes.allCircuitsAfter2004(seasonYear: thisSeason)
+                }
+            }
+            else if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         } else if Data.whichQuery == 1 {
             targetYear = 2014
             if year < targetYear! || year > maxYear {
