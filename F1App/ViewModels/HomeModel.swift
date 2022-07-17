@@ -208,6 +208,24 @@ struct HomeModel {
 
             }
         }
+        else if Data.whichQuery == 4 {
+            targetYear = 2004
+
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                print(thisSeason)
+
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                    F1ApiRoutes.getQualiResults(seasonYear: thisSeason)
+                }
+                
+
+            }
+        }
        
     }
     

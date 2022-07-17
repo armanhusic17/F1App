@@ -146,15 +146,12 @@ struct F1ApiRoutes  {
     
     // Query to get Last race result for homescreen
     static func getQualiResults(seasonYear:String){
-        Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), limit: "3") { result in
+        Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), limit: "10") { result in
             
             do {
                 let racesData = try result.get().data.raceTable.races
                 
                 for i in Range(0...racesData.count - 1){
-                    Data.raceName.append(racesData[i].raceName)
-                    Data.raceTime.append(racesData[i].time)
-                    Data.raceDate.append(racesData[i].date)
                     Data.qualiResults = racesData[i].qualifyingResults!
                     print(racesData[i].qualifyingResults?[i])
                 }
@@ -192,6 +189,7 @@ struct F1ApiRoutes  {
                     Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
                     Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
                     Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
+                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
 
 
                 }
@@ -209,7 +207,7 @@ struct F1ApiRoutes  {
                     Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
                     Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
                     print(standings.standingsLists[i].driverStandings[i])
-                    print(standings.standingsLists[i].driverStandings[i].constructors)
+                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
                 }
             } catch {
                 print("Error getting srandings")
@@ -224,7 +222,7 @@ struct F1ApiRoutes  {
                     Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
                     Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
                     print(standings.standingsLists[i].driverStandings[i])
-                    print(standings.standingsLists[i].driverStandings[i].constructors)
+                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
                 }
             } catch {
                 print("Error getting srandings")
@@ -239,7 +237,7 @@ struct F1ApiRoutes  {
                     Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
                     Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
                     print(standings.standingsLists[i].driverStandings[i])
-                    print(standings.standingsLists[i].driverStandings[i].constructors)
+                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
                 }
             } catch {
                 print("Error getting srandings")

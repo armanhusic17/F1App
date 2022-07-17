@@ -15,7 +15,6 @@ class Data  {
     static var teamNationality:[String?] = []
     static var teamURL:[String?] = []
     static var teamImgURL: [String?] = []
-//    static var team
     
     static var constructorID:[String?] = []
     // Driver Data
@@ -31,7 +30,6 @@ class Data  {
     // Cell Index
     static var cellIndexPassed:Int?
     
-    // Determine Query - Team = 0; Driver = 1;
     // Circuit Data
     static var circuitID:[String?] = []
     static var circuitName:[String?] = []
@@ -53,7 +51,6 @@ class Data  {
     static var racePoints:[String?] = []
     static var raceWinnerName:[String?] = []
     static var raceWinnerTeam:[String?] = []
-//    static var
     
     static var qualiResults:[QualifyingResult] = []
     

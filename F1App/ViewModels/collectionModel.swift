@@ -43,7 +43,9 @@ struct CollectionModel {
     let raceWins = Data.raceWins
     let racePoints = Data.racePoints
     let raceWinnerName = Data.raceWinnerName
-
+    let raceWinnerTeam = Data.raceWinnerTeam
+    
+    let qualiResuls = Data.qualiResults
     
     let cellCountForCircuits = Data.cellCount
     
@@ -87,6 +89,8 @@ struct CollectionModel {
         Data.raceWinnerName.removeAll()
         Data.raceDate.removeAll()
         Data.circuitRaceDate.removeAll()
+        Data.racePosition.removeAll()
+        Data.raceWinnerTeam.removeAll()
         
         print("removed all data points from the arrays holding the cells")
     }
@@ -106,7 +110,10 @@ struct CollectionModel {
             return cellcount
         }
         if Data.whichQuery == 3 {
-            return  Data.raceWins.count
+            return  raceWins.count
+        }
+        if Data.whichQuery == 4 {
+            return  qualiResuls.count
         }
         // arbitrary return
         return 1
@@ -134,6 +141,10 @@ struct CollectionModel {
         } else if Data.whichQuery == 3 {
             queryWidth = availableWidth * 0.65
             queryHeight = availableHeight * 0.15
+            return CGSize(width: queryWidth!, height: queryHeight!)
+        } else if Data.whichQuery == 4 {
+            queryWidth = availableWidth * 0.85
+            queryHeight = availableHeight * 0.30
             return CGSize(width: queryWidth!, height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
@@ -184,14 +195,23 @@ struct CollectionModel {
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
 
-            cell.topCellLabel.text = "\(raceWinnerName[safe: indexPath.item] ?? "" )"
-            cell.bottomCellLabel.text = "Wins : \(raceWins[safe: indexPath.item] ?? "")"
-            cell.bottomCellLabel2.text = "Point Total : \(racePoints[safe: indexPath.item] ?? "")"
+            cell.topCellLabel.text = "\(String(describing: raceWinnerName[indexPath.item] ?? "") )" + ", \(raceWinnerTeam[indexPath.item] ?? "")"
+            cell.bottomCellLabel.text = "Wins : \(String(describing: raceWins[indexPath.item] ?? ""))"
+            cell.bottomCellLabel2.text = "Point Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
             
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
             cell.cellImage.image = UIImage(named: "F1Logo")
-
+            break
+        case 4: // Quali
+            cell.cellImage.image = UIImage(named: "F1Logo")
+            cell.topCellLabel.text = "\(Data.qualiResults[indexPath.item].driver.givenName) \(Data.qualiResults[indexPath.item].driver.familyName) #\(Data.qualiResults[indexPath.item].number)"
+            cell.mapView.isHidden = true
+            cell.F1MapView.isHidden = true
+            cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[indexPath.item].q1),\n Q2:\(qualiResuls[indexPath.item].q2 ?? ""),\n Q3:\(qualiResuls[indexPath.item].q3 ?? "") "
+            cell.bottomCellLabel.text = "P\(qualiResuls[indexPath.item].position)"
+            
+            break
         case .none:
             print("None")
         case .some(_):
