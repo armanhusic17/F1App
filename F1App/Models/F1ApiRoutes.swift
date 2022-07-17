@@ -163,6 +163,8 @@ struct F1ApiRoutes  {
         
     }
     
+
+    
     
     static func getStandings(seasonYear:String){
         Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0)) { result in
