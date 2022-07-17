@@ -31,6 +31,8 @@ class Collection_VC : UICollectionViewController, UICollectionViewDelegateFlowLa
         return collectionmodel.howManyCells()
     }
     
+
+    
     // Size of cells from model
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         collectionmodel.cellSizeFromQuery(view: view)

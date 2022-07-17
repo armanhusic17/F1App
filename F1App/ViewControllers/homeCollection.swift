@@ -61,13 +61,17 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.15)
 
         }
+        else if indexPath.item == 5 {
+            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.50)
+
+        }
         return CGSize(width: CGFloat((collectionView.frame.size.width / 2) - 1), height: view.frame.height * 0.30)
     }
     
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     
@@ -83,10 +87,12 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.backgroundColor = UIColor.clear
             cell.homeCellImageView.image = UIImage(named: "Screen Shot 2022-04-12 at 9.47.47 PM")
             cell.homeBaseView.backgroundColor = UIColor.clear
+            cell.layer.borderWidth = 0.0
         }
         if indexPath.item == 1 {
             Data.whichQuery = 0
-            
+            cell.layer.borderWidth = 0.75
+
             cell.homeBaseView.backgroundColor = UIColor.lightGray
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Constructors"
@@ -97,7 +103,8 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 2 {
             Data.whichQuery = 1
-            
+            cell.layer.borderWidth = 0.75
+
             cell.homeBaseView.backgroundColor = UIColor.lightGray
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Drivers"
@@ -109,7 +116,8 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 3 {
             Data.whichQuery = 2
-            
+            cell.layer.borderWidth = 0.75
+
             cell.homeBaseView.backgroundColor = UIColor.lightGray
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Circuits"
@@ -121,32 +129,39 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 4 {
             Data.whichQuery = 3
-            
+            cell.layer.borderWidth = 0.75
+
             cell.homeBaseView.backgroundColor = UIColor.lightGray
             cell.homeBaseView.alpha = 0.5
-            cell.bottomLabel.text = "Standings"
+            cell.bottomLabel.text = "Top 5 Standings"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
-
-
+        }
+        if indexPath.item == 5 {
+            cell.homeBaseView.backgroundColor = UIColor.clear
+            cell.bottomLabel.text = "New Data To Display Here"
+            cell.layer.borderWidth = 0.0
+            cell.enterF1SeasonYear.isHidden = true
 
         }
         
-        cell.layer.borderWidth = 1
+        
         cell.layer.borderColor = UIColor.systemRed.cgColor
         cell.layer.cornerRadius = 8
         
         return cell
     }
     
+    
+    
 
     
     
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
+            
             // have to disable cells so that the user doesnt send multiple queries as the data loads
             if indexPath.item == 0 {
                 print("THIS IS THE TITLE CELL, maybe place to select year")
@@ -154,24 +169,21 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
             if indexPath.item == 1 {
                 print("Constructors cell is selected")
-                Data.whichQuery = 0
+                Data.whichQuery = 0  
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
-
             }
             if indexPath.item == 2 {
                 print("Drivers cell is selected")
                 Data.whichQuery = 1
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
-
             }
             if indexPath.item == 3 {
                 print("Circuits cell is selected")
                 Data.whichQuery = 2
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
-
             }
             if indexPath.item == 4 {
                 print("Standings cell is selected")
@@ -179,16 +191,19 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
             }
-
+            F1ApiRoutes.getQualiResults(seasonYear: cell.enterF1SeasonYear.text)
+            dismissKeyboard()
         }
         
     }
+    
+    
     // deselectuing a cell - hides cell
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
             print("Cell deselected")
             dismissKeyboard()
-
+            cell.homeBaseView.backgroundColor = UIColor.clear
         }
         
         

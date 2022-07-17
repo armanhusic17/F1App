@@ -58,7 +58,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" allowsEditingTextAttributes="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UzO-9O-PKE">
-                                                    <rect key="frame" x="8" y="36.333333333333336" width="382" height="35.000000000000007"/>
+                                                    <rect key="frame" x="33" y="36.333333333333336" width="332" height="35.000000000000007"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="QWt-LT-Oly"/>
@@ -80,7 +80,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="UzO-9O-PKE" firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" id="1a8-jP-9DF"/>
+                                                <constraint firstItem="UzO-9O-PKE" firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" constant="-25" id="1a8-jP-9DF"/>
                                                 <constraint firstItem="Z9W-VR-oCF" firstAttribute="centerX" secondItem="Ts8-YY-Ivz" secondAttribute="centerX" id="2pA-sE-Zgz"/>
                                                 <constraint firstItem="wnU-US-zXV" firstAttribute="top" secondItem="Z9W-VR-oCF" secondAttribute="bottom" constant="8" id="8It-u2-Z0Y"/>
                                                 <constraint firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" constant="8" id="COL-6h-ihe"/>
@@ -91,7 +91,7 @@
                                                 <constraint firstItem="wnU-US-zXV" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" id="RNc-6E-AXg"/>
                                                 <constraint firstItem="Z9W-VR-oCF" firstAttribute="top" secondItem="UzO-9O-PKE" secondAttribute="bottom" id="Y32-rI-dNp"/>
                                                 <constraint firstItem="IoP-gW-jAF" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" constant="8" id="YHP-eS-SGt"/>
-                                                <constraint firstItem="UzO-9O-PKE" firstAttribute="leading" secondItem="IoP-gW-jAF" secondAttribute="leading" id="rf9-TK-kDk"/>
+                                                <constraint firstItem="UzO-9O-PKE" firstAttribute="leading" secondItem="IoP-gW-jAF" secondAttribute="leading" constant="25" id="rf9-TK-kDk"/>
                                                 <constraint firstItem="UzO-9O-PKE" firstAttribute="top" secondItem="IoP-gW-jAF" secondAttribute="bottom" id="wXH-SL-RTe"/>
                                                 <constraint firstAttribute="trailing" secondItem="wnU-US-zXV" secondAttribute="trailing" id="xGi-i3-ZyY"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z9W-VR-oCF" secondAttribute="trailing" constant="16" id="zlF-rC-XGu"/>
@@ -208,7 +208,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="0.75203962515521527" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="8" id="5op-Tl-dmg"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="8" id="7xP-Oo-5Rh"/>

@@ -143,7 +143,6 @@ struct HomeModel {
                 }
             }
             else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
-                print(year, targetYear, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print("RUNNING MODERN DAY CIRCUITS QUERY")
@@ -156,25 +155,13 @@ struct HomeModel {
                 print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        } else if Data.whichQuery == 1 {
+        }
+        else if Data.whichQuery == 1 {
             targetYear = 2014
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
-                print(year, targetYear, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
@@ -184,14 +171,14 @@ struct HomeModel {
                 
 
             }
-        } else if Data.whichQuery == 0 {
+        }
+        else if Data.whichQuery == 0 {
             targetYear = 1950
 
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
-                print(year, targetYear, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
@@ -202,14 +189,14 @@ struct HomeModel {
                 
 
             }
-        } else if Data.whichQuery == 3 {
+        }
+        else if Data.whichQuery == 3 {
             targetYear = 2004
 
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
-                print(year, targetYear, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)

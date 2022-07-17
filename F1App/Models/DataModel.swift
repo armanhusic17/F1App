@@ -52,7 +52,8 @@ class Data  {
     static var racePosition:[String?] = []
     static var racePoints:[String?] = []
     static var raceWinnerName:[String?] = []
-    
+    static var raceWinnerTeam:[String?] = []
+//    static var
     
     static var qualiResults:[QualifyingResult] = []
     

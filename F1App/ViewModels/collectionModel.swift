@@ -184,9 +184,9 @@ struct CollectionModel {
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
 
-            cell.topCellLabel.text = "Race Winner : \(String(describing: raceWinnerName[safe: indexPath.item] ?? ""))"
-            cell.bottomCellLabel.text = "Wins : \(String(describing: raceWins[safe: indexPath.item] ?? "") )"
-            cell.bottomCellLabel2.text = "Point Total : \(String(describing: racePoints[safe: indexPath.item] ?? ""))"
+            cell.topCellLabel.text = "\(raceWinnerName[safe: indexPath.item] ?? "" )"
+            cell.bottomCellLabel.text = "Wins : \(raceWins[safe: indexPath.item] ?? "")"
+            cell.bottomCellLabel2.text = "Point Total : \(racePoints[safe: indexPath.item] ?? "")"
             
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
