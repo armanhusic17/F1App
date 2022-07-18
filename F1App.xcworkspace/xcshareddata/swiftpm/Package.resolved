@@ -3,10 +3,10 @@
     {
       "identity" : "formula1api",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/gionoa/Formula1API.git",
+      "location" : "https://github.com/armanhusic17/Formula1API",
       "state" : {
         "branch" : "main",
-        "revision" : "222c39cf4bb148abd9e6bf875e500936bca4c4fb"
+        "revision" : "264e03337c22954bffeaad67378be13dc3d06ab2"
       }
     }
   ],
