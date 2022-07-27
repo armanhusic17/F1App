@@ -61,8 +61,8 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.15)
 
         }
-        else if indexPath.item == 7 {
-            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.50)
+        else if indexPath.item == 5 {
+            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.45)
 
         }
         return CGSize(width: CGFloat((collectionView.frame.size.width / 2) - 1), height: view.frame.height * 0.30)
@@ -71,7 +71,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return 6
     }
     
     
@@ -129,7 +129,7 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderWidth = 0.75
             cell.homeBaseView.backgroundColor = UIColor.lightGray
             cell.homeBaseView.alpha = 0.5
-            cell.bottomLabel.text = "Standings"
+            cell.bottomLabel.text = "WDC"
             cell.topLabel.text = "Top 5"
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
@@ -162,41 +162,41 @@ class homeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
             dismissKeyboard()
+            cell.layer.borderColor = UIColor.clear.cgColor
 
             // have to disable cells so that the user doesnt send multiple queries as the data loads
             if indexPath.item == 0 {
                 print("THIS IS THE TITLE CELL, maybe place to select year")
-                
             }
             if indexPath.item == 1 {
                 print("Constructors cell is selected")
                 Data.whichQuery = 0  
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
-                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
             if indexPath.item == 2 {
                 print("Drivers cell is selected")
                 Data.whichQuery = 1
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
-                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
             if indexPath.item == 3 {
                 print("Circuits cell is selected")
                 Data.whichQuery = 2
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
-                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
             if indexPath.item == 4 {
                 print("Standings cell is selected")
                 Data.whichQuery = 3
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
-                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
             if indexPath.item == 5 {
                 print("Standings cell is selected")
                 Data.whichQuery = 4
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
-                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self)
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
         }
         

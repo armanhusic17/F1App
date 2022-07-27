@@ -145,21 +145,27 @@ struct F1ApiRoutes  {
     
     
     // Query to get Last race result for homescreen
-    static func getQualiResults(seasonYear:String){
-        Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), limit: "10") { result in
+    static func getQualiResults(seasonYear:String, round: String){
+        Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), round: round, limit: "10") { result in
             
             do {
                 let racesData = try result.get().data.raceTable.races
                 
                 for i in Range(0...racesData.count - 1){
                     Data.qualiResults = racesData[i].qualifyingResults!
-                    print(racesData[i].qualifyingResults?[i])
+                    Data.raceName = [(racesData[i].raceName)]
+                    
+                    print(racesData[i].raceName)
                 }
             } catch {
                 print(error)
             }
             
         }
+        
+    
+        
+        
         
     }
     

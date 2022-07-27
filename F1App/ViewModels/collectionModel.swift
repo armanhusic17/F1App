@@ -92,6 +92,8 @@ struct CollectionModel {
         Data.racePosition.removeAll()
         Data.raceWinnerTeam.removeAll()
         
+        Data.qualiResults.removeAll()
+        
         print("removed all data points from the arrays holding the cells")
     }
     
@@ -205,11 +207,11 @@ struct CollectionModel {
             break
         case 4: // Quali
             cell.cellImage.image = UIImage(named: "F1Logo")
-            cell.topCellLabel.text = "\(Data.qualiResults[indexPath.item].driver.givenName) \(Data.qualiResults[indexPath.item].driver.familyName) #\(Data.qualiResults[indexPath.item].number)"
+            cell.topCellLabel.text = "\(raceName[0] ?? "")"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
             cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[indexPath.item].q1),\n Q2:\(qualiResuls[indexPath.item].q2 ?? ""),\n Q3:\(qualiResuls[indexPath.item].q3 ?? "") "
-            cell.bottomCellLabel.text = "P\(qualiResuls[indexPath.item].position)"
+            cell.bottomCellLabel.text = "P\(qualiResuls[indexPath.item].position) \n\(Data.qualiResults[indexPath.item].driver.givenName) \(Data.qualiResults[indexPath.item].driver.familyName) #\(Data.qualiResults[indexPath.item].number)"
             
             break
         case .none:

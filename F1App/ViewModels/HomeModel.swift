@@ -102,6 +102,26 @@ struct HomeModel {
             passSelf.present(alert, animated: true, completion: nil)
 
         }
+        else if Data.whichQuery == 4 {
+            let alert = UIAlertController(title: "Available Years for Qualifying Data", message: "Only 2004 to Present", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                switch action.style{
+                    case .default:
+                    print("default")
+                    
+                    case .cancel:
+                    print("cancel")
+                    
+                    case .destructive:
+                    print("destructive")
+                    
+                @unknown default:
+                    print("ERROR IN ALERT STYLE")
+                }
+            }))
+            passSelf.present(alert, animated: true, completion: nil)
+
+        }
         
         
     }
@@ -121,7 +141,7 @@ struct HomeModel {
     
     
     
-    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:homeCollection){
+    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:homeCollection, cellIndex:IndexPath){
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
         let maxYear = 2022
@@ -220,7 +240,7 @@ struct HomeModel {
                 print(thisSeason)
 
                 showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    F1ApiRoutes.getQualiResults(seasonYear: thisSeason)
+                    F1ApiRoutes.getQualiResults(seasonYear: thisSeason, round: "\(cellIndex.item + 1)")
                 }
                 
 
