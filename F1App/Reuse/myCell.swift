@@ -28,6 +28,7 @@ class myCell: UICollectionViewCell {
         Data.cellIndexPassed = myCellIndexPath
     }
     
+   
     
     
 }

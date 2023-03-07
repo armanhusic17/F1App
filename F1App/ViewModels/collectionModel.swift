@@ -129,7 +129,7 @@ struct CollectionModel {
         let queryHeight:CGFloat?
         
         if Data.whichQuery == 0 {
-            queryWidth = availableWidth * 0.65
+            queryWidth = availableWidth * 0.75
             queryHeight = availableHeight * 0.15
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 1 {
@@ -141,7 +141,7 @@ struct CollectionModel {
             queryHeight = availableHeight * 0.60
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 3 {
-            queryWidth = availableWidth * 0.65
+            queryWidth = availableWidth * 0.75
             queryHeight = availableHeight * 0.15
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 4 {

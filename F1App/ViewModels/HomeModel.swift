@@ -19,7 +19,7 @@ struct HomeModel {
     
 
     
-    func showAlert(passSelf:homeCollection){
+    func showAlert(passSelf:HomeCollection){
         if Data.whichQuery == 0 {
             let alert = UIAlertController(title: "Available Years for Constructor Data", message: "Only Data 1950 - Present available.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -127,7 +127,7 @@ struct HomeModel {
     }
     
     
-    func showResults(activityIndicator:UIActivityIndicatorView, homeSelf:homeCollection, f1ApiRoute: @escaping () -> Void){
+    func showResults(activityIndicator:UIActivityIndicatorView, homeSelf:HomeCollection, f1ApiRoute: @escaping () -> Void){
         f1ApiRoute()
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
@@ -139,12 +139,18 @@ struct HomeModel {
 
     }
     
+    func returnYear() -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        let currentYear = dateFormatter.string(from: Date())
+        return Int(currentYear) ?? 2000
+    }
     
     
-    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:homeCollection, cellIndex:IndexPath){
+    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:HomeCollection, cellIndex:IndexPath){
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
-        let maxYear = 2022
+        let maxYear = returnYear()
         
         
         if Data.whichQuery == 2 {

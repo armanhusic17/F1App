@@ -8,7 +8,7 @@ target 'F1App' do
   # Pods for F1App
 
   pod 'SwiftyJSON'
-  pod 'Firebase'
   pod 'lottie-ios'
-
+  pod 'GoogleSignIn'
+  pod 'GoogleSignInSwiftSupport'
 end
