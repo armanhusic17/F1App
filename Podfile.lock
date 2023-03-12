@@ -1,48 +1,20 @@
 PODS:
-  - AppAuth (1.5.0):
-    - AppAuth/Core (= 1.5.0)
-    - AppAuth/ExternalUserAgent (= 1.5.0)
-  - AppAuth/Core (1.5.0)
-  - AppAuth/ExternalUserAgent (1.5.0):
-    - AppAuth/Core
-  - GoogleSignIn (6.2.2):
-    - AppAuth (~> 1.5)
-    - GTMAppAuth (~> 1.3)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleSignInSwiftSupport (6.2.2):
-    - GoogleSignIn (~> 6.2)
-  - GTMAppAuth (1.3.0):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher/Core (~> 1.5)
-  - GTMSessionFetcher/Core (1.7.2)
   - lottie-ios (3.3.0)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
-  - GoogleSignIn
-  - GoogleSignInSwiftSupport
   - lottie-ios
   - SwiftyJSON
 
 SPEC REPOS:
   trunk:
-    - AppAuth
-    - GoogleSignIn
-    - GoogleSignInSwiftSupport
-    - GTMAppAuth
-    - GTMSessionFetcher
     - lottie-ios
     - SwiftyJSON
 
 SPEC CHECKSUMS:
-  AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
-  GoogleSignIn: 3c68388ac221f379676e8f1cb115df3aaf73b93f
-  GoogleSignInSwiftSupport: d092b89d16a569d36f1762d8782874a7098df27b
-  GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
-  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 017f4f7239152d4aff33fe84034428361654f6d5
+PODFILE CHECKSUM: a7a9a75bafe71b8b78145e4f91b66316f130f3eb
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

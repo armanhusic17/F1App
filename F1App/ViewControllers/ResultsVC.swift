@@ -28,7 +28,6 @@ class ResultsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         print("RESULTS HERE")
         
         cutCorners()

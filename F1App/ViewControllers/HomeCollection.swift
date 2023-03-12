@@ -25,20 +25,9 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView.delegate = self
         navigationController?.delegate = self
 
-        let actionCodeSettings = ActionCodeSettings()
-        actionCodeSettings.url = URL(string: "https://www.example.com")
-        // The sign-in operation has to always be completed in the app.
-        actionCodeSettings.handleCodeInApp = true
-        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-        actionCodeSettings.setAndroidPackageName("com.example.android",
-                                                 installIfNotAvailable: false, minimumVersion: "12")
-        
-        
-        
         // testing new race results queries
         print("Test Results Below")
-        print(F1ApiRoutes.testResults(seasonYear: "2014", position: "5")
-)
+        print(F1ApiRoutes.testResults(seasonYear: "2014", position: "5"))
         
     }
     
@@ -67,9 +56,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        
-        
         if indexPath.item == 0 {
             return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.15)
 
@@ -223,15 +209,11 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             dismissKeyboard()
             cell.homeBaseView.backgroundColor = UIColor.clear
         }
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         dismissKeyboard()
-
-        
     }
     
     

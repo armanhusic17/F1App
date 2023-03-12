@@ -9,6 +9,5 @@ target 'F1App' do
 
   pod 'SwiftyJSON'
   pod 'lottie-ios'
-  pod 'GoogleSignIn'
-  pod 'GoogleSignInSwiftSupport'
+
 end

@@ -18,8 +18,4 @@ class myHomeCell: UICollectionViewCell {
     @IBOutlet weak var homeCellImageView: UIImageView!
     
     
-    
-    
-    
-    
 }

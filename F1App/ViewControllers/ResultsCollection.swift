@@ -18,7 +18,6 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
-        
     }
     
     
@@ -46,7 +45,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView)
-        
+        cell.cellImage.layer.cornerRadius = 15
         return cell
     }
     
@@ -59,7 +58,6 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             performSegue(withIdentifier: "resultsTransition", sender: self)
         }
-        
     }
     // deselectuing a cell - hides cell
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -67,14 +65,11 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             print("Cell deselected")
             cell.self.isHidden = false
         }
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         collectionmodel.removeAllCellData()
-        
     }
     
     
