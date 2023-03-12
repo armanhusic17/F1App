@@ -24,7 +24,9 @@ struct CollectionModel {
     let driverNumbers = Data.driverNumber
     let driversGivenName = Data.driverFirstNames
     let driverDOB = Data.driverDOB
-    
+    let driverImgs = Data.driverImgURL.compactMap { URL(string: $0!) }
+    let teamsImgs = Data.teamImgURL.compactMap { URL(string: $0!) }
+    let driverImgWiki = Data.driverWikiImgURL
 
     let circuitName = Data.circuitName
     let circuitId = Data.circuitID
@@ -60,13 +62,15 @@ struct CollectionModel {
         Data.driverDOB.removeAll()
         Data.driverNumber.removeAll()
         Data.driverCode.removeAll()
+        Data.driverImgURL.removeAll()
+        Data.driverWikiImgURL.removeAll()
         
         // Team Data
         Data.constructorID.removeAll()
         Data.teamURL.removeAll()
         Data.teamNames.removeAll()
         Data.teamNationality.removeAll()
-
+        Data.teamImgURL.removeAll()
         // Circuit Data
         Data.circuitCity.removeAll()
         Data.circuitID.removeAll()
@@ -158,19 +162,55 @@ struct CollectionModel {
         switch Data.whichQuery {
         
         case 0: // constructor
-            cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-            cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
-//            cell.bottomCellLabel2.text = "\(self.constructorID[indexPath.item]?.capitalized ?? "") \(self.raceSeason[indexPath.item]?.capitalized ?? "")"
-            cell.F1MapView.isHidden = true
-            cell.mapView.isHidden = true
-            cell.cellImage.image = UIImage(named: "F1Logo")
-            break
-            
+                let imageURL = self.teamsImgs[indexPath.item]
+                let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
+                if let imageURL = cleanedURL {
+                    URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                        guard let imageData = data, error == nil else {
+                            print("Error loading image from URL: \(imageURL)")
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            let image = UIImage(data: imageData)
+                            cell.cellImage.image = image
+                            cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
+                            cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
+                        }
+                    }.resume()
+                } else {
+                    print("Invalid URL: \(imageURL)")
+                }
+                
+                cell.F1MapView.isHidden = true
+                cell.mapView.isHidden = true
+                cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
+                cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
+                break
+                
         case 1: // drivers
-            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-            cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")"
-            cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item] ?? "Driver Number")"
-            cell.cellImage.image = UIImage(named: "teamLH")
+            
+            let imageURL = self.driverImgs[indexPath.item]
+            let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
+            if let imageURL = cleanedURL {
+                URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                    guard let imageData = data, error == nil else {
+                        print("Error loading image from URL: \(imageURL)")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: imageData)
+                        cell.cellImage.image = image
+                        cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
+                        cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")"
+                        cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item] ?? "Driver Number")"
+                    }
+                }.resume()
+            } else {
+                print("Invalid URL: \(imageURL)")
+            }
+
 
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true

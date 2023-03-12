@@ -14,69 +14,156 @@ import Formula1API
 /**
     Here we will  set up some routes to the ergast api
     Set up a struct that can decode the json return by ergast
+
  */
+
 
 struct F1ApiRoutes  {
     
     let myData = Data()
     
     // Drivers
-    static func allDrivers(seasonYear:String){
-        let url = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
+    static func allDrivers(seasonYear: String) {
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
 
-        guard let unwrappedURL = URL(string: url) else {return}
-        
-        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
-                    
-            guard let data = data else {return}
+        guard let url = URL(string: urlString) else { return }
+
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
+
+        let session = URLSession(configuration: sessionConfig)
+
+        let task = session.dataTask(with: url) { (data, response, error) in
+
+            guard let data = data else {
+                print("Error: No data received")
+                return
+            }
 
             do {
                 let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
                 let driversTableArray = f1Data.data.driverTable.drivers
-                for i in Range(0...driversTableArray.count - 1) {
-                    Data.driverNames.append(driversTableArray[i].familyName)
-                    Data.driverNationality.append(driversTableArray[i].nationality)
-                    Data.driverURL.append(driversTableArray[i].url)
-                    Data.driverNumber.append(driversTableArray[i].permanentNumber)
-                    Data.driverFirstNames.append(driversTableArray[i].givenName)
-                    Data.driverDOB.append(driversTableArray[i].dateOfBirth)
-                    Data.driverCode.append(driversTableArray[i].code)
-                }
                 
-            } catch  {
-                print("Error decoding DRIVERS json data ")
+                for driver in driversTableArray {
+                    let driverPageTitle = "\(driver.givenName)_\(driver.familyName)"
+                    let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+                    guard let driverPageURL = URL(string: driverPageURLString) else { continue }
+                    
+                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
+                        guard let data = data else { return }
+                        do {
+                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+                            guard let pageID = wikipediaData.query.pages.keys.first,
+                                  let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else { return }
+                            let thumbnailURLString = thumbnail.source
+                            
+                            DispatchQueue.main.async {
+                                if let number = driver.permanentNumber {
+                                    let tuple = (number, thumbnailURLString)
+                                    let string = "\(tuple.0),\(tuple.1)"
+                                    Data.driverImgURL.append(string)
+                                    Data.driverNames.append(driver.familyName)
+                                    Data.driverNationality.append(driver.nationality)
+                                    Data.driverURL.append(driver.url)
+                                    Data.driverNumber.append(driver.permanentNumber)
+                                    Data.driverFirstNames.append(driver.givenName)
+                                    Data.driverDOB.append(driver.dateOfBirth)
+                                    Data.driverCode.append(driver.code)
+                                }
+                            }
+                        } catch let error {
+                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                        }
+                    }.resume()
+                    
+                    
+                }
+            } catch let error {
+                print("Error decoding DRIVERS json data: \(error.localizedDescription)")
             }
-        }.resume()
+        }
+
+        task.resume()
     }
+
+
+
+
+
+
     
     // Constructors
-    static func allConstructors(seasonYear:String) {
-        let url = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
-        
-        guard let unwrappedURL = URL(string: url) else {return}
-        
-        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
-                    
-            guard let data = data else {return}
-            
+    static func allConstructors(seasonYear: String) {
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
+
+        guard let url = URL(string: urlString) else { return }
+
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
+
+        let session = URLSession(configuration: sessionConfig)
+
+        let task = session.dataTask(with: url) { (data, response, error) in
+
+            guard let data = data else {
+                print("Error: No data received")
+                return
+            }
+
             do {
                 let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
-                let thisArray = f1Data.data.constructorTable.constructors
-                let season = f1Data.data.constructorTable.season?.capitalized
-            
-                for i in Range(0...thisArray.count - 1){
-                    Data.teamNames.append(thisArray[i].name)
-                    Data.teamNationality.append(thisArray[i].nationality)
-                    Data.teamURL.append(thisArray[i].url)
-                    Data.constructorID.append(thisArray[i].constructorID)
-                    Data.f1Season.append(season)
+                let constructorTable = f1Data.data.constructorTable
+                let constructorsArray = constructorTable.constructors
+                let season = constructorTable.season?.capitalized
+                
+                for constructor in constructorsArray {
+                    let constructorPageTitle = constructor.name.replacingOccurrences(of: " ", with: "_")
+                    let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+                    guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
                     
+                    URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+                        guard let data = data else { return }
+                        do {
+                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+                            guard let pageID = wikipediaData.query.pages.keys.first,
+                                  let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else {
+                                DispatchQueue.main.async {
+                                    Data.teamImgURL.append("\(constructor.constructorID),default")
+                                    Data.teamNames.append(constructor.name)
+                                    Data.teamNationality.append(constructor.nationality)
+                                    Data.teamURL.append(constructor.url)
+                                    Data.constructorID.append(constructor.constructorID)
+                                    Data.f1Season.append(season)
+                                }
+                                return
+                            }
+                            let thumbnailURLString = thumbnail.source
+                            
+                            DispatchQueue.main.async {
+                                let tuple = (constructor.constructorID, thumbnailURLString)
+                                let string = "\(tuple.0),\(tuple.1)"
+                                Data.teamImgURL.append(string)
+                                Data.teamNames.append(constructor.name)
+                                Data.teamNationality.append(constructor.nationality)
+                                Data.teamURL.append(constructor.url)
+                                Data.constructorID.append(constructor.constructorID)
+                                Data.f1Season.append(season)
+                            }
+                        } catch let error {
+                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                        }
+                    }.resume()
                 }
-            } catch  {
-                print("Error decoding CONSTRUCTOR json data ")
+            } catch let error {
+                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
             }
-        }.resume()
+        }
+
+        task.resume()
     }
+
+
+
     
     // Circuits
     static func allCircuits(seasonYear:String){
@@ -290,6 +377,28 @@ struct F1ApiRoutes  {
 
  
     
+}
+
+
+struct WikipediaImage: Decodable {
+    let source: String
+}
+
+struct WikipediaData: Decodable {
+    let query: WikipediaQuery
+}
+
+struct WikipediaQuery: Decodable {
+    let pages: [String: WikipediaPage]
+}
+
+struct WikipediaPage: Decodable {
+    let thumbnail: WikipediaThumbnail?
+    let originalimage: WikipediaImage?
+}
+
+struct WikipediaThumbnail: Decodable {
+    let source: String
 }
 
 /**

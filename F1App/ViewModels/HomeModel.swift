@@ -124,7 +124,7 @@ struct HomeModel {
         }
         
         
-    }
+    } // end showAlert
     
     
     func showResults(activityIndicator:UIActivityIndicatorView, homeSelf:HomeCollection, f1ApiRoute: @escaping () -> Void){
