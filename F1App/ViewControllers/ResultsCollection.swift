@@ -7,13 +7,12 @@
 
 import Foundation
 import UIKit
-import WebKit
 import MapKit
 
 class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
     var collectionmodel = CollectionModel()
-
+    let resultsModel = ResultsModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +55,9 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
-            performSegue(withIdentifier: "resultsTransition", sender: self)
+            //performSegue(withIdentifier: "resultsTransition", sender: self)
+            resultsModel.loadResults(myself: self)
+
         }
     }
     // deselectuing a cell - hides cell

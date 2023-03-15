@@ -291,23 +291,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-8K-az5">
                                 <rect key="frame" x="0.0" y="47" width="428" height="822"/>
-                                <subviews>
-                                    <wkWebView contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFS-iB-hiH">
-                                        <rect key="frame" x="8" y="8" width="412" height="806"/>
-                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <wkWebViewConfiguration key="configuration">
-                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                            <wkPreferences key="preferences"/>
-                                        </wkWebViewConfiguration>
-                                    </wkWebView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.59999999999999998" green="1" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="tFS-iB-hiH" firstAttribute="top" secondItem="TMh-8K-az5" secondAttribute="top" constant="8" id="1Hr-1K-yKt"/>
-                                    <constraint firstItem="tFS-iB-hiH" firstAttribute="leading" secondItem="TMh-8K-az5" secondAttribute="leading" constant="8" id="V45-hz-9zr"/>
-                                    <constraint firstAttribute="trailing" secondItem="tFS-iB-hiH" secondAttribute="trailing" constant="8" id="hay-DX-dpg"/>
-                                    <constraint firstAttribute="bottom" secondItem="tFS-iB-hiH" secondAttribute="bottom" constant="8" id="jJH-GA-gdi"/>
-                                </constraints>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mrA-tA-gTk"/>
@@ -321,7 +305,6 @@
                     </view>
                     <connections>
                         <outlet property="baseView" destination="TMh-8K-az5" id="YpX-mE-UYC"/>
-                        <outlet property="webView" destination="tFS-iB-hiH" id="4ku-Wx-zcX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uFT-bQ-Uxo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -345,7 +328,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Re2-y7-e2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="-630"/>
+            <point key="canvasLocation" x="1706" y="138"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>

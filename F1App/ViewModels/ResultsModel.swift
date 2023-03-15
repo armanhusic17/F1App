@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import WebKit
+import SafariServices
 
 struct ResultsModel {
     // fields
@@ -15,30 +15,30 @@ struct ResultsModel {
     let driverWikis = Data.driverURL
     let raceWiki = Data.circuitURL
     
-    func loadResults(myWebview:WKWebView) {
+    func loadResults(myself:UIViewController) {
         
         guard let cellPath = Data.cellIndexPassed else {return}
         if Data.whichQuery == 0 {
             guard let teamURL = URL(string: (teamWikis[cellPath]) ?? "") else {return}
-            myWebview.load(URLRequest(url: teamURL ))
+            let safariVC = SFSafariViewController(url: teamURL)
+            myself.present(safariVC, animated: true, completion: nil)
         }
         if Data.whichQuery == 1 {
             guard let driverURL = URL(string: driverWikis[cellPath] ?? "") else {return}
-            myWebview.load(URLRequest(url: driverURL ))
+            let safariVC = SFSafariViewController(url: driverURL)
+            myself.present(safariVC, animated: true, completion: nil)
         }
         if Data.whichQuery == 2 {
             guard let raceURL = URL(string: raceWiki[cellPath] ?? "") else {return}
-            myWebview.load(URLRequest(url: raceURL ))
+            let safariVC = SFSafariViewController(url: raceURL)
+            myself.present(safariVC, animated: true, completion: nil)
         }
         
-        myWebview.setNeedsLayout()
-        myWebview.scrollView.contentInsetAdjustmentBehavior = .never
+//        safariVC.setNeedsLayout()
+//        safariVC.scrollView.contentInsetAdjustmentBehavior = .never
 
     }
     
 
-    
-    
-    
     
 }
