@@ -10,7 +10,6 @@ import SafariServices
 
 struct ResultsModel {
     // fields
-    
     let teamWikis = Data.teamURL
     let driverWikis = Data.driverURL
     let raceWiki = Data.circuitURL
@@ -33,9 +32,6 @@ struct ResultsModel {
             let safariVC = SFSafariViewController(url: raceURL)
             myself.present(safariVC, animated: true, completion: nil)
         }
-        
-//        safariVC.setNeedsLayout()
-//        safariVC.scrollView.contentInsetAdjustmentBehavior = .never
 
     }
     

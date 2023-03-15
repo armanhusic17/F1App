@@ -55,9 +55,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
-            //performSegue(withIdentifier: "resultsTransition", sender: self)
             resultsModel.loadResults(myself: self)
-
         }
     }
     // deselectuing a cell - hides cell
