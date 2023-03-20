@@ -31,8 +31,11 @@ struct ResultsModel {
             guard let raceURL = URL(string: raceWiki[cellPath] ?? "") else {return}
             let safariVC = SFSafariViewController(url: raceURL)
             myself.present(safariVC, animated: true, completion: nil)
+        } else {
+            print("No results tied to ui yet")
         }
 
+        
     }
     
 

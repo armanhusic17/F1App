@@ -137,7 +137,16 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.bottomLabel.text = "Quali Results"
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
-
+        }
+        if indexPath.item == 6 {
+            Data.whichQuery = 5
+            cell.layer.borderWidth = 0.75
+            cell.homeBaseView.backgroundColor = UIColor.lightGray
+            cell.homeBaseView.alpha = 0.5
+            cell.topLabel.text = "Race Results"
+            cell.bottomLabel.text = "Still gathering data..."
+            cell.enterF1SeasonYear.isHidden = true
+            cell.homeCellImageView.image = UIImage(named: "F1Logo")
         }
         
         cell.layer.borderColor = UIColor.systemRed.cgColor
@@ -188,6 +197,12 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             if indexPath.item == 5 {
                 print("Standings cell is selected")
                 Data.whichQuery = 4
+                let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
+                homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
+            }
+            if indexPath.item == 6 {
+                print("Race Results cell is selected")
+                Data.whichQuery = 5
                 let cell = collectionView.cellForItem(at:  [0,0]) as! myHomeCell
                 homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
