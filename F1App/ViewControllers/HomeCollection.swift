@@ -64,7 +64,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 7
     }
     
     

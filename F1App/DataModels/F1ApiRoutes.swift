@@ -40,8 +40,24 @@ struct F1ApiRoutes  {
             
             do {
                 let raceResults = try JSONDecoder().decode(RaceResults.self, from: data)
-                print(raceResults.mrData.raceTable.races[0])
-                // Access other properties of mrData here
+                for race in raceResults.mrData.raceTable.races {
+                    print("Race \(race.raceName)")
+                    for result in race.results {
+                        print("----------------------")
+                        print("----------------------")
+                        print("Driver: \(result.driver)")
+                        print("Position: \(result.position)")
+                        print("Points: \(result.points)")
+                        print("Constructor: \(result.constructor)")
+                        print("Status: \(result.status)")
+                        print("Fastest Lap: \(result.fastestLap)")
+                        print("Grid: \(result.grid)")
+                        print("Laps: \(result.laps)")
+                        print("Time: \(result.time)")
+                        print("----------------------")
+                        print("----------------------")
+                    }
+                }
             } catch let error {
                 print("Error decoding race results: \(error.localizedDescription)")
             }
@@ -49,8 +65,6 @@ struct F1ApiRoutes  {
         }
         task.resume()
     }
-
-
 
     
     
