@@ -22,17 +22,46 @@ struct F1ApiRoutes  {
     
     let myData = Data()
     
+        
+    static func allRaceResults(seasonYear: String) {
+        print(seasonYear)
+
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/results.json"
+        guard let url = URL(string: urlString) else { return }
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
+        let session = URLSession(configuration: sessionConfig)
+        let task = session.dataTask(with: url) { (data, response, error) in
+
+            guard let data = data else {
+                print("Error: No data received")
+                return
+            }
+            
+            do {
+                let raceResults = try JSONDecoder().decode(RaceResults.self, from: data)
+                print(raceResults.mrData.raceTable.races[0])
+                // Access other properties of mrData here
+            } catch let error {
+                print("Error decoding race results: \(error.localizedDescription)")
+            }
+            
+        }
+        task.resume()
+    }
+
+
+
+    
+    
+    
     // Drivers
     static func allDrivers(seasonYear: String) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
-
         guard let url = URL(string: urlString) else { return }
-
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
-
         let session = URLSession(configuration: sessionConfig)
-
         let task = session.dataTask(with: url) { (data, response, error) in
 
             guard let data = data else {
@@ -249,11 +278,6 @@ struct F1ApiRoutes  {
             }
             
         }
-        
-    
-        
-        
-        
     }
     
 
@@ -340,43 +364,8 @@ struct F1ApiRoutes  {
         }
     }
     
-    // Results
-    // Drivers
-    static func testResults(seasonYear:String, position:String){
-        
-        let url = "https://ergast.com/api/f1/\(seasonYear)/results/\(position).json"
-
-        guard let unwrappedURL = URL(string: url) else {return}
-        
-        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
-                    
-            guard let data = data else {return}
-
-            do {
-                let f1Data = try JSONDecoder().decode(RaceResults.self, from: data)
-
-                for i in Range(0...f1Data.data.raceTable.races.count - 1){
-                  
-                    print(f1Data.data.raceTable.races[i])
-                    
-                    
-                }
-
-
-                
-            } catch  {
-                print("Error decoding FINISHING STATUS QUERY json data ")
-            }
-        }.resume()
-    }
-    
-    
-   
-    
     
 
- 
-    
 }
 
 
@@ -407,3 +396,136 @@ struct WikipediaThumbnail: Decodable {
  working on adding results that show up for drivers or teams or as a standalone not sure yet
 
  */
+
+struct Time: Decodable {
+    let millis: String
+    let time: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case millis, time
+    }
+}
+
+struct RaceResults: Decodable {
+    let mrData: MRData
+    
+    private enum CodingKeys: String, CodingKey {
+        case mrData = "MRData"
+    }
+}
+
+struct MRData: Decodable {
+    let raceTable: RaceTable
+    
+    private enum CodingKeys: String, CodingKey {
+        case raceTable = "RaceTable"
+    }
+}
+
+struct RaceTable: Decodable {
+    let races: [Race]
+    let season: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case races = "Races"
+        case season = "season"
+    }
+}
+
+struct Race: Decodable {
+    let raceName: String
+    let circuit: Circuit
+    let date: String
+    let results: [Result]
+    
+    private enum CodingKeys: String, CodingKey {
+        case raceName = "raceName"
+        case circuit = "Circuit"
+        case date = "date"
+        case results = "Results"
+    }
+}
+
+struct Circuit: Decodable {
+    let circuitName: String
+    let location: Location
+    
+    private enum CodingKeys: String, CodingKey {
+        case circuitName = "circuitName"
+        case location = "Location"
+    }
+}
+
+struct Location: Decodable {
+    let locality: String
+    let country: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case locality = "locality"
+        case country = "country"
+    }
+}
+
+struct Result: Decodable {
+    let number: String
+    let position: String
+    let positionText: String
+    let points: String
+    let driver: Driver
+    let constructor: Constructor
+    let grid: String
+    let laps: String
+    let status: String
+    let time: Time?
+    let fastestLap: FastestLap?
+    
+    private enum CodingKeys: String, CodingKey {
+        case number = "number"
+        case position = "position"
+        case positionText = "positionText"
+        case points = "points"
+        case driver = "Driver"
+        case constructor = "Constructor"
+        case grid = "grid"
+        case laps = "laps"
+        case status = "status"
+        case time = "Time"
+        case fastestLap = "FastestLap"
+    }
+}
+
+struct Driver: Decodable {
+    let driverId: String
+    let permanentNumber: String?
+    let code: String?
+    let url: String
+    let givenName: String
+    let familyName: String
+    let dateOfBirth: String
+    let nationality: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case driverId = "driverId"
+        case permanentNumber = "permanentNumber"
+        case code = "code"
+        case url = "url"
+        case givenName = "givenName"
+        case familyName = "familyName"
+        case dateOfBirth = "dateOfBirth"
+        case nationality = "nationality"
+    }
+}
+
+struct Constructor: Decodable {
+    let constructorId: String
+    let url: String
+    let name: String
+    let nationality: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case constructorId = "constructorId"
+        case url = "url"
+        case name = "name"
+        case nationality = "nationality"
+    }
+}

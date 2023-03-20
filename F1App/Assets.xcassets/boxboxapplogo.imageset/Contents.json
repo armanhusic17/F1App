@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "F1Logo.png",
+      "filename" : "boxboxapplogo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "F1Logo-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "F1Logo-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

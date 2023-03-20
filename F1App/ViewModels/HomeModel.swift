@@ -192,7 +192,8 @@ struct HomeModel {
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
                 showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    F1ApiRoutes.allDrivers(seasonYear: thisSeason)
+                    //F1ApiRoutes.allDrivers(seasonYear: thisSeason)
+                    F1ApiRoutes.allRaceResults(seasonYear: thisSeason)
                 }
                 
 

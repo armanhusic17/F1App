@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -177,8 +176,8 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="F1Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
-                                                    <rect key="frame" x="12" y="12" width="100" height="120"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
+                                                    <rect key="frame" x="12" y="12" width="100" height="124"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="EAv-Cr-Kdm"/>
                                                     </constraints>
@@ -215,7 +214,7 @@
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="12" id="7xP-Oo-5Rh"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="top" secondItem="1h8-8C-TE7" secondAttribute="bottom" id="BGT-Vo-Rdo"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="uyJ-qf-Gri" secondAttribute="leading" id="Fpi-aL-aGd"/>
-                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="8" id="FyO-Ep-DDF"/>
+                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="4" id="FyO-Ep-DDF"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Oqr-Zs-Lzi"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="12" id="P50-PI-5cX"/>
                                                 <constraint firstAttribute="bottom" secondItem="Apx-3q-uiC" secondAttribute="bottom" constant="8" id="R0f-9o-99q"/>
@@ -273,43 +272,10 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="Qzc-Bq-pEe"/>
-                    <connections>
-                        <segue destination="mBi-Kh-f2E" kind="presentation" identifier="resultsTransition" id="Olq-3L-qEl"/>
-                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAY-M9-cit" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2660.7476635514017" y="138.01295896328295"/>
-        </scene>
-        <!--ResultsVC-->
-        <scene sceneID="dLN-dW-ZKT">
-            <objects>
-                <viewController id="mBi-Kh-f2E" customClass="ResultsVC" customModule="F1App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ooe-7M-xoH">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="869"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-8K-az5">
-                                <rect key="frame" x="0.0" y="47" width="428" height="822"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="mrA-tA-gTk"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="mrA-tA-gTk" firstAttribute="bottom" secondItem="TMh-8K-az5" secondAttribute="bottom" id="0Fr-0a-m2a"/>
-                            <constraint firstItem="TMh-8K-az5" firstAttribute="top" secondItem="mrA-tA-gTk" secondAttribute="top" id="CPq-QX-GzR"/>
-                            <constraint firstItem="TMh-8K-az5" firstAttribute="leading" secondItem="mrA-tA-gTk" secondAttribute="leading" id="afy-dx-jeP"/>
-                            <constraint firstItem="mrA-tA-gTk" firstAttribute="trailing" secondItem="TMh-8K-az5" secondAttribute="trailing" id="fdm-uS-Gsg"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="baseView" destination="TMh-8K-az5" id="YpX-mE-UYC"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uFT-bQ-Uxo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3403.7383177570091" y="138.01295896328295"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RMC-2d-JGT">
@@ -328,15 +294,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Re2-y7-e2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1706" y="138"/>
+            <point key="canvasLocation" x="1839" y="137"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
-        <image name="F1Logo" width="520.66668701171875" height="240.66667175292969"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="boxboxapplogo" width="631" height="631"/>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

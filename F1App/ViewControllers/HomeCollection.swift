@@ -24,10 +24,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView.delegate = self
         navigationController?.delegate = self
-
-        // testing new race results queries
-        print("Test Results Below")
-        print(F1ApiRoutes.testResults(seasonYear: "2014", position: "5"))
         
     }
     
@@ -95,7 +91,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "F1Logo")
+            cell.homeCellImageView.image = UIImage(named: "raceTeam")
         }
         
         if indexPath.item == 2 {
@@ -106,7 +102,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "teamLH")
+            cell.homeCellImageView.image = UIImage(named: "lewis")
         }
         
         if indexPath.item == 3 {

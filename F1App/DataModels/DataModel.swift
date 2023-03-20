@@ -69,21 +69,9 @@ struct Data {
 
     static var seasonYearSelected: String?
     static var cellCount: Int?
+    
+    static var raceResults:[String?] = []
 
-    struct User {
-
-        let username: String?
-        let signUpDate: Date?
-        var favTeam: String?
-        var favDriver: String?
-
-        init(myUserName: String, mySignUpDate: Date, myFavTeam: String, myFavDriver: String) {
-            username = myUserName
-            signUpDate = mySignUpDate
-            favTeam = myFavTeam
-            favDriver = myFavDriver
-        }
-    }
 }
 
 

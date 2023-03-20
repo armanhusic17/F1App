@@ -41,7 +41,6 @@
 		0FA3B5FB2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FA3B5FC2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
-		0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7801285B97700084D58A /* ResultsVC.swift */; };
 		0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */; };
 		0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0E2863D76000A07E6A /* HomeModel.swift */; };
 		0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D142863DAF800A07E6A /* collectionModel.swift */; };
@@ -92,7 +91,6 @@
 		0FA3B5F528068F0D00A334D8 /* ResultsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsCollection.swift; sourceTree = "<group>"; };
 		0FA3B5F92806920E00A334D8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		0FB7659E280538F400C32514 /* viewControllerStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = viewControllerStory.storyboard; sourceTree = "<group>"; };
-		0FBC7801285B97700084D58A /* ResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsVC.swift; sourceTree = "<group>"; };
 		0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsModel.swift; sourceTree = "<group>"; };
 		0FDB0D0E2863D76000A07E6A /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		0FDB0D142863DAF800A07E6A /* collectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionModel.swift; sourceTree = "<group>"; };
@@ -233,9 +231,8 @@
 		0FDB0D112863D7C000A07E6A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0FA3B5F528068F0D00A334D8 /* ResultsCollection.swift */,
-				0FBC7801285B97700084D58A /* ResultsVC.swift */,
 				0F1D75162880FA7600EFE42E /* HomeCollection.swift */,
+				0FA3B5F528068F0D00A334D8 /* ResultsCollection.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -473,7 +470,6 @@
 				0FA3B5F628068F0D00A334D8 /* ResultsCollection.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
-				0FBC7802285B97700084D58A /* ResultsVC.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */,
@@ -655,7 +651,7 @@
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = F1App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = EfJuanData;
+				INFOPLIST_KEY_CFBundleDisplayName = BoxBox;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -686,7 +682,7 @@
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = F1App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = EfJuanData;
+				INFOPLIST_KEY_CFBundleDisplayName = BoxBox;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
