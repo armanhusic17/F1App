@@ -189,7 +189,7 @@ struct CollectionModel {
                 break
                 
         case 1: // drivers
-            
+            // getting drivers images from wikiAPI, will need to move this to the model
             let imageURL = self.driverImgs[indexPath.item]
             let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
             if let imageURL = cleanedURL {
@@ -198,7 +198,6 @@ struct CollectionModel {
                         print("Error loading image from URL: \(imageURL)")
                         return
                     }
-                    
                     DispatchQueue.main.async {
                         let image = UIImage(data: imageData)
                         cell.cellImage.image = image

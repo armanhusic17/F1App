@@ -17,7 +17,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     var homeModel = HomeModel()
     let collectionModel = CollectionModel()
     
-    
+    var seasonYear:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,13 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView.delegate = self
         navigationController?.delegate = self
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? ResultsCollection {
+            // Pass data to destinationVC here
+            destinationVC.seasonYear = seasonYear
+        }
     }
     
     
@@ -115,6 +122,8 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
+            seasonYear = Int(cell.enterF1SeasonYear.text)
+
         }
         
         if indexPath.item == 4 {

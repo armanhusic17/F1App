@@ -12,6 +12,8 @@
 		0F1D75192881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
 		0F1D751A2881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
 		0F1D751B2881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
+		0F343C9129C97BA100DA001A /* SingleResultCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9029C97BA100DA001A /* SingleResultCollection.swift */; };
+		0F343C9329C97BF000DA001A /* singleResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9229C97BF000DA001A /* singleResultCell.swift */; };
 		0F3703FD27F13C1400968C5F /* myCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3703FC27F13C1400968C5F /* myCell.swift */; };
 		0F4B74F22884E75900A4B3CE /* Formula1API in Frameworks */ = {isa = PBXBuildFile; productRef = 0F4B74F12884E75900A4B3CE /* Formula1API */; };
 		0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */; };
@@ -69,6 +71,8 @@
 		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
 		0F1D75162880FA7600EFE42E /* HomeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollection.swift; sourceTree = "<group>"; };
 		0F1D75182881286500EFE42E /* myHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myHomeCell.swift; sourceTree = "<group>"; };
+		0F343C9029C97BA100DA001A /* SingleResultCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleResultCollection.swift; sourceTree = "<group>"; };
+		0F343C9229C97BF000DA001A /* singleResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleResultCell.swift; sourceTree = "<group>"; };
 		0F3703FC27F13C1400968C5F /* myCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myCell.swift; sourceTree = "<group>"; };
 		0F515A0C27EC1BFE002129D7 /* F1App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F1App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +144,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		0F343C8F29C96A9D00DA001A /* Endoints */ = {
+			isa = PBXGroup;
+			children = (
+				0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */,
+			);
+			path = Endoints;
+			sourceTree = "<group>";
+		};
 		0F515A0327EC1BFE002129D7 = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				0F6BB1632875536300C5ED94 /* Assets */,
+				0F343C8F29C96A9D00DA001A /* Endoints */,
 				0FB765A22805408100C32514 /* DataModels */,
 				0FDB0D102863D77B00A07E6A /* ViewModels */,
 				0FDB0D132863D84E00A07E6A /* Views */,
@@ -212,7 +225,6 @@
 		0FB765A22805408100C32514 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
-				0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */,
 				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
 			);
 			path = DataModels;
@@ -233,6 +245,7 @@
 			children = (
 				0F1D75162880FA7600EFE42E /* HomeCollection.swift */,
 				0FA3B5F528068F0D00A334D8 /* ResultsCollection.swift */,
+				0F343C9029C97BA100DA001A /* SingleResultCollection.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -242,6 +255,7 @@
 			children = (
 				0F3703FC27F13C1400968C5F /* myCell.swift */,
 				0F1D75182881286500EFE42E /* myHomeCell.swift */,
+				0F343C9229C97BF000DA001A /* singleResultCell.swift */,
 			);
 			path = Reuse;
 			sourceTree = "<group>";
@@ -465,9 +479,11 @@
 				0F1D75192881286500EFE42E /* myHomeCell.swift in Sources */,
 				0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */,
 				0F3703FD27F13C1400968C5F /* myCell.swift in Sources */,
+				0F343C9129C97BA100DA001A /* SingleResultCollection.swift in Sources */,
 				0F1D75172880FA7600EFE42E /* HomeCollection.swift in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* ResultsCollection.swift in Sources */,
+				0F343C9329C97BF000DA001A /* singleResultCell.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,

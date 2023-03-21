@@ -14,6 +14,8 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     var collectionmodel = CollectionModel()
     let resultsModel = ResultsModel()
     
+    var seasonYear:Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -54,7 +56,12 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
-            resultsModel.loadResults(myself: self)
+            if Data.whichQuery == 2 {
+                print(seasonYear)
+                F1ApiRoutes.singleRaceResults(seasonYear: seasonYear ?? 2023, roundNumber: cellIndexPath)
+            } else {
+                resultsModel.loadResults(myself: self)
+            }
         }
     }
     // deselectuing a cell - hides cell

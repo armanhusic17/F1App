@@ -41,7 +41,13 @@ struct F1ApiRoutes  {
             do {
                 let raceResults = try JSONDecoder().decode(RaceResults.self, from: data)
                 for race in raceResults.mrData.raceTable.races {
+                    print(raceResults.mrData.raceTable.races.count)
+                    print("+++++++++++++++++++++++++++++")
                     print("Race \(race.raceName)")
+                    print(race.circuit)
+                    print(race.date)
+                    print("+++++++++++++++++++++++++++++")
+
                     for result in race.results {
                         print("----------------------")
                         print("----------------------")
@@ -64,6 +70,69 @@ struct F1ApiRoutes  {
             
         }
         task.resume()
+    }
+    
+    
+    static func singleRaceResults(seasonYear: Int, roundNumber: Int){
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(roundNumber + 1)/results.json"
+
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = data else {
+                    print("Error: No data received")
+                    return
+                }
+                
+                // Data received successfully
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print("JSON response: \(json)")
+
+                    // TODO: Process the JSON response as needed
+                    // Assuming that `data` contains the JSON data received from the API
+
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                        let mrData = json["MRData"] as? [String: Any],
+                        let raceTable = mrData["RaceTable"] as? [String: Any],
+                        let races = raceTable["Races"] as? [[String: Any]] {
+
+                        for race in races {
+                            let results = race["Results"] as? [[String: Any]] ?? []
+                            for result in results {
+                                let driver = result["Driver"] as? [String: Any] ?? [:]
+                                let constructor = result["Constructor"] as? [String: Any] ?? [:]
+                                let position = result["position"] as? String ?? ""
+                                let fastestLap = result["FastestLap"] as? [String: Any] ?? [:]
+                                let lapTimeData = fastestLap["Time"] as? [String: Any] ?? [:]
+                                let lapTime = lapTimeData["time"] as? String ?? ""
+                                let topSpeedData = fastestLap["AverageSpeed"] as? [String: Any] ?? [:]
+                                let topSpeed = topSpeedData["speed"] as? String ?? ""
+
+                                let driverName = "\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")"
+                                let constructorName = constructor["name"] as? String ?? ""
+
+                                print("Driver: \(driverName), Constructor: \(constructorName), Position: \(position), Lap Time: \(lapTime), Top Speed: \(topSpeed)")
+                            }
+                        }
+                    } else {
+                        print("Error: Invalid JSON structure")
+                    }
+                } catch {
+                    print("Error decoding JSON: \(error.localizedDescription)")
+                }
+
+
+            }
+            
+            task.resume()
+        } else {
+            print("Error: Invalid URL")
+        }
     }
 
     
