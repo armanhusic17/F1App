@@ -91,7 +91,7 @@ struct F1ApiRoutes  {
                 // Data received successfully
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print("JSON response: \(json)")
+//                    print("JSON response: \(json)")
 
                     // TODO: Process the JSON response as needed
                     // Assuming that `data` contains the JSON data received from the API
@@ -116,7 +116,12 @@ struct F1ApiRoutes  {
                                 let driverName = "\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")"
                                 let constructorName = constructor["name"] as? String ?? ""
 
-                                print("Driver: \(driverName), Constructor: \(constructorName), Position: \(position), Lap Time: \(lapTime), Top Speed: \(topSpeed)")
+                                print("Driver: \(driverName), Constructor: \(constructorName), Position: \(position), Fastest Lap Time: \(lapTime), Top Speed: \(topSpeed)")
+                                Data.driverNames.append(driverName)
+                                Data.constructorID.append(constructorName)
+                                Data.racePosition.append(position)
+                                Data.fastestLap.append(lapTime)
+                                Data.raceTime.append(topSpeed)
                             }
                         }
                     } else {

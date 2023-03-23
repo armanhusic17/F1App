@@ -13,7 +13,8 @@ class singleResultCell: UICollectionViewCell {
     
     
     @IBOutlet weak var baseView: UIView!
-    
+    @IBOutlet weak var driverName: UILabel!
+    @IBOutlet weak var botLabel: UILabel!
     
     
 }

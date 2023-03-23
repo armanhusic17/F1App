@@ -14,11 +14,13 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     var collectionmodel = CollectionModel()
     let resultsModel = ResultsModel()
     
+    @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
     var seasonYear:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
+        self.activitySpinner.isHidden = true
     }
     
     
@@ -57,8 +59,14 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             print("Cell is selected")
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             if Data.whichQuery == 2 {
+                print("SEASON YEAR BELOW")
                 print(seasonYear)
-                F1ApiRoutes.singleRaceResults(seasonYear: seasonYear ?? 2023, roundNumber: cellIndexPath)
+                F1ApiRoutes.singleRaceResults(seasonYear: seasonYear!, roundNumber: cellIndexPath)
+                self.activitySpinner.isHidden = false
+                self.activitySpinner.startAnimating()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.75 ){
+                    self.performSegue(withIdentifier: "closerLookTransition", sender: self)
+                }
             } else {
                 resultsModel.loadResults(myself: self)
             }
@@ -75,6 +83,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         collectionmodel.removeAllCellData()
+        activitySpinner.stopAnimating()
     }
     
     

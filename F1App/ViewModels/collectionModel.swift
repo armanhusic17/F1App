@@ -134,7 +134,7 @@ struct CollectionModel {
         
         if Data.whichQuery == 0 {
             queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.15
+            queryHeight = availableHeight * 0.21
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 1 {
             queryWidth = availableWidth * 0.75
@@ -162,31 +162,33 @@ struct CollectionModel {
         switch Data.whichQuery {
         
         case 0: // constructor
-                let imageURL = self.teamsImgs[indexPath.item]
-                let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
-                if let imageURL = cleanedURL {
-                    URLSession.shared.dataTask(with: imageURL) { data, response, error in
-                        guard let imageData = data, error == nil else {
-                            print("Error loading image from URL: \(imageURL)")
-                            return
-                        }
+            let imageURL = self.teamsImgs[indexPath.item]
+            let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
+            if let imageURL = cleanedURL {
+                URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                    guard let imageData = data, error == nil else {
+                        print("Error loading image from URL: \(imageURL)")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: imageData)
+                        cell.cellImage.image = image
+                        cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
+                        cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
                         
-                        DispatchQueue.main.async {
-                            let image = UIImage(data: imageData)
-                            cell.cellImage.image = image
-                            cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-                            cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
-                        }
-                    }.resume()
-                } else {
-                    print("Invalid URL: \(imageURL)")
-                }
-                
-                cell.F1MapView.isHidden = true
-                cell.mapView.isHidden = true
-                cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-                cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
-                break
+                    }
+                }.resume()
+            } else {
+                print("Invalid URL: \(imageURL)")
+            }
+            cell.cellImage.layer.borderWidth = 1
+            cell.cellImage.layer.borderColor = UIColor.white.cgColor
+            cell.F1MapView.isHidden = true
+            cell.mapView.isHidden = true
+            cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
+            cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
+            break
                 
         case 1: // drivers
             // getting drivers images from wikiAPI, will need to move this to the model
@@ -246,11 +248,11 @@ struct CollectionModel {
             break
         case 4: // Quali
             cell.cellImage.image = UIImage(named: "F1Logo")
-            cell.topCellLabel.text = "\(raceName[0] ?? "")"
+            cell.topCellLabel.text = "\(raceName[safe: 0] ?? "")"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
-            cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[indexPath.item].q1),\n Q2:\(qualiResuls[indexPath.item].q2 ?? ""),\n Q3:\(qualiResuls[indexPath.item].q3 ?? "") "
-            cell.bottomCellLabel.text = "P\(qualiResuls[indexPath.item].position) \n\(Data.qualiResults[indexPath.item].driver.givenName) \(Data.qualiResults[indexPath.item].driver.familyName) #\(Data.qualiResults[indexPath.item].number)"
+            cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[safe: indexPath.item]!.q1),\n Q2:\(qualiResuls[safe: indexPath.item]?.q2 ?? ""),\n Q3:\(qualiResuls[safe: indexPath.item]?.q3 ?? "") "
+            cell.bottomCellLabel.text = "P\(qualiResuls[safe: indexPath.item]!.position) \n\(Data.qualiResults[safe: indexPath.item]!.driver.givenName) \(Data.qualiResults[safe: indexPath.item]!.driver.familyName) #\(Data.qualiResults[safe: indexPath.item]!.number)"
             
             break
         case .none:
