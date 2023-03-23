@@ -47,21 +47,16 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
            // Use the unwrapped values to configure your cell
            cell.driverName.text = "P\(driverPosition)\n\(driverNamed)"
            cell.botLabel.text = "Constructor: \(constructorID)\nFastest Lap : \(fastestLap)"
-        } else {
-           // Handle the case where one or more values is nil
-            cell.driverName.text = "P?, [DriverName]"
-            cell.botLabel.text = "Constructor: ?\nFastest Lap: ?"
-            
-            
-           return cell
         }
+        if indexPath.item == 0 {
+            cell.layer.borderColor = UIColor.red.cgColor
 
+        } else if indexPath.item % 2 == 1 {
+            cell.layer.borderColor = UIColor.yellow.cgColor
+        } else {
+            cell.layer.borderColor = UIColor.white.cgColor
 
-        
-        
-        
-        
-        cell.layer.borderColor = UIColor.yellow.cgColor
+        }
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 8
         return cell

@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" systemColor="systemRedColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="32" minimumInteritemSpacing="32" id="ivA-cu-bUg">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4.7999999999999998" minimumInteritemSpacing="3.7999999999999998" id="ivA-cu-bUg">
                             <size key="itemSize" width="400" height="348"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -108,7 +108,6 @@
                                     </constraints>
                                 </collectionViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="customSize" width="400" height="348"/>
                                 <connections>
                                     <outlet property="bottomLabel" destination="wnU-US-zXV" id="9Rj-be-Atr"/>
                                     <outlet property="enterF1SeasonYear" destination="UzO-9O-PKE" id="XVk-IQ-mGE"/>
@@ -291,7 +290,7 @@
                                 <rect key="frame" x="0.0" y="100" width="428" height="726"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="H7z-nP-Otm">
-                                        <rect key="frame" x="4" y="4" width="420" height="718"/>
+                                        <rect key="frame" x="4" y="4" width="420" height="822"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="32" minimumInteritemSpacing="32" id="ZKn-gX-sgy">
                                             <size key="itemSize" width="420" height="719"/>
@@ -358,7 +357,6 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="H7z-nP-Otm" secondAttribute="trailing" constant="4" id="N06-E7-6iL"/>
-                                    <constraint firstAttribute="bottom" secondItem="H7z-nP-Otm" secondAttribute="bottom" constant="4" id="NUq-AA-ATu"/>
                                     <constraint firstItem="H7z-nP-Otm" firstAttribute="top" secondItem="ryo-Xr-Fmf" secondAttribute="top" constant="4" id="ZQP-ga-MeG"/>
                                     <constraint firstItem="H7z-nP-Otm" firstAttribute="leading" secondItem="ryo-Xr-Fmf" secondAttribute="leading" constant="4" id="s81-yg-3LT"/>
                                 </constraints>
@@ -384,6 +382,7 @@
                             <constraint firstAttribute="bottom" secondItem="1qp-ft-Fv0" secondAttribute="bottom" id="mWv-7g-Qs5"/>
                             <constraint firstItem="Exy-9P-2fw" firstAttribute="trailing" secondItem="ryo-Xr-Fmf" secondAttribute="trailing" id="qUB-ss-qk1"/>
                             <constraint firstItem="ryo-Xr-Fmf" firstAttribute="top" secondItem="8w4-Df-kR7" secondAttribute="bottom" id="sTi-aJ-L50"/>
+                            <constraint firstItem="1qp-ft-Fv0" firstAttribute="bottom" secondItem="H7z-nP-Otm" secondAttribute="bottom" id="vCQ-LI-LQT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="t4l-jR-d8a"/>
