@@ -37,9 +37,11 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     @objc(collectionView:cellForItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
-       
         
+        // Deque a cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
+        // Get create all of the vars that will go in the cell
+        // load all the 
         if let driverNamed = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]",
            let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???",
            let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]",
@@ -48,15 +50,17 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
            cell.driverName.text = "P\(driverPosition)\n\(driverNamed)"
            cell.botLabel.text = "Constructor: \(constructorID)\nFastest Lap : \(fastestLap)"
         }
+        
         if indexPath.item == 0 {
             cell.layer.borderColor = UIColor.red.cgColor
-
-        } else if indexPath.item % 2 == 1 {
-            cell.layer.borderColor = UIColor.yellow.cgColor
-        } else {
-            cell.layer.borderColor = UIColor.white.cgColor
-
         }
+        else if indexPath.item % 2 == 1 {
+            cell.layer.borderColor = UIColor.yellow.cgColor
+        }
+        else {
+            cell.layer.borderColor = UIColor.white.cgColor
+        }
+        
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 8
         return cell

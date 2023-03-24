@@ -32,7 +32,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             // Pass data to destinationVC here
             print("prepare function fires")
             destinationVC.seasonYear = seasonYear
-            
         }
     }
     
@@ -59,21 +58,21 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         if indexPath.item == 0 {
-            return CGSize(width: view.frame.height * 0.35, height: view.frame.height * 0.45)
-
-        } else {
-            return CGSize(width: view.frame.width * 0.49, height: view.frame.height * 0.30)
-
+            return CGSize(width: view.frame.height * 0.35, height: view.frame.height * 0.25)
         }
-        
+        else if indexPath.item == 3{
+            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.30)
+        }
+        else {
+            return CGSize(width: view.frame.width * 0.47, height: view.frame.height * 0.30)
+        }
     }
     
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return 4
     }
     
     
@@ -90,10 +89,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeCellImageView.image = UIImage(named: "Screen Shot 2022-04-12 at 9.47.47 PM")
             cell.homeBaseView.backgroundColor = UIColor.clear
             cell.layer.borderWidth = 0.0
-            seasonYear = Int(cell.enterF1SeasonYear.text)
-            print("First season year")
-            print(seasonYear)
-
         }
         
         if indexPath.item == 1 {
@@ -103,7 +98,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
-            cell.enterF1SeasonYear.isHidden = false
+            cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "raceTeam")
             
         }
@@ -115,7 +110,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
-            cell.enterF1SeasonYear.isHidden = false
+            cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis")
         }
         
@@ -127,7 +122,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "Grand Prix"
             cell.topLabel.isHidden = true
-            cell.enterF1SeasonYear.isHidden = false
+            cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
 
         }
@@ -139,7 +134,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.alpha = 0.5
             cell.bottomLabel.text = "WDC"
             cell.topLabel.text = "Top 5"
-            cell.enterF1SeasonYear.isHidden = false
+            cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
         }
         
@@ -150,7 +145,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.alpha = 0.5
             cell.topLabel.text = "Top 10"
             cell.bottomLabel.text = "Quali Results"
-            cell.enterF1SeasonYear.isHidden = false
+            cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
         }
         if indexPath.item == 6 {
@@ -160,7 +155,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.alpha = 0.5
             cell.topLabel.text = "Race Results"
             cell.bottomLabel.text = "Still gathering data..."
-            cell.enterF1SeasonYear.isHidden = false
+            cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
         }
         
@@ -204,6 +199,10 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                 Data.whichQuery = 2
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
+                    // set season year
+                    print("IS THIS NOT RUNNING???")
+                    seasonYear = Int(cell.enterF1SeasonYear.text)
+                    print(seasonYear)
                 }
             }
             if indexPath.item == 4 {
