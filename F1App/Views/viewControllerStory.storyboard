@@ -147,12 +147,6 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="lss-gv-dP1">
-                            <rect key="frame" x="0.0" y="-91" width="428" height="926"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        </activityIndicatorView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="myCell" reuseIdentifier="myCell" id="wtw-gD-dIo" customClass="myCell" customModule="F1App" customModuleProvider="target">
                                 <rect key="frame" x="57" y="0.0" width="314" height="261"/>
@@ -164,6 +158,12 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTL-hX-xyL">
                                             <rect key="frame" x="0.0" y="0.0" width="314" height="261"/>
                                             <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="lss-gv-dP1">
+                                                    <rect key="frame" x="24" y="28" width="257" height="155"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyJ-qf-Gri">
                                                     <rect key="frame" x="124" y="12" width="186" height="35"/>
                                                     <constraints>
@@ -183,13 +183,13 @@
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
-                                                    <rect key="frame" x="12" y="12" width="100" height="124"/>
+                                                    <rect key="frame" x="12" y="12" width="100" height="175"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="EAv-Cr-Kdm"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-jT-tcv">
-                                                    <rect key="frame" x="124" y="82" width="186" height="50"/>
+                                                    <rect key="frame" x="124" y="82" width="157" height="101"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="ewA-1i-6pJ"/>
                                                     </constraints>
@@ -198,10 +198,10 @@
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-3q-uiC">
-                                                    <rect key="frame" x="8" y="140" width="298" height="113"/>
+                                                    <rect key="frame" x="8" y="191" width="298" height="62"/>
                                                     <subviews>
                                                         <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybridFlyover" showsTraffic="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Czo-kQ-W7Z">
-                                                            <rect key="frame" x="0.0" y="0.0" width="298" height="113"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="298" height="62"/>
                                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                                         </mapView>
                                                     </subviews>
@@ -221,16 +221,20 @@
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="top" secondItem="1h8-8C-TE7" secondAttribute="bottom" id="BGT-Vo-Rdo"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="uyJ-qf-Gri" secondAttribute="leading" id="Fpi-aL-aGd"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="4" id="FyO-Ep-DDF"/>
+                                                <constraint firstItem="lss-gv-dP1" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="JwA-7d-7bv"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Oqr-Zs-Lzi"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="12" id="P50-PI-5cX"/>
                                                 <constraint firstAttribute="bottom" secondItem="Apx-3q-uiC" secondAttribute="bottom" constant="8" id="R0f-9o-99q"/>
+                                                <constraint firstItem="lss-gv-dP1" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="leading" id="Vfu-V8-nqb"/>
                                                 <constraint firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" constant="4" id="X46-rn-oJp"/>
+                                                <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="lss-gv-dP1" secondAttribute="trailing" id="Yn4-QY-CmL"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="centerX" secondItem="uyJ-qf-Gri" secondAttribute="centerX" id="ZlB-Ev-xqW"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="leading" secondItem="1h8-8C-TE7" secondAttribute="leading" id="chU-gG-gg3"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="centerX" secondItem="1h8-8C-TE7" secondAttribute="centerX" id="iAm-h3-pNg"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="top" secondItem="uyJ-qf-Gri" secondAttribute="bottom" id="kAd-jb-U8L"/>
                                                 <constraint firstAttribute="trailing" secondItem="Apx-3q-uiC" secondAttribute="trailing" constant="8" id="nwL-JG-09V"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="FYC-jT-tcv" secondAttribute="bottom" constant="8" id="oQK-dD-dtC"/>
+                                                <constraint firstItem="FYC-jT-tcv" firstAttribute="bottom" secondItem="lss-gv-dP1" secondAttribute="bottom" id="s6j-9m-iep"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="12" id="ub4-Mc-0IO"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="ukQ-Kr-0Gg"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="wlW-da-8p2"/>
@@ -247,6 +251,7 @@
                                 <size key="customSize" width="314" height="261"/>
                                 <connections>
                                     <outlet property="F1MapView" destination="Czo-kQ-W7Z" id="6HF-F3-Zvm"/>
+                                    <outlet property="activitySpinner" destination="lss-gv-dP1" id="NP4-gr-WDc"/>
                                     <outlet property="bottomCellLabel" destination="1h8-8C-TE7" id="Vl6-Y8-OCf"/>
                                     <outlet property="bottomCellLabel2" destination="FYC-jT-tcv" id="E2P-Mc-bbB"/>
                                     <outlet property="cellBaseView" destination="BTL-hX-xyL" id="Xle-XX-TD7"/>
@@ -263,7 +268,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="Qzc-Bq-pEe"/>
                     <connections>
-                        <outlet property="activitySpinner" destination="lss-gv-dP1" id="37z-5c-jR9"/>
                         <segue destination="D8F-Se-2A5" kind="show" identifier="closerLookTransition" id="Mcj-dC-HzF"/>
                     </connections>
                 </collectionViewController>
@@ -281,9 +285,21 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w4-Df-kR7">
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Race Results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6iK-20-QZf">
+                                        <rect key="frame" x="8" y="8" width="412" height="84"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="6iK-20-QZf" firstAttribute="top" secondItem="8w4-Df-kR7" secondAttribute="top" constant="8" id="YBg-9H-7fH"/>
+                                    <constraint firstItem="6iK-20-QZf" firstAttribute="leading" secondItem="8w4-Df-kR7" secondAttribute="leading" constant="8" id="aoD-gW-avh"/>
                                     <constraint firstAttribute="height" constant="100" id="fIe-zC-aEn"/>
+                                    <constraint firstAttribute="bottom" secondItem="6iK-20-QZf" secondAttribute="bottom" constant="8" id="u6R-QV-zhb"/>
+                                    <constraint firstAttribute="trailing" secondItem="6iK-20-QZf" secondAttribute="trailing" constant="8" id="vvl-eg-oVz"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryo-Xr-Fmf">
@@ -390,6 +406,7 @@
                         <outlet property="botBarView" destination="1qp-ft-Fv0" id="VqA-dT-8id"/>
                         <outlet property="closerLookCollection" destination="H7z-nP-Otm" id="hls-yq-rCX"/>
                         <outlet property="midContentView" destination="ryo-Xr-Fmf" id="88w-Gy-g09"/>
+                        <outlet property="topBarLabel" destination="6iK-20-QZf" id="tRf-xa-ZsP"/>
                         <outlet property="topBarView" destination="8w4-Df-kR7" id="1aZ-DO-CvL"/>
                     </connections>
                 </viewController>

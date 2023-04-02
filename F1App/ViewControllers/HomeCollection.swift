@@ -86,7 +86,8 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.topLabel.text = "Enter F1 Season"
             cell.enterF1SeasonYear.isHidden = false
             cell.enterF1SeasonYear.backgroundColor = UIColor.clear
-            cell.homeCellImageView.image = UIImage(named: "Screen Shot 2022-04-12 at 9.47.47 PM")
+            cell.homeCellImageView.image = UIImage(named: "40x40")
+            cell.homeCellImageView.alpha = 0.25
             cell.homeBaseView.backgroundColor = UIColor.clear
             cell.layer.borderWidth = 0.0
         }

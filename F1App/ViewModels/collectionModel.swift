@@ -220,18 +220,26 @@ struct CollectionModel {
         case 2: // circuits
             cell.F1MapView.isHidden = false
             cell.mapView.isHidden = false
-
-            let initialLocation = CLLocation(latitude: Double((circuitLat[safe: indexPath.item] ?? "")!) ?? 1.0, longitude: Double((circuitLong[safe: indexPath.item] ?? "")!) ?? 1.0)
+            
+            let circuitLatStr = circuitLat[safe: indexPath.item] ?? ""
+            let circuitLongStr = circuitLong[safe: indexPath.item] ?? ""
+            let circuitNameStr = circuitName[safe: indexPath.item] ?? ""
+            let circuitCityStr = circuitCity[safe: indexPath.item] ?? "City"
+            let circuitLocationStr = circuitLocation[safe: indexPath.item] ?? "Country"
+            let circuitRaceDateStr = circuitRaceDate[safe: indexPath.item] ?? ""
+            
+            let initialLocation = CLLocation(latitude: Double(circuitLatStr!) ?? 1.0, longitude: Double(circuitLongStr!) ?? 1.0)
             cell.F1MapView.centerToLocation(initialLocation)
 
             let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
             cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
             cell.cellImage.image = UIImage(named: "circuitLogo")
-            cell.bottomCellLabel2.text = "\(self.circuitName[indexPath.item] ?? "")"
-            cell.topCellLabel.text = "\(self.circuitCity[indexPath.item] ?? "City"), \(self.circuitLocation[indexPath.item] ?? "Country")"
-            cell.bottomCellLabel.text = "Round \((indexPath.item + 1)), \((self.circuitRaceDate[safe: indexPath.item] ?? "") ?? "")"
+            cell.bottomCellLabel2.text = "\(circuitCityStr!), \(circuitLocationStr!)"
+            cell.topCellLabel.text = circuitNameStr
+            cell.bottomCellLabel.text = "Round \(indexPath.item + 1), \(circuitRaceDateStr!)"
             cell.mapView.layer.borderWidth = 2
             cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
+
             break
         case 3: // Standings
             cell.bottomCellLabel2.isHidden = false
@@ -259,7 +267,7 @@ struct CollectionModel {
             print("None")
         case .some(_):
             print("Some")
-        }
+        } // end Data.WhichQuery
     }
     
     // formatting the look of the cells

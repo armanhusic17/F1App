@@ -14,6 +14,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet weak var midContentView: UIView!
     @IBOutlet weak var botBarView: UIView!
     @IBOutlet weak var closerLookCollection: UICollectionView!
+    @IBOutlet weak var topBarLabel: UILabel!
     
     
     

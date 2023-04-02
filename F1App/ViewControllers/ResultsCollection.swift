@@ -14,13 +14,12 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     var collectionmodel = CollectionModel()
     let resultsModel = ResultsModel()
     
-    @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    
     var seasonYear:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
-        self.activitySpinner.isHidden = true
     }
     
     
@@ -48,6 +47,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         collectionmodel.cellViewFormat(cell: cell)
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView)
         cell.cellImage.layer.cornerRadius = 15
+        cell.activitySpinner.isHidden = true
         return cell
     }
     
@@ -57,13 +57,15 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
+            cell.activitySpinner.isHidden = false
+            cell.activitySpinner.startAnimating()
+            
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             if Data.whichQuery == 2 {
                 print("SEASON YEAR BELOW")
                 print(seasonYear)
                 F1ApiRoutes.singleRaceResults(seasonYear: seasonYear!, roundNumber: cellIndexPath)
-                self.activitySpinner.isHidden = false
-                self.activitySpinner.startAnimating()
+               
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75 ){
                     self.performSegue(withIdentifier: "closerLookTransition", sender: self)
                 }
@@ -77,13 +79,13 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell deselected")
             cell.self.isHidden = false
+            cell.activitySpinner.stopAnimating()
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         collectionmodel.removeAllCellData()
-        activitySpinner.stopAnimating()
     }
     
     
