@@ -144,13 +144,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		0F0415C629DA1E8100EFB158 /* Secrets */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Secrets;
-			sourceTree = "<group>";
-		};
 		0F343C8F29C96A9D00DA001A /* Endoints */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,7 +161,6 @@
 				0F515A0D27EC1BFE002129D7 /* Products */,
 				0DF1159D2E01C277729A4EB3 /* Pods */,
 				AAFC03F7C92317D74F45CE34 /* Frameworks */,
-				0F0415C629DA1E8100EFB158 /* Secrets */,
 			);
 			sourceTree = "<group>";
 		};
