@@ -13,7 +13,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
 
     var collectionmodel = CollectionModel()
     let resultsModel = ResultsModel()
-    
+    let myData = Data()
     
     var seasonYear:Int?
     
@@ -85,7 +85,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        collectionmodel.removeAllCellData()
+        myData.removeAllCellData()
     }
     
     
