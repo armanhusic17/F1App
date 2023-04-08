@@ -144,12 +144,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		0F343C8F29C96A9D00DA001A /* Endoints */ = {
+		0F343C8F29C96A9D00DA001A /* Routers */ = {
 			isa = PBXGroup;
 			children = (
 				0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */,
 			);
-			path = Endoints;
+			path = Routers;
 			sourceTree = "<group>";
 		};
 		0F515A0327EC1BFE002129D7 = {
@@ -178,11 +178,11 @@
 			isa = PBXGroup;
 			children = (
 				0F6BB1632875536300C5ED94 /* Assets */,
-				0F343C8F29C96A9D00DA001A /* Endoints */,
-				0FB765A22805408100C32514 /* DataModels */,
-				0FDB0D102863D77B00A07E6A /* ViewModels */,
 				0FDB0D132863D84E00A07E6A /* Views */,
-				0FDB0D112863D7C000A07E6A /* ViewControllers */,
+				0FDB0D102863D77B00A07E6A /* Interactors */,
+				0FDB0D112863D7C000A07E6A /* Presenters */,
+				0FB765A22805408100C32514 /* Entities */,
+				0F343C8F29C96A9D00DA001A /* Routers */,
 				0FDB0D122863D7CF00A07E6A /* Reuse */,
 				0F515A1B27EC1BFF002129D7 /* Assets.xcassets */,
 				0F515A2027EC1BFF002129D7 /* Info.plist */,
@@ -222,32 +222,32 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		0FB765A22805408100C32514 /* DataModels */ = {
+		0FB765A22805408100C32514 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
 			);
-			path = DataModels;
+			path = Entities;
 			sourceTree = "<group>";
 		};
-		0FDB0D102863D77B00A07E6A /* ViewModels */ = {
+		0FDB0D102863D77B00A07E6A /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
 				0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */,
 				0FDB0D0E2863D76000A07E6A /* HomeModel.swift */,
 				0FDB0D142863DAF800A07E6A /* collectionModel.swift */,
 			);
-			path = ViewModels;
+			path = Interactors;
 			sourceTree = "<group>";
 		};
-		0FDB0D112863D7C000A07E6A /* ViewControllers */ = {
+		0FDB0D112863D7C000A07E6A /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
 				0F1D75162880FA7600EFE42E /* HomeCollection.swift */,
 				0FA3B5F528068F0D00A334D8 /* ResultsCollection.swift */,
 				0F343C9029C97BA100DA001A /* SingleResultCollection.swift */,
 			);
-			path = ViewControllers;
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 		0FDB0D122863D7CF00A07E6A /* Reuse */ = {
