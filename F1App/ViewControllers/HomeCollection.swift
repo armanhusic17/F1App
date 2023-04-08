@@ -59,7 +59,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
-            return CGSize(width: view.frame.height * 0.35, height: view.frame.height * 0.25)
+            return CGSize(width: view.frame.width * 0.85, height: view.frame.height * 0.25)
         }
         else if indexPath.item == 3{
             return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.30)
