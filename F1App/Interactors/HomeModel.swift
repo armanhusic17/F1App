@@ -185,8 +185,15 @@ struct HomeModel {
         else if Data.whichQuery == 1 {
             targetYear = 2014
             if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
+//                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+                
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                print(thisSeason)
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                    F1ApiRoutes.allDriversBefore2014(seasonYear: thisSeason)
+                }
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }

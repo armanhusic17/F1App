@@ -202,6 +202,72 @@ struct F1ApiRoutes  {
 
         task.resume()
     }
+    
+    static func allDriversBefore2014(seasonYear: String) {
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
+        guard let url = URL(string: urlString) else { return }
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
+        let session = URLSession(configuration: sessionConfig)
+        let task = session.dataTask(with: url) { (data, response, error) in
+
+            guard let data = data else {
+                print("Error: No data received")
+                return
+            }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                let driversTable = json?["MRData"] as? [String: Any]
+                let driversTableArray = driversTable?["DriverTable"] as? [String: Any]
+                let drivers = driversTableArray?["Drivers"] as? [[String: Any]]
+                print(drivers)
+                for driver in drivers ?? [] {
+                    guard let givenName = driver["givenName"] as? String,
+                          let familyName = driver["familyName"] as? String,
+                          let nationality = driver["nationality"] as? String,
+                          let url = driver["url"] as? String else { continue }
+
+                    let driverPageTitle = "\(givenName)_\(familyName)"
+                    let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+                    guard let driverPageURL = URL(string: driverPageURLString) else { continue }
+                    
+                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
+                        guard let data = data else { return }
+                        do {
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                            let query = json?["query"] as? [String: Any]
+                            let pages = query?["pages"] as? [String: Any]
+                            let pageID = pages?.keys.first
+                            let thumbnail = pages?[pageID ?? ""] as? [String: Any]
+                            let thumbnailURLString = thumbnail?["thumbnail"] as? String ?? ""
+                            
+                            DispatchQueue.main.async {
+                                if let number = driver["permanentNumber"] as? String {
+                                    let tuple = (number, thumbnailURLString)
+                                    let string = "\(tuple.0),\(tuple.1)"
+                                    print(tuple, string, number)
+                                    Data.driverImgURL.append(string)
+                                    Data.driverNames.append(familyName)
+                                    Data.driverNationality.append(nationality)
+                                    Data.driverURL.append(url)
+                                    Data.driverNumber.append(number)
+                                    Data.driverFirstNames.append(givenName)
+                                }
+                            }
+                        } catch let error {
+                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                        }
+                    }.resume()
+                }
+            } catch let error {
+                print("Error decoding DRIVERS json data: \(error.localizedDescription)")
+            }
+        }
+
+        task.resume()
+    }
+
 
 
 
