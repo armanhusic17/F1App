@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qg8-NK-A0b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qg8-NK-A0b">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -158,9 +158,8 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTL-hX-xyL">
                                             <rect key="frame" x="0.0" y="0.0" width="314" height="261"/>
                                             <subviews>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="lss-gv-dP1">
-                                                    <rect key="frame" x="24" y="28" width="257" height="155"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <activityIndicatorView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lss-gv-dP1">
+                                                    <rect key="frame" x="12" y="12" width="298" height="120"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </activityIndicatorView>
@@ -183,13 +182,13 @@
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
-                                                    <rect key="frame" x="12" y="12" width="100" height="175"/>
+                                                    <rect key="frame" x="12" y="12" width="100" height="124"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="EAv-Cr-Kdm"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-jT-tcv">
-                                                    <rect key="frame" x="124" y="82" width="157" height="101"/>
+                                                    <rect key="frame" x="124" y="82" width="186" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="ewA-1i-6pJ"/>
                                                     </constraints>
@@ -198,10 +197,10 @@
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-3q-uiC">
-                                                    <rect key="frame" x="8" y="191" width="298" height="62"/>
+                                                    <rect key="frame" x="8" y="140" width="298" height="113"/>
                                                     <subviews>
                                                         <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybridFlyover" showsTraffic="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Czo-kQ-W7Z">
-                                                            <rect key="frame" x="0.0" y="0.0" width="298" height="62"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="298" height="113"/>
                                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                                         </mapView>
                                                     </subviews>

@@ -112,7 +112,7 @@ struct CollectionModel {
     }
     
     // what data is shown in the each cell
-    func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView){
+    func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView, seasonYear: Int){
         switch Data.whichQuery {
         
         case 0: // constructor
@@ -146,24 +146,32 @@ struct CollectionModel {
                 
         case 1: // drivers
             // getting drivers images from wikiAPI, will need to move this to the model
-            let imageURL = self.driverImgs[indexPath.item]
-            let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
-            if let imageURL = cleanedURL {
-                URLSession.shared.dataTask(with: imageURL) { data, response, error in
-                    guard let imageData = data, error == nil else {
-                        print("Error loading image from URL: \(imageURL)")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: imageData)
-                        cell.cellImage.image = image
-                        cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-                        cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")"
-                        cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item] ?? "Driver Number")"
-                    }
-                }.resume()
-            } else {
-                print("Invalid URL: \(imageURL)")
+            if seasonYear >= 2014 {
+                let imageURL = self.driverImgs[indexPath.item]
+                let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
+                if let imageURL = cleanedURL {
+                    URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                        guard let imageData = data, error == nil else {
+                            print("Error loading image from URL: \(imageURL)")
+                            return
+                        }
+                        DispatchQueue.main.async {
+                            let image = UIImage(data: imageData)
+                            cell.cellImage.image = image
+                            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
+                            cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")"
+                            cell.bottomCellLabel2.text = "\(self.driverCode[indexPath.item] ?? "Driver Name") #\(self.driverNumbers[indexPath.item] ?? "Driver Number")"
+                        }
+                    }.resume()
+                } else {
+                    print("Invalid URL: \(imageURL)")
+                }
+
+            }
+            else {
+                cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
+                cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)"
+
             }
 
 

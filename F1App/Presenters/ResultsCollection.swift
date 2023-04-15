@@ -45,7 +45,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         cell.F1MapView.delegate = self
         
         collectionmodel.cellViewFormat(cell: cell)
-        collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView)
+        collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView, seasonYear: seasonYear ?? 0)
         cell.cellImage.layer.cornerRadius = 15
         cell.activitySpinner.isHidden = true
         return cell
