@@ -191,6 +191,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             if indexPath.item == 2 {
                 print("Drivers cell is selected")
                 Data.whichQuery = 1
+                seasonYear = Int(cell.enterF1SeasonYear.text)
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 }

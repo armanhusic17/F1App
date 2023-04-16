@@ -190,7 +190,6 @@ struct HomeModel {
                 
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                print(thisSeason)
                 
                 F1ApiRoutes.allDriversBefore2014(seasonYear: thisSeason) { Success in
                     if Success {
@@ -203,15 +202,21 @@ struct HomeModel {
                 }
                 
                 
-
-
             } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    F1ApiRoutes.allDrivers(seasonYear: thisSeason)
+                
+                F1ApiRoutes.allDrivers(seasonYear: thisSeason) { Succes in
+                    if Succes {
+                        showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                            print("Showing results")
+                        }
+                    } else {
+                        print("Error")
+                    }
                 }
+                
                 
 
             }

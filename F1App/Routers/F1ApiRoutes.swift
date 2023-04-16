@@ -144,11 +144,11 @@ struct F1ApiRoutes  {
     
     
     // Drivers
-    static func allDrivers(seasonYear: String) {
+    static func allDrivers(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
         guard let url = URL(string: urlString) else { return }
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
+        sessionConfig.timeoutIntervalForRequest = 30 // set timeout to 10 seconds
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: url) { (data, response, error) in
 
@@ -186,31 +186,47 @@ struct F1ApiRoutes  {
                                     Data.driverFirstNames.append(driver.givenName)
                                     Data.driverDOB.append(driver.dateOfBirth)
                                     Data.driverCode.append(driver.code)
+                                 
                                 }
                             }
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                            DispatchQueue.main.async {
+                                completion(false)
+                            }
                         }
                     }.resume()
                 }
+               
             } catch let error {
                 print("Error decoding DRIVERS json data: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
             }
         }
 
         task.resume()
+        
+        DispatchQueue.main.async {
+            completion(true)
+        }
     }
     
+
     static func allDriversBefore2014(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
         guard let url = URL(string: urlString) else { return }
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
+        sessionConfig.timeoutIntervalForRequest = 30 // set timeout to 10 seconds
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: url) { (data, response, error) in
 
             guard let data = data else {
                 print("Error: No data received")
+                DispatchQueue.main.async {
+                    completion(false)
+                }
                 return
             }
 
@@ -219,72 +235,61 @@ struct F1ApiRoutes  {
                 let driversTable = json?["MRData"] as? [String: Any]
                 let driversTableArray = driversTable?["DriverTable"] as? [String: Any]
                 let drivers = driversTableArray?["Drivers"] as? [[String: Any]]
+                
                 for driver in drivers ?? [] {
+                    print(drivers?.count)
                     guard let givenName = driver["givenName"] as? String,
-                          let familyName = driver["familyName"] as? String,
-                          let nationality = driver["nationality"] as? String,
-                          let url = driver["url"] as? String else { continue }
+                        let familyName = driver["familyName"] as? String,
+                        let nationality = driver["nationality"] as? String,
+                        let permanentNumber = driver["permanentNumber"] as? String,
+                        let url = driver["url"] as? String else { continue }
 
                     let driverPageTitle = "\(givenName)_\(familyName)"
                     let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
                     guard let driverPageURL = URL(string: driverPageURLString) else { continue }
+                    
+                    print(givenName)
 
-                    print("\(givenName) \(familyName), \(nationality) ")
-
-                    Data.driverFirstNames.append(givenName)
-                    Data.driverNames.append(familyName)
-                    Data.driverNationality.append(nationality)
-                    Data.driverURL.append(url)
-                    Data.driverImgURL.append(url)
-                    Data.driverDOB.append("")
-                    Data.driverCode.append("")
                     DispatchQueue.main.async {
-                       completion(true)
-                   }
+                        // Retrieve driver image URL from Wikipedia
+                        URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
+                            guard let data = data,
+                                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                                let query = json["query"] as? [String: Any],
+                                let pages = query["pages"] as? [String: Any],
+                                let pageID = pages.keys.first,
+                                let page = pages[pageID] as? [String: Any],
+                                let thumbnail = page["thumbnail"] as? [String: Any],
+                                let imageURLString = thumbnail["source"] as? String else { return }
 
+                            // Append driver image URL and number to array
+                            let string = "\(permanentNumber),\(imageURLString)"
+                            Data.driverImgURL.append(string)
+                            Data.driverFirstNames.append(givenName)
+                            Data.driverNames.append(familyName)
+                            Data.driverNationality.append(nationality)
+                            Data.driverURL.append(url)
+                            Data.driverNumber.append(permanentNumber)
+                        }.resume()
+                    }
+                   
                 }
+                
+                
             } catch let error {
                 print("Error decoding DRIVERS json data: \(error.localizedDescription)")
                 DispatchQueue.main.async {
-                   completion(false)
-               }
+                    completion(false)
+                }
             }
         }
 
         task.resume()
+        
+        DispatchQueue.main.async {
+            completion(true)
+        }
     }
-
-    //                    Data.driverNames.append(driver.familyName)
-    //                    Data.driverNationality.append(driver.nationality)
-    //                    Data.driverURL.append(driver.url)
-    //                    Data.driverNumber.append(driver.permanentNumber)
-    //                    Data.driverFirstNames.append(driver.givenName)
-
-    //                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
-    //                        guard let data = data else { return }
-    //                        do {
-    //                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-    //                            let query = json?["query"] as? [String: Any]
-    //                            let pages = query?["pages"] as? [String: Any]
-    //                            let pageID = pages?.keys.first
-    //                            let thumbnail = pages?[pageID ?? ""] as? [String: Any]
-    //                            let thumbnailURLString = thumbnail?["thumbnail"] as? String ?? ""
-    //
-    //                            DispatchQueue.main.async {
-    //                                if let number = driver["permanentNumber"] as? String {
-    //                                    let tuple = (number, thumbnailURLString)
-    //                                    print(tuple)
-    //                                } else {
-    //                                    let tuple = ("", "")
-    //                                    print(tuple)
-    //                                }
-    //
-    //                            }
-    //                        } catch let error {
-    //                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-    //                        }
-    //                    }.resume()
-
 
 
 
