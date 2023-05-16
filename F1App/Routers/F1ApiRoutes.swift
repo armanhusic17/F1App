@@ -22,7 +22,6 @@ struct F1ApiRoutes  {
     
     let myData = Data()
     
-        
     static func allRaceResults(seasonYear: String) {
         print(seasonYear)
 
@@ -142,7 +141,6 @@ struct F1ApiRoutes  {
 
     
     
-    
     // Drivers
     static func allDrivers(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
@@ -221,7 +219,6 @@ struct F1ApiRoutes  {
         sessionConfig.timeoutIntervalForRequest = 30 // set timeout to 10 seconds
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: url) { (data, response, error) in
-
             guard let data = data else {
                 print("Error: No data received")
                 DispatchQueue.main.async {
@@ -229,7 +226,6 @@ struct F1ApiRoutes  {
                 }
                 return
             }
-
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 let driversTable = json?["MRData"] as? [String: Any]
@@ -274,8 +270,6 @@ struct F1ApiRoutes  {
                     }
                    
                 }
-                
-                
             } catch let error {
                 print("Error decoding DRIVERS json data: \(error.localizedDescription)")
                 DispatchQueue.main.async {
@@ -283,15 +277,11 @@ struct F1ApiRoutes  {
                 }
             }
         }
-
         task.resume()
-        
         DispatchQueue.main.async {
             completion(true)
         }
     }
-
-
 
 
 
@@ -456,88 +446,6 @@ struct F1ApiRoutes  {
     }
     
 
-    
-    
-    static func getStandings(seasonYear:String){
-        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0)) { result in
-            do {
-                let standings = try result.get().data.standingsTable
-                for i in Range(0...standings.standingsLists.count - 1) {
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
-                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
-                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
-                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
-                    
-
-                }
-            } catch {
-                print("Error getting srandings")
-            }
-        }
-        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "1") { result in
-            do {
-                let standings = try result.get().data.standingsTable
-                for i in Range(0...standings.standingsLists.count - 1) {
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
-                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
-                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
-                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
-
-
-                }
-            } catch {
-                print("Error getting srandings")
-            }
-        }
-
-        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "2") { result in
-            do {
-                let standings = try result.get().data.standingsTable
-                for i in Range(0...standings.standingsLists.count - 1) {
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
-                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
-                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
-                }
-            } catch {
-                print("Error getting srandings")
-            }
-        }
-        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "3") { result in
-            do {
-                let standings = try result.get().data.standingsTable
-                for i in Range(0...standings.standingsLists.count - 1) {
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
-                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
-                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
-                }
-            } catch {
-                print("Error getting srandings")
-            }
-        }
-        Formula1API.driverStandings(for: Season.year(Int(seasonYear) ?? 0), limit: "4") { result in
-            do {
-                let standings = try result.get().data.standingsTable
-                for i in Range(0...standings.standingsLists.count - 1) {
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWins.append(standings.standingsLists[i].driverStandings[i].wins)
-                    Data.racePoints.append(standings.standingsLists[i].driverStandings[i].points)
-                    Data.raceWinnerName.append(standings.standingsLists[i].driverStandings[i].driver.familyName)
-                    print(standings.standingsLists[i].driverStandings[i])
-                    Data.raceWinnerTeam.append(standings.standingsLists[i].driverStandings[i].constructors[i].name)
-                }
-            } catch {
-                print("Error getting srandings")
-            }
-        }
-    }
     
     
 

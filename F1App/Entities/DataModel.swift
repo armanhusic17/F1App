@@ -120,6 +120,9 @@ struct Data {
         
         print("removed all data points from the arrays holding the cells")
     }
+    
+    
+    
 
 }
 
