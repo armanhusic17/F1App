@@ -146,33 +146,42 @@ struct CollectionModel {
                 
         case 1: // drivers
             // getting drivers images from wikiAPI, will need to move this to the model
-//            let imageURL = self.driverImgs[indexPath.item]
-//            print("Is this an image URL? ==> \(imageURL)")
-//            let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
-//            print("Clean url or number?? ==> \(cleanedURL)")
+            let imageURL = self.driverImgs[safe: indexPath.item]
+            print("Is this an image URL? ==> \(imageURL)")
+            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
+            print("Clean url or number?? ==> \(cleanedURL)")
             
-//            if let imageURL = cleanedURL {
-            
-//                URLSession.shared.dataTask(with: imageURL) { data, response, error in
-//                    guard let imageData = data, error == nil else {
-//                        print("Error loading image from URL: \(imageURL)")
-//                        return
-//                    }
-                    
+            if let imageURL = cleanedURL {
+                URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                    guard let imageData = data, error == nil else {
+                        print("Error loading image from URL: \(imageURL)")
+                        return
+                    }
                     DispatchQueue.main.async {
-//                        let image = UIImage(data: imageData)
-//                        cell.cellImage.image = image
+                        let image = UIImage(data: imageData)
+                        cell.cellImage.image = image
                        cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
                        cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
-                        cell.bottomCellLabel2.text = "Driver# \(String(describing: self.driverNumbers[safe : indexPath.item] ?? "Driver Number"))"
+                        guard let driverNumber = self.driverNumbers[safe: indexPath.item] else {
+                            cell.bottomCellLabel2.text = ""
+                            return
+                        }
+
+                        cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
                     }
                     
-//                }.resume()
-//            } else {
-////                print("Invalid URL: \(imageURL)")
-//            }
+                }.resume()
+            } else {
+                print("Invalid URL: \(imageURL)")
+                cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
+                cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
+                guard let driverNumber = self.driverNumbers[safe: indexPath.item] else {
+                    cell.bottomCellLabel2.text = ""
+                    return
+                }
 
-
+                cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
+            }
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
             break
