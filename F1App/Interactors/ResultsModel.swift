@@ -14,29 +14,32 @@ struct ResultsModel {
     let driverWikis = Data.driverURL
     let raceWiki = Data.circuitURL
     
-    func loadResults(myself:UIViewController) {
+    func loadResults(myself: UIViewController) {
+        guard let cellPath = Data.cellIndexPassed else { return }
         
-        guard let cellPath = Data.cellIndexPassed else {return}
+        var urlString: String?
+        
         if Data.whichQuery == 0 {
-            guard let teamURL = URL(string: (teamWikis[cellPath]) ?? "") else {return}
-            let safariVC = SFSafariViewController(url: teamURL)
-            myself.present(safariVC, animated: true, completion: nil)
-        }
-        if Data.whichQuery == 1 {
-            guard let driverURL = URL(string: driverWikis[cellPath] ?? "") else {return}
-            let safariVC = SFSafariViewController(url: driverURL)
-            myself.present(safariVC, animated: true, completion: nil)
-        }
-        if Data.whichQuery == 2 {
-            guard let raceURL = URL(string: raceWiki[cellPath] ?? "") else {return}
-            let safariVC = SFSafariViewController(url: raceURL)
-            myself.present(safariVC, animated: true, completion: nil)
+            urlString = teamWikis[cellPath]
+        } else if Data.whichQuery == 1 {
+            urlString = driverWikis[cellPath]
+        } else if Data.whichQuery == 2 {
+            urlString = raceWiki[cellPath]
         } else {
-            print("No results tied to ui yet")
+            print("No results tied to UI yet")
+            return
         }
-
         
+        guard var urlString = urlString else { return }
+        urlString = urlString.replacingOccurrences(of: "http", with: "https")
+        
+        guard let url = URL(string: urlString) else { return }
+        print(url)
+        
+        let safariVC = SFSafariViewController(url: url)
+        myself.present(safariVC, animated: true, completion: nil)
     }
+
     
 
     

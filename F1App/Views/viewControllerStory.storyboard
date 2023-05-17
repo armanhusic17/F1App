@@ -73,7 +73,7 @@
                                                             </attributes>
                                                         </fragment>
                                                     </attributedString>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="search" textContentType="postal-code"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" keyboardType="numberPad" keyboardAppearance="alert" returnKeyType="done" textContentType="date-time"/>
                                                 </textView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z9W-VR-oCF">
                                                     <rect key="frame" x="16" y="100" width="366" height="170"/>
@@ -130,7 +130,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ab-PE-AOc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1871" y="138"/>
+            <point key="canvasLocation" x="1916" y="137"/>
         </scene>
         <!--Results Collection-->
         <scene sceneID="axs-pe-j9y">
@@ -430,7 +430,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Re2-y7-e2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1839" y="137"/>
+            <point key="canvasLocation" x="1287" y="133"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>

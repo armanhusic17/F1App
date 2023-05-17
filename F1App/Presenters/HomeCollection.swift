@@ -113,6 +113,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis")
+            
         }
         
         if indexPath.item == 3 {

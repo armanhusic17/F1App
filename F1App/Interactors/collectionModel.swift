@@ -145,6 +145,8 @@ struct CollectionModel {
             break
                 
         case 1: // drivers
+            cell.F1MapView.isHidden = true
+            cell.mapView.isHidden = true
             // getting drivers images from wikiAPI, will need to move this to the model
             let imageURL = self.driverImgs[safe: indexPath.item]
             print("Is this an image URL? ==> \(imageURL)")
@@ -182,8 +184,7 @@ struct CollectionModel {
 
                 cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
             }
-            cell.F1MapView.isHidden = true
-            cell.mapView.isHidden = true
+     
             break
             
         case 2: // circuits
