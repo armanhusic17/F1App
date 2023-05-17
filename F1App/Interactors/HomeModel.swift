@@ -127,8 +127,10 @@ struct HomeModel {
     
     func showResults(activityIndicator:UIActivityIndicatorView, homeSelf:HomeCollection, f1ApiRoute: @escaping () -> Void){
         f1ApiRoute()
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
