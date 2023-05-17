@@ -164,7 +164,7 @@ struct CollectionModel {
 //                        cell.cellImage.image = image
                        cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
                        cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
-                        cell.bottomCellLabel2.text = "Driver# \(self.driverNumbers[safe : indexPath.item] ?? "Driver Number")"
+                        cell.bottomCellLabel2.text = "Driver# \(String(describing: self.driverNumbers[safe : indexPath.item] ?? "Driver Number"))"
                     }
                     
 //                }.resume()

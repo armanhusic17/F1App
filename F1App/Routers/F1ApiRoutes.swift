@@ -242,14 +242,14 @@ struct F1ApiRoutes  {
                     print(driver)
                     guard let givenName = driver["givenName"] as? String,
                     let familyName = driver["familyName"] as? String,
-                          let nationality = driver["nationality"] as? String else { continue }
+                          let nationality = driver["nationality"] as? String,
 //                    let permanentNumber = driver["permanentNumber"] as? String,
-//                    let url = driver["url"] as? String else { continue }
+                    let url = driver["url"] as? String else { continue }
                     // Append driver information to array
                     Data.driverFirstNames.append(givenName)
                     Data.driverNames.append(familyName)
                     Data.driverNationality.append(nationality)
-//                    Data.driverURL.append(url)
+                    Data.driverURL.append(url)
 //                    Data.driverNumber.append(permanentNumber)
                     
                     
