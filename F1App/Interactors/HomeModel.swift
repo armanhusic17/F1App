@@ -295,40 +295,6 @@ struct HomeModel {
     }
     
     
-    func lottieAnimationPlaying(animationName:String, animationName2:String , subView:UIView, subView2:UIView){
-        var animationView: AnimationView?
-        var animationView2: AnimationView?
-        animationView = .init(name: animationName)
-        animationView2 = .init(name: animationName2)
-
-        
-        animationView!.frame = subView.bounds
-        animationView2!.frame = subView2.bounds
-
-        // 3. Set animation content mode
-        animationView!.contentMode = .scaleAspectFit
-        
-        animationView2!.contentMode = .scaleAspectFit
-        // 4. Set animation loop mode
-        animationView!.loopMode = .loop
-        animationView2!.loopMode = .loop
-        // 5. Adjust animation speed
-        animationView!.animationSpeed = 0.85
-        animationView2!.animationSpeed = 0.5
-
-        //subView.addSubview(animationView!)
-        subView2.addSubview(animationView2!)
-        
-        subView.layer.borderWidth = 23
-        subView.layer.borderColor = UIColor.systemTeal.cgColor
-        subView.alpha = 0.80
-        // 6. Play animation
-        //animationView!.play()
-        animationView2!.play()
-
-    }
-    
-    
     
     
 }

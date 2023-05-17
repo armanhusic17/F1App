@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
+/// This is the inital collectionof results that appears when a user selects one of the 3 maain queries 
 class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
     var collectionmodel = CollectionModel()

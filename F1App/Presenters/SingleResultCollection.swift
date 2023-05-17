@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+/// This is the single race result collection that appears when you select any cellin the grandprix's query
+/// We can adapt this collection to display more than race results, for example quali results from that race, etc
 class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     @IBOutlet weak var topBarView: UIView!
