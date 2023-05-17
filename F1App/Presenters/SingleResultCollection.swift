@@ -48,10 +48,13 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         if let driverNamed = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]",
            let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???",
            let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]",
+           let topSpeed = Data.raceTime[safe: indexPath.item] ?? "TOP",
            let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???" {
-           // Use the unwrapped values to configure your cell
-           cell.driverName.text = "P\(driverPosition)\n\(driverNamed)"
-           cell.botLabel.text = "Constructor: \(constructorID)\nFastest Lap : \(fastestLap)"
+            // Use the unwrapped values to configure your cell
+            cell.driverName.text = "P\(driverPosition)\n\(driverNamed)"
+            cell.botLabel.text = "Constructor: \(constructorID)\nFastest Lap : \(fastestLap)\n"
+            +
+            "Top Speed: \(topSpeed) KPH"
         }
         
         if indexPath.item == 0 {
