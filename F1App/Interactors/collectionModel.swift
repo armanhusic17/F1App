@@ -87,12 +87,12 @@ struct CollectionModel {
         let queryHeight:CGFloat?
         
         if Data.whichQuery == 0 {
-            queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.21
+            queryWidth = availableWidth * 0.95
+            queryHeight = availableHeight * 0.33
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 1 {
             queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.20
+            queryHeight = availableHeight * 0.35
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 2 {
             queryWidth = availableWidth * 0.95
@@ -128,9 +128,9 @@ struct CollectionModel {
                     DispatchQueue.main.async {
                         let image = UIImage(data: imageData)
                         cell.cellImage.image = image
-                        cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-                        cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
-                        
+                        cell.topCellLabel.text = "Constructor:\n\(self.teamNames[indexPath.item] ?? "")"
+                        cell.bottomCellLabel.text = "Nationality:\n\(self.teamNationality[indexPath.item] ?? "")"
+
                     }
                 }.resume()
             } else {
@@ -140,8 +140,8 @@ struct CollectionModel {
             cell.cellImage.layer.borderColor = UIColor.white.cgColor
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
-            cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-            cell.bottomCellLabel.text = self.teamNationality[indexPath.item]
+            cell.topCellLabel.text = "Constructor:\n\(self.teamNames[indexPath.item] ?? "")"
+            cell.bottomCellLabel.text = "Nationality:\n\(self.teamNationality[indexPath.item] ?? "")"
             break
                 
         case 1: // drivers
@@ -206,7 +206,7 @@ struct CollectionModel {
             cell.cellImage.image = UIImage(named: "circuitLogo")
             cell.bottomCellLabel2.text = "\(circuitCityStr!), \(circuitLocationStr!)"
             cell.topCellLabel.text = circuitNameStr
-            cell.bottomCellLabel.text = "Round \(indexPath.item + 1), \(circuitRaceDateStr!)"
+            cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"+", \(circuitRaceDateStr!)"
             cell.mapView.layer.borderWidth = 2
             cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
 

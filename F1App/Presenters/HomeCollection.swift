@@ -174,6 +174,10 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
             dismissKeyboard()
+            DispatchQueue.main.async {
+                self.cellActivityIndicator.isHidden = false
+                self.cellActivityIndicator.startAnimating()
+            }
             cell.layer.borderColor = UIColor.clear.cgColor
 
             // have to disable cells so that the user doesnt send multiple queries as the data loads
