@@ -59,13 +59,13 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
-            return CGSize(width: view.frame.width * 0.85, height: view.frame.height * 0.25)
+            return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.30)
         }
         else if indexPath.item == 3{
-            return CGSize(width: view.frame.width * 0.99, height: view.frame.height * 0.30)
+            return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.30)
         }
         else {
-            return CGSize(width: view.frame.width * 0.47, height: view.frame.height * 0.30)
+            return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.30)
         }
     }
     
@@ -87,16 +87,16 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = false
             cell.enterF1SeasonYear.backgroundColor = UIColor.clear
             cell.homeCellImageView.image = UIImage(named: "40x40")
-            cell.homeCellImageView.alpha = 0.25
+            cell.homeCellImageView.alpha = 0.01
             cell.homeBaseView.backgroundColor = UIColor.clear
             cell.layer.borderWidth = 0.0
         }
         
         if indexPath.item == 1 {
             Data.whichQuery = 0
-            cell.layer.borderWidth = 0.75
-            cell.homeBaseView.backgroundColor = UIColor.lightGray
-            cell.homeBaseView.alpha = 0.5
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -106,9 +106,9 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 2 {
             Data.whichQuery = 1
-            cell.layer.borderWidth = 0.75
-            cell.homeBaseView.backgroundColor = UIColor.lightGray
-            cell.homeBaseView.alpha = 0.5
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.systemRed.cgColor
+            cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -118,10 +118,9 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 3 {
             Data.whichQuery = 2
-            cell.layer.borderWidth = 0.75
-
-            cell.homeBaseView.backgroundColor = UIColor.lightGray
-            cell.homeBaseView.alpha = 0.5
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Grand Prix"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
@@ -131,9 +130,9 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 4 {
             Data.whichQuery = 3
-            cell.layer.borderWidth = 0.75
-            cell.homeBaseView.backgroundColor = UIColor.lightGray
-            cell.homeBaseView.alpha = 0.5
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "WDC"
             cell.topLabel.text = "Top 5"
             cell.enterF1SeasonYear.isHidden = true
@@ -142,9 +141,9 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 5 {
             Data.whichQuery = 4
-            cell.layer.borderWidth = 0.75
-            cell.homeBaseView.backgroundColor = UIColor.lightGray
-            cell.homeBaseView.alpha = 0.5
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.homeBaseView.alpha = 1.0
             cell.topLabel.text = "Top 10"
             cell.bottomLabel.text = "Quali Results"
             cell.enterF1SeasonYear.isHidden = true
@@ -152,17 +151,16 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 6 {
             Data.whichQuery = 5
-            cell.layer.borderWidth = 0.75
-            cell.homeBaseView.backgroundColor = UIColor.lightGray
-            cell.homeBaseView.alpha = 0.5
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.systemRed.cgColor
+            cell.homeBaseView.alpha = 1.0
             cell.topLabel.text = "Race Results"
             cell.bottomLabel.text = "Still gathering data..."
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "F1Logo")
         }
         
-        cell.layer.borderColor = UIColor.systemRed.cgColor
-        cell.layer.cornerRadius = 5
+        cell.layer.cornerRadius = 20
         
         return cell
     }
