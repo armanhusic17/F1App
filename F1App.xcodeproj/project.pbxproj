@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */; };
+		0F1021122A17064000695E8A /* userStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F1021112A17064000695E8A /* userStory.storyboard */; };
+		0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */; };
+		0F1021172A17161700695E8A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1021162A17161700695E8A /* CoreData.framework */; };
+		0F1021192A171EAD00695E8A /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021182A171EAD00695E8A /* CoreDataModel.swift */; };
 		0F1D75172880FA7600EFE42E /* HomeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75162880FA7600EFE42E /* HomeCollection.swift */; };
 		0F1D75192881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
 		0F1D751A2881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
@@ -69,6 +73,10 @@
 /* Begin PBXFileReference section */
 		087C61132AB251D5A9399339 /* Pods_F1App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_F1App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
+		0F1021112A17064000695E8A /* userStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = userStory.storyboard; sourceTree = "<group>"; };
+		0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BoxBoxCoreData.xcdatamodel; sourceTree = "<group>"; };
+		0F1021162A17161700695E8A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		0F1021182A171EAD00695E8A /* CoreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
 		0F1D75162880FA7600EFE42E /* HomeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollection.swift; sourceTree = "<group>"; };
 		0F1D75182881286500EFE42E /* myHomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myHomeCell.swift; sourceTree = "<group>"; };
 		0F343C9029C97BA100DA001A /* SingleResultCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleResultCollection.swift; sourceTree = "<group>"; };
@@ -106,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F1021172A17161700695E8A /* CoreData.framework in Frameworks */,
 				0F9F7CB62890F9B7002383C2 /* FirebaseDatabaseSwift in Frameworks */,
 				0F9F7CA92890DD80002383C2 /* Formula1API in Frameworks */,
 				0F9F7CB82890F9B7002383C2 /* FirebaseStorage in Frameworks */,
@@ -226,6 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
+				0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */,
+				0F1021182A171EAD00695E8A /* CoreDataModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -265,6 +276,7 @@
 			children = (
 				0F515A1D27EC1BFF002129D7 /* LaunchScreen.storyboard */,
 				0FB7659E280538F400C32514 /* viewControllerStory.storyboard */,
+				0F1021112A17064000695E8A /* userStory.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -272,6 +284,7 @@
 		AAFC03F7C92317D74F45CE34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F1021162A17161700695E8A /* CoreData.framework */,
 				087C61132AB251D5A9399339 /* Pods_F1App.framework */,
 			);
 			name = Frameworks;
@@ -406,6 +419,7 @@
 				0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */,
 				0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */,
 				0F515A1F27EC1BFF002129D7 /* LaunchScreen.storyboard in Resources */,
+				0F1021122A17064000695E8A /* userStory.storyboard in Resources */,
 				0F515A1C27EC1BFF002129D7 /* Assets.xcassets in Resources */,
 				0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */,
 				0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */,
@@ -477,10 +491,12 @@
 			files = (
 				0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */,
 				0F1D75192881286500EFE42E /* myHomeCell.swift in Sources */,
+				0F1021192A171EAD00695E8A /* CoreDataModel.swift in Sources */,
 				0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */,
 				0F3703FD27F13C1400968C5F /* myCell.swift in Sources */,
 				0F343C9129C97BA100DA001A /* SingleResultCollection.swift in Sources */,
 				0F1D75172880FA7600EFE42E /* HomeCollection.swift in Sources */,
+				0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* ResultsCollection.swift in Sources */,
 				0F343C9329C97BF000DA001A /* singleResultCell.swift in Sources */,
@@ -930,6 +946,16 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
+		0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */,
+			);
+			currentVersion = 0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */;
+			path = BoxBoxCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		0F515A1827EC1BFE002129D7 /* F1App.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

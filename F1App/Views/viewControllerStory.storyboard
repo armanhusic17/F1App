@@ -138,7 +138,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" dataMode="prototypes" id="8Cd-Jn-GJO">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.89597750025869205" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.59999999999999998" alpha="0.74956103190000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="25" minimumInteritemSpacing="25" id="Bq9-QS-Mdg">
                             <size key="itemSize" width="314" height="261"/>
@@ -162,32 +162,32 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </activityIndicatorView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyJ-qf-Gri">
-                                                    <rect key="frame" x="164" y="12" width="134" height="75"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
+                                                    <rect key="frame" x="12" y="12" width="140" height="241"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ybi-32-3AN">
+                                                    <rect key="frame" x="12" y="12" width="132" height="171"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyJ-qf-Gri">
+                                                    <rect key="frame" x="160" y="12" width="138" height="75"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="75" id="OdS-nF-FzD"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="24"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-8C-TE7">
-                                                    <rect key="frame" x="164" y="87" width="134" height="50"/>
+                                                    <rect key="frame" x="160" y="87" width="138" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="VY6-Eq-v85"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="19"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
-                                                    <rect key="frame" x="12" y="12" width="140" height="179"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="140" id="EAv-Cr-Kdm"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-jT-tcv">
-                                                    <rect key="frame" x="164" y="137" width="134" height="50"/>
+                                                    <rect key="frame" x="160" y="137" width="138" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="ewA-1i-6pJ"/>
                                                     </constraints>
@@ -217,8 +217,10 @@
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="8" id="5op-Tl-dmg"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="12" id="7xP-Oo-5Rh"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="top" secondItem="1h8-8C-TE7" secondAttribute="bottom" id="BGT-Vo-Rdo"/>
+                                                <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="8" id="Cn9-a3-VGl"/>
+                                                <constraint firstItem="Ybi-32-3AN" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="leading" id="Csc-p8-XMS"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="uyJ-qf-Gri" secondAttribute="leading" id="Fpi-aL-aGd"/>
-                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="4" id="FyO-Ep-DDF"/>
+                                                <constraint firstItem="Ybi-32-3AN" firstAttribute="trailing" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="-8" id="I7E-2R-aZH"/>
                                                 <constraint firstItem="lss-gv-dP1" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="JwA-7d-7bv"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Oqr-Zs-Lzi"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="12" id="P50-PI-5cX"/>
@@ -227,15 +229,18 @@
                                                 <constraint firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" constant="16" id="X46-rn-oJp"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="lss-gv-dP1" secondAttribute="trailing" id="Yn4-QY-CmL"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="centerX" secondItem="uyJ-qf-Gri" secondAttribute="centerX" id="ZlB-Ev-xqW"/>
+                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="Ybi-32-3AN" secondAttribute="bottom" constant="12" id="bBj-7l-jHJ"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="leading" secondItem="1h8-8C-TE7" secondAttribute="leading" id="chU-gG-gg3"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="centerX" secondItem="1h8-8C-TE7" secondAttribute="centerX" id="iAm-h3-pNg"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="top" secondItem="uyJ-qf-Gri" secondAttribute="bottom" id="kAd-jb-U8L"/>
                                                 <constraint firstAttribute="trailing" secondItem="Apx-3q-uiC" secondAttribute="trailing" constant="8" id="nwL-JG-09V"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="FYC-jT-tcv" secondAttribute="bottom" constant="8" id="oQK-dD-dtC"/>
+                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="bottom" secondItem="Acp-AP-HL7" secondAttribute="bottom" id="oo7-Nn-VOH"/>
+                                                <constraint firstItem="Ybi-32-3AN" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="qqF-bt-Jda"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="bottom" secondItem="lss-gv-dP1" secondAttribute="bottom" id="s6j-9m-iep"/>
-                                                <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="12" id="ub4-Mc-0IO"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="ukQ-Kr-0Gg"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="wlW-da-8p2"/>
+                                                <constraint firstItem="Acp-AP-HL7" firstAttribute="centerX" secondItem="BTL-hX-xyL" secondAttribute="centerX" constant="-75" id="zVB-3z-zmS"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -254,6 +259,7 @@
                                     <outlet property="bottomCellLabel2" destination="FYC-jT-tcv" id="E2P-Mc-bbB"/>
                                     <outlet property="cellBaseView" destination="BTL-hX-xyL" id="Xle-XX-TD7"/>
                                     <outlet property="cellImage" destination="Acp-AP-HL7" id="aNk-O7-NGu"/>
+                                    <outlet property="cellImage2" destination="Ybi-32-3AN" id="NzN-SQ-wjW"/>
                                     <outlet property="mapView" destination="Apx-3q-uiC" id="Mli-Bk-Z1B"/>
                                     <outlet property="topCellLabel" destination="uyJ-qf-Gri" id="h8Z-E6-XHC"/>
                                 </connections>
@@ -271,7 +277,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAY-M9-cit" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2640" y="133"/>
+            <point key="canvasLocation" x="2639.7196261682243" y="132.82937365010801"/>
         </scene>
         <!--Single Result Collection-->
         <scene sceneID="fSC-2y-g4e">

@@ -182,9 +182,6 @@ struct HomeModel {
         else if Data.whichQuery == 1 {
             targetYear = 2014
             if year < targetYear! || year > maxYear {
-//                print("WE DONT HAVE DATA ON DRIVERS BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
-                
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 

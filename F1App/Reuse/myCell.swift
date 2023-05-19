@@ -20,6 +20,7 @@ class myCell: UICollectionViewCell {
     @IBOutlet weak var F1MapView: MKMapView!
     @IBOutlet weak var mapView: UIView!
     @IBOutlet weak var activitySpinner: UIActivityIndicatorView!
+    @IBOutlet weak var cellImage2: UIImageView!
     
     
     var myCellIndexPath:Int?

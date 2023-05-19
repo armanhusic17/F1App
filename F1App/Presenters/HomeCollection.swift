@@ -16,8 +16,10 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     let f1routes = F1ApiRoutes()
     var homeModel = HomeModel()
     let collectionModel = CollectionModel()
+    let coreData = CoreDataModel()
     
     var seasonYear:Int?
+    let cellBorderWidth = 2.5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
-            return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.30)
+            return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.25)
         }
         else if indexPath.item == 3{
             return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.30)
@@ -80,7 +82,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! myHomeCell
-        
+        coreData.showData()
         if indexPath.item == 0 {
             cell.bottomLabel.text = ""
             cell.topLabel.text = "Enter F1 Season"
@@ -94,7 +96,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 1 {
             Data.whichQuery = 0
-            cell.layer.borderWidth = 1.0
+            cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Constructors"
@@ -106,7 +108,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 2 {
             Data.whichQuery = 1
-            cell.layer.borderWidth = 1.0
+            cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Drivers"
@@ -118,7 +120,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 3 {
             Data.whichQuery = 2
-            cell.layer.borderWidth = 1.0
+            cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Grand Prix"
@@ -130,7 +132,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 4 {
             Data.whichQuery = 3
-            cell.layer.borderWidth = 1.0
+            cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "WDC"
@@ -141,7 +143,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         if indexPath.item == 5 {
             Data.whichQuery = 4
-            cell.layer.borderWidth = 1.0
+            cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.topLabel.text = "Top 10"
@@ -151,7 +153,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         if indexPath.item == 6 {
             Data.whichQuery = 5
-            cell.layer.borderWidth = 1.0
+            cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.topLabel.text = "Race Results"

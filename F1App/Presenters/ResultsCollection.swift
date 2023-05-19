@@ -52,10 +52,10 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         return cell
     }
     
+    
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cellIndexPath = indexPath.item
-        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             print("Cell is selected")
             cell.activitySpinner.isHidden = false
