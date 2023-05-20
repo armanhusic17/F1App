@@ -129,6 +129,7 @@ struct CollectionModel {
             completion(image)
         }.resume()
     }
+
     
     
     // what data is shown in the each cell
@@ -164,7 +165,8 @@ struct CollectionModel {
         case 1: // drivers
             cell.F1MapView.isHidden = true
             cell.mapView.isHidden = true
-            // getting drivers images from wikiAPI, will need to move this to the model
+            
+            
             let imageURL = self.driverImgs[safe: indexPath.item]
             let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
             print(imageURL)
