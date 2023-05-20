@@ -256,21 +256,22 @@ struct F1ApiRoutes  {
                             guard let pageID = wikipediaData.query.pages.keys.first,
                                   let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else { return }
                             let thumbnailURLString = thumbnail.source
-                            Data.driverImgURL.append(thumbnailURLString) // Lets take this out of this entire method, and just call it from with cellforitemat, whats the point in trying to structure the cells from this var out.
 
+                            DispatchQueue.main.async {
+                                Data.driverImgURL.append(thumbnailURLString)
+                                Data.driverNames.append(familyName)
+                                Data.driverFirstNames.append(givenName)
+                                Data.driverNationality.append(nationality)
+                                Data.driverURL.append(url)
+                              
+                            }
                            
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
                         }
                     }.resume()
                     
-                    DispatchQueue.main.async {
-                        Data.driverNames.append(familyName)
-                        Data.driverFirstNames.append(givenName)
-                        Data.driverNationality.append(nationality)
-                        Data.driverURL.append(url)
-                      
-                    }
+                    
                 }
                 
                 completion(true)

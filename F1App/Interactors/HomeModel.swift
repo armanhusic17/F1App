@@ -13,7 +13,7 @@ struct HomeModel {
     
     
     var decodedJSONObject:String = ""
-    let qTime:Double = 1.75
+    let qTime:Double = 1.85
     var seasonRound:String?
     var seasonYear:String?
     
