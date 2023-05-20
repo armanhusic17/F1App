@@ -247,32 +247,35 @@ struct F1ApiRoutes  {
                     
                     let driverPageTitle = "\(givenName)_\(familyName)"
                     let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+                    
                     guard let driverPageURL = URL(string: driverPageURLString) else { continue }
                     
                     URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
                         guard let data = data else { return }
                         do {
                             let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-                            guard let pageID = wikipediaData.query.pages.keys.first,
-                                  let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else { return }
-                            let thumbnailURLString = thumbnail.source
-
+                            let thumbnailURLString: String?
+                            
+                            if let pageID = wikipediaData.query.pages.keys.first,
+                               let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail {
+                                thumbnailURLString = thumbnail.source
+                            } else {
+                                thumbnailURLString = nil // Set thumbnailURLString to nil
+                            }
+                            
                             DispatchQueue.main.async {
-                                Data.driverImgURL.append(thumbnailURLString)
+                                Data.driverImgURL.append(thumbnailURLString ?? "lewis") // Use "lewis" if thumbnailURLString is nil
                                 Data.driverNames.append(familyName)
                                 Data.driverFirstNames.append(givenName)
                                 Data.driverNationality.append(nationality)
                                 Data.driverURL.append(url)
-                              
                             }
-                           
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
                         }
                     }.resume()
-                    
-                    
                 }
+
                 
                 completion(true)
             } catch let error {
