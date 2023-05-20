@@ -132,6 +132,8 @@ struct CollectionModel {
 
     
     
+    
+    
     // what data is shown in the each cell
     func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView, seasonYear: Int){
         switch Data.whichQuery {
