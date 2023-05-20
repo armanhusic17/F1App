@@ -180,39 +180,17 @@ struct HomeModel {
             }
         }
         else if Data.whichQuery == 1 {
-            targetYear = 2014
-            if year < targetYear! || year > maxYear {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                
-                F1ApiRoutes.allDriversBefore2014(seasonYear: thisSeason) { Success in
-                    if Success {
-                        showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                            print("Results being shown..")
-                        }
-                    } else {
-                        print("ERROR?")
+            Data.seasonYearSelected = enterYear.text
+            guard let thisSeason = Data.seasonYearSelected else { return }
+            
+            F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
+                if Success {
+                    showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                        print("Results being shown..")
                     }
+                } else {
+                    print("ERROR?")
                 }
-                
-                
-            } else {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                print(thisSeason)
-                
-                F1ApiRoutes.allDrivers(seasonYear: thisSeason) { Succes in
-                    if Succes {
-                        showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                            print("Showing results")
-                        }
-                    } else {
-                        print("Error")
-                    }
-                }
-                
-                
-
             }
         }
         else if Data.whichQuery == 0 {

@@ -144,77 +144,7 @@ struct F1ApiRoutes  {
     
     
     // Drivers
-    static func allDrivers(seasonYear: String, completion: @escaping (Bool) -> Void) {
-        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
-        guard let url = URL(string: urlString) else { return }
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 30 // set timeout to 10 seconds
-        let session = URLSession(configuration: sessionConfig)
-        let task = session.dataTask(with: url) { (data, response, error) in
-
-            guard let data = data else {
-                print("Error: No data received")
-                return
-            }
-
-            do {
-                let f1Data = try JSONDecoder().decode(Drivers.self, from: data)
-                let driversTableArray = f1Data.data.driverTable.drivers
-                
-                for driver in driversTableArray {
-                    let driverPageTitle = "\(driver.givenName)_\(driver.familyName)"
-                    let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-                    guard let driverPageURL = URL(string: driverPageURLString) else { continue }
-                    
-                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
-                        guard let data = data else { return }
-                        do {
-                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-                            guard let pageID = wikipediaData.query.pages.keys.first,
-                                  let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else { return }
-                            let thumbnailURLString = thumbnail.source
-                            
-                            DispatchQueue.main.async {
-                                if let number = driver.permanentNumber {
-                                    let tuple = (number, thumbnailURLString)
-                                    let string = "\(tuple.0),\(tuple.1)"
-                                    Data.driverImgURL.append(string)
-                                    Data.driverNames.append(driver.familyName)
-                                    Data.driverNationality.append(driver.nationality)
-                                    Data.driverURL.append(driver.url)
-                                    Data.driverNumber.append(driver.permanentNumber)
-                                    Data.driverFirstNames.append(driver.givenName)
-                                    Data.driverDOB.append(driver.dateOfBirth)
-                                    Data.driverCode.append(driver.code)
-                                 
-                                }
-                            }
-                        } catch let error {
-                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-                            DispatchQueue.main.async {
-                                completion(false)
-                            }
-                        }
-                    }.resume()
-                }
-               
-            } catch let error {
-                print("Error decoding DRIVERS json data: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            }
-        }
-
-        task.resume()
-        
-        DispatchQueue.main.async {
-            completion(true)
-        }
-    }
-    
-
-    static func allDriversBefore2014(seasonYear: String, completion: @escaping (Bool) -> Void) {
+    static func fetchAllDriversFrom(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
         guard let url = URL(string: urlString) else { return }
         let sessionConfig = URLSessionConfiguration.default
@@ -352,7 +282,7 @@ struct F1ApiRoutes  {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
                         }
                     }.resume()
-                }
+                } // emd for loop
             } catch let error {
                 print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
             }

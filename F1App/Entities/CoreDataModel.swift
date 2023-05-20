@@ -5,26 +5,22 @@
 //  Created by Arman Husic on 5/18/23.
 //
 
+
 import Foundation
 import CoreData
 import UIKit
 
-class CoreDataModel: NSManagedObject {
-    @NSManaged var username: String
-    @NSManaged var favoriteDriver: String
-    @NSManaged var favoriteTeam: String
-    
+class CoreDataModel: UserEntity {
     // Add more attributes as needed
-    
+
     // MARK: - Custom methods
     
     // Example method to create and save a new user
     static func createUser(name: String, favoriteDriver: String, favoriteConstructor: String, in context: NSManagedObjectContext) {
-        
-        let newUser = NSEntityDescription.insertNewObject(forEntityName: "UserEntity", into: context) as? CoreDataModel
-        newUser?.username = name
-        newUser?.favoriteDriver = favoriteDriver
-        newUser?.favoriteTeam = favoriteConstructor
+        let newUser = CoreDataModel(context: context)
+        newUser.username = name
+        newUser.favoriteDriver = favoriteDriver
+        newUser.favoriteTeam = favoriteConstructor
         
         // Save the changes to Core Data
         do {
@@ -50,13 +46,13 @@ class CoreDataModel: NSManagedObject {
         }
     }
     
-    func callCreateUser(){
+    func callCreateUser() {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let context = appDelegate?.persistentContainer.viewContext else {return}
+        guard let context = appDelegate?.persistentContainer.viewContext else { return }
         CoreDataModel.createUser(name: "Swiftduu", favoriteDriver: "Lewis Hamilton", favoriteConstructor: "Mercedes", in: context)
     }
     
-    func showData(){
+    func showData() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         if let users = CoreDataModel.fetchAllUsers(in: context) {
@@ -68,6 +64,5 @@ class CoreDataModel: NSManagedObject {
                 // Access other attributes and perform desired operations
             }
         }
-
     }
 }
