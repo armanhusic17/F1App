@@ -111,6 +111,26 @@ struct CollectionModel {
 
     }
     
+    // Define a new method to load the driver's image asynchronously
+    func loadImage(withURL imageURL: URL?, completion: @escaping (UIImage?) -> Void) {
+        guard let imageURL = imageURL else {
+            completion(nil)
+            return
+        }
+
+        URLSession.shared.dataTask(with: imageURL) { data, response, error in
+            guard let imageData = data, error == nil else {
+                print("Error loading image from URL: \(imageURL)")
+                completion(nil)
+                return
+            }
+
+            let image = UIImage(data: imageData)
+            completion(image)
+        }.resume()
+    }
+    
+    
     // what data is shown in the each cell
     func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView, seasonYear: Int){
         switch Data.whichQuery {
@@ -118,24 +138,21 @@ struct CollectionModel {
         case 0: // constructor
             let imageURL = self.teamsImgs[indexPath.item]
             let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
-            if let imageURL = cleanedURL {
-                URLSession.shared.dataTask(with: imageURL) { data, response, error in
-                    guard let imageData = data, error == nil else {
-                        print("Error loading image from URL: \(imageURL)")
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: imageData)
+            cell.cellImage.contentMode = .scaleAspectFill
+            loadImage(withURL: cleanedURL) { image in
+                DispatchQueue.main.async {
+                    if image != nil {
                         cell.cellImage.image = image
-                        cell.topCellLabel.text = "Constructor: \(self.teamNames[indexPath.item] ?? "")"
-                        cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
 
+                    } else {
+                        cell.cellImage.contentMode = .scaleAspectFit
+                        cell.cellImage.image = UIImage(named: "raceTeam")
                     }
-                }.resume()
-            } else {
-                print("Invalid URL: \(imageURL)")
+                    cell.topCellLabel.text = "Constructor: \(self.teamNames[indexPath.item] ?? "")"
+                    cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
+                }
             }
+            
             cell.cellImage.layer.borderWidth = 1
             cell.cellImage.layer.borderColor = UIColor.white.cgColor
             cell.F1MapView.isHidden = true
@@ -149,42 +166,30 @@ struct CollectionModel {
             cell.mapView.isHidden = true
             // getting drivers images from wikiAPI, will need to move this to the model
             let imageURL = self.driverImgs[safe: indexPath.item]
-            print("Is this an image URL? ==> \(imageURL)")
             let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
-            print("Clean url or number?? ==> \(cleanedURL)")
-            
-            if let imageURL = cleanedURL {
-                URLSession.shared.dataTask(with: imageURL) { data, response, error in
-                    guard let imageData = data, error == nil else {
-                        print("Error loading image from URL: \(imageURL)")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: imageData)
+            print(imageURL)
+            print(cleanedURL)
+        
+            loadImage(withURL: cleanedURL ?? imageURL) { image in
+                DispatchQueue.main.async {
+                    if image != nil {
                         cell.cellImage.image = image
-                       cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-                       cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
-                        guard let driverNumber = self.driverNumbers[safe: indexPath.item] else {
-                            cell.bottomCellLabel2.text = ""
-                            return
-                        }
 
-                        cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
+                    } else {
+                        cell.cellImage.contentMode = .scaleAspectFill
+                        cell.cellImage.image = UIImage(named: "lewis")
                     }
-                    
-                }.resume()
-            } else {
-                print("Invalid URL: \(imageURL)")
-                cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-                cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
-                guard let driverNumber = self.driverNumbers[safe: indexPath.item] else {
-                    cell.bottomCellLabel2.text = ""
-                    return
                 }
-
-                cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
             }
-     
+            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
+            cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
+
+            guard let driverNumber = self.driverNumbers[safe: indexPath.item] else {
+                cell.bottomCellLabel2.text = ""
+                return
+            }
+
+            cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
             break
             
         case 2: // circuits
@@ -216,11 +221,9 @@ struct CollectionModel {
             cell.bottomCellLabel2.isHidden = false
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
-
             cell.topCellLabel.text = "\(String(describing: raceWinnerName[indexPath.item] ?? "") )" + ", \(raceWinnerTeam[indexPath.item] ?? "")"
             cell.bottomCellLabel.text = "Wins : \(String(describing: raceWins[indexPath.item] ?? ""))"
             cell.bottomCellLabel2.text = "Point Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
-            
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
             cell.cellImage.image = UIImage(named: "F1Logo")
@@ -260,14 +263,11 @@ struct CollectionModel {
 
 // mapkit extension
 private extension MKMapView {
-  func centerToLocation(
-    _ location: CLLocation,
-    regionRadius: CLLocationDistance = 1000
-  ) {
-    let coordinateRegion = MKCoordinateRegion(
-      center: location.coordinate,
-      latitudinalMeters: regionRadius,
-      longitudinalMeters: regionRadius)
-    setRegion(coordinateRegion, animated: true)
-  }
+    func centerToLocation(_ location: CLLocation,regionRadius: CLLocationDistance = 1000) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius)
+            setRegion(coordinateRegion, animated: true)
+    }
 }
