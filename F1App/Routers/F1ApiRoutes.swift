@@ -214,57 +214,6 @@ struct F1ApiRoutes  {
     }
     
 
-//    static func allDriversBefore2014(seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
-//        guard let url = URL(string: urlString) else { return }
-//        let sessionConfig = URLSessionConfiguration.default
-//        sessionConfig.timeoutIntervalForRequest = 59 // set timeout to 10 seconds
-//        let session = URLSession(configuration: sessionConfig)
-//        let task = session.dataTask(with: url) { (data, response, error) in
-//            guard let data = data else {
-//                print("Error: No data received")
-//                DispatchQueue.main.async {
-//                    completion(false)
-//                }
-//                return
-//            }
-//            do {
-//                Data.whichQuery = 1 // Set the query type to drivers
-//
-//                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//                print(json) // Print the entire API response
-//
-//                let driversTable = json?["MRData"] as? [String: Any]
-//                let driversTableArray = driversTable?["DriverTable"] as? [String: Any]
-//                let drivers = driversTableArray?["Drivers"] as? [[String: Any]]
-//
-//                for driver in drivers ?? [] {
-//                    print(driver)
-//                    guard let givenName = driver["givenName"] as? String,
-//                    let familyName = driver["familyName"] as? String,
-//                          let nationality = driver["nationality"] as? String,
-//                    let url = driver["url"] as? String else { continue }
-//                    // Append driver information to array
-//                    Data.driverFirstNames.append(givenName)
-//                    Data.driverNames.append(familyName)
-//                    Data.driverNationality.append(nationality)
-//                    Data.driverURL.append(url)
-//
-//
-//
-//                }
-//
-//                completion(true)
-//            } catch let error {
-//                print("Error decoding DRIVERS json data: \(error.localizedDescription)")
-//                DispatchQueue.main.async {
-//                    completion(false)
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
-
     static func allDriversBefore2014(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
         guard let url = URL(string: urlString) else { return }
@@ -307,21 +256,21 @@ struct F1ApiRoutes  {
                             guard let pageID = wikipediaData.query.pages.keys.first,
                                   let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else { return }
                             let thumbnailURLString = thumbnail.source
-                            
-                            DispatchQueue.main.async {
-                                let tuple = (givenName, familyName, nationality, url, thumbnailURLString)
-                                let string = "\(tuple.0),\(tuple.1),\(tuple.2),\(tuple.3),\(tuple.4)"
-                                Data.driverImgURL.append(thumbnailURLString)
-                                Data.driverNames.append(familyName)
-                                Data.driverFirstNames.append(givenName)
-                                Data.driverNationality.append(nationality)
-                                Data.driverURL.append(url)
-                              
-                            }
+                            Data.driverImgURL.append(thumbnailURLString) // Lets take this out of this entire method, and just call it from with cellforitemat, whats the point in trying to structure the cells from this var out.
+
+                           
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
                         }
                     }.resume()
+                    
+                    DispatchQueue.main.async {
+                        Data.driverNames.append(familyName)
+                        Data.driverFirstNames.append(givenName)
+                        Data.driverNationality.append(nationality)
+                        Data.driverURL.append(url)
+                      
+                    }
                 }
                 
                 completion(true)
@@ -336,89 +285,6 @@ struct F1ApiRoutes  {
     }
 
     
-    
-//    static func allDriversBefore2014(seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
-//        guard let url = URL(string: urlString) else { return }
-//        let sessionConfig = URLSessionConfiguration.default
-//        sessionConfig.timeoutIntervalForRequest = 30 // set timeout to 10 seconds
-//        let session = URLSession(configuration: sessionConfig)
-//        let task = session.dataTask(with: url) { (data, response, error) in
-//            guard let data = data else {
-//                print("Error: No data received")
-//                DispatchQueue.main.async {
-//                    completion(false)
-//                }
-//                return
-//            }
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//                let driversTable = json?["MRData"] as? [String: Any]
-//                let driversTableArray = driversTable?["DriverTable"] as? [String: Any]
-//                let drivers = driversTableArray?["Drivers"] as? [[String: Any]]
-//
-//                let group = DispatchGroup() // Create a dispatch group
-//
-//                for driver in drivers ?? [] {
-//                    guard let givenName = driver["givenName"] as? String,
-//                        let familyName = driver["familyName"] as? String,
-//                        let nationality = driver["nationality"] as? String,
-//                        let permanentNumber = driver["permanentNumber"] as? String,
-//                        let url = driver["url"] as? String else { continue }
-//
-//                    let driverPageTitle = "\(givenName)_\(familyName)"
-//                    print(driverPageTitle)
-//                    let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-//                    guard let driverPageURL = URL(string: driverPageURLString) else { continue }
-//
-//                    group.enter() // Notify the group that a task has started
-//
-//                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
-//                        defer {
-//                            group.leave() // Notify the group that the task has finished
-//                        }
-//
-//                        guard let data = data,
-//                            let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-//                            let query = json["query"] as? [String: Any],
-//                            let pages = query["pages"] as? [String: Any] else { return }
-//
-//                        for (_, pageData) in pages {
-//                            guard let page = pageData as? [String: Any],
-//                                let thumbnail = page["thumbnail"] as? [String: Any],
-//                                let imageURLString = thumbnail["source"] as? String else { continue }
-//
-//                            // Append driver image URL and number to array
-//                            let string = "\(permanentNumber),\(imageURLString)"
-//                            Data.driverImgURL.append(string)
-//                            Data.driverFirstNames.append(givenName)
-//                            Data.driverNames.append(familyName)
-//                            Data.driverNationality.append(nationality)
-//                            Data.driverURL.append(url)
-//                            Data.driverNumber.append(permanentNumber)
-//
-//                            print(Data.driverImgURL)
-//                            print(Data.driverFirstNames)
-//                            print(Data.driverNames)
-//                         }
-//
-//                     }.resume()
-//                 }
-//
-//                 group.notify(queue: .main) {
-//                     completion(true) // Call the completion block after all tasks have finished
-//                 }
-//             } catch let error {
-//                 print("Error decoding DRIVERS json data: \(error.localizedDescription)")
-//                 DispatchQueue.main.async {
-//                     completion(false)
-//                 }
-//             }
-//         }
-//         task.resume()
-//    }
-
-
 
     
     // Constructors
