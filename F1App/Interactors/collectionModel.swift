@@ -188,12 +188,12 @@ struct CollectionModel {
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
             cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
 
-            guard let driverNumber = self.driverNumbers[safe: indexPath.item] else {
+            guard let dob = self.driverDOB[safe: indexPath.item] else {
                 cell.bottomCellLabel2.text = ""
                 return
             }
 
-            cell.bottomCellLabel2.text = "Driver# \(driverNumber ?? "")"
+            cell.bottomCellLabel2.text = "DOB: \(dob ?? "")"
             break
             
         case 2: // circuits

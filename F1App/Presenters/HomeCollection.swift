@@ -16,7 +16,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     let f1routes = F1ApiRoutes()
     var homeModel = HomeModel()
     let collectionModel = CollectionModel()
-    let coreData = CoreDataModel()
     
     var seasonYear:Int?
     let cellBorderWidth = 2.5
@@ -82,7 +81,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! myHomeCell
-        coreData.showData()
         if indexPath.item == 0 {
             cell.bottomLabel.text = ""
             cell.topLabel.text = "Enter F1 Season"
@@ -176,9 +174,10 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
             dismissKeyboard()
-            DispatchQueue.main.async {
-                self.cellActivityIndicator.isHidden = false
-                self.cellActivityIndicator.startAnimating()
+            DispatchQueue.main.async { [self] in
+                view.bringSubviewToFront(cellActivityIndicator)
+                cellActivityIndicator.isHidden = false
+                cellActivityIndicator.startAnimating()
             }
             cell.layer.borderColor = UIColor.clear.cgColor
 

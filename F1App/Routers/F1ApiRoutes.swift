@@ -173,6 +173,7 @@ struct F1ApiRoutes  {
                     guard let givenName = driver["givenName"] as? String,
                           let familyName = driver["familyName"] as? String,
                           let nationality = driver["nationality"] as? String,
+                          let dateOfBirth = driver["dateOfBirth"] as? String,
                           let url = driver["url"] as? String else { continue }
                     
                     let driverPageTitle = "\(givenName)_\(familyName)"
@@ -198,7 +199,9 @@ struct F1ApiRoutes  {
                                 Data.driverNames.append(familyName)
                                 Data.driverFirstNames.append(givenName)
                                 Data.driverNationality.append(nationality)
+                                Data.driverDOB.append(dateOfBirth)
                                 Data.driverURL.append(url)
+                                
                             }
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
@@ -231,7 +234,7 @@ struct F1ApiRoutes  {
         sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
 
         let session = URLSession(configuration: sessionConfig)
-
+20
         let task = session.dataTask(with: url) { (data, response, error) in
 
             guard let data = data else {

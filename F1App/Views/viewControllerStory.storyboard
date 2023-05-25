@@ -79,7 +79,7 @@
                                                     <rect key="frame" x="0.0" y="32" width="374" height="306"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="wnU-US-zXV" secondAttribute="trailing" constant="24" id="15q-Hk-gHl"/>
                                                 <constraint firstItem="UzO-9O-PKE" firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" constant="-25" id="1a8-jP-9DF"/>
@@ -191,8 +191,8 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="ewA-1i-6pJ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="16"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-3q-uiC">
@@ -212,7 +212,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="8" id="5op-Tl-dmg"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="12" id="7xP-Oo-5Rh"/>
@@ -345,7 +345,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="3Zw-W0-hRx" firstAttribute="top" secondItem="Bgm-YJ-PfV" secondAttribute="top" constant="8" id="0fr-ag-4u9"/>
                                                                 <constraint firstItem="Xhg-9f-t8w" firstAttribute="centerX" secondItem="3Zw-W0-hRx" secondAttribute="centerX" id="8ys-aV-CQy"/>
