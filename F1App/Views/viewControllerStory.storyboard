@@ -163,7 +163,7 @@
                                                     <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
-                                                    <rect key="frame" x="12" y="12" width="140" height="241"/>
+                                                    <rect key="frame" x="12" y="12" width="140" height="237"/>
                                                 </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ybi-32-3AN">
                                                     <rect key="frame" x="12" y="12" width="132" height="171"/>
@@ -235,7 +235,7 @@
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="top" secondItem="uyJ-qf-Gri" secondAttribute="bottom" id="kAd-jb-U8L"/>
                                                 <constraint firstAttribute="trailing" secondItem="Apx-3q-uiC" secondAttribute="trailing" constant="8" id="nwL-JG-09V"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="FYC-jT-tcv" secondAttribute="bottom" constant="8" id="oQK-dD-dtC"/>
-                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="bottom" secondItem="Acp-AP-HL7" secondAttribute="bottom" id="oo7-Nn-VOH"/>
+                                                <constraint firstItem="Apx-3q-uiC" firstAttribute="bottom" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="4" id="oo7-Nn-VOH"/>
                                                 <constraint firstItem="Ybi-32-3AN" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="qqF-bt-Jda"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="bottom" secondItem="lss-gv-dP1" secondAttribute="bottom" id="s6j-9m-iep"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="ukQ-Kr-0Gg"/>
