@@ -42,55 +42,56 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     @objc(collectionView:cellForItemAtIndexPath:)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        // Deque a cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
-        // Get create all of the vars that will go in the cell
-        
-        // load all the 
-        if let driverNamed = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]",
-           let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???",
-           let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]",
-           let topSpeed = Data.raceTime[safe: indexPath.item] ?? "",
-           let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???" {
-            // Use the unwrapped values to configure your cell
-            cell.driverName.text = "P\(driverPosition)\n\(driverNamed)"
-            cell.botLabel.text = "Constructor: \(constructorID)\nFastest Lap : \(fastestLap)\n"
-            +
-            "Top Speed: \(topSpeed) MPH"
-           
-            if let qualiResult = Data.qualiResults.first(where: { $0?.contains(driverNamed) ?? false }) {
-                print(qualiResult!)
-              
-            } else {
-                print("No qualifying result found with the specified string")
-            }
-            
-            
-        }
-        
-        if let singleRaceName = Data.singleRaceName {
-            self.topBarLabel.text = singleRaceName
-        } else {
-            self.topBarLabel.text = "Race Results"
 
-        }
+        // Extract all the necessary variables
+        let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
+        let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
+        let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
+        let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
+        let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
         
+        // Configure the cell using the extracted variables
+        cell.driverName.text = "P\(driverPosition!)\n\(driverName!)"
+        cell.botLabel.text = "Constructor: \(constructorID!)\nFastest Lap: \(fastestLap!)\nTop Speed: \(topSpeed!) MPH"
+        
+        // Set the border color based on the item's index
         if indexPath.item == 0 {
             cell.layer.borderColor = UIColor.red.cgColor
-        }
-        else if indexPath.item % 2 == 1 {
+        } else if indexPath.item % 2 == 1 {
             cell.layer.borderColor = UIColor.yellow.cgColor
-        }
-        else {
+        } else {
             cell.layer.borderColor = UIColor.white.cgColor
         }
         
+        // Find the qualifying result for the driver's last name
+        let driverLastName = driverName?.components(separatedBy: " ").last ?? ""
+        if let qualiResult = Data.qualiResults.first(where: { $0?.contains(driverLastName) ?? false }) {
+           print("Qualifying Result Found: \(qualiResult!)")
+           // Retrieve the driver's qualifying position
+           if let qualifyingPosition = Data.qualiResults.firstIndex(of: qualiResult) {
+               cell.botLabel.text?.append("\nQualifying Position: \(qualifyingPosition + 1)")
+           } else {
+               print("Qualifying position not found")
+           }
+        } else {
+           print("No qualifying result found for driver: \(driverLastName)")
+        }
+        
+        // Set other cell properties
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 8
-        return cell
         
+        // Set the top bar label text
+        if let singleRaceName = Data.singleRaceName {
+            topBarLabel.text = singleRaceName
+        } else {
+            topBarLabel.text = "Race Results"
+        }
+        
+        return cell
     }
+
     
     
     override func viewWillDisappear(_ animated: Bool) {

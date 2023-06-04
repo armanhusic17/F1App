@@ -425,12 +425,10 @@ struct F1ApiRoutes  {
                             number = ""
                         }
                         
-                        let resultString = "Qualified \(position)"
+                        let resultString = "\(driverFamilyName) Qualified P\(position)"
                         Data.qualiResults.append(resultString)
+                        //Data.driverNames.append(driverFamilyName)
                         Data.singleRaceName = raceName
-                        Data.driverNames.append(driverFamilyName)
-                        Data.driverFirstNames.append(driverGivenName)
-                        Data.driverNumber.append(number)
                         print(resultString)
                     }
                 }
