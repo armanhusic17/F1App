@@ -53,12 +53,12 @@ struct Data {
     static var raceWinnerName: [String?] = []
     static var raceWinnerTeam: [String?] = []
 
-    static var qualiResults: [QualifyingResult] = []
+    static var qualiResults: [String?] = []
 
     // New Race Result
     static var fastestLap: [String?] = []
     static var rank: [String?] = []
-
+    static var singleRaceName:String?
     // Wikipedia Images
     static var driverWikiImgURL: [String?] = [] // <-- Add new property to hold driver wiki image URLs
     static var teamWikiImgURL: [String?] = [] // <-- Add new property to hold team wiki image URLs

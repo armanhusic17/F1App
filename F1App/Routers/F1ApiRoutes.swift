@@ -362,26 +362,91 @@ struct F1ApiRoutes  {
     }
     }
     
-    
     // Query to get Last race result for homescreen
-    static func getQualiResults(seasonYear:String, round: String){
-        Formula1API.qualifyingResults(for: Season.year(Int(seasonYear) ?? 2022), round: round, limit: "10") { result in
-            
-            do {
-                let racesData = try result.get().data.raceTable.races
-                
-                for i in Range(0...racesData.count - 1){
-                    Data.qualiResults = racesData[i].qualifyingResults!
-                    Data.raceName = [(racesData[i].raceName)]
-                    
-                    print(racesData[i].raceName)
-                }
-            } catch {
-                print(error)
+    static func getQualiResults(seasonYear: String, round: String) {
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(round)/qualifying.json?limit=30"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
             }
             
-        }
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                
+                guard let responseDict = json as? [String: Any],
+                      let raceTableDict = responseDict["MRData"] as? [String: Any],
+                      let raceTableDataDict = raceTableDict["RaceTable"] as? [String: Any],
+                      let racesArray = raceTableDataDict["Races"] as? [[String: Any]] else {
+                    print("Invalid JSON format")
+                    return
+                }
+                
+                
+                for raceDict in racesArray {
+                    guard let qualiResultsArray = raceDict["QualifyingResults"] as? [[String: Any]] else {
+                        print("Invalid JSON format for QualifyingResults")
+                        continue
+                    }
+                    
+                    guard let raceName = raceDict["raceName"] as? String else {
+                        print("Invalid JSON format for raceName")
+                        continue
+                    }
+                    for qualiResultDict in qualiResultsArray {
+                        
+                        let position = qualiResultDict["position"] as? String ?? ""
+                        let driverGivenName: String
+                        let driverFamilyName: String
+                        let number: String
+                        
+                        if let driverDict = qualiResultDict["Driver"] as? [String: Any] {
+                            driverGivenName = driverDict["givenName"] as? String ?? ""
+                            driverFamilyName = driverDict["familyName"] as? String ?? ""
+                            number = driverDict["number"] as? String ?? ""
+                        } else if let driverName = qualiResultDict["Driver"] as? String {
+                            // Handle different data format before 1994
+                            driverGivenName = driverName
+                            driverFamilyName = ""
+                            number = ""
+                        } else {
+                            driverGivenName = qualiResultDict["givenName"] as? String ?? ""
+                            driverFamilyName = ""
+                            number = ""
+                        }
+                        
+                        let resultString = "Qualified \(position)"
+                        Data.qualiResults.append(resultString)
+                        Data.singleRaceName = raceName
+                        Data.driverNames.append(driverFamilyName)
+                        Data.driverFirstNames.append(driverGivenName)
+                        Data.driverNumber.append(number)
+                        print(resultString)
+                    }
+                }
+             
+                
+            } catch {
+                print("Error parsing JSON: \(error)")
+            }
+        }.resume()
     }
+
+
+
+
+
+
     
 
     

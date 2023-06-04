@@ -291,7 +291,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="428" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Race Results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6iK-20-QZf">
-                                        <rect key="frame" x="8" y="8" width="412" height="84"/>
+                                        <rect key="frame" x="24" y="8" width="380" height="84"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -300,10 +300,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="6iK-20-QZf" firstAttribute="top" secondItem="8w4-Df-kR7" secondAttribute="top" constant="8" id="YBg-9H-7fH"/>
-                                    <constraint firstItem="6iK-20-QZf" firstAttribute="leading" secondItem="8w4-Df-kR7" secondAttribute="leading" constant="8" id="aoD-gW-avh"/>
+                                    <constraint firstItem="6iK-20-QZf" firstAttribute="leading" secondItem="8w4-Df-kR7" secondAttribute="leading" constant="24" id="aoD-gW-avh"/>
                                     <constraint firstAttribute="height" constant="100" id="fIe-zC-aEn"/>
                                     <constraint firstAttribute="bottom" secondItem="6iK-20-QZf" secondAttribute="bottom" constant="8" id="u6R-QV-zhb"/>
-                                    <constraint firstAttribute="trailing" secondItem="6iK-20-QZf" secondAttribute="trailing" constant="8" id="vvl-eg-oVz"/>
+                                    <constraint firstAttribute="trailing" secondItem="6iK-20-QZf" secondAttribute="trailing" constant="24" id="vvl-eg-oVz"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryo-Xr-Fmf">

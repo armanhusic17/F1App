@@ -66,6 +66,8 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
                 print("SEASON YEAR BELOW")
                 print(seasonYear)
                 F1ApiRoutes.singleRaceResults(seasonYear: seasonYear!, roundNumber: cellIndexPath)
+                F1ApiRoutes.getQualiResults(seasonYear: "\(seasonYear!)", round: "\(cellIndexPath + 1)")
+
                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.75 ){
                     self.performSegue(withIdentifier: "closerLookTransition", sender: self)

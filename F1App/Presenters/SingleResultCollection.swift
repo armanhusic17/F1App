@@ -46,17 +46,34 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         // Deque a cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
         // Get create all of the vars that will go in the cell
+        
         // load all the 
         if let driverNamed = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]",
            let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???",
            let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]",
-           let topSpeed = Data.raceTime[safe: indexPath.item] ?? "TOP",
+           let topSpeed = Data.raceTime[safe: indexPath.item] ?? "",
            let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???" {
             // Use the unwrapped values to configure your cell
             cell.driverName.text = "P\(driverPosition)\n\(driverNamed)"
             cell.botLabel.text = "Constructor: \(constructorID)\nFastest Lap : \(fastestLap)\n"
             +
-            "Top Speed: \(topSpeed) KPH"
+            "Top Speed: \(topSpeed) MPH"
+           
+            if let qualiResult = Data.qualiResults.first(where: { $0?.contains(driverNamed) ?? false }) {
+                print(qualiResult!)
+              
+            } else {
+                print("No qualifying result found with the specified string")
+            }
+            
+            
+        }
+        
+        if let singleRaceName = Data.singleRaceName {
+            self.topBarLabel.text = singleRaceName
+        } else {
+            self.topBarLabel.text = "Race Results"
+
         }
         
         if indexPath.item == 0 {

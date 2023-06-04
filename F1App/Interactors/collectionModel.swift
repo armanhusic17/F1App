@@ -237,8 +237,8 @@ struct CollectionModel {
             cell.topCellLabel.text = "\(raceName[safe: 0] ?? "")"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
-            cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[safe: indexPath.item]!.q1),\n Q2:\(qualiResuls[safe: indexPath.item]?.q2 ?? ""),\n Q3:\(qualiResuls[safe: indexPath.item]?.q3 ?? "") "
-            cell.bottomCellLabel.text = "P\(qualiResuls[safe: indexPath.item]!.position) \n\(Data.qualiResults[safe: indexPath.item]!.driver.givenName) \(Data.qualiResults[safe: indexPath.item]!.driver.familyName) #\(Data.qualiResults[safe: indexPath.item]!.number)"
+           // cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[safe: indexPath.item]!.q1),\n Q2:\(qualiResuls[safe: indexPath.item]?.q2 ?? ""),\n Q3:\(qualiResuls[safe: indexPath.item]?.q3 ?? "") "
+           // cell.bottomCellLabel.text = "P\(qualiResuls[safe: indexPath.item]!.position) \n\(Data.qualiResults[safe: indexPath.item]!.driver.givenName) \(Data.qualiResults[safe: indexPath.item]!.driver.familyName) #\(Data.qualiResults[safe: indexPath.item]!.number)"
             
             break
         case .none:
