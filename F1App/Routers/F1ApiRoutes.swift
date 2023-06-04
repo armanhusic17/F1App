@@ -427,8 +427,7 @@ struct F1ApiRoutes  {
                         
                         let resultString = "\(driverFamilyName) Qualified P\(position)"
                         Data.qualiResults.append(resultString)
-                        //Data.driverNames.append(driverFamilyName)
-                        Data.singleRaceName = raceName
+                        Data.singleRaceName = "\(seasonYear)\n\(raceName) \nRound \(round)"
                         print(resultString)
                     }
                 }
