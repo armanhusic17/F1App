@@ -13,7 +13,6 @@ struct HomeModel {
     
     
     var decodedJSONObject:String = ""
-    let qTime:Double = 1.85
     var seasonRound:String?
     var seasonYear:String?
     
@@ -125,7 +124,7 @@ struct HomeModel {
     } // end showAlert
     
     
-    func showResults(activityIndicator:UIActivityIndicatorView, homeSelf:HomeCollection, f1ApiRoute: @escaping () -> Void){
+    func showResults(qTime: Double, activityIndicator:UIActivityIndicatorView, homeSelf:HomeCollection, f1ApiRoute: @escaping () -> Void){
         f1ApiRoute()
         DispatchQueue.main.async {
             DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
@@ -161,7 +160,7 @@ struct HomeModel {
                 print("RUNNING BEFORE 2004 QUERY")
                 print(thisSeason)
 
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                showResults(qTime: 1.85, activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allCircuits(seasonYear: thisSeason)
                 }
             }
@@ -170,7 +169,7 @@ struct HomeModel {
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print("RUNNING MODERN DAY CIRCUITS QUERY")
                 print(thisSeason)
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                showResults(qTime: 1.85, activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allCircuitsAfter2004(seasonYear: thisSeason)
                 }
             }
@@ -186,7 +185,7 @@ struct HomeModel {
             
             F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
                 if Success {
-                    showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                    showResults(qTime: 1.85, activityIndicator: activityIndicator, homeSelf: homeSelf) {
                         print("Results being shown..")
                     }
                 } else {
@@ -205,7 +204,7 @@ struct HomeModel {
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
 
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                showResults(qTime: 1.85, activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.allConstructors(seasonYear: thisSeason)
                 }
                 
@@ -221,8 +220,7 @@ struct HomeModel {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
-
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                showResults(qTime: 3.85, activityIndicator: activityIndicator, homeSelf: homeSelf) {
                     F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
                 }
             }

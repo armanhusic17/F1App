@@ -218,7 +218,8 @@ struct CollectionModel {
             cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
 
             break
-        case 3: // Standings
+        case 3: // WDC
+            cell.cellImage.contentMode = .scaleAspectFit
             cell.bottomCellLabel2.isHidden = true
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
