@@ -475,12 +475,6 @@ struct F1ApiRoutes  {
                                 Data.racePosition.append(driverStanding["position"] as? String ?? "")
                                 Data.racePoints.append(driverStanding["points"] as? String ?? "")
                                 Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
-                                
-                                //let resultString = ("Driver: \(driverName), Position: \(position), Points: \(points)")
-                                print(Data.driverNames)
-                                print(Data.racePosition)
-                                print(Data.racePoints)
-                            
                             }
                         }
                     } else {

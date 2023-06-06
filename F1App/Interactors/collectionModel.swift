@@ -100,8 +100,8 @@ struct CollectionModel {
             queryHeight = availableHeight * 0.60
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 3 {
-            queryWidth = availableWidth * 0.95
-            queryHeight = availableHeight * 0.50
+            queryWidth = availableWidth * 0.25
+            queryHeight = availableHeight * 0.30
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 4 {
             queryWidth = availableWidth * 0.95
@@ -226,15 +226,15 @@ struct CollectionModel {
             cell.bottomCellLabel2.isHidden = false
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
-            cell.topCellLabel.text = "\(String(describing: driverNames[indexPath.item] ?? "") )" // + ", \(raceWinnerTeam[indexPath.item] ?? "")"
-//            cell.bottomCellLabel.text = "Wins : \(String(describing: raceWins[indexPath.item] ?? ""))"
+            cell.topCellLabel.text = "\(String(describing: driverNames[indexPath.item] ?? "") )"
+            cell.bottomCellLabel.text = "WDC Rank : \(String(describing: racePosition[indexPath.item] ?? ""))"
             cell.bottomCellLabel2.text = "Point Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
-            cell.cellImage.image = UIImage(named: "F1Logo")
+            cell.cellImage.isHidden = true
             break
         case 4: // Quali
-            cell.cellImage.image = UIImage(named: "F1Logo")
+            cell.cellImage.isHidden = true
             cell.topCellLabel.text = "\(raceName[safe: 0] ?? "")"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true

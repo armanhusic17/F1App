@@ -73,7 +73,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return 5
     }
     
     
@@ -134,32 +134,12 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "WDC"
-            cell.topLabel.text = "Top 5"
+            cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "F1Logo")
+            cell.homeCellImageView.image = UIImage(named: "WDCLogo")
         }
         
-        if indexPath.item == 5 {
-            Data.whichQuery = 4
-            cell.layer.borderWidth = cellBorderWidth
-            cell.layer.borderColor = UIColor.systemYellow.cgColor
-            cell.homeBaseView.alpha = 1.0
-            cell.topLabel.text = "Top 10"
-            cell.bottomLabel.text = "Quali Results"
-            cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "F1Logo")
-        }
-        if indexPath.item == 6 {
-            Data.whichQuery = 5
-            cell.layer.borderWidth = cellBorderWidth
-            cell.layer.borderColor = UIColor.systemRed.cgColor
-            cell.homeBaseView.alpha = 1.0
-            cell.topLabel.text = "Race Results"
-            cell.bottomLabel.text = "Still gathering data..."
-            cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "F1Logo")
-        }
-        
+      
         cell.layer.cornerRadius = 20
         
         return cell

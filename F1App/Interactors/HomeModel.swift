@@ -79,7 +79,7 @@ struct HomeModel {
             passSelf.present(alert, animated: true, completion: nil)
             
         case 3:
-            let alert = UIAlertController(title: "Available Years for Standings Data", message: "Only 2004 to Present", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Available Years for Standings Data", message: "Only 1950 to Present", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                 switch action.style {
                 case .default:
@@ -197,7 +197,6 @@ struct HomeModel {
         // TEAMS QUERY
         else if Data.whichQuery == 0 {
             targetYear = 1950
-
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
@@ -214,68 +213,21 @@ struct HomeModel {
             }
         }
         else if Data.whichQuery == 3 {
-            Data.seasonYearSelected = enterYear.text
-            guard let thisSeason = Data.seasonYearSelected else { return }
-            print(thisSeason)
+            targetYear = 1950
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                print(thisSeason)
 
-            showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
+                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                    F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
+                }
             }
-            
-//            targetYear = 2004
-//
-//            if year < targetYear! || year > maxYear {
-//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
-//            } else {
-//                Data.seasonYearSelected = enterYear.text
-//                guard let thisSeason = Data.seasonYearSelected else { return }
-//                print(thisSeason)
-//
-//                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-//                    F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
-//                }
-//                
-//
-//            }
         }
-//        else if Data.whichQuery == 4 {
-//            targetYear = 2004
-//
-//            if year < targetYear! || year > maxYear {
-//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
-//            } else {
-//                Data.seasonYearSelected = enterYear.text
-//                guard let thisSeason = Data.seasonYearSelected else { return }
-//                print(thisSeason)
-//
-//                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-//                    F1ApiRoutes.getQualiResults(seasonYear: thisSeason, round: "\(cellIndex.item + 1)")
-//                }
-//                
-//
-//            }
-//        }
-//        else if Data.whichQuery == 5 {
-//            targetYear = 1950
-//
-//            if year < targetYear! || year > maxYear {
-//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-//                showAlert(passSelf: homeSelf)
-//            } else {
-//                Data.seasonYearSelected = enterYear.text
-//                guard let thisSeason = Data.seasonYearSelected else { return }
-//                print(thisSeason)
-//
-//                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-//                    F1ApiRoutes.allRaceResults(seasonYear: thisSeason)
-//                }
-//                
-//
-//            }
-//        }
-       
+
     }
     
     
