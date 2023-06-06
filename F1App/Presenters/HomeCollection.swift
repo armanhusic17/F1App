@@ -73,7 +73,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 7
     }
     
     
@@ -212,10 +212,12 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                 }
             }
             if indexPath.item == 4 {
-                print("Standings cell is selected")
+                print("WDC cell is selected")
                 Data.whichQuery = 3
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
+                } else {
+                    print("AM I FAILING?")
                 }
             }
             if indexPath.item == 5 {

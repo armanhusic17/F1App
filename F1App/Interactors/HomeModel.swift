@@ -149,7 +149,7 @@ struct HomeModel {
         let targetYear:Int?
         let maxYear = returnYear()
         
-        
+        // GRAND PRIX QUERY
         if Data.whichQuery == 2 {
             let upperBound = 2004
             targetYear = 1950
@@ -179,6 +179,7 @@ struct HomeModel {
                 showAlert(passSelf: homeSelf)
             }
         }
+        // DRIVERS QUERY
         else if Data.whichQuery == 1 {
             Data.seasonYearSelected = enterYear.text
             guard let thisSeason = Data.seasonYearSelected else { return }
@@ -193,6 +194,7 @@ struct HomeModel {
                 }
             }
         }
+        // TEAMS QUERY
         else if Data.whichQuery == 0 {
             targetYear = 1950
 
@@ -212,59 +214,67 @@ struct HomeModel {
             }
         }
         else if Data.whichQuery == 3 {
-            targetYear = 2004
+            Data.seasonYearSelected = enterYear.text
+            guard let thisSeason = Data.seasonYearSelected else { return }
+            print(thisSeason)
 
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                print(thisSeason)
-
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    //F1ApiRoutes.getStandings(seasonYear: thisSeason)
-                }
-                
-
+            showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+                F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
             }
+            
+//            targetYear = 2004
+//
+//            if year < targetYear! || year > maxYear {
+//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+//            } else {
+//                Data.seasonYearSelected = enterYear.text
+//                guard let thisSeason = Data.seasonYearSelected else { return }
+//                print(thisSeason)
+//
+//                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+//                    F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
+//                }
+//                
+//
+//            }
         }
-        else if Data.whichQuery == 4 {
-            targetYear = 2004
-
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                print(thisSeason)
-
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    F1ApiRoutes.getQualiResults(seasonYear: thisSeason, round: "\(cellIndex.item + 1)")
-                }
-                
-
-            }
-        }
-        else if Data.whichQuery == 5 {
-            targetYear = 1950
-
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                print(thisSeason)
-
-                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    F1ApiRoutes.allRaceResults(seasonYear: thisSeason)
-                }
-                
-
-            }
-        }
+//        else if Data.whichQuery == 4 {
+//            targetYear = 2004
+//
+//            if year < targetYear! || year > maxYear {
+//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+//            } else {
+//                Data.seasonYearSelected = enterYear.text
+//                guard let thisSeason = Data.seasonYearSelected else { return }
+//                print(thisSeason)
+//
+//                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+//                    F1ApiRoutes.getQualiResults(seasonYear: thisSeason, round: "\(cellIndex.item + 1)")
+//                }
+//                
+//
+//            }
+//        }
+//        else if Data.whichQuery == 5 {
+//            targetYear = 1950
+//
+//            if year < targetYear! || year > maxYear {
+//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+//            } else {
+//                Data.seasonYearSelected = enterYear.text
+//                guard let thisSeason = Data.seasonYearSelected else { return }
+//                print(thisSeason)
+//
+//                showResults(activityIndicator: activityIndicator, homeSelf: homeSelf) {
+//                    F1ApiRoutes.allRaceResults(seasonYear: thisSeason)
+//                }
+//                
+//
+//            }
+//        }
        
     }
     

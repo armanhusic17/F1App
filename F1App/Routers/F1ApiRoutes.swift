@@ -234,7 +234,6 @@ struct F1ApiRoutes  {
         sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
 
         let session = URLSession(configuration: sessionConfig)
-20
         let task = session.dataTask(with: url) { (data, response, error) in
 
             guard let data = data else {
@@ -443,6 +442,61 @@ struct F1ApiRoutes  {
 
 
 
+
+    static func worldDriversChampionshipStandings(seasonYear: String) {
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json"
+
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = data else {
+                    print("Error: No data received")
+                    return
+                }
+                
+                // Data received successfully
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    // Assuming that `data` contains the JSON data received from the API
+
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                        let mrData = json["MRData"] as? [String: Any],
+                        let standingsTable = mrData["StandingsTable"] as? [String: Any],
+                        let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
+
+                        for standingsList in standingsLists {
+                            let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
+                            for driverStanding in driverStandings {
+                                let driver = driverStanding["Driver"] as? [String: Any] ?? [:]
+                                Data.racePosition.append(driverStanding["position"] as? String ?? "")
+                                Data.racePoints.append(driverStanding["points"] as? String ?? "")
+                                Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
+                                
+                                //let resultString = ("Driver: \(driverName), Position: \(position), Points: \(points)")
+                                print(Data.driverNames)
+                                print(Data.racePosition)
+                                print(Data.racePoints)
+                            
+                            }
+                        }
+                    } else {
+                        print("Error: Invalid JSON structure")
+                    }
+                } catch {
+                    print("Error decoding JSON: \(error.localizedDescription)")
+                }
+
+            }
+            
+            task.resume()
+        } else {
+            print("Error: Invalid URL")
+        }
+    }
 
     
 

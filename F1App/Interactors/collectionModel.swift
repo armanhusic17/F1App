@@ -44,6 +44,7 @@ struct CollectionModel {
     
     let raceWins = Data.raceWins
     let racePoints = Data.racePoints
+    let racePosition = Data.racePosition
     let raceWinnerName = Data.raceWinnerName
     let raceWinnerTeam = Data.raceWinnerTeam
     
@@ -70,7 +71,7 @@ struct CollectionModel {
             return cellcount
         }
         if Data.whichQuery == 3 {
-            return  raceWins.count
+            return  driverNames.count
         }
         if Data.whichQuery == 4 {
             return  qualiResuls.count
@@ -100,7 +101,7 @@ struct CollectionModel {
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 3 {
             queryWidth = availableWidth * 0.95
-            queryHeight = availableHeight * 0.15
+            queryHeight = availableHeight * 0.50
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 4 {
             queryWidth = availableWidth * 0.95
@@ -225,8 +226,8 @@ struct CollectionModel {
             cell.bottomCellLabel2.isHidden = false
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
-            cell.topCellLabel.text = "\(String(describing: raceWinnerName[indexPath.item] ?? "") )" + ", \(raceWinnerTeam[indexPath.item] ?? "")"
-            cell.bottomCellLabel.text = "Wins : \(String(describing: raceWins[indexPath.item] ?? ""))"
+            cell.topCellLabel.text = "\(String(describing: driverNames[indexPath.item] ?? "") )" // + ", \(raceWinnerTeam[indexPath.item] ?? "")"
+//            cell.bottomCellLabel.text = "Wins : \(String(describing: raceWins[indexPath.item] ?? ""))"
             cell.bottomCellLabel2.text = "Point Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
