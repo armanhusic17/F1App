@@ -100,12 +100,8 @@ struct CollectionModel {
             queryHeight = availableHeight * 0.60
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 3 {
-            queryWidth = availableWidth * 0.25
-            queryHeight = availableHeight * 0.30
-            return CGSize(width: queryWidth!, height: queryHeight!)
-        } else if Data.whichQuery == 4 {
-            queryWidth = availableWidth * 0.95
-            queryHeight = availableHeight * 0.30
+            queryWidth = availableWidth * 0.75
+            queryHeight = availableHeight * 0.13
             return CGSize(width: queryWidth!, height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
@@ -223,25 +219,16 @@ struct CollectionModel {
 
             break
         case 3: // Standings
-            cell.bottomCellLabel2.isHidden = false
+            cell.bottomCellLabel2.isHidden = true
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
             cell.topCellLabel.text = "\(String(describing: driverNames[indexPath.item] ?? "") )"
-            cell.bottomCellLabel.text = "WDC Rank : \(String(describing: racePosition[indexPath.item] ?? ""))"
-            cell.bottomCellLabel2.text = "Point Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
+            cell.bottomCellLabel.text = "WDC Rank : \(String(describing: racePosition[indexPath.item] ?? ""))" + "\nPoint Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
-            cell.cellImage.isHidden = true
+            cell.cellImage.image = UIImage(named: "WDCLogo")
             break
-        case 4: // Quali
-            cell.cellImage.isHidden = true
-            cell.topCellLabel.text = "\(raceName[safe: 0] ?? "")"
-            cell.mapView.isHidden = true
-            cell.F1MapView.isHidden = true
-           // cell.bottomCellLabel2.text = "Times: \n Q1:\(qualiResuls[safe: indexPath.item]!.q1),\n Q2:\(qualiResuls[safe: indexPath.item]?.q2 ?? ""),\n Q3:\(qualiResuls[safe: indexPath.item]?.q3 ?? "") "
-           // cell.bottomCellLabel.text = "P\(qualiResuls[safe: indexPath.item]!.position) \n\(Data.qualiResults[safe: indexPath.item]!.driver.givenName) \(Data.qualiResults[safe: indexPath.item]!.driver.familyName) #\(Data.qualiResults[safe: indexPath.item]!.number)"
-            
-            break
+
         case .none:
             print("None")
         case .some(_):
