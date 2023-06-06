@@ -63,10 +63,10 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             return CGSize(width: view.frame.width * 1.0, height: view.frame.height * 0.13)
         }
         else if indexPath.item == 3{
-            return CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.20)
+            return CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.22)
         }
         else {
-            return CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.20)
+            return CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.22)
         }
     }
     
@@ -79,7 +79,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! myHomeCell
         if indexPath.item == 0 {
             cell.bottomLabel.text = ""
@@ -91,7 +90,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeBaseView.backgroundColor = UIColor.clear
             cell.layer.borderWidth = 0.0
         }
-        
         if indexPath.item == 1 {
             Data.whichQuery = 0
             cell.layer.borderWidth = cellBorderWidth
@@ -103,7 +101,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeCellImageView.image = UIImage(named: "raceTeam")
             
         }
-        
         if indexPath.item == 2 {
             Data.whichQuery = 1
             cell.layer.borderWidth = cellBorderWidth
@@ -115,7 +112,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeCellImageView.image = UIImage(named: "lewis")
             
         }
-        
         if indexPath.item == 3 {
             Data.whichQuery = 2
             cell.layer.borderWidth = cellBorderWidth
@@ -127,7 +123,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
 
         }
-        
         if indexPath.item == 4 {
             Data.whichQuery = 3
             cell.layer.borderWidth = cellBorderWidth
@@ -138,8 +133,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "WDCLogo")
         }
-        
-      
         cell.layer.cornerRadius = 20
         
         return cell
@@ -198,20 +191,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 } else {
                     print("AM I FAILING?")
-                }
-            }
-            if indexPath.item == 5 {
-                print("Standings cell is selected")
-                Data.whichQuery = 4
-                if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
-                    homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
-                }
-            }
-            if indexPath.item == 6 {
-                print("Race Results cell is selected")
-                Data.whichQuery = 5
-                if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
-                    homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 }
             }
         }

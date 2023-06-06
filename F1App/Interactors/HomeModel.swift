@@ -221,7 +221,8 @@ struct HomeModel {
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
                 showResults(qTime: 3.85, activityIndicator: activityIndicator, homeSelf: homeSelf) {
-                    F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
+                    //F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason)
+                    F1ApiRoutes.allTimeDriverChampionships()
                 }
             }
         }

@@ -493,6 +493,64 @@ struct F1ApiRoutes  {
     }
 
     
+    
+    static func allTimeDriverChampionships() {
+        let urlString = "https://ergast.com/api/f1/driverstandings/1.json?limit=100"
+
+        if let url = URL(string: urlString) {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+
+                guard let data = data else {
+                    print("Error: No data received")
+                    return
+                }
+
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+
+                    if let json = json as? [String: Any],
+                       let mrData = json["MRData"] as? [String: Any],
+                       let standingsTable = mrData["StandingsTable"] as? [String: Any],
+                       let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
+
+                        var driverChampionships: [String: Int] = [:]
+
+                        for standingsList in standingsLists {
+                            let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
+                            for driverStanding in driverStandings {
+                                let driver = driverStanding["Driver"] as? [String: Any] ?? [:]
+                                let driverId = driver["driverId"] as? String ?? ""
+
+                                if let championships = driverChampionships[driverId] {
+                                    driverChampionships[driverId] = championships + 1
+                                } else {
+                                    driverChampionships[driverId] = 1
+                                }
+                            }
+                        }
+
+                        let sortedDrivers = driverChampionships.sorted { $0.value > $1.value }
+
+                        for (driverId, championships) in sortedDrivers {
+                            print("Driver: \(driverId), Championships: \(championships)")
+                        }
+                    } else {
+                        print("Error: Invalid JSON structure")
+                    }
+                } catch {
+                    print("Error decoding JSON: \(error.localizedDescription)")
+                }
+            }
+
+            task.resume()
+        } else {
+            print("Error: Invalid URL")
+        }
+    }
 
     
     
