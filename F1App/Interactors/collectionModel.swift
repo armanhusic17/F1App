@@ -27,7 +27,8 @@ struct CollectionModel {
     let driverImgs = Data.driverImgURL.compactMap { URL(string: $0!) }
     let teamsImgs = Data.teamImgURL.compactMap { URL(string: $0!) }
     let driverImgWiki = Data.driverWikiImgURL
-
+    let driverTitles = Data.driverChampionships
+    
     let circuitName = Data.circuitName
     let circuitId = Data.circuitID
     let circuitLocation = Data.circuitLocation
@@ -101,7 +102,7 @@ struct CollectionModel {
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 3 {
             queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.13
+            queryHeight = availableHeight * 0.18
             return CGSize(width: queryWidth!, height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
@@ -223,11 +224,24 @@ struct CollectionModel {
             cell.bottomCellLabel2.isHidden = true
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
-            cell.topCellLabel.text = "\(String(describing: driverNames[indexPath.item] ?? "") )"
-            cell.bottomCellLabel.text = "WDC Rank : \(String(describing: racePosition[indexPath.item] ?? ""))" + "\nPoint Total : \(String(describing: racePoints[indexPath.item] ?? ""))"
+            cell.topCellLabel.text = "WDC Rank : \(String(describing: racePosition[safe: indexPath.item] ?? ""))"
+            cell.bottomCellLabel.text = "\(String(describing: driverNames[safe: indexPath.item] ?? "") )"
+            +
+            "\nPoints : \(String(describing: racePoints[safe: indexPath.item] ?? ""))"
+            +
+            "\n\(String(describing: driverTitles[safe : indexPath.item]?.key ?? ""))"
+            +
+            "\n\(String(describing: driverTitles[safe : indexPath.item]?.value ?? 0) )"
+            
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
             cell.cellImage.image = UIImage(named: "WDCLogo")
+            if indexPath.item == 0 {
+                cell.cellImage.alpha = 1
+            } else {
+                cell.cellImage.alpha = 0.45
+
+            }
             break
 
         case .none:

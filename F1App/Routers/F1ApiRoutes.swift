@@ -518,24 +518,24 @@ struct F1ApiRoutes  {
                        let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
 
                         var driverChampionships: [String: Int] = [:]
-
+                        
                         for standingsList in standingsLists {
                             let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
                             for driverStanding in driverStandings {
                                 let driver = driverStanding["Driver"] as? [String: Any] ?? [:]
                                 let driverId = driver["driverId"] as? String ?? ""
-
+                                
                                 if let championships = driverChampionships[driverId] {
                                     driverChampionships[driverId] = championships + 1
                                 } else {
                                     driverChampionships[driverId] = 1
                                 }
+                                
                             }
                         }
 
-                        let sortedDrivers = driverChampionships.sorted { $0.value > $1.value }
-
-                        for (driverId, championships) in sortedDrivers {
+                        Data.driverChampionships.append(contentsOf: driverChampionships.sorted { $0.value > $1.value })
+                        for (driverId, championships) in  Data.driverChampionships {
                             print("Driver: \(driverId), Championships: \(championships)")
                         }
                     } else {

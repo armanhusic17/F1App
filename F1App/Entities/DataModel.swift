@@ -71,8 +71,8 @@ struct Data {
     static var cellCount: Int?
     
     static var raceResults:[String?] = []
-    
-    
+    static var driverChampionships: [(key: String, value: Int)] = []
+
     func removeAllCellData(){
         // Driver Data
         Data.driverNationality.removeAll()
