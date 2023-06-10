@@ -201,16 +201,15 @@ struct F1ApiRoutes  {
                                 Data.driverNationality.append(nationality)
                                 Data.driverDOB.append(dateOfBirth)
                                 Data.driverURL.append(url)
-                                
+                                completion(true)
+
                             }
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                            completion(false)
                         }
                     }.resume()
                 }
-
-                
-                completion(true)
             } catch let error {
                 print("Error decoding DRIVERS json data: \(error.localizedDescription)")
                 DispatchQueue.main.async {
@@ -225,7 +224,7 @@ struct F1ApiRoutes  {
 
     
     // Constructors
-    static func allConstructors(seasonYear: String) {
+    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
 
         guard let url = URL(string: urlString) else { return }
@@ -280,13 +279,18 @@ struct F1ApiRoutes  {
                                 Data.constructorID.append(constructor.constructorID)
                                 Data.f1Season.append(season)
                             }
+                            completion(true)
                         } catch let error {
                             print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                            completion(false)
+
                         }
                     }.resume()
                 } // emd for loop
             } catch let error {
                 print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
+                completion(false)
+
             }
         }
 
@@ -297,7 +301,7 @@ struct F1ApiRoutes  {
 
     
     // Circuits
-    static func allCircuits(seasonYear:String){
+    static func allCircuits(seasonYear:String, completion: @escaping (Bool) -> Void) {
             let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
 
             guard let unwrappedURL = URL(string: url) else {return}
@@ -324,17 +328,20 @@ struct F1ApiRoutes  {
                             Data.circuitLatitude.append(thisArray[i].location.lat)
                             Data.circuitLongitude.append(thisArray[i].location.long)
                         }
+                        completion(true)
                     }
 
                 } catch  {
                     print("Error decoding CIRCUIT json data ")
+                    completion(false)
+
                 }
             }.resume()
             
     }
     
     
-    static func allCircuitsAfter2004(seasonYear:String){
+    static func allCircuitsAfter2004(seasonYear:String, completion: @escaping (Bool) -> Void) {
         Formula1API.raceSchedule(for: Season.year(Int(seasonYear) ?? 0)) { result in
         print(result)
         
@@ -354,9 +361,11 @@ struct F1ApiRoutes  {
 
             }
             Data.cellCount = f1Data.count - 1
-
+            completion(true)
         } catch {
             print("Error")
+            completion(false)
+
         }
     }
     }
@@ -443,7 +452,7 @@ struct F1ApiRoutes  {
 
 
 
-    static func worldDriversChampionshipStandings(seasonYear: String) {
+    static func worldDriversChampionshipStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json"
 
         if let url = URL(string: urlString) {
@@ -477,11 +486,16 @@ struct F1ApiRoutes  {
                                 Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
                             }
                         }
+                        completion(true)
                     } else {
                         print("Error: Invalid JSON structure")
+                        completion(false)
+
                     }
                 } catch {
                     print("Error decoding JSON: \(error.localizedDescription)")
+                    completion(false)
+
                 }
 
             }
@@ -489,12 +503,14 @@ struct F1ApiRoutes  {
             task.resume()
         } else {
             print("Error: Invalid URL")
+            completion(false)
+
         }
     }
 
     
     
-    static func allTimeDriverChampionships() {
+    static func allTimeDriverChampionships(completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/driverstandings/1.json?limit=100"
 
         if let url = URL(string: urlString) {
@@ -538,17 +554,23 @@ struct F1ApiRoutes  {
                         for (driverId, championships) in  Data.driverChampionships {
                             print("Driver: \(driverId), Championships: \(championships)")
                         }
+                        completion(true)
                     } else {
                         print("Error: Invalid JSON structure")
+                        completion(false)
                     }
                 } catch {
                     print("Error decoding JSON: \(error.localizedDescription)")
+                    completion(false)
+
                 }
             }
 
             task.resume()
         } else {
             print("Error: Invalid URL")
+            completion(false)
+
         }
     }
 
