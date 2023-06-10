@@ -226,7 +226,7 @@ struct CollectionModel {
             cell.topCellLabel.isHidden = false
             
             if let racePosition = racePosition[safe: indexPath.item] {
-                cell.bottomCellLabel.text = "WDC Rank: \(racePosition!)"
+                cell.bottomCellLabel.text = "\(raceSeason[0]!)" + " WDC Rank: \(racePosition!)"
             } else {
                 cell.bottomCellLabel.text = "WDC Rank: N/A"
             }
@@ -246,7 +246,7 @@ struct CollectionModel {
             if let driverTitle = driverTitles[safe: indexPath.item] {
                 let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
                 let capitalizedKey = formattedKey.capitalized
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(indexPath.item + 1): \(capitalizedKey) with \(driverTitle.value)"
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(indexPath.item + 1): \(capitalizedKey)\n\(driverTitle.value)-Time WDC"
             }
             
             cell.mapView.isHidden = true

@@ -147,44 +147,30 @@ struct HomeModel {
         let targetYear:Int?
         let maxYear = returnYear()
         
-        // GRAND PRIX QUERY
-        if Data.whichQuery == 2 {
-            let upperBound = 2004
+        
+        // TEAMS QUERY
+        if Data.whichQuery == 0 {
             targetYear = 1950
-            
-            if year > targetYear ?? 1950 && year <= upperBound {
-                print(year, targetYear!, maxYear)
+            if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
+            } else {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                print("RUNNING BEFORE 2004 QUERY")
                 print(thisSeason)
 
-                F1ApiRoutes.allCircuits(seasonYear: thisSeason) { Success in
+                F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
                     if Success {
-                        showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                        print("SUCCESSS ALL CONSTRUCTORS")
+                        showResults(qTime: 0.15, activityIndicator: activityIndicator, homeSelf: homeSelf)
                     } else {
-                        print("ERROR?")
+                        print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }
                 }
-            }
-            else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                print("RUNNING MODERN DAY CIRCUITS QUERY")
-                print(thisSeason)
-                F1ApiRoutes.allCircuitsAfter2004(seasonYear: thisSeason) { Success in
-                    if Success {
-                        showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
-                    } else {
-                        print("ERROR?")
-                    }
-                }
-            }
-            else if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
+
             }
         }
+        
         // DRIVERS QUERY
         else if Data.whichQuery == 1 {
             Data.seasonYearSelected = enterYear.text
@@ -198,28 +184,47 @@ struct HomeModel {
                 }
             }
         }
-        // TEAMS QUERY
-        else if Data.whichQuery == 0 {
+        
+        // GRAND PRIX QUERY
+        else if Data.whichQuery == 2 {
+            let upperBound = 2004
             targetYear = 1950
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
+            
+            if year >= targetYear ?? 1950 && year <= upperBound {
+                print(year, targetYear!, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
+                print("RUNNING BEFORE 2004 QUERY")
                 print(thisSeason)
 
-                F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
+                F1ApiRoutes.allCircuits(seasonYear: thisSeason) { Success in
                     if Success {
-                        print("SUCCESSS TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                        showResults(qTime: 0.25, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                        showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
                     } else {
-                        print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+                        print("ERROR?")
                     }
                 }
-
+            } else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
+                Data.seasonYearSelected = enterYear.text
+                guard let thisSeason = Data.seasonYearSelected else { return }
+                print("RUNNING MODERN DAY CIRCUITS QUERY")
+                print(thisSeason)
+                F1ApiRoutes.allCircuitsAfter2004(seasonYear: thisSeason) { Success in
+                    if Success {
+                        showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                    } else {
+                        print("ERROR?")
+                    }
+                }
+            }
+            
+            else if year < targetYear! || year > maxYear {
+                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
+                showAlert(passSelf: homeSelf)
             }
         }
+        
+       // WDC QUERY
         else if Data.whichQuery == 3 {
             targetYear = 1950
             if year < targetYear! || year > maxYear {
@@ -232,12 +237,15 @@ struct HomeModel {
 
                 F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
                     if Success {
+                        if Success {
+                            print("SUCCESSS TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+                            showResults(qTime: 0.25, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                        } else {
+                            print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+                        }
                         F1ApiRoutes.allTimeDriverChampionships() { Success in
-                            if Success {
-                                print("SUCCESSS TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                                showResults(qTime: 0.25, activityIndicator: activityIndicator, homeSelf: homeSelf)
-                            } else {
-                                print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+                            DispatchQueue.main.async {
+                                homeSelf.reloadInputViews()
                             }
                         }
                     } else {

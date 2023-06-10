@@ -481,7 +481,7 @@ struct F1ApiRoutes  {
                         let mrData = json["MRData"] as? [String: Any],
                         let standingsTable = mrData["StandingsTable"] as? [String: Any],
                         let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
-
+                        Data.f1Season.append(seasonYear)
                         for standingsList in standingsLists {
                             let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
                             for driverStanding in driverStandings {
@@ -489,6 +489,7 @@ struct F1ApiRoutes  {
                                 Data.racePosition.append(driverStanding["position"] as? String ?? "")
                                 Data.racePoints.append(driverStanding["points"] as? String ?? "")
                                 Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
+                                
                             }
                         }
                         completion(true)
