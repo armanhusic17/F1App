@@ -74,7 +74,7 @@ struct F1ApiRoutes  {
     }
     
     
-    static func singleRaceResults(seasonYear: Int, roundNumber: Int){
+    static func singleRaceResults(seasonYear: Int, roundNumber: Int, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(roundNumber + 1)/results.json"
 
         if let url = URL(string: urlString) {
@@ -125,19 +125,21 @@ struct F1ApiRoutes  {
                                 Data.raceTime.append(topSpeed)
                             }
                         }
+                        completion(true)
                     } else {
                         print("Error: Invalid JSON structure")
+                        completion(false)
                     }
                 } catch {
                     print("Error decoding JSON: \(error.localizedDescription)")
+                    completion(false)
                 }
-
-
             }
             
             task.resume()
         } else {
             print("Error: Invalid URL")
+            completion(false)
         }
     }
 
@@ -371,7 +373,7 @@ struct F1ApiRoutes  {
     }
     
     // Query to get Last race result for homescreen
-    static func getQualiResults(seasonYear: String, round: String) {
+    static func getQualiResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(round)/qualifying.json?limit=30"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -439,10 +441,13 @@ struct F1ApiRoutes  {
                         print(resultString)
                     }
                 }
+                completion(true)
              
                 
             } catch {
                 print("Error parsing JSON: \(error)")
+                completion(false)
+
             }
         }.resume()
     }

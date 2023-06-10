@@ -20,6 +20,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView.delegate = self
     }
     
@@ -65,13 +66,27 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             if Data.whichQuery == 2 {
                 print("SEASON YEAR BELOW")
                 print(seasonYear)
-                F1ApiRoutes.singleRaceResults(seasonYear: seasonYear!, roundNumber: cellIndexPath)
-                F1ApiRoutes.getQualiResults(seasonYear: "\(seasonYear!)", round: "\(cellIndexPath + 1)")
+                F1ApiRoutes.singleRaceResults(seasonYear: seasonYear!, roundNumber: cellIndexPath) { [self] Success in
+                    if Success {
+                        F1ApiRoutes.getQualiResults(seasonYear: "\(seasonYear!)", round: "\(cellIndexPath + 1)") { Success in
+                            if Success {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                                    self.performSegue(withIdentifier: "closerLookTransition", sender: self)
+                                }
+                            } else {
+                                print("Error getting qualifying results......")
+                            }
+                        }
+                        
+                    } else {
+                        print("Error getting single race results......")
+                    }
+                    
+                }
+                
 
                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.75 ){
-                    self.performSegue(withIdentifier: "closerLookTransition", sender: self)
-                }
+                
             } else {
                 resultsModel.loadResults(myself: self)
             }

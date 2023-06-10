@@ -102,7 +102,7 @@ struct CollectionModel {
             return CGSize(width: queryWidth!, height: queryHeight!)
         } else if Data.whichQuery == 3 {
             queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.18
+            queryHeight = availableHeight * 0.25
             return CGSize(width: queryWidth!, height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
@@ -224,23 +224,39 @@ struct CollectionModel {
             cell.bottomCellLabel2.isHidden = true
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
-            cell.topCellLabel.text = "WDC Rank : \(String(describing: racePosition[safe: indexPath.item] ?? ""))"
-            cell.bottomCellLabel.text = "\(String(describing: driverNames[safe: indexPath.item] ?? "") )"
-            +
-            "\nPoints : \(String(describing: racePoints[safe: indexPath.item] ?? ""))"
-            +
-            "\n\(String(describing: driverTitles[safe : indexPath.item]?.key ?? ""))"
-            +
-            "\n\(String(describing: driverTitles[safe : indexPath.item]?.value ?? 0) )"
+            
+            if let racePosition = racePosition[safe: indexPath.item] {
+                cell.bottomCellLabel.text = "WDC Rank: \(racePosition!)"
+            } else {
+                cell.bottomCellLabel.text = "WDC Rank: N/A"
+            }
+            
+            if let driverName = driverNames[safe: indexPath.item] {
+                cell.topCellLabel.text = driverName
+            } else {
+                cell.topCellLabel.text = "Driver Name: N/A"
+            }
+            
+            if let racePoint = racePoints[safe: indexPath.item] {
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: \(racePoint!)"
+            } else {
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: N/A"
+            }
+            
+            if let driverTitle = driverTitles[safe: indexPath.item] {
+                let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
+                let capitalizedKey = formattedKey.capitalized
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(indexPath.item + 1): \(capitalizedKey) with \(driverTitle.value)"
+            }
             
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
             cell.cellImage.image = UIImage(named: "WDCLogo")
+            
             if indexPath.item == 0 {
                 cell.cellImage.alpha = 1
             } else {
                 cell.cellImage.alpha = 0.45
-
             }
             break
 
