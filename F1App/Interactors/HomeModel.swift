@@ -129,6 +129,7 @@ struct HomeModel {
             DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
                 activityIndicator.stopAnimating()
                 activityIndicator.isHidden = true
+                homeSelf.collectionView.isUserInteractionEnabled = true
                 homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
             }
         }
@@ -142,12 +143,10 @@ struct HomeModel {
     }
     
     
-    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:HomeCollection, cellIndex:IndexPath){
+    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:HomeCollection, cellIndex:IndexPath) {
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
         let maxYear = returnYear()
-        
-        
         // TEAMS QUERY
         if Data.whichQuery == 0 {
             targetYear = 1950
@@ -158,7 +157,6 @@ struct HomeModel {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
-
                 F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
                     if Success {
                         print("SUCCESSS ALL CONSTRUCTORS")
@@ -167,7 +165,6 @@ struct HomeModel {
                         print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }
                 }
-
             }
         }
         
@@ -175,28 +172,24 @@ struct HomeModel {
         else if Data.whichQuery == 1 {
             Data.seasonYearSelected = enterYear.text
             guard let thisSeason = Data.seasonYearSelected else { return }
-            
             F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
                 if Success {
                     showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
                 } else {
-                    print("ERROR?")
+                    print("ERROR? - DRIVERS QUERY")
                 }
             }
         }
-        
         // GRAND PRIX QUERY
         else if Data.whichQuery == 2 {
             let upperBound = 2004
             targetYear = 1950
-            
             if year >= targetYear ?? 1950 && year <= upperBound {
                 print(year, targetYear!, maxYear)
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print("RUNNING BEFORE 2004 QUERY")
                 print(thisSeason)
-
                 F1ApiRoutes.allCircuits(seasonYear: thisSeason) { Success in
                     if Success {
                         showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
@@ -204,7 +197,8 @@ struct HomeModel {
                         print("ERROR?")
                     }
                 }
-            } else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
+            }
+            else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print("RUNNING MODERN DAY CIRCUITS QUERY")
@@ -217,14 +211,12 @@ struct HomeModel {
                     }
                 }
             }
-            
             else if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             }
         }
-        
-       // WDC QUERY
+        // WDC QUERY
         else if Data.whichQuery == 3 {
             targetYear = 1950
             if year < targetYear! || year > maxYear {
@@ -234,12 +226,11 @@ struct HomeModel {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
                 print(thisSeason)
-
                 F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
                     if Success {
                         if Success {
                             print("SUCCESSS TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                            showResults(qTime: 0.25, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                            showResults(qTime: 0.15, activityIndicator: activityIndicator, homeSelf: homeSelf)
                         } else {
                             print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                         }

@@ -91,6 +91,33 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
+        let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
+        let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
+        let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
+        let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
+        let url = Data.driverURL[safe: indexPath.item] ?? ""
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as? singleResultCell {
+            
+           
+            if Data.whichQuery == 2 {
+                print(constructorID)
+                print(driverName)
+                print(driverPosition)
+                print(url)
+                F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(indexPath.item)")
+
+            }
+            if Data.whichQuery == 3 {
+                print(driverName)
+                print(driverPosition)
+            }
+            
+        }
+    }
 
     
     

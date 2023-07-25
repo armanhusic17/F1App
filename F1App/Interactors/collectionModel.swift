@@ -74,9 +74,9 @@ struct CollectionModel {
         if Data.whichQuery == 3 {
             return  driverNames.count
         }
-        if Data.whichQuery == 4 {
-            return  qualiResuls.count
-        }
+//        if Data.whichQuery == 4 {
+//            return  qualiResuls.count
+//        }
         // arbitrary return
         return 1
     }
@@ -91,19 +91,19 @@ struct CollectionModel {
         if Data.whichQuery == 0 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.33
-            return CGSize(width: queryWidth!, height: queryHeight!)
+            return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         } else if Data.whichQuery == 1 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.35
-            return CGSize(width: queryWidth!, height: queryHeight!)
+            return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         } else if Data.whichQuery == 2 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.60
-            return CGSize(width: queryWidth!, height: queryHeight!)
+            return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         } else if Data.whichQuery == 3 {
             queryWidth = availableWidth * 0.75
             queryHeight = availableHeight * 0.25
-            return CGSize(width: queryWidth!, height: queryHeight!)
+            return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
 

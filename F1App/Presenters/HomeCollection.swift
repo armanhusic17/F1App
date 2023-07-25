@@ -145,66 +145,68 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
             dismissKeyboard()
             DispatchQueue.main.async { [self] in
                 view.bringSubviewToFront(cellActivityIndicator)
+                collectionView.isUserInteractionEnabled = false
                 cellActivityIndicator.isHidden = false
                 cellActivityIndicator.startAnimating()
             }
-            cell.layer.borderColor = UIColor.clear.cgColor
 
             // have to disable cells so that the user doesnt send multiple queries as the data loads
             if indexPath.item == 0 {
                 print("THIS IS THE TITLE CELL, maybe place to select year")
             }
             if indexPath.item == 1 {
-                print("Constructors cell is selected")
-                Data.whichQuery = 0  
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                    print("Constructors cell is selected")
+                    Data.whichQuery = 0
+                    cell.layer.borderColor = UIColor.clear.cgColor
+
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 }
             }
             if indexPath.item == 2 {
-                print("Drivers cell is selected")
-                Data.whichQuery = 1
-                seasonYear = Int(cell.enterF1SeasonYear.text)
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                    print("Drivers cell is selected")
+                    Data.whichQuery = 1
+                    cell.layer.borderColor = UIColor.clear.cgColor
+
+                    seasonYear = Int(cell.enterF1SeasonYear.text)
+
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 }
             }
             if indexPath.item == 3 {
-                print("Circuits cell is selected")
-                Data.whichQuery = 2
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                    print("Circuits cell is selected")
+                    Data.whichQuery = 2
                     // set season year
                     print("IS THIS NOT RUNNING???")
                     seasonYear = Int(cell.enterF1SeasonYear.text)
+                    cell.layer.borderColor = UIColor.clear.cgColor
+
                     print(seasonYear)
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 }
             }
             if indexPath.item == 4 {
-                print("WDC cell is selected")
-                Data.whichQuery = 3
                 if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                    print("WDC cell is selected")
+                    Data.whichQuery = 3
+                    cell.layer.borderColor = UIColor.clear.cgColor
+
                     homeModel.setQueryNum(activityIndicator: cellActivityIndicator, enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
-                } else {
-                    print("AM I FAILING?")
                 }
             }
-        }
         
     }
     
     
     // deselectuing a cell - hides cell
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as? myHomeCell {
-            print("Cell deselected")
-            dismissKeyboard()
-            cell.homeBaseView.backgroundColor = UIColor.clear
-        }
+        dismissKeyboard()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

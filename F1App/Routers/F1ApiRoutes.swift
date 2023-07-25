@@ -22,12 +22,15 @@ import Formula1API
 
 struct F1ApiRoutes  {
     
+    
+    
     let myData = Data()
     
-    static func allRaceResults(seasonYear: String) {
+    
+    
+    static func allRaceResults(seasonYear: String, round: String) {
         print(seasonYear)
-
-        let urlString = "https://ergast.com/api/f1/\(seasonYear)/results.json"
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
         guard let url = URL(string: urlString) else { return }
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
@@ -57,10 +60,10 @@ struct F1ApiRoutes  {
                         print("Points: \(result.points)")
                         print("Constructor: \(result.constructor)")
                         print("Status: \(result.status)")
-                        print("Fastest Lap: \(result.fastestLap)")
+                        print("Fastest Lap: \(result.fastestLap?.lap ?? "")")
                         print("Grid: \(result.grid)")
                         print("Laps: \(result.laps)")
-                        print("Time: \(result.time)")
+                        print("Time: \(result.time?.time ?? "")")
                         print("----------------------")
                         print("----------------------")
                     }
@@ -123,6 +126,7 @@ struct F1ApiRoutes  {
                                 Data.racePosition.append(position)
                                 Data.fastestLap.append(lapTime)
                                 Data.raceTime.append(topSpeed)
+                                
                             }
                         }
                         completion(true)
@@ -150,7 +154,7 @@ struct F1ApiRoutes  {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
         guard let url = URL(string: urlString) else { return }
         let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 59 // set timeout to 10 seconds
+        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
         let session = URLSession(configuration: sessionConfig)
         let task = session.dataTask(with: url) { (data, response, error) in
             guard let data = data else {
@@ -195,9 +199,9 @@ struct F1ApiRoutes  {
                             } else {
                                 thumbnailURLString = nil // Set thumbnailURLString to nil
                             }
-                            
+                            print(thumbnailURLString ?? "LEWIS _ AJKSHDKHASKDKSAHDKHKASHDJKAD")
                             DispatchQueue.main.async {
-                                Data.driverImgURL.append(thumbnailURLString ?? "lewis") // Use "lewis" if thumbnailURLString is nil
+                                Data.driverImgURL.append(thumbnailURLString ?? "lewis")
                                 Data.driverNames.append(familyName)
                                 Data.driverFirstNames.append(givenName)
                                 Data.driverNationality.append(nationality)
@@ -241,7 +245,6 @@ struct F1ApiRoutes  {
                 print("Error: No data received")
                 return
             }
-
             do {
                 let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
                 let constructorTable = f1Data.data.constructorTable
