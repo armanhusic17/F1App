@@ -18,7 +18,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet weak var closerLookCollection: UICollectionView!
     @IBOutlet weak var topBarLabel: UILabel!
     
-    
+    let myData = Data()
     
     
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         
         // Configure the cell using the extracted variables
         cell.driverName.text = "P\(driverPosition!)\n\(driverName!)"
-        cell.botLabel.text = "Constructor: \(constructorID!)\nFastest Lap: \(fastestLap!)\nTop Speed: \(topSpeed!) MPH"
+        cell.botLabel.text = "Constructor: \(constructorID!)\n\(fastestLap!)\n\(topSpeed!)"
         
         // Set the border color based on the item's index
         if indexPath.item == 0 {
@@ -62,20 +62,6 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             cell.layer.borderColor = UIColor.yellow.cgColor
         } else {
             cell.layer.borderColor = UIColor.white.cgColor
-        }
-        
-        // Find the qualifying result for the driver's last name
-        let driverLastName = driverName?.components(separatedBy: " ").last ?? ""
-        if let qualiResult = Data.qualiResults.first(where: { $0?.contains(driverLastName) ?? false }) {
-           print("Qualifying Result Found: \(qualiResult!)")
-           // Retrieve the driver's qualifying position
-           if let qualifyingPosition = Data.qualiResults.firstIndex(of: qualiResult) {
-               cell.botLabel.text?.append("\nQualifying Position: \(qualifyingPosition + 1)")
-           } else {
-               print("Qualifying position not found")
-           }
-        } else {
-           print("No qualifying result found for driver: \(driverLastName)")
         }
         
         // Set other cell properties
@@ -93,33 +79,69 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        myData.removeAllSingleResultData()
         let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
         let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
         let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
         let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
         let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
         let url = Data.driverURL[safe: indexPath.item] ?? ""
-        
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as? singleResultCell {
-            
-           
-            if Data.whichQuery == 2 {
-                print(constructorID)
-                print(driverName)
-                print(driverPosition)
-                print(url)
-                F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(indexPath.item)")
+        let driverLastName = Data.driverLastName[safe: indexPath.item] ?? "[Driver Last Name]"
 
+
+        if Data.whichQuery == 2 {
+            F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 1000 ) { [self] success, races in
+                print(driverLastName ?? "")
+                if success {
+                    // Process the 'races' array containing the driver's race results
+                    for race in races {
+                        // Access race information like raceName, circuit, date, etc.
+                        for result in race.results {
+                            // Access driver-specific information like position, points, fastest lap, etc.
+                            print("========================================================")
+                            print(race.raceName)
+                            print(race.circuit.circuitName)
+                            print(race.date)
+                            print("\(result.driver.givenName) \(result.driver.familyName) ")
+                            print("\(result.status) : P\(result.position)")
+                            Data.driverFinishes.append("\(result.status) : P\(result.position)")
+                            print("Pace: \(result.time?.time ?? "")")
+                            print("\(result.constructor.name)")
+                            print("Qualifying Position : P\(result.grid)")
+                            Data.driverPoles.append("P\(result.grid).")
+                            
+                            print("========================================================")
+                        }
+                        
+                    }
+                    print(countFinishedP1Occurrences(in: Data.driverFinishes))
+                    print(countPoles(in: Data.driverPoles))
+                } else {
+                    // Handle the error case
+                    print(driverLastName?.removingPercentEncoding)
+                    print("error")
+                }
             }
-            if Data.whichQuery == 3 {
-                print(driverName)
-                print(driverPosition)
-            }
-            
+
+
         }
+        if Data.whichQuery == 3 {
+            print(driverName ?? "")
+            print(driverPosition ?? "")
+        }
+            
+     
     }
 
+    func countFinishedP1Occurrences(in array: [String?]) -> Int {
+        let targetString = "Finished : P1"
+        return array.filter { $0 == targetString }.count
+    }
     
+    func countPoles(in array: [String?]) -> Int {
+        let targetString = "P1."
+        return array.filter { $0 == targetString }.count
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

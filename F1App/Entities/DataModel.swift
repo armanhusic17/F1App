@@ -54,6 +54,9 @@ struct Data {
     static var raceWinnerTeam: [String?] = []
 
     static var qualiResults: [String?] = []
+    static var driverLastName: [String?] = []
+    static var driverFinishes: [String?] = []
+    static var driverPoles: [String?] = []
 
     // New Race Result
     static var fastestLap: [String?] = []
@@ -68,6 +71,7 @@ struct Data {
     static var f1Season: [String?] = []
 
     static var seasonYearSelected: String?
+    static var seasonRound:Int?
     static var cellCount: Int?
     
     static var raceResults:[String?] = []
@@ -115,10 +119,14 @@ struct Data {
         Data.circuitRaceDate.removeAll()
         Data.racePosition.removeAll()
         Data.raceWinnerTeam.removeAll()
-        
         Data.qualiResults.removeAll()
         
         print("removed all data points from the arrays holding the cells")
+    }
+    
+    func removeAllSingleResultData() {
+        Data.driverFinishes.removeAll()
+        Data.driverPoles.removeAll()
     }
     
     

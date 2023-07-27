@@ -129,7 +129,9 @@ struct CollectionModel {
     }
 
     
-    
+
+
+
     
     
     // what data is shown in the each cell

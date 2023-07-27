@@ -65,28 +65,18 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             if Data.whichQuery == 2 {
                 print("SEASON YEAR BELOW")
-                print(seasonYear)
-                F1ApiRoutes.singleRaceResults(seasonYear: seasonYear!, roundNumber: cellIndexPath + 1) { [self] Success in
+                print(seasonYear, cellIndexPath + 1)
+                F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
+                    Data.seasonRound = cellIndexPath
                     if Success {
-
-//                        F1ApiRoutes.getQualiResults(seasonYear: "\(seasonYear!)", round: "\(cellIndexPath + 1)") { Success in
-//                            if Success {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                                    self.performSegue(withIdentifier: "closerLookTransition", sender: self)
-                                }
-//                            } else {
-//                                print("Error getting qualifying results......")
-//                            }
-//                        }
-                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
+                        }
                     } else {
-                        print("Error getting single race results......")
+                        print("Error getting qualifying results......")
                     }
                     
                 }
-                
-
-               
                 
             } else {
                 resultsModel.loadResults(myself: self)
