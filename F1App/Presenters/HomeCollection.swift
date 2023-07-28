@@ -86,52 +86,57 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = false
             cell.enterF1SeasonYear.backgroundColor = UIColor.clear
             cell.homeCellImageView.image = UIImage(named: "40x40")
-            cell.homeCellImageView.alpha = 0.01
+            cell.homeCellImageView.alpha = 0.10
             cell.homeBaseView.backgroundColor = UIColor.clear
             cell.layer.borderWidth = 0.0
         }
         if indexPath.item == 1 {
             Data.whichQuery = 0
             cell.layer.borderWidth = cellBorderWidth
-            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Constructors"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "raceTeam")
+            cell.homeCellImageView.image = UIImage(named: "genericF1Car")
+            cell.homeCellImageView.alpha = 0.25
+
             
         }
         if indexPath.item == 2 {
             Data.whichQuery = 1
             cell.layer.borderWidth = cellBorderWidth
-            cell.layer.borderColor = UIColor.systemRed.cgColor
+            cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis")
+            cell.homeCellImageView.alpha = 0.25
             
         }
         if indexPath.item == 3 {
             Data.whichQuery = 2
             cell.layer.borderWidth = cellBorderWidth
-            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.layer.borderColor = UIColor.systemGray.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "Grand Prix"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
+            cell.homeCellImageView.alpha = 0.5
 
         }
         if indexPath.item == 4 {
             Data.whichQuery = 3
             cell.layer.borderWidth = cellBorderWidth
-            cell.layer.borderColor = UIColor.systemYellow.cgColor
+            cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
             cell.bottomLabel.text = "WDC"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "WDCLogo")
+            cell.homeCellImageView.alpha = 1.0
         }
         cell.layer.cornerRadius = 20
         

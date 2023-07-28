@@ -127,6 +127,7 @@ struct Data {
     func removeAllSingleResultData() {
         Data.driverFinishes.removeAll()
         Data.driverPoles.removeAll()
+
     }
     
     

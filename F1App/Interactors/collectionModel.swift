@@ -146,12 +146,14 @@ struct CollectionModel {
                 DispatchQueue.main.async {
                     if image != nil {
                         cell.cellImage.image = image
+                        cell.cellImage.alpha = 1.0
 
                     } else {
                         cell.cellImage.contentMode = .scaleAspectFit
-                        cell.cellImage.image = UIImage(named: "raceTeam")
+                        cell.cellImage.image = UIImage(named: "f1Car")
+                        cell.cellImage.alpha = 0.5
                     }
-                    cell.topCellLabel.text = "Constructor: \(self.teamNames[indexPath.item] ?? "")"
+                    cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
                     cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
                 }
             }

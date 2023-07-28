@@ -90,7 +90,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
 
 
         if Data.whichQuery == 2 {
-            F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 1000 ) { [self] success, races in
+            F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 2000 ) { [self] success, races in
                 print(driverLastName ?? "")
                 if success {
                     // Process the 'races' array containing the driver's race results
@@ -107,9 +107,8 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
                             Data.driverFinishes.append("\(result.status) : P\(result.position)")
                             print("Pace: \(result.time?.time ?? "")")
                             print("\(result.constructor.name)")
-                            print("Qualifying Position : P\(result.grid)")
-                            Data.driverPoles.append("P\(result.grid).")
-                            
+                            print("Qualifying Position : P\(result.grid) ")
+                            Data.driverPoles.append("Qualifying Position : P\(result.grid) ")
                             print("========================================================")
                         }
                         
@@ -139,7 +138,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func countPoles(in array: [String?]) -> Int {
-        let targetString = "P1."
+        let targetString = "Qualifying Position : P1 "
         return array.filter { $0 == targetString }.count
     }
     
