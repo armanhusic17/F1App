@@ -164,36 +164,36 @@
                                                     <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
-                                                    <rect key="frame" x="12" y="12" width="214" height="379"/>
+                                                    <rect key="frame" x="12" y="12" width="164" height="379"/>
                                                 </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ybi-32-3AN">
-                                                    <rect key="frame" x="12" y="12" width="206" height="171"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ybi-32-3AN">
+                                                    <rect key="frame" x="12" y="12" width="132" height="171"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyJ-qf-Gri">
-                                                    <rect key="frame" x="234" y="12" width="138" height="75"/>
+                                                    <rect key="frame" x="184" y="12" width="188" height="75"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="75" id="OdS-nF-FzD"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="24"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1h8-8C-TE7">
-                                                    <rect key="frame" x="234" y="87" width="138" height="50"/>
+                                                    <rect key="frame" x="184" y="87" width="188" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="VY6-Eq-v85"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="19"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FYC-jT-tcv">
-                                                    <rect key="frame" x="234" y="137" width="138" height="50"/>
+                                                    <rect key="frame" x="184" y="137" width="188" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="ewA-1i-6pJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="16"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Apx-3q-uiC">
@@ -213,7 +213,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="8" id="5op-Tl-dmg"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="12" id="7xP-Oo-5Rh"/>
@@ -221,7 +221,7 @@
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="8" id="Cn9-a3-VGl"/>
                                                 <constraint firstItem="Ybi-32-3AN" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="leading" id="Csc-p8-XMS"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="uyJ-qf-Gri" secondAttribute="leading" id="Fpi-aL-aGd"/>
-                                                <constraint firstItem="Ybi-32-3AN" firstAttribute="trailing" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="-8" id="I7E-2R-aZH"/>
+                                                <constraint firstItem="Ybi-32-3AN" firstAttribute="trailing" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="-32" id="I7E-2R-aZH"/>
                                                 <constraint firstItem="lss-gv-dP1" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="JwA-7d-7bv"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Oqr-Zs-Lzi"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="12" id="P50-PI-5cX"/>
@@ -241,7 +241,7 @@
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="bottom" secondItem="lss-gv-dP1" secondAttribute="bottom" id="s6j-9m-iep"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="ukQ-Kr-0Gg"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="wlW-da-8p2"/>
-                                                <constraint firstItem="Acp-AP-HL7" firstAttribute="centerX" secondItem="BTL-hX-xyL" secondAttribute="centerX" constant="-75" id="zVB-3z-zmS"/>
+                                                <constraint firstItem="Acp-AP-HL7" firstAttribute="centerX" secondItem="BTL-hX-xyL" secondAttribute="centerX" constant="-100" id="zVB-3z-zmS"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -335,18 +335,18 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="w9m-T7-9Y5"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="30"/>
-                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="36"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhg-9f-t8w">
                                                                     <rect key="frame" x="8" y="66" width="361" height="346"/>
                                                                     <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="21"/>
-                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstItem="3Zw-W0-hRx" firstAttribute="top" secondItem="Bgm-YJ-PfV" secondAttribute="top" constant="8" id="0fr-ag-4u9"/>
                                                                 <constraint firstItem="Xhg-9f-t8w" firstAttribute="centerX" secondItem="3Zw-W0-hRx" secondAttribute="centerX" id="8ys-aV-CQy"/>
