@@ -130,7 +130,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ab-PE-AOc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1935.9813084112147" y="132.82937365010801"/>
+            <point key="canvasLocation" x="1953" y="133"/>
         </scene>
         <!--Results Collection-->
         <scene sceneID="axs-pe-j9y">
@@ -278,7 +278,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAY-M9-cit" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2639.7196261682243" y="132.82937365010801"/>
+            <point key="canvasLocation" x="2690" y="133"/>
         </scene>
         <!--Single Result Collection-->
         <scene sceneID="fSC-2y-g4e">
@@ -418,7 +418,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6p-ch-hph" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3319.6261682242989" y="132.82937365010801"/>
+            <point key="canvasLocation" x="3402" y="133"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nl3-df-pX0">
@@ -496,7 +496,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Re2-y7-e2V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3196" y="133"/>
+            <point key="canvasLocation" x="1936" y="133"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>

@@ -95,7 +95,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
                                 print("\(result.constructor.name)")
                                 Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
                                 print("Qualifying Position : P\(result.grid) ")
-                                Data.driverPoles.append("Qualifying Position : P\(result.grid) ")
+                                Data.driverPoles.append("Qualified : P\(result.grid) ")
                                 print("========================================================")
                             }
                             

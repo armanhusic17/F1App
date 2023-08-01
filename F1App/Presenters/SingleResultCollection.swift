@@ -27,6 +27,14 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         closerLookCollection.delegate = self
         closerLookCollection.dataSource = self
         
+        DispatchQueue.main.async {
+            let item = self.collectionView(self.closerLookCollection, numberOfItemsInSection: 0) - 1
+            let lastItemIndex = IndexPath(item: item, section: 0)
+            self.closerLookCollection.scrollToItem(at: lastItemIndex, at: .bottom, animated: false)
+            self.closerLookCollection.reloadData()
+        }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -40,7 +48,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         
         // Constructors
         if Data.whichQuery == 0 {
-            
+            return 1
         } // Drivers
         else if Data.whichQuery == 1 {
             return Data.driverFinishes.count
@@ -49,7 +57,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             return Data.driverNames.count
         } // WDC
         else if Data.whichQuery == 3 {
-            
+            return 1
         } else {
             return Data.driverNames.count
         }
@@ -203,3 +211,16 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
 }
+
+//
+//extension UICollectionView {
+//    func scrollToBottom(animated: Bool = false) {
+//        let lastSection = 1
+//
+//        let lastItem = numberOfItems(inSection: Data.driverFinishes.count) - 1
+//        guard lastItem >= 0 else { return }
+//
+//        let lastIndexPath = IndexPath(item: lastItem, section: lastSection)
+//        scrollToItem(at: lastIndexPath, at: .bottom, animated: animated)
+//    }
+//}
