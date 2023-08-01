@@ -17,6 +17,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     let myData = Data()
     
     var seasonYear:Int?
+    var playerIndex:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,13 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
     // Number of cells from model
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionmodel.howManyCells()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "closerLookTransition" {
+            let controller = segue.destination as? SingleResultCollection
+            controller?.playerIndex = playerIndex
+        }
     }
     
     
@@ -63,7 +71,47 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             cell.activitySpinner.startAnimating()
             
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
-            if Data.whichQuery == 2 {
+            if Data.whichQuery == 1 {
+                playerIndex = cellIndexPath
+                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 1000) { [self] success, races in
+                    if success {
+                        // Process the 'races' array containing the driver's race results
+                        for race in races {
+                            // Access race information like raceName, circuit, date, etc.
+                            for result in race.results {
+                                // Access driver-specific information like position, points, fastest lap, etc.
+                                print("========================================================")
+                                Data.raceName.append("\(race.raceName)")
+                                Data.circuitName.append(race.circuit.circuitName)
+                                print(race.raceName)
+                                print(race.circuit.circuitName)
+                                Data.raceDate.append(race.date)
+                                print(race.date)
+                                print("\(result.driver.givenName) \(result.driver.familyName) ")
+                                print("\(result.status) : P\(result.position)")
+                                Data.driverFinishes.append("\(result.status) : P\(result.position)")
+                                Data.raceTime.append("Pace: \(result.time?.time ?? "")")
+                                print("Pace: \(result.time?.time ?? "")")
+                                print("\(result.constructor.name)")
+                                Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
+                                print("Qualifying Position : P\(result.grid) ")
+                                Data.driverPoles.append("Qualifying Position : P\(result.grid) ")
+                                print("========================================================")
+                            }
+                            
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
+                        }
+    //                    print(F1ApiRoutes.countFinishedP1Occurrences(in: Data.driverFinishes))
+    //                    print(F1ApiRoutes.countPoles(in: Data.driverPoles))
+                    } else {
+                        // Handle the error case
+                        print("error")
+                    }
+                }
+            }
+            else if Data.whichQuery == 2 {
                 print("SEASON YEAR BELOW")
                 print(seasonYear, cellIndexPath + 1)
                 F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
@@ -78,7 +126,9 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
                     
                 }
                 
-            } else {
+            }
+            
+            else {
                 resultsModel.loadResults(myself: self)
             }
         }
@@ -102,5 +152,6 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
 
     
 }
+
 
 

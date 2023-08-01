@@ -151,13 +151,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             dismissKeyboard()
-            DispatchQueue.main.async { [self] in
-                view.bringSubviewToFront(cellActivityIndicator)
-                collectionView.isUserInteractionEnabled = false
-                cellActivityIndicator.isHidden = false
-                cellActivityIndicator.startAnimating()
-            }
-
             // have to disable cells so that the user doesnt send multiple queries as the data loads
             if indexPath.item == 0 {
                 print("THIS IS THE TITLE CELL, maybe place to select year")

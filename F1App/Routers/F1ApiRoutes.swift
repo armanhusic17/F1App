@@ -61,7 +61,7 @@ struct F1ApiRoutes  {
                         print("Constructor: \(result.constructor.name)")
                         Data.constructorID.append(result.constructor.name)
                         print("Driver: \(result.driver.givenName) \(result.driver.familyName)")
-                        Data.driverNames.append("Driver: \(result.driver.givenName) \(result.driver.familyName)")
+                        Data.driverNames.append("\(result.driver.givenName) \(result.driver.familyName)")
                         Data.driverLastName.append(result.driver.familyName)
                         print("Driver: \(result.driver.code ?? "") \(result.driver.permanentNumber ?? "")")
                         print("Position: \(result.position)")
@@ -90,6 +90,17 @@ struct F1ApiRoutes  {
         }
         task.resume()
     }
+    
+    func countFinishedP1Occurrences(in array: [String?]) -> Int {
+        let targetString = "Finished : P1"
+        return array.filter { $0 == targetString }.count
+    }
+    
+    func countPoles(in array: [String?]) -> Int {
+        let targetString = "Qualifying Position : P1 "
+        return array.filter { $0 == targetString }.count
+    }
+    
     
     
 

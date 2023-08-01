@@ -174,7 +174,7 @@ struct HomeModel {
             guard let thisSeason = Data.seasonYearSelected else { return }
             F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
                 if Success {
-                    showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                    showResults(qTime: 0.25, activityIndicator: activityIndicator, homeSelf: homeSelf)
                 } else {
                     print("ERROR? - DRIVERS QUERY")
                 }

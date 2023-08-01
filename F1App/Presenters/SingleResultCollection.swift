@@ -19,7 +19,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet weak var topBarLabel: UILabel!
     
     let myData = Data()
-    
+    var playerIndex:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,30 +30,90 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.23)
+        return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.28)
 
     }
     
     @objc
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print(Data.driverNames)
-        return Data.driverNames.count
+        
+        // Constructors
+        if Data.whichQuery == 0 {
+            
+        } // Drivers
+        else if Data.whichQuery == 1 {
+            return Data.driverFinishes.count
+        } // Grand Prix
+        else if Data.whichQuery == 2 {
+            return Data.driverNames.count
+        } // WDC
+        else if Data.whichQuery == 3 {
+            
+        } else {
+            return Data.driverNames.count
+        }
+        return 1
     }
+    
     
     @objc(collectionView:cellForItemAtIndexPath:)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
 
-        // Extract all the necessary variables
-        let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
-        let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
-        let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
-        let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
-        let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
-        
-        // Configure the cell using the extracted variables
-        cell.driverName.text = "P\(driverPosition!)\n\(driverName!)"
-        cell.botLabel.text = "Constructor: \(constructorID!)\n\(fastestLap!)\n\(topSpeed!)"
+        // Constructors
+        if Data.whichQuery == 0 {
+           
+            
+        } // Drivers
+        else if Data.whichQuery == 1 {
+            
+            let driverFinishes = Data.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
+            let driverPoles = Data.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
+            let driver = Data.driverNames[safe: playerIndex ?? 0] ?? ""
+            let race = Data.raceName[safe: indexPath.item] ?? "[Grand Prix]"
+            let date = Data.raceDate[safe: indexPath.item] ?? "[Date]"
+            let racePace = Data.raceTime[safe: indexPath.item] ?? "[Pace]"
+            let circuitName = Data.circuitName[safe: indexPath.item] ?? "[Location]"
+            let team = Data.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
+            
+            topBarLabel.text = "\(driver!)\nCareer Results"
+            topBarLabel.textColor = .white
+            cell.driverName.text = "\(race!)"
+            cell.botLabel.text = "\(circuitName!)"
+                                    + "\n"
+                                    + "\(date!)"
+                                    + "\n"
+                                    + "\(team!)"
+                                    + "\n"
+                                    + (driverPoles ?? "")
+                                    + "\n"
+                                    + (driverFinishes ?? "")
+                                    + "\n"
+                                    + "\(racePace!)"
+                                    
+            } // Grand Prix
+        else if Data.whichQuery == 2 {
+            // Extract all the necessary variables
+            let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
+            let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
+            let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
+            let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
+            let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
+            
+            // Configure the cell using the extracted variables
+            cell.driverName.text = "P\(driverPosition!) - \(driverName!)"
+            cell.botLabel.text = "Constructor: \(constructorID!)\n\(fastestLap!)\n\(topSpeed!)"
+            
+            if let singleRaceName = Data.singleRaceName {
+                topBarLabel.text = singleRaceName
+            }
+            
+        } // WDC
+        else if Data.whichQuery == 3 {
+            
+        }
+            
         
         // Set the border color based on the item's index
         if indexPath.item == 0 {
@@ -68,12 +128,6 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 8
         
-        // Set the top bar label text
-        if let singleRaceName = Data.singleRaceName {
-            topBarLabel.text = singleRaceName
-        } else {
-            topBarLabel.text = "Race Results"
-        }
         
         return cell
     }
@@ -113,8 +167,8 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
                         }
                         
                     }
-                    print(countFinishedP1Occurrences(in: Data.driverFinishes))
-                    print(countPoles(in: Data.driverPoles))
+//                    print(F1ApiRoutes.countFinishedP1Occurrences(in: Data.driverFinishes))
+//                    print(F1ApiRoutes.countPoles(in: Data.driverPoles))
                 } else {
                     // Handle the error case
                     print(driverLastName?.removingPercentEncoding)
@@ -132,16 +186,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
      
     }
 
-    func countFinishedP1Occurrences(in array: [String?]) -> Int {
-        let targetString = "Finished : P1"
-        return array.filter { $0 == targetString }.count
-    }
-    
-    func countPoles(in array: [String?]) -> Int {
-        let targetString = "Qualifying Position : P1 "
-        return array.filter { $0 == targetString }.count
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Data.driverNames.removeAll()
@@ -149,6 +194,12 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         Data.racePosition.removeAll()
         Data.fastestLap.removeAll()
         Data.raceTime.removeAll()
+        Data.driverFinishes.removeAll()
+        Data.driverPoles.removeAll()
+        Data.raceWinnerTeam.removeAll()
+        Data.raceDate.removeAll()
+        Data.circuitName.removeAll()
+        Data.raceName.removeAll()
     }
     
 }

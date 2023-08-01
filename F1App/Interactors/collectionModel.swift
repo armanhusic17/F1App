@@ -42,6 +42,7 @@ struct CollectionModel {
     let raceDate = Data.raceDate
     let raceTime = Data.raceTime
     let raceSeason = Data.f1Season
+    let finishes = Data.driverFinishes
     
     let raceWins = Data.raceWins
     let racePoints = Data.racePoints

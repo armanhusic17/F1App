@@ -244,8 +244,8 @@
 		0FDB0D102863D77B00A07E6A /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */,
 				0FDB0D0E2863D76000A07E6A /* HomeModel.swift */,
+				0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */,
 				0FDB0D142863DAF800A07E6A /* collectionModel.swift */,
 			);
 			path = Interactors;
