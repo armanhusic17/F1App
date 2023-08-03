@@ -27,12 +27,22 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         closerLookCollection.delegate = self
         closerLookCollection.dataSource = self
         
-        DispatchQueue.main.async {
-            let item = self.collectionView(self.closerLookCollection, numberOfItemsInSection: 0) - 1
-            let lastItemIndex = IndexPath(item: item, section: 0)
-            self.closerLookCollection.scrollToItem(at: lastItemIndex, at: .bottom, animated: false)
-            self.closerLookCollection.reloadData()
+        if Data.whichQuery == 0 {
+        } // Drivers
+        else if Data.whichQuery == 1 {
+            DispatchQueue.main.async {
+                let item = self.collectionView(self.closerLookCollection, numberOfItemsInSection: 0) - 1
+                let lastItemIndex = IndexPath(item: item, section: 0)
+                self.closerLookCollection.scrollToItem(at: lastItemIndex, at: .bottom, animated: false)
+                self.closerLookCollection.reloadData()
+            }
+        } // Grand Prix
+        else if Data.whichQuery == 2 {
+            
+        } // WDC
+        else if Data.whichQuery == 3 {
         }
+        
         
         
     }
