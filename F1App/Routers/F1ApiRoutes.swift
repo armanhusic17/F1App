@@ -91,16 +91,6 @@ struct F1ApiRoutes  {
         task.resume()
     }
     
-    func countFinishedP1Occurrences(in array: [String?]) -> Int {
-        let targetString = "Finished : P1"
-        return array.filter { $0 == targetString }.count
-    }
-    
-    func countPoles(in array: [String?]) -> Int {
-        let targetString = "Qualifying Position : P1 "
-        return array.filter { $0 == targetString }.count
-    }
-    
     
     
 

@@ -124,11 +124,7 @@ struct Data {
         print("removed all data points from the arrays holding the cells")
     }
     
-    func removeAllSingleResultData() {
-        Data.driverFinishes.removeAll()
-        Data.driverPoles.removeAll()
 
-    }
     
     
     

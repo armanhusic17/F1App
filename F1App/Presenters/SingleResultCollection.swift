@@ -37,9 +37,21 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         
     }
     
+    func countFinishedP1Occurrences(in array: [String?]) -> Int {
+        let targetString = "Finished : P1 "
+        return array.filter { $0 == targetString }.count
+    }
+    
+    func countPoles(in array: [String?]) -> Int {
+        let targetString = "Qualified : P1 "
+        return array.filter { $0 == targetString }.count
+    }
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.28)
-
     }
     
     @objc
@@ -84,8 +96,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             let racePace = Data.raceTime[safe: indexPath.item] ?? "[Pace]"
             let circuitName = Data.circuitName[safe: indexPath.item] ?? "[Location]"
             let team = Data.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
-            
-            topBarLabel.text = "\(driver!)\nCareer Results"
+            let totalPoles = countPoles(in: Data.driverPoles)
+            let totalWins = countFinishedP1Occurrences(in: Data.driverFinishes)
+           
+            topBarLabel.text = "\(driver!)\nCareer Results\nPoles: \(totalPoles)\nWins: \(totalWins)"
             topBarLabel.textColor = .white
             cell.driverName.text = "\(race!)"
             cell.botLabel.text = "\(circuitName!)"
@@ -141,7 +155,6 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        myData.removeAllSingleResultData()
         let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
         let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
         let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
@@ -197,7 +210,12 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Data.driverNames.removeAll()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        //Data.driverNames.removeAll()
         Data.constructorID.removeAll()
         Data.racePosition.removeAll()
         Data.fastestLap.removeAll()
@@ -209,18 +227,4 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         Data.circuitName.removeAll()
         Data.raceName.removeAll()
     }
-    
 }
-
-//
-//extension UICollectionView {
-//    func scrollToBottom(animated: Bool = false) {
-//        let lastSection = 1
-//
-//        let lastItem = numberOfItems(inSection: Data.driverFinishes.count) - 1
-//        guard lastItem >= 0 else { return }
-//
-//        let lastIndexPath = IndexPath(item: lastItem, section: lastSection)
-//        scrollToItem(at: lastIndexPath, at: .bottom, animated: animated)
-//    }
-//}

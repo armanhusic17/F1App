@@ -29,7 +29,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? ResultsCollection {
+        if let destinationVC = segue.destination as? FirstResultCollection {
             // Pass data to destinationVC here
             print("prepare function fires")
             destinationVC.seasonYear = seasonYear
@@ -58,9 +58,10 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
-            return CGSize(width: view.frame.width * 1.0, height: view.frame.height * 0.13)
+            return CGSize(width: view.frame.width * 1.0, height: view.frame.height * 0.20)
         }
         else if indexPath.item == 3{
             return CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.22)
@@ -203,8 +204,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // deselectuing a cell - hides cell
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        dismissKeyboard()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

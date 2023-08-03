@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 /// This is the inital collectionof results that appears when a user selects one of the 3 maain queries 
-class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
+class FirstResultCollection : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
     var collectionmodel = CollectionModel()
     let resultsModel = ResultsModel()
@@ -23,6 +23,7 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
         super.viewDidLoad()
         
         collectionView.delegate = self
+        addSwipeGesture()
     }
     
     
@@ -40,6 +41,45 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
             let controller = segue.destination as? SingleResultCollection
             controller?.playerIndex = playerIndex
         }
+    }
+    
+    func addSwipeGesture() {
+       let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+       view.addGestureRecognizer(swipeGesture)
+   }
+
+    @objc func handleSwipe(_ gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: view)
+        
+        switch gesture.state {
+        case .began:
+            // Initialize or prepare for the transition
+            break
+            
+        case .changed:
+            // Calculate the progress of the transition based on the swipe gesture
+            let progress = translation.x / view.bounds.width
+            // You can update UI elements based on the progress if needed
+            // For example, animate alpha or position of the current view controller's view
+            
+        case .ended:
+            // Determine whether the swipe is enough to trigger the transition
+            let threshold: CGFloat = 0.5
+            if translation.x / view.bounds.width < -threshold {
+                performSwipeTransition()
+            } else {
+                // The swipe didn't reach the threshold, so reset the view or cancel the transition
+            }
+            
+        default:
+            break
+        }
+    }
+
+    func performSwipeTransition() {
+        let homeVC = HomeCollection()
+        homeVC.modalPresentationStyle = .fullScreen
+        present(homeVC, animated: true, completion: nil)
     }
     
     
@@ -88,8 +128,9 @@ class ResultsCollection : UICollectionViewController, UICollectionViewDelegateFl
                                 Data.raceDate.append(race.date)
                                 print(race.date)
                                 print("\(result.driver.givenName) \(result.driver.familyName) ")
+                                Data.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
                                 print("\(result.status) : P\(result.position)")
-                                Data.driverFinishes.append("\(result.status) : P\(result.position)")
+                                Data.driverFinishes.append("\(result.status) : P\(result.position) ")
                                 Data.raceTime.append("Pace: \(result.time?.time ?? "")")
                                 print("Pace: \(result.time?.time ?? "")")
                                 print("\(result.constructor.name)")
