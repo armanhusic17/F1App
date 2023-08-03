@@ -112,7 +112,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.bottomLabel.text = "Drivers"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
-            cell.homeCellImageView.image = UIImage(named: "lewis")
+            cell.homeCellImageView.image = UIImage(named: "lewis2")
             cell.homeCellImageView.alpha = 0.25
             
         }
