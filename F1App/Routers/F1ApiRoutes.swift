@@ -128,7 +128,7 @@ struct F1ApiRoutes  {
                     completion(true, races)
                 } else {
                     completion(false, [])
-                    print("Error: Invalid JSON format")
+                    print("Error: Invalid JSON format driver results")
                 }
             } catch let error {
                 completion(false, [])
@@ -186,8 +186,9 @@ struct F1ApiRoutes  {
               let timeData = data["Time"] as? [String: Any],
               let time = timeData["time"] as? String? else {
             return nil
+         
         }
-        
+        print("GRID POSITION \(grid)")
         let driver = Driver(driverId: driverId, permanentNumber: nil, code: nil, url: driverUrl, givenName: givenName, familyName: familyName, dateOfBirth: dateOfBirth, nationality: nationality)
         let constructor = Constructor(constructorId: constructorId, url: constructorUrl, name: constructorName, nationality: constructorNationality)
         let fastestLap: FastestLap?

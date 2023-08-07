@@ -54,8 +54,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     func countPoles(in array: [String?]) -> Int {
         let targetString = "Qualified : P1 "
-        return array.filter { $0 == targetString }.count
+        return array.compactMap { $0 }.filter { $0.contains(targetString) }.count
     }
+
+
     
     
     
