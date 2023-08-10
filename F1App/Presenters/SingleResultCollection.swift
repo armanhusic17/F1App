@@ -46,20 +46,17 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         
         
     }
-    
+  
     func countFinishedP1Occurrences(in array: [String?]) -> Int {
         let targetString = "Finished : P1 "
-        return array.filter { $0 == targetString }.count
+        return array.filter { ($0?.localizedCaseInsensitiveContains(targetString) ?? false) }.count
     }
-    
+
     func countPoles(in array: [String?]) -> Int {
         let targetString = "Qualified : P1 "
-        return array.compactMap { $0 }.filter { $0.contains(targetString) }.count
+        return array.compactMap { $0 }.filter { $0.localizedCaseInsensitiveContains(targetString) }.count
     }
 
-
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

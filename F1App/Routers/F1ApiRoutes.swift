@@ -21,13 +21,7 @@ import Formula1API
 
 
 struct F1ApiRoutes  {
-    
-    
-    
-    let myData = Data()
-    
-    
-    
+            
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
         print(seasonYear, round)
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
@@ -119,12 +113,16 @@ struct F1ApiRoutes  {
                    let racesArray = raceTable["Races"] as? [[String: Any]] {
                     
                     var races = [Race]()
-                    for raceData in racesArray {
+                    for (index, raceData) in racesArray.enumerated() {
                         if let race = createRace(from: raceData) {
+                            print("Processing race \(index + 1) of \(racesArray.count)")
                             races.append(race)
+                        } else {
+                            print("Error processing race \(index + 1)")
+                            // Print the raceData or other relevant information to identify the issue
                         }
                     }
-                    
+
                     completion(true, races)
                 } else {
                     completion(false, [])
@@ -164,18 +162,22 @@ struct F1ApiRoutes  {
     }
 
     private static func createResult(from data: [String: Any]) -> Result? {
+        // Extract commonly used values for improved readability
+        let driverData = data["Driver"] as? [String: Any] ?? [:]
+        let constructorData = data["Constructor"] as? [String: Any] ?? [:]
+        let timeData = data["Time"] as? [String: Any] ?? [:]
+
+        // Extract values using computed properties
         guard let number = data["number"] as? String,
               let position = data["position"] as? String,
               let positionText = data["positionText"] as? String,
               let points = data["points"] as? String,
-              let driverData = data["Driver"] as? [String: Any],
               let driverId = driverData["driverId"] as? String,
               let driverUrl = driverData["url"] as? String,
               let givenName = driverData["givenName"] as? String,
               let familyName = driverData["familyName"] as? String,
               let dateOfBirth = driverData["dateOfBirth"] as? String,
               let nationality = driverData["nationality"] as? String,
-              let constructorData = data["Constructor"] as? [String: Any],
               let constructorId = constructorData["constructorId"] as? String,
               let constructorUrl = constructorData["url"] as? String,
               let constructorName = constructorData["name"] as? String,
@@ -183,12 +185,13 @@ struct F1ApiRoutes  {
               let grid = data["grid"] as? String,
               let laps = data["laps"] as? String,
               let status = data["status"] as? String,
-              let timeData = data["Time"] as? [String: Any],
-              let time = timeData["time"] as? String? else {
+              let time = timeData["time"] as? String?
+        else {
+            print("CANT PROCESS? -\(data["grid"]!)")
             return nil
-         
         }
-        print("GRID POSITION \(grid)")
+        print("\(driverId)-\(grid) ")
+      
         let driver = Driver(driverId: driverId, permanentNumber: nil, code: nil, url: driverUrl, givenName: givenName, familyName: familyName, dateOfBirth: dateOfBirth, nationality: nationality)
         let constructor = Constructor(constructorId: constructorId, url: constructorUrl, name: constructorName, nationality: constructorNationality)
         let fastestLap: FastestLap?
@@ -270,105 +273,6 @@ struct F1ApiRoutes  {
     }
 
     
-    
-    // Drivers
-//    static func fetchAllDriversFrom(seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
-//        guard let url = URL(string: urlString) else {
-//            completion(false)
-//            return
-//        }
-//
-//        let sessionConfig = URLSessionConfiguration.default
-//        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
-//        let session = URLSession(configuration: sessionConfig)
-//
-//        let task = session.dataTask(with: url) { (data, response, error) in
-//            guard let data = data else {
-//                print("Error: No data received")
-//                DispatchQueue.main.async {
-//                    completion(false)
-//                }
-//                return
-//            }
-//
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-//
-//                guard let driversTableArray = json?["MRData"] as? [String: Any],
-//                      let drivers = driversTableArray["DriverTable"] as? [String: Any],
-//                      let driversList = drivers["Drivers"] as? [[String: Any]] else {
-//                    DispatchQueue.main.async {
-//                        completion(false)
-//                    }
-//                    return
-//                }
-//
-//                Data.whichQuery = 1 // Set the query type to drivers
-//                let group = DispatchGroup()
-//
-//                for driver in driversList {
-//
-//                    guard let givenName = driver["givenName"] as? String,
-//                          let familyName = driver["familyName"] as? String,
-//                          let nationality = driver["nationality"] as? String,
-//                          let dateOfBirth = driver["dateOfBirth"] as? String,
-//                          let url = driver["url"] as? String else { continue }
-//
-//                    // Encode the names to create a valid URL
-//                    guard let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-//                          let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
-//                        continue
-//                    }
-//                    let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
-//                    let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-//
-//                    guard let driverPageURL = URL(string: driverPageURLString) else { continue }
-//
-//                    group.enter()
-//
-//                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
-//                        defer {
-//                            group.leave()
-//                        }
-//
-//                        guard let data = data else { return }
-//
-//                        do {
-//                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-//                            let thumbnailURLString = wikipediaData.query.pages.values.first?.thumbnail?.source
-//
-//                            DispatchQueue.main.async {
-//                                Data.driverImgURL.append(thumbnailURLString ?? "lewis")
-//                                Data.driverNames.append(familyName)
-//                                Data.driverFirstNames.append(givenName)
-//                                Data.driverNationality.append(nationality)
-//                                Data.driverDOB.append(dateOfBirth)
-//                                Data.driverURL.append(url)
-//                                completion(true)
-//                            }
-//                        } catch let error {
-//                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-//                            completion(false)
-//                        }
-//                    }.resume()
-//                }
-//
-//                group.notify(queue: .main) {
-//                    // All tasks completed
-//                    completion(true)
-//                }
-//            } catch let error {
-//                print("Error decoding DRIVERS json data: \(error.localizedDescription)")
-//                DispatchQueue.main.async {
-//                    completion(false)
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
-    
-    // ... Your existing code ...
 
     // Drivers
     static func fetchAllDriversFrom(seasonYear: String, completion: @escaping (Bool) -> Void) {
@@ -480,10 +384,6 @@ struct F1ApiRoutes  {
     }
 
 
-
-    
-
-    
     // Constructors
     static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"

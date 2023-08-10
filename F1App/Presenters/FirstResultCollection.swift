@@ -113,7 +113,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             if Data.whichQuery == 1 {
                 playerIndex = cellIndexPath
-                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 1000) { [self] success, races in
+                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 2000) { [self] success, races in
                     if success {
                         // Process the 'races' array containing the driver's race results
                         for race in races {
@@ -144,8 +144,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
                             self.performSegue(withIdentifier: "closerLookTransition", sender: self)
                         }
-    //                    print(F1ApiRoutes.countFinishedP1Occurrences(in: Data.driverFinishes))
-    //                    print(F1ApiRoutes.countPoles(in: Data.driverPoles))
+  
                     } else {
                         // Handle the error case
                         print("error")
