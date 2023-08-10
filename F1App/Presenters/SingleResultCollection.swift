@@ -18,7 +18,6 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet weak var closerLookCollection: UICollectionView!
     @IBOutlet weak var topBarLabel: UILabel!
     
-    let myData = Data()
     var playerIndex:Int?
     
     override func viewDidLoad() {
@@ -100,6 +99,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             let driverFinishes = Data.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
             let driverPoles = Data.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
             let driver = Data.driverNames[safe: playerIndex ?? 0] ?? ""
+            let driverGivenName = Data.driverFirstNames[safe: playerIndex ?? 0] ?? ""
             let race = Data.raceName[safe: indexPath.item] ?? "[Grand Prix]"
             let date = Data.raceDate[safe: indexPath.item] ?? "[Date]"
             let racePace = Data.raceTime[safe: indexPath.item] ?? "[Pace]"
@@ -108,7 +108,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             let totalPoles = countPoles(in: Data.driverPoles)
             let totalWins = countFinishedP1Occurrences(in: Data.driverFinishes)
            
-            topBarLabel.text = "\(driver!)\nCareer Results\nPoles: \(totalPoles)\nWins: \(totalWins)"
+            topBarLabel.text = "\(driverGivenName!) \(driver!)\nPoles: \(totalPoles)\nWins: \(totalWins)"
             topBarLabel.textColor = .white
             cell.driverName.text = "\(race!)"
             cell.botLabel.text = "\(circuitName!)"

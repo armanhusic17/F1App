@@ -14,7 +14,6 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
 
     var collectionmodel = CollectionModel()
     let resultsModel = ResultsModel()
-    let myData = Data()
     
     var seasonYear:Int?
     var playerIndex:Int?
@@ -125,8 +124,9 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             
             
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
+            playerIndex = cellIndexPath
+
             if Data.whichQuery == 1 {
-                playerIndex = cellIndexPath
                 F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 2000) { [self] success, races in
                     if success {
                         // Process the 'races' array containing the driver's race results
@@ -174,6 +174,14 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
 
             else {
                 resultsModel.loadResults(myself: self)
+                if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
+                    DispatchQueue.main.async {
+                        cell.activitySpinner.stopAnimating()
+                        cell.activitySpinner.isHidden = true
+                    }
+                    
+                }
+                
             }
             
         }
@@ -184,8 +192,56 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        myData.removeAllCellData()
+
+        Data.driverNationality.removeAll()
+        Data.driverURL.removeAll()
+        Data.driverNames.removeAll()
+        Data.driverFirstNames.removeAll()
+        Data.driverDOB.removeAll()
+        Data.driverNumber.removeAll()
+        Data.driverCode.removeAll()
+        Data.driverImgURL.removeAll()
+        Data.driverWikiImgURL.removeAll()
         
+        // Team Data
+        Data.constructorID.removeAll()
+        Data.teamURL.removeAll()
+        Data.teamNames.removeAll()
+        Data.teamNationality.removeAll()
+        Data.teamImgURL.removeAll()
+        // Circuit Data
+        Data.circuitCity.removeAll()
+        Data.circuitID.removeAll()
+        Data.circuitName.removeAll()
+        Data.circuitLocation.removeAll()
+        Data.circuitURL.removeAll()
+        
+        // Circuit Data Continued
+        Data.raceURL.removeAll()
+        Data.raceTime.removeAll()
+        Data.raceDate.removeAll()
+        Data.raceName.removeAll()
+        Data.f1Season.removeAll()
+        
+        Data.circuitLatitude.removeAll()
+        Data.circuitLongitude.removeAll()
+        
+        Data.raceWins.removeAll()
+        Data.racePoints.removeAll()
+        Data.raceWinnerName.removeAll()
+        Data.raceDate.removeAll()
+        Data.circuitRaceDate.removeAll()
+        Data.racePosition.removeAll()
+        Data.raceWinnerTeam.removeAll()
+        Data.qualiResults.removeAll()
+        
+        if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
+            DispatchQueue.main.async {
+                cell.activitySpinner.stopAnimating()
+                cell.activitySpinner.isHidden = true
+            }
+            
+        }
     }
     
     

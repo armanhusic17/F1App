@@ -11,7 +11,6 @@ import MapKit
 
 struct CollectionModel {
     
-    let myData = Data()
     
     let teamNames = Data.teamNames
     let driverNames = Data.driverNames

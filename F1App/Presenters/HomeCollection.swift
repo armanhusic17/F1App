@@ -17,6 +17,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     let collectionModel = CollectionModel()
     
     var seasonYear:Int?
+    var myIndexPath:Int?
     let cellBorderWidth = 2.5
     
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             print("prepare function fires")
             destinationVC.seasonYear = seasonYear
         }
-        if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+        if let cell = collectionView.cellForItem(at:  [0,myIndexPath ?? 0]) as? myHomeCell {
             cell.cellActivitySpinner.stopAnimating()
             cell.cellActivitySpinner.isHidden = true
         }
@@ -93,7 +94,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.homeCellImageView.image = UIImage(named: "40x40")
             cell.homeCellImageView.alpha = 0.10
             cell.homeBaseView.backgroundColor = UIColor.clear
-            cell.cellActivitySpinner.isHidden = true
             cell.layer.borderWidth = 0.0
         }
         if indexPath.item == 1 {
@@ -106,7 +106,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "genericF1Car")
             cell.homeCellImageView.alpha = 0.25
-            cell.cellActivitySpinner.isHidden = true
             
         }
         if indexPath.item == 2 {
@@ -119,7 +118,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis2")
             cell.homeCellImageView.alpha = 0.25
-            cell.cellActivitySpinner.isHidden = true
 
         }
         if indexPath.item == 3 {
@@ -132,7 +130,6 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
             cell.homeCellImageView.alpha = 0.5
-            cell.cellActivitySpinner.isHidden = true
 
         }
         if indexPath.item == 4 {
@@ -145,9 +142,8 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "WDCLogo")
             cell.homeCellImageView.alpha = 1.0
-            cell.cellActivitySpinner.isHidden = true
-
         }
+        cell.cellActivitySpinner.isHidden = true
         cell.layer.cornerRadius = 20
         
         return cell
@@ -160,55 +156,60 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            dismissKeyboard()
-            // have to disable cells so that the user doesnt send multiple queries as the data loads
-            if indexPath.item == 0 {
-                print("THIS IS THE TITLE CELL, maybe place to select year")
+        dismissKeyboard()
+        myIndexPath = indexPath.item
+        // have to disable cells so that the user doesnt send multiple queries as the data loads
+        if indexPath.item == 0 {
+            print("THIS IS THE TITLE CELL, maybe place to select year")
+        }
+        if indexPath.item == 1 {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                print("Constructors cell is selected")
+                Data.whichQuery = 0
+                cell.layer.borderColor = UIColor.clear.cgColor
+                homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
-            if indexPath.item == 1 {
-                if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
-                    print("Constructors cell is selected")
-                    Data.whichQuery = 0
-                    cell.layer.borderColor = UIColor.clear.cgColor
-                    cell.cellActivitySpinner.startAnimating()
-                    cell.cellActivitySpinner.isHidden = false
-                    homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
-                }
-            }
-            if indexPath.item == 2 {
-                if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
-                    print("Drivers cell is selected")
-                    Data.whichQuery = 1
-                    cell.layer.borderColor = UIColor.clear.cgColor
+        }
+        if indexPath.item == 2 {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                print("Drivers cell is selected")
+                Data.whichQuery = 1
+                cell.layer.borderColor = UIColor.clear.cgColor
 
-                    seasonYear = Int(cell.enterF1SeasonYear.text)
+                seasonYear = Int(cell.enterF1SeasonYear.text)
+                homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
+            }
+        }
+        if indexPath.item == 3 {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                print("Circuits cell is selected")
+                Data.whichQuery = 2
+                // set season year
+                seasonYear = Int(cell.enterF1SeasonYear.text)
+                cell.layer.borderColor = UIColor.clear.cgColor
+                homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
+            }
+        }
+        if indexPath.item == 4 {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                print("WDC cell is selected")
+                Data.whichQuery = 3
+                cell.layer.borderColor = UIColor.clear.cgColor
+                homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
+            }
+        }
+        
+        // This check makes sure the first cell does not animate when being pressed
+        if myIndexPath != 0 {
+            if let cell = collectionView.cellForItem(at:  indexPath) as? myHomeCell {
+                DispatchQueue.main.async {
                     cell.cellActivitySpinner.startAnimating()
                     cell.cellActivitySpinner.isHidden = false
-                    homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
                 }
+                
             }
-            if indexPath.item == 3 {
-                if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
-                    print("Circuits cell is selected")
-                    Data.whichQuery = 2
-                    // set season year
-                    seasonYear = Int(cell.enterF1SeasonYear.text)
-                    cell.layer.borderColor = UIColor.clear.cgColor
-                    cell.cellActivitySpinner.startAnimating()
-                    cell.cellActivitySpinner.isHidden = false
-                    homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
-                }
-            }
-            if indexPath.item == 4 {
-                if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
-                    print("WDC cell is selected")
-                    Data.whichQuery = 3
-                    cell.layer.borderColor = UIColor.clear.cgColor
-                    cell.cellActivitySpinner.startAnimating()
-                    cell.cellActivitySpinner.isHidden = false
-                    homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
-                }
-            }
+        }
+       
         
     }
     
