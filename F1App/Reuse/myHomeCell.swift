@@ -16,6 +16,7 @@ class myHomeCell: UICollectionViewCell {
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var enterF1SeasonYear: UITextView!
     @IBOutlet weak var homeCellImageView: UIImageView!
+    @IBOutlet weak var cellActivitySpinner: UIActivityIndicatorView!
     
     
 }

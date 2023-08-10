@@ -124,11 +124,9 @@ struct HomeModel {
     } // end showAlert
     
     
-    func showResults(qTime: Double, activityIndicator: UIActivityIndicatorView, homeSelf: HomeCollection) {
+    func showResults(qTime: Double, homeSelf: HomeCollection) {
         DispatchQueue.main.async {
             DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
-                activityIndicator.stopAnimating()
-                activityIndicator.isHidden = true
                 homeSelf.collectionView.isUserInteractionEnabled = true
                 homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
             }
@@ -143,7 +141,7 @@ struct HomeModel {
     }
     
     
-    func setQueryNum(activityIndicator:UIActivityIndicatorView, enterYear:UITextView, homeSelf:HomeCollection, cellIndex:IndexPath) {
+    func setQueryNum(enterYear:UITextView, homeSelf:HomeCollection, cellIndex:IndexPath) {
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
         let maxYear = returnYear()
@@ -160,7 +158,7 @@ struct HomeModel {
                 F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
                     if Success {
                         print("SUCCESSS ALL CONSTRUCTORS")
-                        showResults(qTime: 0.15, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                        showResults(qTime: 0.15, homeSelf: homeSelf)
                     } else {
                         print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }
@@ -174,7 +172,7 @@ struct HomeModel {
             guard let thisSeason = Data.seasonYearSelected else { return }
             F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
                 if Success {
-                    showResults(qTime: 0.25, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                    showResults(qTime: 0.25, homeSelf: homeSelf)
                 } else {
                     print("ERROR? - DRIVERS QUERY")
                 }
@@ -192,7 +190,7 @@ struct HomeModel {
                 print(thisSeason)
                 F1ApiRoutes.allCircuits(seasonYear: thisSeason) { Success in
                     if Success {
-                        showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                        showResults(qTime: 0.10, homeSelf: homeSelf)
                     } else {
                         print("ERROR?")
                     }
@@ -205,7 +203,7 @@ struct HomeModel {
                 print(thisSeason)
                 F1ApiRoutes.allCircuitsAfter2004(seasonYear: thisSeason) { Success in
                     if Success {
-                        showResults(qTime: 0.10, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                        showResults(qTime: 0.10, homeSelf: homeSelf)
                     } else {
                         print("ERROR?")
                     }
@@ -230,7 +228,7 @@ struct HomeModel {
                     if Success {
                         if Success {
                             print("SUCCESSS TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                            showResults(qTime: 0.15, activityIndicator: activityIndicator, homeSelf: homeSelf)
+                            showResults(qTime: 0.15, homeSelf: homeSelf)
                         } else {
                             print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                         }

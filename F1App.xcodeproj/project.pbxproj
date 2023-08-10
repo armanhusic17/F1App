@@ -264,8 +264,8 @@
 		0FDB0D122863D7CF00A07E6A /* Reuse */ = {
 			isa = PBXGroup;
 			children = (
-				0F3703FC27F13C1400968C5F /* myCell.swift */,
 				0F1D75182881286500EFE42E /* myHomeCell.swift */,
+				0F3703FC27F13C1400968C5F /* myCell.swift */,
 				0F343C9229C97BF000DA001A /* singleResultCell.swift */,
 			);
 			path = Reuse;

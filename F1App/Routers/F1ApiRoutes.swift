@@ -50,29 +50,15 @@ struct F1ApiRoutes  {
                     print("+++++++++++++++++++++++++++++")
 
                     for result in race.results {
-                        print("----------------------")
-                        print("----------------------")
-                        print("Constructor: \(result.constructor.name)")
                         Data.constructorID.append(result.constructor.name)
-                        print("Driver: \(result.driver.givenName) \(result.driver.familyName)")
                         Data.driverNames.append("\(result.driver.givenName) \(result.driver.familyName)")
                         Data.driverLastName.append(result.driver.familyName)
-                        print("Driver: \(result.driver.code ?? "") \(result.driver.permanentNumber ?? "")")
-                        print("Position: \(result.position)")
                         Data.racePosition.append(result.position)
-                        print("Points: \(result.points)")
                         Data.racePoints.append(result.points)
-                        print("Status: \(result.status)")
-                        
-                        print("Fastest Lap: \(result.fastestLap?.lap ?? "")")
                         Data.fastestLap.append("Fastest Lap: \(result.fastestLap?.time.time ?? "")")
-                        print("Starting Grid Position: \(result.grid)")
-                        print("Laps: \(result.laps)")
-                        print("Race Pace: \(result.time?.time ?? "")")
                         Data.raceTime.append("Starting Grid Position: \(result.grid)\nLaps Completed: \(result.laps)\nRace Pace: \(result.time?.time ?? "Way Off")")
                         Data.qualiResults.append(result.grid)
-                        print("----------------------")
-                        print("----------------------")
+                     
                     }
                     completion(true)
                 }

@@ -25,13 +25,6 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.5" minY="0.0" maxX="0.5" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" id="CpY-dB-BoD">
-                            <rect key="frame" x="0.0" y="-91" width="428" height="926"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="tintColor" red="0.40000000000000002" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="color" red="0.40000000000000002" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </activityIndicatorView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="homeCell" reuseIdentifier="myHomeCell" id="IGx-oF-udh" customClass="myHomeCell" customModule="F1App" customModuleProvider="target">
                                 <rect key="frame" x="14" y="0.0" width="400" height="348"/>
@@ -79,20 +72,29 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Ymb-L1-clx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="346"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="color" red="0.20000000000000001" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="wnU-US-zXV" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" constant="24" id="0xn-0v-LIp"/>
                                                 <constraint firstAttribute="trailing" secondItem="wnU-US-zXV" secondAttribute="trailing" constant="8" id="15q-Hk-gHl"/>
+                                                <constraint firstItem="Ymb-L1-clx" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" id="3LD-Pe-iQO"/>
                                                 <constraint firstAttribute="bottom" secondItem="wnU-US-zXV" secondAttribute="bottom" constant="-24" id="9IH-5S-IH4"/>
                                                 <constraint firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" constant="8" id="COL-6h-ihe"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ymb-L1-clx" secondAttribute="bottom" id="F0v-iz-Xtx"/>
                                                 <constraint firstAttribute="bottom" secondItem="Z9W-VR-oCF" secondAttribute="bottom" id="FDz-QB-SSm"/>
                                                 <constraint firstItem="Z9W-VR-oCF" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" id="Gge-v3-ZbI"/>
                                                 <constraint firstItem="IoP-gW-jAF" firstAttribute="top" secondItem="Ts8-YY-Ivz" secondAttribute="top" constant="8" id="JXk-vT-t9d"/>
                                                 <constraint firstItem="UzO-9O-PKE" firstAttribute="centerX" secondItem="IoP-gW-jAF" secondAttribute="centerX" id="Kce-jU-Pf7"/>
                                                 <constraint firstAttribute="trailing" secondItem="Z9W-VR-oCF" secondAttribute="trailing" id="Mhm-9t-tTG"/>
+                                                <constraint firstItem="Ymb-L1-clx" firstAttribute="top" secondItem="Ts8-YY-Ivz" secondAttribute="top" id="X97-ev-kTj"/>
                                                 <constraint firstItem="IoP-gW-jAF" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" constant="8" id="YHP-eS-SGt"/>
                                                 <constraint firstItem="Z9W-VR-oCF" firstAttribute="top" secondItem="Ts8-YY-Ivz" secondAttribute="top" id="YQE-3k-Try"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ymb-L1-clx" secondAttribute="trailing" id="ogJ-kF-vY3"/>
                                                 <constraint firstItem="UzO-9O-PKE" firstAttribute="leading" secondItem="IoP-gW-jAF" secondAttribute="leading" constant="25" id="rf9-TK-kDk"/>
                                                 <constraint firstItem="UzO-9O-PKE" firstAttribute="top" secondItem="IoP-gW-jAF" secondAttribute="bottom" id="wXH-SL-RTe"/>
                                             </constraints>
@@ -109,6 +111,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="bottomLabel" destination="wnU-US-zXV" id="9Rj-be-Atr"/>
+                                    <outlet property="cellActivitySpinner" destination="Ymb-L1-clx" id="ht3-CF-5MQ"/>
                                     <outlet property="enterF1SeasonYear" destination="UzO-9O-PKE" id="XVk-IQ-mGE"/>
                                     <outlet property="homeBaseView" destination="Ts8-YY-Ivz" id="Co7-hC-rXL"/>
                                     <outlet property="homeCellImageView" destination="Z9W-VR-oCF" id="UBC-Au-nHb"/>
@@ -123,7 +126,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="aCc-ad-mg9"/>
                     <connections>
-                        <outlet property="cellActivityIndicator" destination="CpY-dB-BoD" id="okp-dN-RL1"/>
                         <segue destination="NAv-3K-nfW" kind="presentation" identifier="homeCollectionTransition" modalPresentationStyle="automatic" id="HfT-AR-8wi"/>
                     </connections>
                 </collectionViewController>
@@ -157,11 +159,6 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTL-hX-xyL">
                                             <rect key="frame" x="0.0" y="0.0" width="388" height="403"/>
                                             <subviews>
-                                                <activityIndicatorView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lss-gv-dP1">
-                                                    <rect key="frame" x="12" y="12" width="360" height="175"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                </activityIndicatorView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boxboxapplogo" translatesAutoresizingMaskIntoConstraints="NO" id="Acp-AP-HL7">
                                                     <rect key="frame" x="12" y="12" width="164" height="379"/>
                                                 </imageView>
@@ -211,23 +208,29 @@
                                                         <constraint firstAttribute="trailing" secondItem="Czo-kQ-W7Z" secondAttribute="trailing" id="tjG-cO-d3h"/>
                                                     </constraints>
                                                 </view>
+                                                <activityIndicatorView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="lss-gv-dP1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="388" height="403"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="color" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="lss-gv-dP1" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" id="39o-mk-p8X"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="8" id="5op-Tl-dmg"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="top" secondItem="BTL-hX-xyL" secondAttribute="top" constant="12" id="7xP-Oo-5Rh"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="top" secondItem="1h8-8C-TE7" secondAttribute="bottom" id="BGT-Vo-Rdo"/>
+                                                <constraint firstAttribute="trailing" secondItem="lss-gv-dP1" secondAttribute="trailing" id="ByG-VG-qo0"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="8" id="Cn9-a3-VGl"/>
                                                 <constraint firstItem="Ybi-32-3AN" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="leading" id="Csc-p8-XMS"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="leading" secondItem="uyJ-qf-Gri" secondAttribute="leading" id="Fpi-aL-aGd"/>
                                                 <constraint firstItem="Ybi-32-3AN" firstAttribute="trailing" secondItem="Acp-AP-HL7" secondAttribute="trailing" constant="-32" id="I7E-2R-aZH"/>
-                                                <constraint firstItem="lss-gv-dP1" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="JwA-7d-7bv"/>
+                                                <constraint firstItem="lss-gv-dP1" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" id="Nff-hU-uIh"/>
+                                                <constraint firstAttribute="bottom" secondItem="lss-gv-dP1" secondAttribute="bottom" id="O7z-6v-3zz"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" id="Oqr-Zs-Lzi"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="leading" secondItem="BTL-hX-xyL" secondAttribute="leading" constant="12" id="P50-PI-5cX"/>
                                                 <constraint firstAttribute="bottom" secondItem="Apx-3q-uiC" secondAttribute="bottom" constant="8" id="R0f-9o-99q"/>
-                                                <constraint firstItem="lss-gv-dP1" firstAttribute="leading" secondItem="Acp-AP-HL7" secondAttribute="leading" id="Vfu-V8-nqb"/>
                                                 <constraint firstAttribute="trailing" secondItem="uyJ-qf-Gri" secondAttribute="trailing" constant="16" id="X46-rn-oJp"/>
-                                                <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="lss-gv-dP1" secondAttribute="trailing" id="Yn4-QY-CmL"/>
                                                 <constraint firstItem="1h8-8C-TE7" firstAttribute="centerX" secondItem="uyJ-qf-Gri" secondAttribute="centerX" id="ZlB-Ev-xqW"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="Ybi-32-3AN" secondAttribute="bottom" constant="12" id="bBj-7l-jHJ"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="leading" secondItem="1h8-8C-TE7" secondAttribute="leading" id="chU-gG-gg3"/>
@@ -237,7 +240,6 @@
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="top" secondItem="FYC-jT-tcv" secondAttribute="bottom" constant="8" id="oQK-dD-dtC"/>
                                                 <constraint firstItem="Apx-3q-uiC" firstAttribute="bottom" secondItem="Acp-AP-HL7" secondAttribute="bottom" constant="4" id="oo7-Nn-VOH"/>
                                                 <constraint firstItem="Ybi-32-3AN" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="qqF-bt-Jda"/>
-                                                <constraint firstItem="FYC-jT-tcv" firstAttribute="bottom" secondItem="lss-gv-dP1" secondAttribute="bottom" id="s6j-9m-iep"/>
                                                 <constraint firstItem="FYC-jT-tcv" firstAttribute="trailing" secondItem="1h8-8C-TE7" secondAttribute="trailing" id="ukQ-Kr-0Gg"/>
                                                 <constraint firstItem="uyJ-qf-Gri" firstAttribute="top" secondItem="Acp-AP-HL7" secondAttribute="top" id="wlW-da-8p2"/>
                                                 <constraint firstItem="Acp-AP-HL7" firstAttribute="centerX" secondItem="BTL-hX-xyL" secondAttribute="centerX" constant="-100" id="zVB-3z-zmS"/>

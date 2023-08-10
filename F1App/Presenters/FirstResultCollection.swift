@@ -41,6 +41,13 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             let controller = segue.destination as? SingleResultCollection
             controller?.playerIndex = playerIndex
         }
+        if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
+            DispatchQueue.main.async {
+                cell.activitySpinner.stopAnimating()
+                cell.activitySpinner.isHidden = true
+            }
+            
+        }
     }
     
     func addSwipeGesture() {
@@ -98,6 +105,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         collectionmodel.cellLogic(cell: cell, indexPath: indexPath, mapView: cell.F1MapView, seasonYear: seasonYear ?? 0)
         cell.cellImage.layer.cornerRadius = 15
         cell.activitySpinner.isHidden = true
+        cell.activitySpinner.stopAnimating()
         return cell
     }
     
@@ -106,9 +114,15 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cellIndexPath = indexPath.item
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
-            print("Cell is selected")
-            cell.activitySpinner.isHidden = false
-            cell.activitySpinner.startAnimating()
+            
+            if let cell = collectionView.cellForItem(at:  indexPath) as? myCell {
+                DispatchQueue.main.async {
+                    cell.activitySpinner.startAnimating()
+                    cell.activitySpinner.isHidden = false
+                }
+                
+            }
+            
             
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             if Data.whichQuery == 1 {
@@ -120,31 +134,21 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                             // Access race information like raceName, circuit, date, etc.
                             for result in race.results {
                                 // Access driver-specific information like position, points, fastest lap, etc.
-                                print("========================================================")
                                 Data.raceName.append("\(race.raceName)")
                                 Data.circuitName.append(race.circuit.circuitName)
-                                print(race.raceName)
-                                print(race.circuit.circuitName)
                                 Data.raceDate.append(race.date)
-                                print(race.date)
-                                print("\(result.driver.givenName) \(result.driver.familyName) ")
                                 Data.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
-                                print("\(result.status) : P\(result.position)")
                                 Data.driverFinishes.append("\(result.status) : P\(result.position) ")
                                 Data.raceTime.append("Pace: \(result.time?.time ?? "")")
-                                print("Pace: \(result.time?.time ?? "")")
-                                print("\(result.constructor.name)")
                                 Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
-                                print("Qualifying Position : P\(result.grid) ")
                                 Data.driverPoles.append("Qualified : P\(result.grid) ")
-                                print("========================================================")
                             }
-                            
+
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
                             self.performSegue(withIdentifier: "closerLookTransition", sender: self)
                         }
-  
+
                     } else {
                         // Handle the error case
                         print("error")
@@ -163,28 +167,25 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                     } else {
                         print("Error getting qualifying results......")
                     }
-                    
+
                 }
-                
+
             }
-            
+
             else {
                 resultsModel.loadResults(myself: self)
             }
+            
         }
+        
+        
     }
-    // deselectuing a cell - hides cell
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
-            print("Cell deselected")
-            cell.self.isHidden = false
-            cell.activitySpinner.stopAnimating()
-        }
-    }
+
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         myData.removeAllCellData()
+        
     }
     
     
