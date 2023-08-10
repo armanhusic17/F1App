@@ -234,7 +234,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         Data.raceDate.removeAll()
         Data.circuitName.removeAll()
         Data.raceName.removeAll()
-        Data.driverNames.removeAll()
-        Data.driverFirstNames.removeAll()
+        if Data.whichQuery != 1 {
+            Data.driverNames.removeAll()
+            Data.driverFirstNames.removeAll()
+        }
+        
     }
 }

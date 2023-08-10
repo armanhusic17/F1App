@@ -36,19 +36,10 @@ struct F1ApiRoutes  {
                 completion(false)
                 return
             }
-            
             do {
                 let raceResults = try JSONDecoder().decode(RaceResults.self, from: data)
                 for race in raceResults.mrData.raceTable.races {
-                    
-                    print("+++++++++++++++++++++++++++++")
-                    print("Race \(race.raceName)")
-                    print(race.circuit)
-                    print(race.date)
                     Data.singleRaceName = "\(seasonYear)\n\(race.raceName) \nRound \(round)"
-
-                    print("+++++++++++++++++++++++++++++")
-
                     for result in race.results {
                         Data.constructorID.append(result.constructor.name)
                         Data.driverNames.append("\(result.driver.givenName) \(result.driver.familyName)")
@@ -66,7 +57,6 @@ struct F1ApiRoutes  {
                 completion(false)
                 print("Error decoding race results: \(error.localizedDescription)")
             }
-            
         }
         task.resume()
     }
