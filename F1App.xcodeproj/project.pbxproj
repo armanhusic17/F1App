@@ -694,7 +694,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2023.1.92;
+				MARKETING_VERSION = 2023.1.93;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -725,7 +725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2023.1.92;
+				MARKETING_VERSION = 2023.1.93;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
