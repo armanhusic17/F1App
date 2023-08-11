@@ -27,6 +27,7 @@ struct Data {
     static var driverDOB: [String?] = []
     static var driverCode: [String?] = []
     static var driverImgURL: [String?] = [] // <-- Add new property to hold driver image URLs
+    static var driverTotalStarts: [Int?] = []
 
     // Cell Index
     static var cellIndexPassed: Int?

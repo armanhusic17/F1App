@@ -142,6 +142,8 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                                 Data.raceTime.append("Pace: \(result.time?.time ?? "")")
                                 Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
                                 Data.driverPoles.append("Qualified : P\(result.grid) ")
+                                Data.driverTotalStarts.append(races.count)
+                                
                             }
 
                         }

@@ -52,7 +52,7 @@
                                                         <fragment content="2023">
                                                             <attributes>
                                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="56" name="Arial-BoldMT"/>
+                                                                <font key="NSFont" size="56" name="Impact"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -64,11 +64,11 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="21" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wnU-US-zXV">
-                                                    <rect key="frame" x="24" y="285" width="366" height="85"/>
+                                                    <rect key="frame" x="24" y="277" width="366" height="85"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="85" id="ahg-Ap-X7F"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="ArialHebrew-Bold" family="Arial Hebrew" pointSize="41"/>
+                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="41"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.59999999999999998" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -83,7 +83,7 @@
                                                 <constraint firstItem="wnU-US-zXV" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" constant="24" id="0xn-0v-LIp"/>
                                                 <constraint firstAttribute="trailing" secondItem="wnU-US-zXV" secondAttribute="trailing" constant="8" id="15q-Hk-gHl"/>
                                                 <constraint firstItem="Ymb-L1-clx" firstAttribute="leading" secondItem="Ts8-YY-Ivz" secondAttribute="leading" id="3LD-Pe-iQO"/>
-                                                <constraint firstAttribute="bottom" secondItem="wnU-US-zXV" secondAttribute="bottom" constant="-24" id="9IH-5S-IH4"/>
+                                                <constraint firstAttribute="bottom" secondItem="wnU-US-zXV" secondAttribute="bottom" constant="-16" id="9IH-5S-IH4"/>
                                                 <constraint firstAttribute="trailing" secondItem="IoP-gW-jAF" secondAttribute="trailing" constant="8" id="COL-6h-ihe"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ymb-L1-clx" secondAttribute="bottom" id="F0v-iz-Xtx"/>
                                                 <constraint firstAttribute="bottom" secondItem="Z9W-VR-oCF" secondAttribute="bottom" id="FDz-QB-SSm"/>
@@ -170,7 +170,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="75" id="OdS-nF-FzD"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="24"/>
+                                                    <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="36"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -179,7 +179,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="VY6-Eq-v85"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="19"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -188,7 +188,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="ewA-1i-6pJ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="highlightedColor" red="0.80000000000000004" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -290,11 +290,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w4-Df-kR7">
-                                <rect key="frame" x="0.0" y="0.0" width="428" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="428" height="175"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Race Results" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="16" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6iK-20-QZf">
-                                        <rect key="frame" x="24" y="8" width="380" height="134"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Race Results" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="14" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6iK-20-QZf">
+                                        <rect key="frame" x="24" y="8" width="380" height="159"/>
+                                        <fontDescription key="fontDescription" name="DamascusBold" family="Damascus" pointSize="36"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -303,16 +303,16 @@
                                 <constraints>
                                     <constraint firstItem="6iK-20-QZf" firstAttribute="top" secondItem="8w4-Df-kR7" secondAttribute="top" constant="8" id="YBg-9H-7fH"/>
                                     <constraint firstItem="6iK-20-QZf" firstAttribute="leading" secondItem="8w4-Df-kR7" secondAttribute="leading" constant="24" id="aoD-gW-avh"/>
-                                    <constraint firstAttribute="height" constant="150" id="fIe-zC-aEn"/>
+                                    <constraint firstAttribute="height" constant="175" id="fIe-zC-aEn"/>
                                     <constraint firstAttribute="bottom" secondItem="6iK-20-QZf" secondAttribute="bottom" constant="8" id="u6R-QV-zhb"/>
                                     <constraint firstAttribute="trailing" secondItem="6iK-20-QZf" secondAttribute="trailing" constant="24" id="vvl-eg-oVz"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ryo-Xr-Fmf">
-                                <rect key="frame" x="0.0" y="150" width="428" height="666"/>
+                                <rect key="frame" x="0.0" y="175" width="428" height="641"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="H7z-nP-Otm">
-                                        <rect key="frame" x="4" y="4" width="420" height="738"/>
+                                        <rect key="frame" x="4" y="4" width="420" height="713"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="32" minimumInteritemSpacing="32" id="ZKn-gX-sgy">
                                             <size key="itemSize" width="377" height="420"/>
@@ -342,7 +342,7 @@
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xhg-9f-t8w">
                                                                     <rect key="frame" x="8" y="66" width="361" height="346"/>
-                                                                    <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="31"/>
+                                                                    <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="31"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>

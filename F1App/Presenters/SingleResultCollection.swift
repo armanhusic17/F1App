@@ -26,8 +26,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         closerLookCollection.delegate = self
         closerLookCollection.dataSource = self
         
+        // Using this method to scroll to bottom of the collection
         if Data.whichQuery == 0 {
-        } // Drivers
+        }
+        // Drivers
         else if Data.whichQuery == 1 {
             DispatchQueue.main.async {
                 let item = self.collectionView(self.closerLookCollection, numberOfItemsInSection: 0) - 1
@@ -35,10 +37,11 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
                 self.closerLookCollection.scrollToItem(at: lastItemIndex, at: .bottom, animated: false)
                 self.closerLookCollection.reloadData()
             }
-        } // Grand Prix
+        }
+        // Grand Prix
         else if Data.whichQuery == 2 {
-            
-        } // WDC
+        }
+        // WDC
         else if Data.whichQuery == 3 {
         }
         
@@ -107,8 +110,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             let team = Data.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
             let totalPoles = countPoles(in: Data.driverPoles)
             let totalWins = countFinishedP1Occurrences(in: Data.driverFinishes)
-           
-            topBarLabel.text = "\(driverGivenName!) \(driver!)\nPoles: \(totalPoles)\nWins: \(totalWins)"
+            let totalStarts = Data.driverTotalStarts[safe: playerIndex ?? 0] ?? 0
+            
+            
+            topBarLabel.text = "\(driverGivenName!) \(driver!)\nPoles: \(totalPoles)\nWins: \(totalWins)\nRaces: \(totalStarts!)"
             topBarLabel.textColor = .white
             cell.driverName.text = "\(race!)"
             cell.botLabel.text = "\(circuitName!)"
@@ -234,6 +239,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         Data.raceDate.removeAll()
         Data.circuitName.removeAll()
         Data.raceName.removeAll()
+        Data.driverTotalStarts.removeAll()
         if Data.whichQuery != 1 {
             Data.driverNames.removeAll()
             Data.driverFirstNames.removeAll()

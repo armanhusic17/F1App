@@ -53,6 +53,7 @@ struct CollectionModel {
     
     let cellCountForCircuits = Data.cellCount
     
+
     // removing data from cells to be able to load the data again
     // should expand this to actually keep the data but hide it when the old queries are selected
 
@@ -173,29 +174,26 @@ struct CollectionModel {
             
             let imageURL = self.driverImgs[safe: indexPath.item]
             let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
-            print(imageURL)
-            print(cleanedURL)
         
             loadImage(withURL: cleanedURL ?? imageURL) { image in
                 DispatchQueue.main.async {
                     if image != nil {
                         cell.cellImage.image = image
-
                     } else {
                         cell.cellImage.contentMode = .scaleAspectFill
                         cell.cellImage.image = UIImage(named: "lewis")
                     }
-                }
+                } // end main
             }
             cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-            cell.bottomCellLabel.text = "Nationality: \(self.driverNationality[indexPath.item]!)" //\nBorn: \(self.driverDOB[indexPath.item] ?? "DOB")
+            cell.bottomCellLabel.text = "\(self.driverCode[safe: indexPath.item]! ?? "")"
 
             guard let dob = self.driverDOB[safe: indexPath.item] else {
                 cell.bottomCellLabel2.text = ""
                 return
             }
 
-            cell.bottomCellLabel2.text = "DOB: \(dob ?? "")"
+            cell.bottomCellLabel2.text = "Nationality: \(self.driverNationality[safe: indexPath.item]! ?? "")" + "\n\nDOB: \(dob ?? "")"
             break
             
         case 2: // circuits

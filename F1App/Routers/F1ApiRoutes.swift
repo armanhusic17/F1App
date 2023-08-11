@@ -89,6 +89,7 @@ struct F1ApiRoutes  {
                    let racesArray = raceTable["Races"] as? [[String: Any]] {
                     
                     var races = [Race]()
+                    
                     for (index, raceData) in racesArray.enumerated() {
                         if let race = createRace(from: raceData) {
                             print("Processing race \(index + 1) of \(racesArray.count)")
@@ -98,6 +99,8 @@ struct F1ApiRoutes  {
                             // Print the raceData or other relevant information to identify the issue
                         }
                     }
+                    
+               
 
                     completion(true, races)
                 } else {
@@ -167,10 +170,9 @@ struct F1ApiRoutes  {
             return nil
         }
         print("\(driverId)-\(grid) ")
-      
+        
         let driver = Driver(driverId: driverId, permanentNumber: nil, code: nil, url: driverUrl, givenName: givenName, familyName: familyName, dateOfBirth: dateOfBirth, nationality: nationality)
         let constructor = Constructor(constructorId: constructorId, url: constructorUrl, name: constructorName, nationality: constructorNationality)
-        let fastestLap: FastestLap?
        
         
         let timeValue = time ?? "N/A"
@@ -287,11 +289,15 @@ struct F1ApiRoutes  {
                 let group = DispatchGroup()
                 
                 for driver in driversList {
-                    guard let givenName = driver["givenName"] as? String,
-                          let familyName = driver["familyName"] as? String,
-                          let nationality = driver["nationality"] as? String,
-                          let dateOfBirth = driver["dateOfBirth"] as? String,
-                          let url = driver["url"] as? String else { continue }
+                    // Provide a default value of an empty string
+                    let givenName = driver["givenName"] as? String ?? ""
+                    let familyName = driver["familyName"] as? String ?? ""
+                    let nationality = driver["nationality"] as? String ?? ""
+                    let dateOfBirth = driver["dateOfBirth"] as? String ?? ""
+                    let url = driver["url"] as? String
+                    let driverId = driver["driverId"] as? String ?? ""
+                    let permanentNumber = driver["permanentNumber"] as? String ?? ""
+                    let code = driver["code"] as? String ?? ""
 
                     // Encode the names to create a valid URL
                     guard let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
@@ -336,6 +342,8 @@ struct F1ApiRoutes  {
                                 Data.driverNationality.append(nationality)
                                 Data.driverDOB.append(dateOfBirth)
                                 Data.driverURL.append(url)
+                                Data.driverCode.append("\(code) \(permanentNumber)")
+                                
                                 completion(true)
                             }
                         } catch let error {
