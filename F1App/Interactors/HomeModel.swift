@@ -170,7 +170,7 @@ struct HomeModel {
         else if Data.whichQuery == 1 {
             Data.seasonYearSelected = enterYear.text
             guard let thisSeason = Data.seasonYearSelected else { return }
-            F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
+            F1ApiRoutes.fetchWDCDrivers(seasonYear: thisSeason) { Success in
                 if Success {
                     showResults(qTime: 0.25, homeSelf: homeSelf)
                 } else {

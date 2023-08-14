@@ -161,6 +161,11 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         // have to disable cells so that the user doesnt send multiple queries as the data loads
         if indexPath.item == 0 {
             print("THIS IS THE TITLE CELL, maybe place to select year")
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+                F1ApiRoutes.fetchWDCDrivers(seasonYear: cell.enterF1SeasonYear.text) { Success in
+                    print(Success)
+                }
+            }
         }
         if indexPath.item == 1 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {

@@ -185,8 +185,8 @@ struct CollectionModel {
                     }
                 } // end main
             }
-            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-            cell.bottomCellLabel.text = "\(self.driverCode[safe: indexPath.item]! ?? "")"
+            cell.topCellLabel.text = "\(self.driverNames[safe: indexPath.item] ?? "Last")"
+            cell.bottomCellLabel.text = "\(self.driverCode[safe: indexPath.item] ?? "")"
 
             guard let dob = self.driverDOB[safe: indexPath.item] else {
                 cell.bottomCellLabel2.text = ""
