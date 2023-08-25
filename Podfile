@@ -9,5 +9,6 @@ target 'F1App' do
 
   pod 'SwiftyJSON'
   pod 'lottie-ios'
+  pod 'FirebaseCore'
 
 end

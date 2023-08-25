@@ -25,7 +25,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView.delegate = self
         navigationController?.delegate = self
-        
+        Analytics.logEvent("Application Launched - BoxBoxF1", parameters: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

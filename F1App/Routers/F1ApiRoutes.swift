@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SwiftyJSON
 import Formula1API
 
 
@@ -16,8 +15,6 @@ import Formula1API
     Set up a struct that can decode the json return by ergast
 
  */
-
-
 
 
 struct F1ApiRoutes  {
