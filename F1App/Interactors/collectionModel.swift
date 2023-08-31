@@ -236,11 +236,25 @@ struct CollectionModel {
             
             let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
 
+            let currentYear = Calendar.current.component(.year, from: Date())
+            let isCurrentYear = (Int(raceSeason[0]!) ?? 0) == currentYear
+
             if let racePosition = racePosition[safe: dataIndex] {
-                cell.bottomCellLabel.text = "\(raceSeason[0]!)" + " WDC Rank: \(racePosition ?? "")"
+                var rankText = ""
+                if isCurrentYear && racePosition == "1" {
+                    rankText = "Championship Leader"
+                } else if racePosition == "1" {
+                    rankText = "Champion"
+                } else {
+                    rankText = "WDC Rank: \(racePosition ?? "")"
+                }
+                
+                cell.bottomCellLabel.text = "\(raceSeason[0]!) \(rankText)"
             } else {
-                cell.bottomCellLabel.text = "WDC Rank: N/A"
+                cell.bottomCellLabel.text = "\(raceSeason[0]!) WDC Rank: N/A"
             }
+
+
             
             if let driverName = driverNames[safe: dataIndex] {
                 cell.topCellLabel.text = driverName
