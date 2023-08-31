@@ -747,10 +747,13 @@ struct F1ApiRoutes  {
                             let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
                             for driverStanding in driverStandings {
                                 let driver = driverStanding["Driver"] as? [String: Any] ?? [:]
-                                Data.racePosition.append(driverStanding["position"] as? String ?? "")
-                                Data.racePoints.append(driverStanding["points"] as? String ?? "")
-                                Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
                                 
+                                self.fetchDriverInfoFromWikipedia(givenName: ("\(driver["givenName"] ?? "")"), familyName: ("\(driver["familyName"] ?? "")")) { Success in
+                                    print("Success")
+                                    Data.racePosition.append(driverStanding["position"] as? String ?? "")
+                                    Data.racePoints.append(driverStanding["points"] as? String ?? "")
+                                    Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
+                                }
                             }
                         }
                         completion(true)
@@ -774,6 +777,49 @@ struct F1ApiRoutes  {
 
         }
     }
+    
+    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String, completion: @escaping (Bool) -> Void) {
+        let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
+        let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+        
+        guard let driverPageURL = URL(string: driverPageURLString) else {
+            completion(false)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
+            guard let data = data else {
+                print("Error: No data received for \(givenName) \(familyName)")
+                completion(false)
+                return
+            }
+            
+            do {
+                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+                
+                guard let pageID = wikipediaData.query.pages.keys.first,
+                    let page = wikipediaData.query.pages[pageID] else {
+                        print("Error: Invalid response for \(givenName) \(familyName)")
+                        completion(false)
+                        return
+                }
+                
+                let thumbnailURLString = page.thumbnail?.source
+                
+                DispatchQueue.main.async {
+                    Data.driverImgURL.append(thumbnailURLString ?? "lewis")
+                    // Append other driver information...
+                    completion(true)
+                }
+            } catch let error {
+                print("Error decoding Wikipedia JSON data for \(givenName) \(familyName): \(error.localizedDescription)")
+                completion(false)
+            }
+        }.resume()
+    }
+
 
     
     

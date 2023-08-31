@@ -232,11 +232,11 @@ struct HomeModel {
                         } else {
                             print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                         }
-                        F1ApiRoutes.allTimeDriverChampionships() { Success in
-                            DispatchQueue.main.async {
-                                homeSelf.reloadInputViews()
-                            }
-                        }
+//                        F1ApiRoutes.allTimeDriverChampionships() { Success in
+//                            DispatchQueue.main.async {
+//                                homeSelf.reloadInputViews()
+//                            }
+//                        }
                     } else {
                         print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                     }
