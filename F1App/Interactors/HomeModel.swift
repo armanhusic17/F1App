@@ -227,8 +227,8 @@ struct HomeModel {
                 F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
                     if Success {
                         if Success {
-                            print("SUCCESSS TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                            showResults(qTime: 0.15, homeSelf: homeSelf)
+                            print("SUCCESSS TO SHOW ALL WORLD DRIVER CHAMPIONSHIPS STATS")
+                            showResults(qTime: 0.75, homeSelf: homeSelf)
                         } else {
                             print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                         }

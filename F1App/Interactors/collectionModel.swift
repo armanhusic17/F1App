@@ -101,7 +101,7 @@ struct CollectionModel {
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         } else if Data.whichQuery == 3 {
             queryWidth = availableWidth * 0.95
-            queryHeight = availableHeight * 0.35
+            queryHeight = availableHeight * 0.25
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
@@ -269,7 +269,7 @@ struct CollectionModel {
             }
             
             if let teamName = teamNames[safe: dataIndex] {
-                cell.bottomCellLabel2.text = "\(cell.bottomCellLabel2.text ?? "")\(teamName ?? "")"
+                cell.bottomCellLabel2.text = "\(teamName ?? "")"
             }
             
             if let driverTitle = driverTitles[safe: dataIndex] {
