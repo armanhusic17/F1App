@@ -735,38 +735,64 @@ struct F1ApiRoutes  {
                 
                 // Data received successfully
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    // Assuming that `data` contains the JSON data received from the API
-
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                        let mrData = json["MRData"] as? [String: Any],
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    
+                    if let mrData = json?["MRData"] as? [String: Any],
                         let standingsTable = mrData["StandingsTable"] as? [String: Any],
                         let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
+                        
                         Data.f1Season.append(seasonYear)
+                        
                         for standingsList in standingsLists {
                             let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
+                            
                             for driverStanding in driverStandings {
-                                let driver = driverStanding["Driver"] as? [String: Any] ?? [:]
-                                
-                                self.fetchDriverInfoFromWikipedia(givenName: ("\(driver["givenName"] ?? "")"), familyName: ("\(driver["familyName"] ?? "")")) { Success in
-                                    print("Success")
-                                    Data.racePosition.append(driverStanding["position"] as? String ?? "")
-                                    Data.racePoints.append(driverStanding["points"] as? String ?? "")
-                                    Data.driverNames.append("\(driver["givenName"] ?? "") \(driver["familyName"] ?? "")")
+                                if let driver = driverStanding["Driver"] as? [String: Any],
+                                   let givenName = driver["givenName"] as? String,
+                                   let familyName = driver["familyName"] as? String,
+                                   let position = driverStanding["position"] as? String,
+                                   let points = driverStanding["points"] as? String,
+                                   let constructors = driverStanding["Constructors"] as? [[String: Any]] {
+                                    
+                                    // Initialize an empty array to store team names (constructors)
+                                    var teamNames: [String] = []
+                                    
+                                    // Loop through the constructors array to extract team names
+                                    for constructor in constructors {
+                                        if let teamName = constructor["name"] as? String {
+                                            teamNames.append(teamName)
+                                        }
+                                    }
+                                    
+                                    // Join the team names into a single string
+                                    let teamNamesString = teamNames.joined(separator: ", ")
+                                    
+                                    // Fetch driver image here using the method you had
+                                    self.fetchDriverInfoFromWikipedia(givenName: givenName, familyName: familyName) { success in
+                                        if success {
+                                            Data.racePosition.append(position)
+                                            Data.racePoints.append(points)
+                                            Data.driverNames.append("\(givenName) \(familyName)")
+                                            Data.teamNames.append(teamNamesString)
+                                            // Add other driver information...
+                                        } else {
+                                            print("Error fetching driver info")
+                                        }
+                                    }
                                 }
                             }
                         }
+                        
                         completion(true)
                     } else {
                         print("Error: Invalid JSON structure")
                         completion(false)
-
                     }
                 } catch {
                     print("Error decoding JSON: \(error.localizedDescription)")
                     completion(false)
-
                 }
+
 
             }
             

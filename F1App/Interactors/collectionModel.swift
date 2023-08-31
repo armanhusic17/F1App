@@ -220,8 +220,8 @@ struct CollectionModel {
 
             break
         case 3: // WDC
-            cell.cellImage.contentMode = .scaleAspectFit
-            cell.bottomCellLabel2.isHidden = true
+            cell.cellImage.contentMode = .scaleAspectFill
+            cell.bottomCellLabel2.isHidden = false
             cell.bottomCellLabel.isHidden = false
             cell.topCellLabel.isHidden = false
             
@@ -234,7 +234,7 @@ struct CollectionModel {
                 }
             }
             
-            let dataIndex = sortedIndices[indexPath.item]
+            let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
 
             if let racePosition = racePosition[safe: dataIndex] {
                 cell.bottomCellLabel.text = "\(raceSeason[0]!)" + " WDC Rank: \(racePosition ?? "")"
@@ -254,11 +254,16 @@ struct CollectionModel {
                 cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: N/A"
             }
             
+            if let teamName = teamNames[safe: dataIndex] {
+                cell.bottomCellLabel2.text = "\(cell.bottomCellLabel2.text ?? "")\(teamName ?? "")"
+            }
+            
             if let driverTitle = driverTitles[safe: dataIndex] {
                 let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
                 let capitalizedKey = formattedKey.capitalized
                 cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(dataIndex + 1): \(capitalizedKey)\n\(driverTitle.value)-Time WDC"
             }
+            
             
             cell.mapView.isHidden = true
             cell.F1MapView.isHidden = true
