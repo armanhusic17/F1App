@@ -80,7 +80,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             return Data.driverNames.count
         } // WDC
         else if Data.whichQuery == 3 {
-            return 1
+            return  Data.driverFinishes.count
         } else {
             return Data.driverNames.count
         }
@@ -96,7 +96,8 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         if Data.whichQuery == 0 {
            
             
-        } // Drivers
+        }
+        // Drivers
         else if Data.whichQuery == 1 {
             
             let driverFinishes = Data.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
@@ -128,7 +129,8 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
                                     + "\n"
                                     + "\(racePace!)"
                                     
-            } // Grand Prix
+            }
+        // Grand Prix
         else if Data.whichQuery == 2 {
             // Extract all the necessary variables
             let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
@@ -145,12 +147,52 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
                 topBarLabel.text = singleRaceName
             }
             
-        } // WDC
+        }
+        // WDC
         else if Data.whichQuery == 3 {
             
-        }
+            var sortedIndices: [Int] = []
+            if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {
+                for rank in 1...Data.racePosition.count {
+                    if let index = Data.racePosition.firstIndex(of: "\(rank)") {
+                        sortedIndices.append(index)
+                    }
+                }
+            }
             
-        
+            let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
+            
+            let driverFinishes = Data.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
+            let driverPoles = Data.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
+            let driver = Data.driverNames[safe: dataIndex] ?? ""
+            let driverGivenName = Data.driverFirstNames[safe: dataIndex] ?? ""
+            let race = Data.raceName[safe: indexPath.item] ?? "[Grand Prix]"
+            let date = Data.raceDate[safe: indexPath.item] ?? "[Date]"
+            let racePace = Data.raceTime[safe: indexPath.item] ?? "[Pace]"
+            let circuitName = Data.circuitName[safe: indexPath.item] ?? "[Location]"
+            let team = Data.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
+            let totalPoles = countPoles(in: Data.driverPoles)
+            let totalWins = countFinishedP1Occurrences(in: Data.driverFinishes)
+            let totalStarts = Data.driverTotalStarts[safe: playerIndex ?? 0] ?? 0
+            
+            
+            topBarLabel.text = "\(driverGivenName!) \(driver!)\nPoles: \(totalPoles)\nWins: \(totalWins)\nRaces: \(totalStarts!)"
+            topBarLabel.textColor = .white
+            cell.driverName.text = "\(race!)"
+            cell.botLabel.text = "\(circuitName!)"
+            + "\n"
+            + "\(date!)"
+            + "\n"
+            + "\(team!)"
+            + "\n"
+            + (driverPoles ?? "")
+            + "\n"
+            + (driverFinishes ?? "")
+            + "\n"
+            + "\(racePace!)"
+                                    
+        }
+
         // Set the border color based on the item's index
         if indexPath.item == 0 {
             cell.layer.borderColor = UIColor.red.cgColor
@@ -169,55 +211,54 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
-//        let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
-//        let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
-//        let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
-//        let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
-//        let url = Data.driverURL[safe: indexPath.item] ?? ""
-//        let driverLastName = Data.driverLastName[safe: indexPath.item] ?? "[Driver Last Name]"
-//
-//
-//        if Data.whichQuery == 2 {
-//            F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 2000 ) { [self] success, races in
-//                print(driverLastName ?? "")
-//                if success {
-//                    // Process the 'races' array containing the driver's race results
-//                    for race in races {
-//                        // Access race information like raceName, circuit, date, etc.
-//                        for result in race.results {
-//                            // Access driver-specific information like position, points, fastest lap, etc.
-//                            print("========================================================")
-//                            print(race.raceName)
-//                            print(race.circuit.circuitName)
-//                            print(race.date)
-//                            print("\(result.driver.givenName) \(result.driver.familyName) ")
-//                            print("\(result.status) : P\(result.position)")
-//                            Data.driverFinishes.append("\(result.status) : P\(result.position)")
-//                            print("Pace: \(result.time?.time ?? "")")
-//                            print("\(result.constructor.name)")
-//                            print("Qualifying Position : P\(result.grid) ")
-//                            Data.driverPoles.append("Qualifying Position : P\(result.grid) ")
-//                            print("========================================================")
-//                        }
-//
-//                    }
-////                    print(F1ApiRoutes.countFinishedP1Occurrences(in: Data.driverFinishes))
-////                    print(F1ApiRoutes.countPoles(in: Data.driverPoles))
-//                } else {
-//                    // Handle the error case
-//                    print(driverLastName?.removingPercentEncoding)
-//                    print("error")
-//                }
-//            }
-//
-//
-//        }
-//        if Data.whichQuery == 3 {
-//            print(driverName ?? "")
-//            print(driverPosition ?? "")
-//        }
-//
+        let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
+        let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
+        let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
+        let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
+        let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
+        let url = Data.driverURL[safe: indexPath.item] ?? ""
+        let driverLastName = Data.driverLastName[safe: indexPath.item] ?? "[Driver Last Name]"
+
+        // Grand Prix
+        if Data.whichQuery == 2 {
+            F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 2000 ) { [self] success, races in
+                print(driverLastName ?? "")
+                if success {
+                    // Process the 'races' array containing the driver's race results
+                    for race in races {
+                        // Access race information like raceName, circuit, date, etc.
+                        for result in race.results {
+                            // Access driver-specific information like position, points, fastest lap, etc.
+                            print("========================================================")
+                            print(race.raceName)
+                            print(race.circuit.circuitName)
+                            print(race.date)
+                            print("\(result.driver.givenName) \(result.driver.familyName) ")
+                            print("\(result.status) : P\(result.position)")
+                            Data.driverFinishes.append("\(result.status) : P\(result.position)")
+                            print("Pace: \(result.time?.time ?? "")")
+                            print("\(result.constructor.name)")
+                            print("Qualifying Position : P\(result.grid) ")
+                            Data.driverPoles.append("Qualifying Position : P\(result.grid) ")
+                            print("========================================================")
+                        }
+
+                    }
+
+                } else {
+                    // Handle the error case
+                    print(driverLastName?.removingPercentEncoding)
+                    print("error")
+                }
+            }
+
+
+        }
+        if Data.whichQuery == 3 {
+            print(driverName ?? "")
+            print(driverPosition ?? "")
+        }
+
      
     }
 
@@ -230,7 +271,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         Data.constructorID.removeAll()
-        Data.racePosition.removeAll()
+//        Data.racePosition.removeAll()
         Data.fastestLap.removeAll()
         Data.raceTime.removeAll()
         Data.driverFinishes.removeAll()
@@ -240,7 +281,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         Data.circuitName.removeAll()
         Data.raceName.removeAll()
         Data.driverTotalStarts.removeAll()
-        if Data.whichQuery != 1 {
+        if Data.whichQuery != 1 || Data.whichQuery != 3 {
             Data.driverNames.removeAll()
             Data.driverFirstNames.removeAll()
         }

@@ -200,6 +200,8 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                 print("WDC cell is selected")
                 Data.whichQuery = 3
                 cell.layer.borderColor = UIColor.clear.cgColor
+
+                seasonYear = Int(cell.enterF1SeasonYear.text)
                 homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
         }

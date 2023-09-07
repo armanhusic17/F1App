@@ -96,10 +96,8 @@ struct F1ApiRoutes  {
                             // Print the raceData or other relevant information to identify the issue
                         }
                     }
-                    
-               
-
                     completion(true, races)
+                    
                 } else {
                     completion(false, [])
                     print("Error: Invalid JSON format driver results")
@@ -773,6 +771,7 @@ struct F1ApiRoutes  {
                                             Data.racePosition.append(position)
                                             Data.racePoints.append(points)
                                             Data.driverNames.append("\(givenName) \(familyName)")
+                                            Data.driverLastName.append(familyName)
                                             Data.teamNames.append(teamNamesString)
                                             // Add other driver information...
                                         } else {
