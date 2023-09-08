@@ -193,39 +193,27 @@ struct HomeModel {
         }
         // GRAND PRIX QUERY
         else if Data.whichQuery == 2 {
-            let upperBound = 2004
-            targetYear = 1950
-            if year >= targetYear ?? 1950 && year <= upperBound {
-                print(year, targetYear!, maxYear)
+            let targetYear = 1950
+            let upperBound = 2023
+
+            if year >= targetYear && year <= upperBound {
                 Data.seasonYearSelected = enterYear.text
                 guard let thisSeason = Data.seasonYearSelected else { return }
-                print("RUNNING BEFORE 2004 QUERY")
+                print("RUNNING QUERY")
                 print(thisSeason)
-                F1ApiRoutes.allCircuits(seasonYear: thisSeason) { Success in
-                    if Success {
-                        showResults(qTime: 0.10, homeSelf: homeSelf)
-                    } else {
-                        print("ERROR?")
-                    }
-                }
-            }
-            else if year > targetYear ?? 1950 && year > upperBound && year <= maxYear{
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
-                print("RUNNING MODERN DAY CIRCUITS QUERY")
-                print(thisSeason)
-                F1ApiRoutes.allCircuitsAfter2004(seasonYear: thisSeason) { Success in
-                    if Success {
-                        showResults(qTime: 0.10, homeSelf: homeSelf)
-                    } else {
-                        print("ERROR?")
-                    }
-                }
-            }
-            else if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON Circuits BEFORE THIS SEASON")
+            } else {
+                print("WE DON'T HAVE DATA FOR THIS SEASON")
                 showAlert(passSelf: homeSelf)
             }
+
+            F1ApiRoutes.allRaceSchedule(seasonYear: Data.seasonYearSelected ?? "2023") { Success in
+                if Success {
+                    showResults(qTime: 0.10, homeSelf: homeSelf)
+                } else {
+                    print("ERROR?")
+                }
+            }
+
         }
         // WDC QUERY
         else if Data.whichQuery == 3 {

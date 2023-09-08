@@ -69,8 +69,8 @@ struct F1ApiRoutes  {
 
             task.resume()
         }
-    
-    static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
+            
+        static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
             if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
                 return cachedData
             }
@@ -288,73 +288,104 @@ struct F1ApiRoutes  {
 
 
     
-    // Circuits
-    static func allCircuits(seasonYear:String, completion: @escaping (Bool) -> Void) {
-            let url = "https://ergast.com/api/f1/\(seasonYear)/circuits.json"
+    static func allRaceSchedule(seasonYear: String, completion: @escaping (Bool) -> Void) {
+        let url = "https://ergast.com/api/f1/\(seasonYear).json"
 
-            guard let unwrappedURL = URL(string: url) else {return}
+        guard let unwrappedURL = URL(string: url) else { return }
 
-            URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
-
-                guard let data = data else {return}
-
-                do {
-                    let f1Data = try JSONDecoder().decode(Circuits.self, from: data)
-                    let thisArray = f1Data.data.circuitTable.circuits
-                    let thisCount = thisArray.count - 1
-                    Data.cellCount = thisCount
-                    if thisCount >= 0 {
-
-                        for i in Range(0...thisCount) {
-                            Data.circuitName.append(thisArray[i].circuitName)
-                            Data.circuitID.append(thisArray[i].circuitID)
-                            Data.circuitLocation.append(thisArray[i].location.country)
-                            Data.circuitCity.append(thisArray[i].location.locality)
-                            Data.circuitURL.append("https://en.wikipedia.org/wiki/\(thisArray[i].circuitName.replacingOccurrences(of: " ", with: "_"))")
-                            Data.circuitLatitude.append(thisArray[i].location.lat)
-                            Data.circuitLongitude.append(thisArray[i].location.long)
-                        }
-                        completion(true)
-                    }
-
-                } catch  {
-                    print("Error decoding CIRCUIT json data ")
-                    completion(false)
-
-                }
-            }.resume()
-            
-    }
-    
-    
-    static func allCircuitsAfter2004(seasonYear:String, completion: @escaping (Bool) -> Void) {
-        Formula1API.raceSchedule(for: Season.year(Int(seasonYear) ?? 0)) { result in
-            print(result)
-            
+        // Check if data is cached
+        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "raceSchedule") {
             do {
-                let f1Data = try result.get().data.raceTable.races
-                
-                for i in Range(0...f1Data.count - 1){
-                    Data.circuitID.append(f1Data[i].circuit.circuitID)
-                    Data.circuitName.append(f1Data[i].raceName)
-                    Data.circuitRaceDate.append(f1Data[i].date)
-                    Data.circuitURL.append("https://en.wikipedia.org/wiki/\(f1Data[i].circuit.circuitName.replacingOccurrences(of: " ", with: "_"))")
-                    Data.circuitCity.append(f1Data[i].circuit.location.locality)
-                    Data.circuitLocation.append(f1Data[i].circuit.location.country)
-                    Data.circuitLatitude.append(f1Data[i].circuit.location.lat)
-                    Data.circuitLongitude.append(f1Data[i].circuit.location.long)
+                let f1Data = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any]
 
+                if let mrData = f1Data?["MRData"] as? [String: Any],
+                    let raceTable = mrData["RaceTable"] as? [String: Any],
+                    let races = raceTable["Races"] as? [[String: Any]] {
+
+                    for race in races {
+                        if let raceName = race["raceName"] as? String,
+                            let circuit = race["Circuit"] as? [String: Any],
+                            let circuitName = circuit["circuitName"] as? String,
+                            let location = circuit["Location"] as? [String: Any],
+                            let country = location["country"] as? String,
+                            let locality = location["locality"] as? String,
+                            let lat = location["lat"] as? String,
+                            let long = location["long"] as? String {
+
+                            Data.raceName.append(raceName)
+                            Data.circuitID.append(circuit["circuitId"] as? String ?? "")
+                            Data.circuitName.append(circuitName)
+                            Data.circuitLocation.append(country)
+                            Data.circuitCity.append(locality)
+                            Data.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
+                            Data.circuitLatitude.append(lat)
+                            Data.circuitLongitude.append(long)
+                        }
+                    }
+                    print("RACE DATA LOADED FROM CACHE")
+                    Data.cellCount = races.count - 1
+                    completion(true)
+                    return // Data is loaded from cache, so we're done
                 }
-                Data.cellCount = f1Data.count - 1
-                completion(true)
             } catch {
-                print("Error")
-                completion(false)
-
+                print("Error decoding cached JSON: \(error.localizedDescription)")
             }
         }
+
+        // Data is not cached or cache is invalid, fetch from API
+        URLSession.shared.dataTask(with: unwrappedURL) { (data, response, err) in
+            guard let data = data else {
+                completion(false)
+                return
+            }
+
+            do {
+                let f1Data = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+
+                if let mrData = f1Data?["MRData"] as? [String: Any],
+                    let raceTable = mrData["RaceTable"] as? [String: Any],
+                    let races = raceTable["Races"] as? [[String: Any]] {
+
+                    for race in races {
+                        if let raceName = race["raceName"] as? String,
+                            let circuit = race["Circuit"] as? [String: Any],
+                            let circuitName = circuit["circuitName"] as? String,
+                            let location = circuit["Location"] as? [String: Any],
+                            let country = location["country"] as? String,
+                            let locality = location["locality"] as? String,
+                            let lat = location["lat"] as? String,
+                            let long = location["long"] as? String {
+
+                            Data.raceName.append(raceName)
+                            Data.circuitID.append(circuit["circuitId"] as? String ?? "")
+                            Data.circuitName.append(circuitName)
+                            Data.circuitLocation.append(country)
+                            Data.circuitCity.append(locality)
+                            Data.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
+                            Data.circuitLatitude.append(lat)
+                            Data.circuitLongitude.append(long)
+                        }
+                    }
+                    Data.cellCount = races.count - 1
+
+                    // Cache the data to UserDefaults
+                    if let jsonData = try? JSONSerialization.data(withJSONObject: f1Data ?? [:], options: []) {
+                        UserDefaults.standard.set(jsonData, forKey: "cache_raceSchedule_\(seasonYear)")
+                    }
+
+                    completion(true)
+                } else {
+                    print("Error: Invalid JSON structure")
+                    completion(false)
+                }
+            } catch {
+                print("Error decoding JSON: \(error.localizedDescription)")
+                completion(false)
+            }
+        }.resume()
     }
-    
+
+
 
 
     
