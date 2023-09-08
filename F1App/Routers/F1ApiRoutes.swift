@@ -286,120 +286,6 @@ struct F1ApiRoutes  {
     }
     
 
-    // Drivers
-    static func fetchAllDriversFrom(seasonYear: String, completion: @escaping (Bool) -> Void) {
-        let urlString = "https://ergast.com/api/f1/\(seasonYear)/drivers.json"
-        guard let url = URL(string: urlString) else {
-            completion(false)
-            return
-        }
-        
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 10 // set timeout to 10 seconds
-        let session = URLSession(configuration: sessionConfig)
-        
-        let task = session.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                print("Error: No data received")
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-                return
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                
-                guard let driversTableArray = json?["MRData"] as? [String: Any],
-                      let drivers = driversTableArray["DriverTable"] as? [String: Any],
-                      let driversList = drivers["Drivers"] as? [[String: Any]] else {
-                    DispatchQueue.main.async {
-                        completion(false)
-                    }
-                    return
-                }
-                
-                Data.whichQuery = 1 // Set the query type to drivers
-                let group = DispatchGroup()
-                
-                for driver in driversList {
-                    // Provide a default value of an empty string
-                    let givenName = driver["givenName"] as? String ?? ""
-                    let familyName = driver["familyName"] as? String ?? ""
-                    let nationality = driver["nationality"] as? String ?? ""
-                    let dateOfBirth = driver["dateOfBirth"] as? String ?? ""
-                    let url = driver["url"] as? String
-                    let driverId = driver["driverId"] as? String ?? ""
-                    let permanentNumber = driver["permanentNumber"] as? String ?? ""
-                    let code = driver["code"] as? String ?? ""
-
-                    // Encode the names to create a valid URL
-                    guard let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
-                          let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
-                        continue
-                    }
-                    let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
-                    let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-                    
-                    guard let driverPageURL = URL(string: driverPageURLString) else { continue }
-
-                    group.enter()
-
-                    URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
-                        defer {
-                            group.leave()
-                        }
-
-                        guard let data = data else {
-                            print("Error: No data received for \(givenName) \(familyName)")
-                            completion(false)
-                            return
-                        }
-
-                        do {
-                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-
-                            // Check if the WikipediaData has valid pages
-                            guard let pageID = wikipediaData.query.pages.keys.first,
-                                  let page = wikipediaData.query.pages[pageID] else {
-                                print("Error: Invalid response for \(givenName) \(familyName)")
-                                completion(false)
-                                return
-                            }
-
-                            let thumbnailURLString = page.thumbnail?.source
-
-                            DispatchQueue.main.async {
-                                Data.driverImgURL.append(thumbnailURLString ?? "lewis")
-                                Data.driverNames.append(familyName)
-                                Data.driverFirstNames.append(givenName)
-                                Data.driverNationality.append(nationality)
-                                Data.driverDOB.append(dateOfBirth)
-                                Data.driverURL.append(url)
-                                Data.driverCode.append("\(code) \(permanentNumber)")
-                                
-                                completion(true)
-                            }
-                        } catch let error {
-                            print("Error decoding Wikipedia JSON data for \(givenName) \(familyName): \(error.localizedDescription)")
-                            completion(false)
-                        }
-                    }.resume()
-                }
-                
-                group.notify(queue: .main) {
-                    // All tasks completed
-                    completion(true)
-                }
-            } catch let error {
-                print("Error decoding DRIVERS json data: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    completion(false)
-                }
-            }
-        }
-        task.resume()
-    }
 
     
     // Circuits
@@ -602,7 +488,11 @@ struct F1ApiRoutes  {
     }
 
 
-    
+    ////
+    ///
+    ///
+    ///
+    ///
     // This is not used yet, but will be added in some capacity soon
     static func allTimeDriverChampionships(completion: @escaping (Bool) -> Void) {
         let urlString = "https://ergast.com/api/f1/driverstandings/1.json?limit=100"
