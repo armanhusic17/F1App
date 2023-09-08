@@ -166,18 +166,9 @@ struct HomeModel {
             }
         }
         
-        // DRIVERS QUERY
+        // WORLD DRIVERS' CHAMPIONSHIP QUERY
         else if Data.whichQuery == 1 {
-//            Data.seasonYearSelected = enterYear.text
-//            guard let thisSeason = Data.seasonYearSelected else { return }
-//            F1ApiRoutes.fetchAllDriversFrom(seasonYear: thisSeason) { Success in
-//                if Success {
-//                    showResults(qTime: 0.25, homeSelf: homeSelf)
-//                } else {
-//                    print("ERROR? - DRIVERS QUERY")
-//                }
-//            }
-            ////// END DRIVER QUERY
+
             targetYear = 1950
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
@@ -194,11 +185,6 @@ struct HomeModel {
                         } else {
                             print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                         }
-//                        F1ApiRoutes.allTimeDriverChampionships() { Success in
-//                            DispatchQueue.main.async {
-//                                homeSelf.reloadInputViews()
-//                            }
-//                        }
                     } else {
                         print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                     }

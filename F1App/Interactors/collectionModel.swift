@@ -165,34 +165,7 @@ struct CollectionModel {
             cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
             break
                 
-        case 1: // drivers
-//            cell.F1MapView.isHidden = true
-//            cell.mapView.isHidden = true
-//
-//
-//            let imageURL = self.driverImgs[safe: indexPath.item]
-//            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
-//
-//            loadImage(withURL: cleanedURL ?? imageURL) { image in
-//                DispatchQueue.main.async {
-//                    if image != nil {
-//                        cell.cellImage.image = image
-//                    } else {
-//                        cell.cellImage.contentMode = .scaleAspectFill
-//                        cell.cellImage.image = UIImage(named: "lewis")
-//                    }
-//                } // end main
-//            }
-//            cell.topCellLabel.text = driverNames[safe: indexPath.item] ?? "Last"
-//            cell.bottomCellLabel.text = driverCode[safe: indexPath.item] ?? ""
-//
-//            guard let dob = self.driverDOB[safe: indexPath.item] else {
-//                cell.bottomCellLabel2.text = ""
-//                return
-//            }
-//
-//            cell.bottomCellLabel2.text = "Nationality: \(self.driverNationality[safe: indexPath.item]! ?? "")" + "\n\nDOB: \(dob ?? "")"
-            //// END DRIVER QUERY
+        case 1: // WDC
             cell.cellImage.contentMode = .scaleAspectFill
             cell.bottomCellLabel2.isHidden = false
             cell.bottomCellLabel.isHidden = false

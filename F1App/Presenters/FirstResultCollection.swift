@@ -132,38 +132,6 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             playerIndex = cellIndexPath
 
             if Data.whichQuery == 1 {
-//                print("DRIVER QUERY FIRING - NEEDS TO BECOME WDC")
-//                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 2000) { [self] success, races in
-//                    if success {
-//                        // Process the 'races' array containing the driver's race results
-//                        for race in races {
-//                            // Access race information like raceName, circuit, date, etc.
-//                            for result in race.results {
-//                                // Access driver-specific information like position, points, fastest lap, etc.
-//                                Data.raceName.append("\(race.raceName)")
-//                                Data.circuitName.append(race.circuit.circuitName)
-//                                Data.raceDate.append(race.date)
-//                                Data.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
-//                                Data.driverFinishes.append("\(result.status) : P\(result.position) ")
-//                                Data.raceTime.append("Pace: \(result.time?.time ?? "")")
-//                                Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
-//                                Data.driverPoles.append("Qualified : P\(result.grid) ")
-//                                Data.driverTotalStarts.append(races.count)
-//
-//                            }
-//
-//                        }
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-//                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
-//                        }
-//
-//                    } else {
-//                        // Handle the error case
-//                        print("error")
-//                    }
-//                }
-                ////END DRIVER QUERY
-                ///
                 print("THIS SHOULD TRIGGER GRABBING THE DRIVERS NAME AND USING IT TO QUERY THEIR STATS")
                 var sortedIndices: [Int] = []
                 if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {

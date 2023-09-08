@@ -106,38 +106,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         }
         // Drivers
         else if Data.whichQuery == 1 {
-//
-//            let driverFinishes = Data.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
-//            let driverPoles = Data.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
-//            let driver = Data.driverNames[safe: playerIndex ?? 0] ?? ""
-//            let driverGivenName = Data.driverFirstNames[safe: playerIndex ?? 0] ?? ""
-//            let race = Data.raceName[safe: indexPath.item] ?? "[Grand Prix]"
-//            let date = Data.raceDate[safe: indexPath.item] ?? "[Date]"
-//            let racePace = Data.raceTime[safe: indexPath.item] ?? "[Pace]"
-//            let circuitName = Data.circuitName[safe: indexPath.item] ?? "[Location]"
-//            let team = Data.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
-//            let totalPoles = countPoles(in: Data.driverPoles)
-//            let totalWins = countFinishedP1Occurrences(in: Data.driverFinishes)
-//            let totalStarts = Data.driverTotalStarts[safe: playerIndex ?? 0] ?? 0
-//
-//
-//            topBarLabel.text = "\(driverGivenName!) \(driver!)\nPoles: \(totalPoles)\nWins: \(totalWins)\nRaces: \(totalStarts!)"
-//            topBarLabel.textColor = .white
-//            cell.driverName.text = "\(race!)"
-//            cell.botLabel.text = "\(circuitName!)"
-//                                    + "\n"
-//                                    + "\(date!)"
-//                                    + "\n"
-//                                    + "\(team!)"
-//                                    + "\n"
-//                                    + (driverPoles ?? "")
-//                                    + "\n"
-//                                    + (driverFinishes ?? "")
-//                                    + "\n"
-//                                    + "\(racePace!)"
-//
-            //// END DRIVER QUERY
-            ///
+
             var sortedIndices: [Int] = []
             if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {
                 for rank in 1...Data.racePosition.count {
