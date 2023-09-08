@@ -17,6 +17,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     var seasonYear:Int?
     var playerIndex:Int?
+    var passedName:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +38,17 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "closerLookTransition" {
-            let controller = segue.destination as? SingleResultCollection
-            controller?.playerIndex = playerIndex
+            if let controller = segue.destination as? SingleResultCollection {
+                controller.playerIndex = playerIndex
+
+            }
             
+        }
+        if segue.identifier == "closerLookTransition" {
+            if let secController = segue.destination as? SingleResultCollection {
+                secController.passedName = passedName
+
+            }
         }
         if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
             DispatchQueue.main.async {
@@ -249,7 +258,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         Data.driverCode.removeAll()
         Data.driverImgURL.removeAll()
         Data.driverWikiImgURL.removeAll()
-        
+        Data.driverLastName.removeAll()
         // Team Data
         Data.constructorID.removeAll()
         Data.teamURL.removeAll()
