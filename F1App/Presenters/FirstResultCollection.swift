@@ -44,12 +44,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             }
             
         }
-        if segue.identifier == "closerLookTransition" {
-            if let secController = segue.destination as? SingleResultCollection {
-                secController.passedName = passedName
-
-            }
-        }
+        
         if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
             DispatchQueue.main.async {
                 cell.activitySpinner.stopAnimating()
@@ -137,54 +132,38 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             playerIndex = cellIndexPath
 
             if Data.whichQuery == 1 {
-                print("DRIVER QUERY FIRING - NEEDS TO BECOME WDC")
-                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 2000) { [self] success, races in
-                    if success {
-                        // Process the 'races' array containing the driver's race results
-                        for race in races {
-                            // Access race information like raceName, circuit, date, etc.
-                            for result in race.results {
-                                // Access driver-specific information like position, points, fastest lap, etc.
-                                Data.raceName.append("\(race.raceName)")
-                                Data.circuitName.append(race.circuit.circuitName)
-                                Data.raceDate.append(race.date)
-                                Data.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
-                                Data.driverFinishes.append("\(result.status) : P\(result.position) ")
-                                Data.raceTime.append("Pace: \(result.time?.time ?? "")")
-                                Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
-                                Data.driverPoles.append("Qualified : P\(result.grid) ")
-                                Data.driverTotalStarts.append(races.count)
-                                
-                            }
-
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
-                        }
-
-                    } else {
-                        // Handle the error case
-                        print("error")
-                    }
-                }
-            }
-            else if Data.whichQuery == 2 {
-                print("SEASON YEAR BELOW")
-                print(seasonYear, cellIndexPath + 1)
-                F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
-                    Data.seasonRound = cellIndexPath
-                    if Success {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
-                        }
-                    } else {
-                        print("Error getting qualifying results......")
-                    }
-
-                }
-
-            }
-            else if Data.whichQuery == 3 {
+//                print("DRIVER QUERY FIRING - NEEDS TO BECOME WDC")
+//                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 2000) { [self] success, races in
+//                    if success {
+//                        // Process the 'races' array containing the driver's race results
+//                        for race in races {
+//                            // Access race information like raceName, circuit, date, etc.
+//                            for result in race.results {
+//                                // Access driver-specific information like position, points, fastest lap, etc.
+//                                Data.raceName.append("\(race.raceName)")
+//                                Data.circuitName.append(race.circuit.circuitName)
+//                                Data.raceDate.append(race.date)
+//                                Data.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
+//                                Data.driverFinishes.append("\(result.status) : P\(result.position) ")
+//                                Data.raceTime.append("Pace: \(result.time?.time ?? "")")
+//                                Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
+//                                Data.driverPoles.append("Qualified : P\(result.grid) ")
+//                                Data.driverTotalStarts.append(races.count)
+//
+//                            }
+//
+//                        }
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+//                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
+//                        }
+//
+//                    } else {
+//                        // Handle the error case
+//                        print("error")
+//                    }
+//                }
+                ////END DRIVER QUERY
+                ///
                 print("THIS SHOULD TRIGGER GRABBING THE DRIVERS NAME AND USING IT TO QUERY THEIR STATS")
                 var sortedIndices: [Int] = []
                 if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {
@@ -196,7 +175,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                 }
                 
                 let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
-                print(Data.driverLastName[safe: dataIndex]!!)
+                print(Data.driverLastName[safe: dataIndex] ?? "")
                 F1ApiRoutes.getDriverResults(driverId: (Data.driverLastName[safe: dataIndex]!!), limit: 1000) {  success, races in
                     print(success)
                     if success {
@@ -224,6 +203,25 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                         print("WDC CLOSER LOOK TRANSITION FAIL")
                     }
                 }
+            }
+            else if Data.whichQuery == 2 {
+                print("SEASON YEAR BELOW")
+                print(seasonYear, cellIndexPath + 1)
+                F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
+                    Data.seasonRound = cellIndexPath
+                    if Success {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
+                        }
+                    } else {
+                        print("Error getting qualifying results......")
+                    }
+
+                }
+
+            }
+            else if Data.whichQuery == 3 {
+          
                 
             } // end whichquery == 3
             

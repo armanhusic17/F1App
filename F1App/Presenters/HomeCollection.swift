@@ -79,7 +79,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     
@@ -113,7 +113,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
-            cell.bottomLabel.text = "Drivers"
+            cell.bottomLabel.text = "WDC"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis2")

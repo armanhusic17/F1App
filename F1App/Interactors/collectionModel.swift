@@ -138,8 +138,8 @@ struct CollectionModel {
         switch Data.whichQuery {
         
         case 0: // constructor
-            let imageURL = self.teamsImgs[indexPath.item]
-            let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
+            let imageURL = self.teamsImgs[safe: indexPath.item]
+            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[1] ?? "")
             cell.cellImage.contentMode = .scaleAspectFill
             loadImage(withURL: cleanedURL) { image in
                 DispatchQueue.main.async {
@@ -166,60 +166,33 @@ struct CollectionModel {
             break
                 
         case 1: // drivers
-            cell.F1MapView.isHidden = true
-            cell.mapView.isHidden = true
-            
-            
-            let imageURL = self.driverImgs[safe: indexPath.item]
-            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
-        
-            loadImage(withURL: cleanedURL ?? imageURL) { image in
-                DispatchQueue.main.async {
-                    if image != nil {
-                        cell.cellImage.image = image
-                    } else {
-                        cell.cellImage.contentMode = .scaleAspectFill
-                        cell.cellImage.image = UIImage(named: "lewis")
-                    }
-                } // end main
-            }
-            cell.topCellLabel.text = driverNames[safe: indexPath.item] ?? "Last"
-            cell.bottomCellLabel.text = driverCode[safe: indexPath.item] ?? ""
-
-            guard let dob = self.driverDOB[safe: indexPath.item] else {
-                cell.bottomCellLabel2.text = ""
-                return
-            }
-
-            cell.bottomCellLabel2.text = "Nationality: \(self.driverNationality[safe: indexPath.item]! ?? "")" + "\n\nDOB: \(dob ?? "")"
-            break
-            
-        case 2: // circuits
-            cell.F1MapView.isHidden = false
-            cell.mapView.isHidden = false
-            
-            let circuitLatStr = circuitLat[safe: indexPath.item] ?? ""
-            let circuitLongStr = circuitLong[safe: indexPath.item] ?? ""
-            let circuitNameStr = circuitName[safe: indexPath.item] ?? ""
-            let circuitCityStr = circuitCity[safe: indexPath.item] ?? "City"
-            let circuitLocationStr = circuitLocation[safe: indexPath.item] ?? "Country"
-            let circuitRaceDateStr = circuitRaceDate[safe: indexPath.item] ?? ""
-            
-            let initialLocation = CLLocation(latitude: Double(circuitLatStr!) ?? 1.0, longitude: Double(circuitLongStr!) ?? 1.0)
-            cell.F1MapView.centerToLocation(initialLocation)
-
-            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
-            cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
-            cell.cellImage.isHidden = true
-            cell.cellImage2.image = UIImage(named: "circuitLogo")
-            cell.bottomCellLabel2.text = "\(circuitCityStr!), \(circuitLocationStr!)"
-            cell.topCellLabel.text = circuitNameStr
-            cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"+", \(circuitRaceDateStr!)"
-            cell.mapView.layer.borderWidth = 2
-            cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
-
-            break
-        case 3: // WDC
+//            cell.F1MapView.isHidden = true
+//            cell.mapView.isHidden = true
+//
+//
+//            let imageURL = self.driverImgs[safe: indexPath.item]
+//            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
+//
+//            loadImage(withURL: cleanedURL ?? imageURL) { image in
+//                DispatchQueue.main.async {
+//                    if image != nil {
+//                        cell.cellImage.image = image
+//                    } else {
+//                        cell.cellImage.contentMode = .scaleAspectFill
+//                        cell.cellImage.image = UIImage(named: "lewis")
+//                    }
+//                } // end main
+//            }
+//            cell.topCellLabel.text = driverNames[safe: indexPath.item] ?? "Last"
+//            cell.bottomCellLabel.text = driverCode[safe: indexPath.item] ?? ""
+//
+//            guard let dob = self.driverDOB[safe: indexPath.item] else {
+//                cell.bottomCellLabel2.text = ""
+//                return
+//            }
+//
+//            cell.bottomCellLabel2.text = "Nationality: \(self.driverNationality[safe: indexPath.item]! ?? "")" + "\n\nDOB: \(dob ?? "")"
+            //// END DRIVER QUERY
             cell.cellImage.contentMode = .scaleAspectFill
             cell.bottomCellLabel2.isHidden = false
             cell.bottomCellLabel.isHidden = false
@@ -302,6 +275,36 @@ struct CollectionModel {
             } else {
                 cell.cellImage.alpha = 0.45
             }
+
+            break
+            
+        case 2: // circuits
+            cell.F1MapView.isHidden = false
+            cell.mapView.isHidden = false
+            
+            let circuitLatStr = circuitLat[safe: indexPath.item] ?? ""
+            let circuitLongStr = circuitLong[safe: indexPath.item] ?? ""
+            let circuitNameStr = circuitName[safe: indexPath.item] ?? ""
+            let circuitCityStr = circuitCity[safe: indexPath.item] ?? "City"
+            let circuitLocationStr = circuitLocation[safe: indexPath.item] ?? "Country"
+            let circuitRaceDateStr = circuitRaceDate[safe: indexPath.item] ?? ""
+            
+            let initialLocation = CLLocation(latitude: Double(circuitLatStr!) ?? 1.0, longitude: Double(circuitLongStr!) ?? 1.0)
+            cell.F1MapView.centerToLocation(initialLocation)
+
+            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
+            cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
+            cell.cellImage.isHidden = true
+            cell.cellImage2.image = UIImage(named: "circuitLogo")
+            cell.bottomCellLabel2.text = "\(circuitCityStr!), \(circuitLocationStr!)"
+            cell.topCellLabel.text = circuitNameStr
+            cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"+", \(circuitRaceDateStr!)"
+            cell.mapView.layer.borderWidth = 2
+            cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
+
+            break
+        case 3: // WDC
+            print("OLD QUERY")
             break
 
 

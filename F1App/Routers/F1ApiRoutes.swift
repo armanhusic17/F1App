@@ -19,6 +19,107 @@ import Formula1API
 
 struct F1ApiRoutes  {
             
+    
+    typealias FoundationData = Foundation.Data
+    static var cache = [String: FoundationData]()
+
+    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
+
+            // Check if data is already in cache
+            if let cachedData = cache[seasonYear] {
+                do {
+                    let f1Data = try JSONDecoder().decode(Constructors.self, from: cachedData)
+                    handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
+                    print("FETCHED CACHED DATA")
+                    return
+                } catch {
+                    print("Error decoding cached data: \(error.localizedDescription)")
+                }
+            }
+
+            let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
+            guard let url = URL(string: urlString) else { return }
+
+            let sessionConfig = URLSessionConfiguration.default
+            sessionConfig.timeoutIntervalForRequest = 10
+            let session = URLSession(configuration: sessionConfig)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                guard let data = data else {
+                    print("Error: No data received")
+                    completion(false)
+                    return
+                }
+
+                do {
+                    let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
+
+                    // Cache the data
+                    cache[seasonYear] = data
+
+                    handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
+
+                } catch let error {
+                    print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
+                    completion(false)
+                }
+            }
+
+            task.resume()
+        }
+
+        static func handleFetchedData(_ f1Data: Constructors, seasonYear: String, completion: @escaping (Bool) -> Void) {
+            let constructorTable = f1Data.data.constructorTable
+            let constructorsArray = constructorTable.constructors
+            let season = constructorTable.season?.capitalized
+
+            for constructor in constructorsArray {
+                if let encodedConstructorName = constructor.name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
+                    let constructorPageTitle = encodedConstructorName
+                    let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+                    guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
+
+                    URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+                        guard let data = data else { return }
+
+                        do {
+                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+                            guard let pageID = wikipediaData.query.pages.keys.first,
+                                  let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else {
+                                DispatchQueue.main.async {
+                                    Data.teamImgURL.append("\(constructor.constructorID),default")
+                                    Data.teamNames.append(constructor.name)
+                                    Data.teamNationality.append(constructor.nationality)
+                                    Data.teamURL.append(constructor.url)
+                                    Data.constructorID.append(constructor.constructorID)
+                                    Data.f1Season.append(season)
+                                }
+                                return
+                            }
+                            let thumbnailURLString = thumbnail.source
+
+                            DispatchQueue.main.async {
+                                let tuple = (constructor.constructorID, thumbnailURLString)
+                                let string = "\(tuple.0),\(tuple.1)"
+                                Data.teamImgURL.append(string)
+                                Data.teamNames.append(constructor.name)
+                                Data.teamNationality.append(constructor.nationality)
+                                Data.teamURL.append(constructor.url)
+                                Data.constructorID.append(constructor.constructorID)
+                                Data.f1Season.append(season)
+                            }
+                            // Move the completion handler here to ensure it's called after all constructors are processed
+                            completion(true)
+                        } catch let error {
+                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                            // Handle error
+                        }
+                    }.resume()
+                }
+            } // end for loop
+
+//            completion(true)
+        }
+    
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
         print(seasonYear, round)
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
@@ -363,81 +464,219 @@ struct F1ApiRoutes  {
     }
 
 
-    // Constructors
-    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
-        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
-        guard let url = URL(string: urlString) else { return }
+    ////
+    ///
+    ///
+    
 
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 10
-        let session = URLSession(configuration: sessionConfig)
-        let task = session.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                print("Error: No data received")
-                completion(false)
-                return
-            }
+    
+    
+    // Caching version of all constructors works well
+//    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
+//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
+//        let cacheKey = "constructorsData_\(seasonYear)" // Define a unique cache key
+//
+//        // Check if data is cached
+//        if let cachedData = UserDefaults.standard.data(forKey: cacheKey),
+//           let cachedConstructors = try? JSONDecoder().decode([Constructor].self, from: cachedData) {
+//            // Data is cached, use it
+//            Data.teamNames = cachedConstructors.map { $0.name }
+//            Data.teamNationality = cachedConstructors.map { $0.nationality }
+//            Data.teamURL = cachedConstructors.map { $0.url }
+//            Data.constructorID = cachedConstructors.map { $0.constructorId }
+//            Data.f1Season = Array(repeating: seasonYear, count: cachedConstructors.count)
+//
+//            completion(true)
+//            return
+//        }
+//
+//        // Data is not cached, fetch from API
+//        guard let url = URL(string: urlString) else {
+//            completion(false)
+//            return
+//        }
+//
+//        let sessionConfig = URLSessionConfiguration.default
+//        sessionConfig.timeoutIntervalForRequest = 10
+//        let session = URLSession(configuration: sessionConfig)
+//        let task = session.dataTask(with: url) { (data, response, error) in
+//            guard let data = data else {
+//                print("Error: No data received")
+//                completion(false)
+//                return
+//            }
+//
+//            do {
+//                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
+//                let constructorTable = f1Data.data.constructorTable
+//                let constructorsArray = constructorTable.constructors
+//                let season = constructorTable.season?.capitalized
+//
+//                // Update Data arrays
+//                Data.teamNames = constructorsArray.map { $0.name }
+//                Data.teamNationality = constructorsArray.map { $0.nationality }
+//                Data.teamURL = constructorsArray.map { $0.url }
+//                Data.constructorID = constructorsArray.map { $0.constructorID }
+//                Data.f1Season = Array(repeating: seasonYear, count: constructorsArray.count)
+//
+//                // Cache the data
+//                if let encodedData = try? JSONEncoder().encode(constructorsArray) {
+//                    UserDefaults.standard.set(encodedData, forKey: cacheKey)
+//                }
+//
+//                // Fetch constructor images from Wikipedia
+//               for constructor in constructorsArray {
+//                   fetchConstructorInfoFromWikipedia(name: constructor.name) { success in
+//                       if success {
+//                           print("Successfully fetched image for \(constructor.name)")
+//                           // You can perform additional actions if needed
+//
+//                       } else {
+//                           print("Failed to fetch image for \(constructor.name)")
+//                           // Handle the failure case if needed
+//                       }
+//                   }
+//               }
+//
+//                // Call completion after fetching images
+//                completion(true)
+//
+//
+//
+//            } catch let error {
+//                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
+//                completion(false)
+//            }
+//        }
+//
+//        task.resume()
+//    }
+//
+//
+//
+//    static func fetchConstructorInfoFromWikipedia(name: String, completion: @escaping (Bool) -> Void) {
+//        let encodedName = name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+//        let constructorPageTitle = "\(encodedName)_constructor"
+//        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+//
+//        guard let constructorPageURL = URL(string: constructorPageURLString) else {
+//            completion(false)
+//            return
+//        }
+//
+//        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+//            guard let data = data else {
+//                print("Error: No data received for \(name) constructor")
+//                completion(false)
+//                return
+//            }
+//
+//            do {
+//                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+//
+//                if let pageID = wikipediaData.query.pages.keys.first,
+//                   let page = wikipediaData.query.pages[pageID],
+//                   let thumbnailURLString = page.thumbnail?.source {
+//                    // Handle valid thumbnail URL
+//                    DispatchQueue.main.async {
+//                        Data.teamImgURL.append(thumbnailURLString)
+//                        // Append other constructor information...
+//                        completion(true)
+//                    }
+//                } else {
+//                    // Handle missing or invalid response
+//                    DispatchQueue.main.async {
+//                        Data.teamImgURL.append("defaultImage")
+//                        // Append other constructor information...
+//                        completion(false)
+//                    }
+//                }
+//            } catch let error {
+//                print("Error decoding Wikipedia JSON data for \(name) constructor: \(error.localizedDescription)")
+//                completion(false)
+//            }
+//        }.resume()
+//    }
 
-            do {
-                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
-                let constructorTable = f1Data.data.constructorTable
-                let constructorsArray = constructorTable.constructors
-                let season = constructorTable.season?.capitalized
 
-                for constructor in constructorsArray {
-                    if let encodedConstructorName = constructor.name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
-                        let constructorPageTitle = encodedConstructorName
-                        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-                        guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
 
-                        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
-                            guard let data = data else { return }
 
-                            do {
-                                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-                                guard let pageID = wikipediaData.query.pages.keys.first,
-                                      let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else {
-                                    DispatchQueue.main.async {
-                                        Data.teamImgURL.append("\(constructor.constructorID),default")
-                                        Data.teamNames.append(constructor.name)
-                                        Data.teamNationality.append(constructor.nationality)
-                                        Data.teamURL.append(constructor.url)
-                                        Data.constructorID.append(constructor.constructorID)
-                                        Data.f1Season.append(season)
-                                    }
-                                    return
-                                }
-                                let thumbnailURLString = thumbnail.source
-
-                                DispatchQueue.main.async {
-                                    let tuple = (constructor.constructorID, thumbnailURLString)
-                                    let string = "\(tuple.0),\(tuple.1)"
-                                    Data.teamImgURL.append(string)
-                                    Data.teamNames.append(constructor.name)
-                                    Data.teamNationality.append(constructor.nationality)
-                                    Data.teamURL.append(constructor.url)
-                                    Data.constructorID.append(constructor.constructorID)
-                                    Data.f1Season.append(season)
-                                }
-                                // Move the completion handler here to ensure it's called after all constructors are processed
-                                completion(true)
-                            } catch let error {
-                                print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-                                // Handle error
-                            }
-                        }.resume()
-                    }
-                } // end for loop
-
-                
-            } catch let error {
-                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
-                completion(false)
-            }
-        }
-
-        task.resume()
-    }
+    
+//     Constructors
+//    static func allConstructors_Old(seasonYear: String, completion: @escaping (Bool) -> Void) {
+//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
+//        guard let url = URL(string: urlString) else { return }
+//
+//        let sessionConfig = URLSessionConfiguration.default
+//        sessionConfig.timeoutIntervalForRequest = 10
+//        let session = URLSession(configuration: sessionConfig)
+//        let task = session.dataTask(with: url) { (data, response, error) in
+//            guard let data = data else {
+//                print("Error: No data received")
+//                completion(false)
+//                return
+//            }
+//
+//            do {
+//                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
+//                let constructorTable = f1Data.data.constructorTable
+//                let constructorsArray = constructorTable.constructors
+//                let season = constructorTable.season?.capitalized
+//
+//                for constructor in constructorsArray {
+//                    if let encodedConstructorName = constructor.name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
+//                        let constructorPageTitle = encodedConstructorName
+//                        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+//                        guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
+//
+//                        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+//                            guard let data = data else { return }
+//
+//                            do {
+//                                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+//                                guard let pageID = wikipediaData.query.pages.keys.first,
+//                                      let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else {
+//                                    DispatchQueue.main.async {
+//                                        Data.teamImgURL.append("\(constructor.constructorID),default")
+//                                        Data.teamNames.append(constructor.name)
+//                                        Data.teamNationality.append(constructor.nationality)
+//                                        Data.teamURL.append(constructor.url)
+//                                        Data.constructorID.append(constructor.constructorID)
+//                                        Data.f1Season.append(season)
+//                                    }
+//                                    return
+//                                }
+//                                let thumbnailURLString = thumbnail.source
+//
+//                                DispatchQueue.main.async {
+//                                    let tuple = (constructor.constructorID, thumbnailURLString)
+//                                    let string = "\(tuple.0),\(tuple.1)"
+//                                    Data.teamImgURL.append(string)
+//                                    Data.teamNames.append(constructor.name)
+//                                    Data.teamNationality.append(constructor.nationality)
+//                                    Data.teamURL.append(constructor.url)
+//                                    Data.constructorID.append(constructor.constructorID)
+//                                    Data.f1Season.append(season)
+//                                }
+//                                // Move the completion handler here to ensure it's called after all constructors are processed
+//                                completion(true)
+//                            } catch let error {
+//                                print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+//                                // Handle error
+//                            }
+//                        }.resume()
+//                    }
+//                } // end for loop
+//
+//
+//            } catch let error {
+//                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
+//                completion(false)
+//            }
+//        }
+//
+//        task.resume()
+//    }
 
 
 
