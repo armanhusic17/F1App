@@ -17,6 +17,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     var seasonYear:Int?
     var playerIndex:Int?
+    var passedName:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +38,13 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "closerLookTransition" {
-            let controller = segue.destination as? SingleResultCollection
-            controller?.playerIndex = playerIndex
+            if let controller = segue.destination as? SingleResultCollection {
+                controller.playerIndex = playerIndex
+
+            }
+            
         }
+        
         if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
             DispatchQueue.main.async {
                 cell.activitySpinner.stopAnimating()
@@ -127,7 +132,20 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             playerIndex = cellIndexPath
 
             if Data.whichQuery == 1 {
-                F1ApiRoutes.getDriverResults(driverId: (Data.driverNames[safe: playerIndex ?? 0] ?? "")!, limit: 2000) { [self] success, races in
+                print("THIS SHOULD TRIGGER GRABBING THE DRIVERS NAME AND USING IT TO QUERY THEIR STATS")
+                var sortedIndices: [Int] = []
+                if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {
+                    for rank in 1...Data.racePosition.count {
+                        if let index = Data.racePosition.firstIndex(of: "\(rank)") {
+                            sortedIndices.append(index)
+                        }
+                    }
+                }
+                
+                let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
+                print(Data.driverLastName[safe: dataIndex] ?? "")
+                F1ApiRoutes.getDriverResults(driverId: (Data.driverLastName[safe: dataIndex]!!), limit: 1000) {  success, races in
+                    print(success)
                     if success {
                         // Process the 'races' array containing the driver's race results
                         for race in races {
@@ -143,17 +161,14 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                                 Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
                                 Data.driverPoles.append("Qualified : P\(result.grid) ")
                                 Data.driverTotalStarts.append(races.count)
-                                
                             }
-
                         }
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
                             self.performSegue(withIdentifier: "closerLookTransition", sender: self)
                         }
-
                     } else {
-                        // Handle the error case
-                        print("error")
+                        print("WDC CLOSER LOOK TRANSITION FAIL")
                     }
                 }
             }
@@ -173,7 +188,12 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                 }
 
             }
-
+            else if Data.whichQuery == 3 {
+          
+                
+            } // end whichquery == 3
+            
+            
             else {
                 resultsModel.loadResults(myself: self)
                 if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
@@ -204,7 +224,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         Data.driverCode.removeAll()
         Data.driverImgURL.removeAll()
         Data.driverWikiImgURL.removeAll()
-        
+        Data.driverLastName.removeAll()
         // Team Data
         Data.constructorID.removeAll()
         Data.teamURL.removeAll()

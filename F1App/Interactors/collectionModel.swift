@@ -75,9 +75,7 @@ struct CollectionModel {
         if Data.whichQuery == 3 {
             return  driverNames.count
         }
-//        if Data.whichQuery == 4 {
-//            return  qualiResuls.count
-//        }
+
         // arbitrary return
         return 1
     }
@@ -102,8 +100,8 @@ struct CollectionModel {
             queryHeight = availableHeight * 0.60
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         } else if Data.whichQuery == 3 {
-            queryWidth = availableWidth * 0.75
-            queryHeight = availableHeight * 0.25
+            queryWidth = availableWidth * 0.95
+            queryHeight = availableHeight * 0.28
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
@@ -140,8 +138,8 @@ struct CollectionModel {
         switch Data.whichQuery {
         
         case 0: // constructor
-            let imageURL = self.teamsImgs[indexPath.item]
-            let cleanedURL = URL(string: imageURL.absoluteString.components(separatedBy: ",")[1])
+            let imageURL = self.teamsImgs[safe: indexPath.item]
+            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[1] ?? "")
             cell.cellImage.contentMode = .scaleAspectFill
             loadImage(withURL: cleanedURL) { image in
                 DispatchQueue.main.async {
@@ -167,15 +165,74 @@ struct CollectionModel {
             cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
             break
                 
-        case 1: // drivers
-            cell.F1MapView.isHidden = true
+        case 1: // WDC
+            cell.cellImage.contentMode = .scaleAspectFill
+            cell.bottomCellLabel2.isHidden = false
+            cell.bottomCellLabel.isHidden = false
+            cell.topCellLabel.isHidden = false
+            
+            var sortedIndices: [Int] = []
+            if let firstDriverIndex = racePosition.firstIndex(of: "1") {
+                for rank in 1...racePosition.count {
+                    if let index = racePosition.firstIndex(of: "\(rank)") {
+                        sortedIndices.append(index)
+                    }
+                }
+            }
+            
+            let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
+
+            let currentYear = Calendar.current.component(.year, from: Date())
+            let isCurrentYear = (Int(raceSeason[0]!) ?? 0) == currentYear
+
+            if let racePosition = racePosition[safe: dataIndex] {
+                var rankText = ""
+                if isCurrentYear && racePosition == "1" {
+                    rankText = "Championship Leader"
+                } else if racePosition == "1" {
+                    rankText = "Champion"
+                } else {
+                    rankText = "WDC Rank: \(racePosition ?? "")"
+                }
+                
+                cell.bottomCellLabel.text = "\(raceSeason[0]!) \(rankText)"
+            } else {
+                cell.bottomCellLabel.text = "\(raceSeason[0]!) WDC Rank: N/A"
+            }
+
+
+            
+            if let driverName = driverNames[safe: dataIndex] {
+                cell.topCellLabel.text = driverName
+            } else {
+                cell.topCellLabel.text = "Driver Name: N/A"
+            }
+            
+            if let racePoint = racePoints[safe: dataIndex] {
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: \(racePoint ?? "")"
+            } else {
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: N/A"
+            }
+            
+            if let teamName = teamNames[safe: dataIndex] {
+                cell.bottomCellLabel2.text = "\(teamName ?? "")"
+            }
+            
+            if let driverTitle = driverTitles[safe: dataIndex] {
+                let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
+                let capitalizedKey = formattedKey.capitalized
+                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(dataIndex + 1): \(capitalizedKey)\n\(driverTitle.value)-Time WDC"
+            }
+            
+            
             cell.mapView.isHidden = true
+            cell.F1MapView.isHidden = true
             
+            // Load driver image using the same method as case 1
+            let imageURL = Data.driverImgURL[safe: dataIndex]
+            let cleanedURL = URL(string: (imageURL ?? "lewis")!)
             
-            let imageURL = self.driverImgs[safe: indexPath.item]
-            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[safe: 1] ?? "")
-        
-            loadImage(withURL: cleanedURL ?? imageURL) { image in
+            loadImage(withURL: cleanedURL) { image in
                 DispatchQueue.main.async {
                     if image != nil {
                         cell.cellImage.image = image
@@ -185,15 +242,13 @@ struct CollectionModel {
                     }
                 } // end main
             }
-            cell.topCellLabel.text = "\(self.driversGivenName[indexPath.item] ?? "First") \(self.driverNames[indexPath.item] ?? "Last")"
-            cell.bottomCellLabel.text = "\(self.driverCode[safe: indexPath.item]! ?? "")"
-
-            guard let dob = self.driverDOB[safe: indexPath.item] else {
-                cell.bottomCellLabel2.text = ""
-                return
+            
+            if dataIndex == 0 {
+                cell.cellImage.alpha = 1
+            } else {
+                cell.cellImage.alpha = 0.45
             }
 
-            cell.bottomCellLabel2.text = "Nationality: \(self.driverNationality[safe: indexPath.item]! ?? "")" + "\n\nDOB: \(dob ?? "")"
             break
             
         case 2: // circuits
@@ -222,45 +277,9 @@ struct CollectionModel {
 
             break
         case 3: // WDC
-            cell.cellImage.contentMode = .scaleAspectFit
-            cell.bottomCellLabel2.isHidden = true
-            cell.bottomCellLabel.isHidden = false
-            cell.topCellLabel.isHidden = false
-            
-            if let racePosition = racePosition[safe: indexPath.item] {
-                cell.bottomCellLabel.text = "\(raceSeason[0]!)" + " WDC Rank: \(racePosition!)"
-            } else {
-                cell.bottomCellLabel.text = "WDC Rank: N/A"
-            }
-            
-            if let driverName = driverNames[safe: indexPath.item] {
-                cell.topCellLabel.text = driverName
-            } else {
-                cell.topCellLabel.text = "Driver Name: N/A"
-            }
-            
-            if let racePoint = racePoints[safe: indexPath.item] {
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: \(racePoint!)"
-            } else {
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: N/A"
-            }
-            
-            if let driverTitle = driverTitles[safe: indexPath.item] {
-                let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
-                let capitalizedKey = formattedKey.capitalized
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(indexPath.item + 1): \(capitalizedKey)\n\(driverTitle.value)-Time WDC"
-            }
-            
-            cell.mapView.isHidden = true
-            cell.F1MapView.isHidden = true
-            cell.cellImage.image = UIImage(named: "WDCLogo")
-            
-            if indexPath.item == 0 {
-                cell.cellImage.alpha = 1
-            } else {
-                cell.cellImage.alpha = 0.45
-            }
+            print("OLD QUERY")
             break
+
 
         case .none:
             print("None")

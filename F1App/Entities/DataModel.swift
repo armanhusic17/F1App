@@ -15,7 +15,8 @@ struct Data {
     static var teamNationality: [String?] = []
     static var teamURL: [String?] = []
     static var teamImgURL: [String?] = [] // <-- Add new property to hold team image URLs
-    
+    static var teamImages: [String] = []
+
     static var constructorID: [String?] = []
 
     // Driver Data

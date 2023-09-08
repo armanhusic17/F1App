@@ -25,7 +25,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         collectionView.delegate = self
         navigationController?.delegate = self
-        
+        Analytics.logEvent("Application Launched - BoxBoxF1", parameters: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,7 +79,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 4
     }
     
     
@@ -113,7 +113,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
-            cell.bottomLabel.text = "Drivers"
+            cell.bottomLabel.text = "WDC"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis2")
@@ -161,6 +161,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         // have to disable cells so that the user doesnt send multiple queries as the data loads
         if indexPath.item == 0 {
             print("THIS IS THE TITLE CELL, maybe place to select year")
+           
         }
         if indexPath.item == 1 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
@@ -195,6 +196,8 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
                 print("WDC cell is selected")
                 Data.whichQuery = 3
                 cell.layer.borderColor = UIColor.clear.cgColor
+
+                seasonYear = Int(cell.enterF1SeasonYear.text)
                 homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
         }
