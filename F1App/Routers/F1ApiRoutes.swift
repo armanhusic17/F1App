@@ -26,7 +26,7 @@ struct F1ApiRoutes  {
     static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
 
             // Check if data is in UserDefaults
-            if let cachedData = retrieveCachedData(for: seasonYear) {
+        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "allConstructors") {
                 do {
                     let f1Data = try JSONDecoder().decode(Constructors.self, from: cachedData)
                     handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
@@ -70,8 +70,8 @@ struct F1ApiRoutes  {
             task.resume()
         }
     
-        static func retrieveCachedData(for seasonYear: String) -> FoundationData? {
-            if let cachedData = UserDefaults.standard.data(forKey: "cache_allConstructors_\(seasonYear)") {
+    static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
+            if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
                 return cachedData
             }
             return nil
@@ -357,93 +357,122 @@ struct F1ApiRoutes  {
     
 
 
-
+    
     static func worldDriversChampionshipStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
+
+        // Check if data is in UserDefaults
+        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings")  {
+            do {
+                if let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any] {
+                    processDriverStandings(json, seasonYear: seasonYear, completion: completion)
+                    print("RETRIEVED DRIVER DATA FROM USER DEFAULTS")
+                    return
+                }
+            } catch let error {
+                print("Error decoding cached data: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+        }
+
         let urlString = "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json"
 
         if let url = URL(string: urlString) {
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
                     print("Error: \(error.localizedDescription)")
+                    completion(false)
                     return
                 }
-                
+
                 guard let data = data else {
                     print("Error: No data received")
+                    completion(false)
                     return
                 }
-                
+
                 // Data received successfully
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                    
-                    if let mrData = json?["MRData"] as? [String: Any],
-                        let standingsTable = mrData["StandingsTable"] as? [String: Any],
-                        let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
-                        
-                        Data.f1Season.append(seasonYear)
-                        
-                        for standingsList in standingsLists {
-                            let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
-                            
-                            for driverStanding in driverStandings {
-                                if let driver = driverStanding["Driver"] as? [String: Any],
-                                   let givenName = driver["givenName"] as? String,
-                                   let familyName = driver["familyName"] as? String,
-                                   let position = driverStanding["position"] as? String,
-                                   let points = driverStanding["points"] as? String,
-                                   let constructors = driverStanding["Constructors"] as? [[String: Any]] {
-                                    
-                                    // Initialize an empty array to store team names (constructors)
-                                    var teamNames: [String] = []
-                                    
-                                    // Loop through the constructors array to extract team names
-                                    for constructor in constructors {
-                                        if let teamName = constructor["name"] as? String {
-                                            teamNames.append(teamName)
-                                        }
-                                    }
-                                    
-                                    // Join the team names into a single string
-                                    let teamNamesString = teamNames.joined(separator: ", ")
-                                    
-                                    // Fetch driver image here using the method you had
-                                    self.fetchDriverInfoFromWikipedia(givenName: givenName, familyName: familyName) { success in
-                                        if success {
-                                            Data.racePosition.append(position)
-                                            Data.racePoints.append(points)
-                                            Data.driverNames.append("\(givenName) \(familyName)")
-                                            Data.driverLastName.append(familyName)
-                                            Data.teamNames.append(teamNamesString)
-                                            // Add other driver information...
-                                        } else {
-                                            print("Error fetching driver info")
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        
-                        completion(true)
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+
+                        // Cache the data
+                        cache["worldDriversChampionshipStandings_\(seasonYear)"] = data
+
+                        processDriverStandings(json, seasonYear: seasonYear, completion: completion)
+
+                        // Save to UserDefaults
+                        UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
+
                     } else {
                         print("Error: Invalid JSON structure")
                         completion(false)
                     }
-                } catch {
+                } catch let error {
                     print("Error decoding JSON: \(error.localizedDescription)")
                     completion(false)
                 }
-
-
             }
-            
             task.resume()
         } else {
             print("Error: Invalid URL")
             completion(false)
-
         }
     }
+    
+    
+    static func processDriverStandings(_ json: [String: Any], seasonYear: String, completion: @escaping (Bool) -> Void) {
+        if let mrData = json["MRData"] as? [String: Any],
+            let standingsTable = mrData["StandingsTable"] as? [String: Any],
+            let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
+            
+            Data.f1Season.append(seasonYear) // Assuming Data.f1Season is a global variable or property
+            
+            for standingsList in standingsLists {
+                let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
+                
+                for driverStanding in driverStandings {
+                    if let driver = driverStanding["Driver"] as? [String: Any],
+                       let givenName = driver["givenName"] as? String,
+                       let familyName = driver["familyName"] as? String,
+                       let position = driverStanding["position"] as? String,
+                       let points = driverStanding["points"] as? String,
+                       let constructors = driverStanding["Constructors"] as? [[String: Any]] {
+                        
+                        var teamNames: [String] = []
+                        
+                        for constructor in constructors {
+                            if let teamName = constructor["name"] as? String {
+                                teamNames.append(teamName)
+                            }
+                        }
+                        
+                        let teamNamesString = teamNames.joined(separator: ", ")
+                        
+                        fetchDriverInfoFromWikipedia(givenName: givenName, familyName: familyName) { success in
+                            if success {
+                                Data.racePosition.append(position)
+                                Data.racePoints.append(points)
+                                Data.driverNames.append("\(givenName) \(familyName)")
+                                Data.driverLastName.append(familyName)
+                                Data.teamNames.append(teamNamesString)
+                                // Add other driver information...
+                                completion(true)
+                            } else {
+                                print("Error fetching driver info")
+                                completion(false)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            print("Error: Invalid JSON structure")
+            completion(false)
+        }
+    }
+
+
+    
     
     static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String, completion: @escaping (Bool) -> Void) {
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
