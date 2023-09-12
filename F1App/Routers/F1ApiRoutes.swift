@@ -309,9 +309,11 @@ struct F1ApiRoutes  {
                             let location = circuit["Location"] as? [String: Any],
                             let country = location["country"] as? String,
                             let locality = location["locality"] as? String,
+                            let date = race["date"] as? String,
                             let lat = location["lat"] as? String,
                             let long = location["long"] as? String {
-
+                            
+                            Data.circuitRaceDate.append(date)
                             Data.raceName.append(raceName)
                             Data.circuitID.append(circuit["circuitId"] as? String ?? "")
                             Data.circuitName.append(circuitName)
@@ -353,9 +355,11 @@ struct F1ApiRoutes  {
                             let location = circuit["Location"] as? [String: Any],
                             let country = location["country"] as? String,
                             let locality = location["locality"] as? String,
+                            let date = race["date"] as? String,
                             let lat = location["lat"] as? String,
                             let long = location["long"] as? String {
-
+                            
+                            Data.circuitRaceDate.append(date)
                             Data.raceName.append(raceName)
                             Data.circuitID.append(circuit["circuitId"] as? String ?? "")
                             Data.circuitName.append(circuitName)
@@ -364,6 +368,7 @@ struct F1ApiRoutes  {
                             Data.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
                             Data.circuitLatitude.append(lat)
                             Data.circuitLongitude.append(long)
+                            
                         }
                     }
                     Data.cellCount = races.count - 1
