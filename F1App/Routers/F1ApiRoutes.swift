@@ -77,36 +77,31 @@ struct F1ApiRoutes  {
             return nil
         }
 
-        static func handleFetchedData(_ f1Data: Constructors, seasonYear: String, completion: @escaping (Bool) -> Void) {
-            let constructorTable = f1Data.data.constructorTable
-            let constructorsArray = constructorTable.constructors
-            let season = constructorTable.season?.capitalized
+    static func handleFetchedData(_ f1Data: Constructors, seasonYear: String, completion: @escaping (Bool) -> Void) {
+        let constructorTable = f1Data.data.constructorTable
+        let constructorsArray = constructorTable.constructors
+        let season = constructorTable.season?.capitalized
 
-            for constructor in constructorsArray {
-                if let encodedConstructorName = constructor.name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
-                    let constructorPageTitle = encodedConstructorName
-                    let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-                    guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
+        for constructor in constructorsArray {
+            if let encodedConstructorName = constructor.name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
+                let constructorPageTitle = encodedConstructorName
+                let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
+                guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
 
-                    URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
-                        guard let data = data else { return }
+                URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+                    guard let data = data else { return }
 
-                        do {
-                            let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-                            guard let pageID = wikipediaData.query.pages.keys.first,
-                                  let thumbnail = wikipediaData.query.pages[pageID]?.thumbnail else {
-                                DispatchQueue.main.async {
-                                    Data.teamImgURL.append("\(constructor.constructorID),default")
-                                    Data.teamNames.append(constructor.name)
-                                    Data.teamNationality.append(constructor.nationality)
-                                    Data.teamURL.append(constructor.url)
-                                    Data.constructorID.append(constructor.constructorID)
-                                    Data.f1Season.append(season)
-                                }
-                                return
-                            }
-                            let thumbnailURLString = thumbnail.source
-
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                           let query = json["query"] as? [String: Any],
+                           let pages = query["pages"] as? [String: Any],
+                           let pageID = pages.keys.first,
+                           let page = pages[pageID] as? [String: Any],
+                           let thumbnail = page["thumbnail"] as? [String: Any],
+                           let thumbnailURLString = thumbnail["source"] as? String {
+                            
+                            
+                            
                             DispatchQueue.main.async {
                                 let tuple = (constructor.constructorID, thumbnailURLString)
                                 let string = "\(tuple.0),\(tuple.1)"
@@ -117,17 +112,27 @@ struct F1ApiRoutes  {
                                 Data.constructorID.append(constructor.constructorID)
                                 Data.f1Season.append(season)
                             }
-                            // Move the completion handler here to ensure it's called after all constructors are processed
-                            completion(true)
-                        } catch let error {
-                            print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-                            // Handle error
+                        } else {
+                            DispatchQueue.main.async {
+                                Data.teamImgURL.append("\(constructor.constructorID),default")
+                                Data.teamNames.append(constructor.name)
+                                Data.teamNationality.append(constructor.nationality)
+                                Data.teamURL.append(constructor.url)
+                                Data.constructorID.append(constructor.constructorID)
+                                Data.f1Season.append(season)
+                            }
                         }
-                    }.resume()
-                }
-            } // end for loop
 
-        }
+                        completion(true)
+                    } catch let error {
+                        print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+                        // Handle error
+                    }
+                }.resume()
+            }
+        } // end for loop
+    }
+
     
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
         print(seasonYear, round)
