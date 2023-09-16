@@ -442,7 +442,9 @@ struct F1ApiRoutes  {
                         processDriverStandings(json, seasonYear: seasonYear, completion: completion)
 
                         // Save to UserDefaults
-                        UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
+                        if seasonYear != "2023" {
+                            UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
+                        }
 
                     } else {
                         print("Error: Invalid JSON structure")

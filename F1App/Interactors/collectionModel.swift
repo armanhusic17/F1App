@@ -215,7 +215,7 @@ struct CollectionModel {
             }
             
             if let teamName = teamNames[safe: dataIndex] {
-                cell.bottomCellLabel2.text = "\(teamName ?? "")"
+                cell.bottomCellLabel2.text = "Constructor: \(teamName ?? "")"
             }
             
             if let driverTitle = driverTitles[safe: dataIndex] {
@@ -243,10 +243,10 @@ struct CollectionModel {
                 } // end main
             }
             
-            if dataIndex == 0 {
-                cell.cellImage.alpha = 1
+            if indexPath.item == 0 {
+                cell.layer.borderColor = UIColor.systemYellow.cgColor
             } else {
-                cell.cellImage.alpha = 0.45
+                
             }
 
             break
