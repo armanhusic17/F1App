@@ -144,7 +144,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                 
                 let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
                 print(Data.driverLastName[safe: dataIndex] ?? "")
-                F1ApiRoutes.getDriverResults(driverId: (Data.driverLastName[safe: dataIndex]!!), limit: 1000) {  success, races in
+                F1ApiRoutes.getDriverResults(driverId: ((Data.driverLastName[safe: dataIndex] ?? "") ?? ""), limit: 1000) {  success, races in
                     print(success)
                     if success {
                         // Process the 'races' array containing the driver's race results

@@ -23,59 +23,59 @@ struct F1ApiRoutes  {
     typealias FoundationData = Foundation.Data
     static var cache = [String: FoundationData]()
 
+
     static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
-
-            // Check if data is in UserDefaults
+        // Check if data is in UserDefaults
         if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "allConstructors") {
-                do {
-                    let f1Data = try JSONDecoder().decode(Constructors.self, from: cachedData)
-                    handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
-                    print("SUCCESSFULLY GATHERED SAVED DATA")
-                    return
-                } catch let error {
-                    print("Error decoding cached data: \(error.localizedDescription)")
-                }
+            do {
+                let f1Data = try JSONDecoder().decode(Constructors.self, from: cachedData)
+                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
+                print("SUCCESSFULLY GATHERED SAVED DATA")
+                return
+            } catch let error {
+                print("Error decoding cached data: \(error.localizedDescription)")
             }
-
-            let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
-            guard let url = URL(string: urlString) else { return }
-
-            let sessionConfig = URLSessionConfiguration.default
-            sessionConfig.timeoutIntervalForRequest = 10
-            let session = URLSession(configuration: sessionConfig)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                guard let data = data else {
-                    print("Error: No data received")
-                    completion(false)
-                    return
-                }
-
-                do {
-                    let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
-
-                    // Cache the data
-                    cache[seasonYear] = data
-
-                    handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
-
-                    // Save to UserDefaults
-                    UserDefaults.standard.set(data, forKey: "cache_allConstructors_\(seasonYear)")
-
-                } catch let error {
-                    print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
-                    completion(false)
-                }
-            }
-
-            task.resume()
         }
+
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
+        guard let url = URL(string: urlString) else { return }
+
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 10
+        let session = URLSession(configuration: sessionConfig)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                print("Error: No data received")
+                completion(false)
+                return
+            }
+
+            do {
+                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
+
+                // Cache the data
+                cache[seasonYear] = data
+
+                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
+
+                // Save to UserDefaults
+                UserDefaults.standard.set(data, forKey: "cache_allConstructors_\(seasonYear)")
+
+            } catch let error {
+                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
+                completion(false)
+            }
+        }
+
+        task.resume()
+    }
             
-        static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
-            if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
-                return cachedData
-            }
-            return nil
+    static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
+        if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
+            return cachedData
         }
+        return nil
+    }
 
     static func handleFetchedData(_ f1Data: Constructors, seasonYear: String, completion: @escaping (Bool) -> Void) {
         let constructorTable = f1Data.data.constructorTable
@@ -803,5 +803,37 @@ struct Constructor: Decodable {
         case url = "url"
         case name = "name"
         case nationality = "nationality"
+    }
+}
+
+struct ConstructorStandings: Codable {
+    let data: StandingsData
+
+    struct StandingsData: Codable {
+        let season: String?
+        let standingsTable: StandingsTable
+
+        struct StandingsTable: Codable {
+            let standingsLists: [StandingsList]
+
+            struct StandingsList: Codable {
+                let season: String
+                let constructorStandings: [ConstructorStanding]
+
+                struct ConstructorStanding: Codable {
+                    let position: String
+                    let points: String
+                    let wins: String
+                    let constructor: Constructor
+
+                    struct Constructor: Codable {
+                        let constructorID: String
+                        let url: String
+                        let name: String
+                        let nationality: String
+                    }
+                }
+            }
+        }
     }
 }
