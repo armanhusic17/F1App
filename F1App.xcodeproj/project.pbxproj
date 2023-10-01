@@ -13,8 +13,6 @@
 		0F1021172A17161700695E8A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1021162A17161700695E8A /* CoreData.framework */; };
 		0F1D75172880FA7600EFE42E /* HomeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75162880FA7600EFE42E /* HomeCollection.swift */; };
 		0F1D75192881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
-		0F1D751A2881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
-		0F1D751B2881286500EFE42E /* myHomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* myHomeCell.swift */; };
 		0F343C9129C97BA100DA001A /* SingleResultCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9029C97BA100DA001A /* SingleResultCollection.swift */; };
 		0F343C9329C97BF000DA001A /* singleResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9229C97BF000DA001A /* singleResultCell.swift */; };
 		0F3703FD27F13C1400968C5F /* myCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3703FC27F13C1400968C5F /* myCell.swift */; };
@@ -41,11 +39,7 @@
 		0F9F7CB62890F9B7002383C2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0F9F7CB52890F9B7002383C2 /* FirebaseDatabaseSwift */; };
 		0F9F7CB82890F9B7002383C2 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 0F9F7CB72890F9B7002383C2 /* FirebaseStorage */; };
 		0FA3B5F628068F0D00A334D8 /* FirstResultCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResultCollection.swift */; };
-		0FA3B5F728068F0D00A334D8 /* FirstResultCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResultCollection.swift */; };
-		0FA3B5F828068F0D00A334D8 /* FirstResultCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResultCollection.swift */; };
 		0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
-		0FA3B5FB2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
-		0FA3B5FC2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
 		0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */; };
 		0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0E2863D76000A07E6A /* HomeModel.swift */; };
@@ -512,10 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FA3B5FB2806920E00A334D8 /* DataModel.swift in Sources */,
 				0F515A2A27EC1C00002129D7 /* F1AppTests.swift in Sources */,
-				0F1D751A2881286500EFE42E /* myHomeCell.swift in Sources */,
-				0FA3B5F728068F0D00A334D8 /* FirstResultCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,9 +516,6 @@
 			files = (
 				0F515A3427EC1C00002129D7 /* F1AppUITests.swift in Sources */,
 				0F515A3627EC1C00002129D7 /* F1AppUITestsLaunchTests.swift in Sources */,
-				0FA3B5F828068F0D00A334D8 /* FirstResultCollection.swift in Sources */,
-				0FA3B5FC2806920E00A334D8 /* DataModel.swift in Sources */,
-				0F1D751B2881286500EFE42E /* myHomeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

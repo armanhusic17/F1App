@@ -66,11 +66,7 @@ struct CollectionModel {
             return driverNames.count
         }
         if Data.whichQuery == 2 {
-            print(circuitCity.count)
-            print(circuitName.count)
-            print(circuitId.count)
-            guard let cellcount = cellCountForCircuits else {return 1}
-            return cellcount
+            return raceName.count
         }
         if Data.whichQuery == 3 {
             return  driverNames.count

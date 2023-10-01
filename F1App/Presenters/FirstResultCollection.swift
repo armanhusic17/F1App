@@ -12,12 +12,13 @@ import MapKit
 /// This is the inital collectionof results that appears when a user selects one of the 3 maain queries 
 class FirstResultCollection : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
-    var collectionmodel = CollectionModel()
-    let resultsModel = ResultsModel()
     
     var seasonYear:Int?
     var playerIndex:Int?
     var passedName:String?
+    
+    var collectionmodel = CollectionModel()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +117,8 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let resultsModel = ResultsModel()
+
         let cellIndexPath = indexPath.item
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
             
