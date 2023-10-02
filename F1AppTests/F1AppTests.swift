@@ -31,5 +31,22 @@ class F1AppTests: XCTestCase {
     }
             
   
+    func testHomeViewController() {
+        let home = HomeCollection()
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+    }
+    
+    func testWorldDriversChampionshipStandings() {
+        let expectation = XCTestExpectation(description: "Data loaded successfully")
+
+        F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: "2023") { success in
+            XCTAssertTrue(success, "Data should load successfully")
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0) // Adjust timeout if needed
+    }
 
 }

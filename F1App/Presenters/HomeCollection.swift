@@ -24,6 +24,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         super.viewDidLoad()
         
         collectionView.delegate = self
+        collectionView.dataSource = self
         navigationController?.delegate = self
        // Analytics.logEvent("Application Launched - BoxBoxF1", parameters: nil)
     }
