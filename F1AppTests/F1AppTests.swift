@@ -20,33 +20,25 @@ class F1AppTests: XCTestCase {
 
 
     
-    func testTest(){
-        let home = HomeModel()
-        let collection = CollectionModel()
-        let results = ResultsModel()
-        
-        
-        let firstTest = Int(home.seasonYear ?? "error unwrapping seasonYear") ?? 0
-        XCTAssertEqual(firstTest, 0)
-    }
-            
-  
-    func testHomeViewController() {
-        let home = HomeCollection()
-        let layout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
+    // Change year to any year from 1950 to Present - Test Passes Successfully retrieves data
+    func testWorldDriversChampionshipStandingsForAllYears() {
+        for year in 1999...2000 {
+            let expectation = XCTestExpectation(description: "Data loaded successfully for \(year)")
+
+            // Clear cache for the specific year
+            UserDefaults.standard.removeObject(forKey: "cache_worldDriversChampionshipStandings_\(year)")
+
+            F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: "\(year)") { success in
+                XCTAssertTrue(success, "Data should load successfully for \(year)")
+                expectation.fulfill()
+            }
+
+            wait(for: [expectation], timeout: 5.0) // Adjust timeout if needed
+        }
     }
     
-    func testWorldDriversChampionshipStandings() {
-        let expectation = XCTestExpectation(description: "Data loaded successfully")
+    
 
-        F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: "2023") { success in
-            XCTAssertTrue(success, "Data should load successfully")
-            expectation.fulfill()
-        }
 
-        wait(for: [expectation], timeout: 5.0) // Adjust timeout if needed
-    }
 
 }

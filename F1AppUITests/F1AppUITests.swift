@@ -38,4 +38,20 @@ class F1AppUITests: XCTestCase {
             }
         }
     }
+    
+    
+    func testNavigateToRaceDetail() throws {
+         let app = XCUIApplication()
+         app.launch()
+
+         // Assuming there's a table view displaying races
+         let raceCell = app.collectionViews.cells.element(boundBy: 1) // Assuming first cell
+
+         // Tap on the race cell
+         raceCell.tap()
+
+         // Check if we're on the race detail screen
+        XCTAssertTrue(app.collectionViews.cells.element.exists)
+
+     }
 }
