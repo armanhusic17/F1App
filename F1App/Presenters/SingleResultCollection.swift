@@ -28,10 +28,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         closerLookCollection.dataSource = self
         
         // Using this method to scroll to bottom of the collection
-        if Data.whichQuery == 0 {
+        if F1DataStore.whichQuery == 0 {
         }
         // Drivers
-        else if Data.whichQuery == 1 {
+        else if F1DataStore.whichQuery == 1 {
             DispatchQueue.main.async {
                 let item = self.collectionView(self.closerLookCollection, numberOfItemsInSection: 0) - 1
                 let lastItemIndex = IndexPath(item: item, section: 0)
@@ -40,10 +40,10 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             }
         }
         // Grand Prix
-        else if Data.whichQuery == 2 {
+        else if F1DataStore.whichQuery == 2 {
         }
         // WDC
-        else if Data.whichQuery == 3 {
+        else if F1DataStore.whichQuery == 3 {
             DispatchQueue.main.async {
                 let item = self.collectionView(self.closerLookCollection, numberOfItemsInSection: 0) - 1
                 let lastItemIndex = IndexPath(item: item, section: 0)
@@ -74,22 +74,22 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     @objc
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(Data.driverNames)
+        print(F1DataStore.driverNames)
         
         // Constructors
-        if Data.whichQuery == 0 {
+        if F1DataStore.whichQuery == 0 {
             return 1
         } // Drivers
-        else if Data.whichQuery == 1 {
-            return Data.driverFinishes.count
+        else if F1DataStore.whichQuery == 1 {
+            return F1DataStore.driverFinishes.count
         } // Grand Prix
-        else if Data.whichQuery == 2 {
-            return Data.driverNames.count
+        else if F1DataStore.whichQuery == 2 {
+            return F1DataStore.driverNames.count
         } // WDC
-        else if Data.whichQuery == 3 {
-            return  Data.driverFinishes.count
+        else if F1DataStore.whichQuery == 3 {
+            return  F1DataStore.driverFinishes.count
         } else {
-            return Data.driverNames.count
+            return F1DataStore.driverNames.count
         }
         return 1
     }
@@ -100,17 +100,17 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
 
         // Constructors
-        if Data.whichQuery == 0 {
+        if F1DataStore.whichQuery == 0 {
            
             
         }
         // Drivers
-        else if Data.whichQuery == 1 {
+        else if F1DataStore.whichQuery == 1 {
 
             var sortedIndices: [Int] = []
-            if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {
-                for rank in 1...Data.racePosition.count {
-                    if let index = Data.racePosition.firstIndex(of: "\(rank)") {
+            if let firstDriverIndex = F1DataStore.racePosition.firstIndex(of: "1") {
+                for rank in 1...F1DataStore.racePosition.count {
+                    if let index = F1DataStore.racePosition.firstIndex(of: "\(rank)") {
                         sortedIndices.append(index)
                     }
                 }
@@ -118,16 +118,16 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             
             let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
             
-            let driverFinishes = Data.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
-            let driverPoles = Data.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
-            let race = Data.raceName[safe: indexPath.item] ?? "[Grand Prix]"
-            let date = Data.raceDate[safe: indexPath.item] ?? "[Date]"
-            let racePace = Data.raceTime[safe: indexPath.item] ?? "[Pace]"
-            let circuitName = Data.circuitName[safe: indexPath.item] ?? "[Location]"
-            let team = Data.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
-            let totalPoles = countPoles(in: Data.driverPoles)
-            let totalWins = countFinishedP1Occurrences(in: Data.driverFinishes)
-            let totalStarts = Data.driverTotalStarts[safe: playerIndex ?? 0] ?? 0
+            let driverFinishes = F1DataStore.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
+            let driverPoles = F1DataStore.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
+            let race = F1DataStore.raceName[safe: indexPath.item] ?? "[Grand Prix]"
+            let date = F1DataStore.raceDate[safe: indexPath.item] ?? "[Date]"
+            let racePace = F1DataStore.raceTime[safe: indexPath.item] ?? "[Pace]"
+            let circuitName = F1DataStore.circuitName[safe: indexPath.item] ?? "[Location]"
+            let team = F1DataStore.raceWinnerTeam[safe: indexPath.item] ?? "[Team]"
+            let totalPoles = countPoles(in: F1DataStore.driverPoles)
+            let totalWins = countFinishedP1Occurrences(in: F1DataStore.driverFinishes)
+            let totalStarts = F1DataStore.driverTotalStarts[safe: playerIndex ?? 0] ?? 0
             let name = passedName ?? ""
             
             topBarLabel.text = "\(name)\nPoles: \(totalPoles)\nWins: \(totalWins)\nRaces: \(totalStarts!)"
@@ -148,25 +148,25 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
             
             }
         // Grand Prix
-        else if Data.whichQuery == 2 {
+        else if F1DataStore.whichQuery == 2 {
             // Extract all the necessary variables
-            let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
-            let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
-            let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
-            let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
-            let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
+            let driverName = F1DataStore.driverNames[safe: indexPath.item] ?? "[Driver Name]"
+            let driverPosition = F1DataStore.racePosition[safe: indexPath.item] ?? "???"
+            let constructorID = F1DataStore.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
+            let topSpeed = F1DataStore.raceTime[safe: indexPath.item] ?? ""
+            let fastestLap = F1DataStore.fastestLap[safe: indexPath.item] ?? "???"
             
             // Configure the cell using the extracted variables
             cell.driverName.text = "P\(driverPosition!) - \(driverName!)"
             cell.botLabel.text = "Constructor: \(constructorID!)\n\(fastestLap!)\n\(topSpeed!)"
             
-            if let singleRaceName = Data.singleRaceName {
+            if let singleRaceName = F1DataStore.singleRaceName {
                 topBarLabel.text = singleRaceName
             }
             
         }
         // WDC
-        else if Data.whichQuery == 3 {
+        else if F1DataStore.whichQuery == 3 {
                               
         }
 
@@ -188,16 +188,16 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let driverName = Data.driverNames[safe: indexPath.item] ?? "[Driver Name]"
-        let driverPosition = Data.racePosition[safe: indexPath.item] ?? "???"
-        let constructorID = Data.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
-        let topSpeed = Data.raceTime[safe: indexPath.item] ?? ""
-        let fastestLap = Data.fastestLap[safe: indexPath.item] ?? "???"
-        let url = Data.driverURL[safe: indexPath.item] ?? ""
-        let driverLastName = Data.driverLastName[safe: indexPath.item] ?? "[Driver Last Name]"
+        let driverName = F1DataStore.driverNames[safe: indexPath.item] ?? "[Driver Name]"
+        let driverPosition = F1DataStore.racePosition[safe: indexPath.item] ?? "???"
+        let constructorID = F1DataStore.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
+        let topSpeed = F1DataStore.raceTime[safe: indexPath.item] ?? ""
+        let fastestLap = F1DataStore.fastestLap[safe: indexPath.item] ?? "???"
+        let url = F1DataStore.driverURL[safe: indexPath.item] ?? ""
+        let driverLastName = F1DataStore.driverLastName[safe: indexPath.item] ?? "[Driver Last Name]"
 
         // Grand Prix
-        if Data.whichQuery == 2 {
+        if F1DataStore.whichQuery == 2 {
             F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 2000 ) { [self] success, races in
                 print(driverLastName ?? "")
                 if success {
@@ -212,11 +212,11 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
                             print(race.date)
                             print("\(result.driver.givenName) \(result.driver.familyName) ")
                             print("\(result.status) : P\(result.position)")
-                            Data.driverFinishes.append("\(result.status) : P\(result.position)")
+                            F1DataStore.driverFinishes.append("\(result.status) : P\(result.position)")
                             print("Pace: \(result.time?.time ?? "")")
                             print("\(result.constructor.name)")
                             print("Qualifying Position : P\(result.grid) ")
-                            Data.driverPoles.append("Qualifying Position : P\(result.grid) ")
+                            F1DataStore.driverPoles.append("Qualifying Position : P\(result.grid) ")
                             print("========================================================")
                         }
 
@@ -231,7 +231,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
 
 
         }
-        if Data.whichQuery == 3 {
+        if F1DataStore.whichQuery == 3 {
             print(driverName ?? "")
             print(driverPosition ?? "")
         }
@@ -247,20 +247,20 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Data.constructorID.removeAll()
+        F1DataStore.constructorID.removeAll()
 //        Data.racePosition.removeAll()
-        Data.fastestLap.removeAll()
-        Data.raceTime.removeAll()
-        Data.driverFinishes.removeAll()
-        Data.driverPoles.removeAll()
-        Data.raceWinnerTeam.removeAll()
-        Data.raceDate.removeAll()
-        Data.circuitName.removeAll()
-        Data.raceName.removeAll()
-        Data.driverTotalStarts.removeAll()
-        if Data.whichQuery != 1 || Data.whichQuery != 3 {
-            Data.driverNames.removeAll()
-            Data.driverFirstNames.removeAll()
+        F1DataStore.fastestLap.removeAll()
+        F1DataStore.raceTime.removeAll()
+        F1DataStore.driverFinishes.removeAll()
+        F1DataStore.driverPoles.removeAll()
+        F1DataStore.raceWinnerTeam.removeAll()
+        F1DataStore.raceDate.removeAll()
+        F1DataStore.circuitName.removeAll()
+        F1DataStore.raceName.removeAll()
+        F1DataStore.driverTotalStarts.removeAll()
+        if F1DataStore.whichQuery != 1 || F1DataStore.whichQuery != 3 {
+            F1DataStore.driverNames.removeAll()
+            F1DataStore.driverFirstNames.removeAll()
         }
         
     }

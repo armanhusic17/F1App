@@ -10,21 +10,24 @@ import SafariServices
 
 struct ResultsModel {
     // fields
-    let teamWikis = Data.teamURL
-    let driverWikis = Data.driverURL
-    let raceWiki = Data.circuitURL
+    let teamWikis = F1DataStore.teamURL
+    let driverWikis = F1DataStore.driverURL
+    let raceWiki = F1DataStore.circuitURL
     
     func loadResults(myself: UIViewController) {
-        guard let cellPath = Data.cellIndexPassed else { return }
+        guard let cellPath = F1DataStore.cellIndexPassed else { return }
         
         var urlString: String?
         
-        if Data.whichQuery == 0 {
-            urlString = teamWikis[cellPath]
-        } else if Data.whichQuery == 1 {
-            urlString = driverWikis[cellPath]
-        } else if Data.whichQuery == 2 {
-            urlString = raceWiki[cellPath]
+        if F1DataStore.whichQuery == 0 {
+            urlString = teamWikis[safe: cellPath] ?? ""
+            print(urlString)
+        } else if F1DataStore.whichQuery == 1 {
+            urlString = driverWikis[safe: cellPath] ?? ""
+            print(urlString)
+        } else if F1DataStore.whichQuery == 2 {
+            urlString = raceWiki[safe: cellPath] ?? ""
+            print(urlString)
         } else {
             print("No results tied to UI yet")
             return

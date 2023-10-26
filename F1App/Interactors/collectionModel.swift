@@ -12,46 +12,46 @@ import MapKit
 struct CollectionModel {
     
     
-    let teamNames = Data.teamNames
-    let driverNames = Data.driverNames
-    let constructorID = Data.constructorID
-    let teamNationality = Data.teamNationality
-    let driverNationality = Data.driverNationality
+    let teamNames = F1DataStore.teamNames
+    let driverNames = F1DataStore.driverNames
+    let constructorID = F1DataStore.constructorID
+    let teamNationality = F1DataStore.teamNationality
+    let driverNationality = F1DataStore.driverNationality
     
 
-    let driverCode = Data.driverCode
-    let driverNumbers = Data.driverNumber
-    let driversGivenName = Data.driverFirstNames
-    let driverDOB = Data.driverDOB
-    let driverImgs = Data.driverImgURL.compactMap { URL(string: $0!) }
-    let teamsImgs = Data.teamImgURL.compactMap { URL(string: $0!) }
-    let driverImgWiki = Data.driverWikiImgURL
-    let driverTitles = Data.driverChampionships
+    let driverCode = F1DataStore.driverCode
+    let driverNumbers = F1DataStore.driverNumber
+    let driversGivenName = F1DataStore.driverFirstNames
+    let driverDOB = F1DataStore.driverDOB
+    let driverImgs = F1DataStore.driverImgURL.compactMap { URL(string: $0!) }
+    let teamsImgs = F1DataStore.teamImgURL
+    let driverImgWiki = F1DataStore.driverWikiImgURL
+    let driverTitles = F1DataStore.driverChampionships
     
-    let circuitName = Data.circuitName
-    let circuitId = Data.circuitID
-    let circuitLocation = Data.circuitLocation
-    let circuitCity = Data.circuitCity
-    let circuitLong = Data.circuitLongitude
-    let circuitLat = Data.circuitLatitude
-    let circuitRaceDate = Data.circuitRaceDate
+    let circuitName = F1DataStore.circuitName
+    let circuitId = F1DataStore.circuitID
+    let circuitLocation = F1DataStore.circuitLocation
+    let circuitCity = F1DataStore.circuitCity
+    let circuitLong = F1DataStore.circuitLongitude
+    let circuitLat = F1DataStore.circuitLatitude
+    let circuitRaceDate = F1DataStore.circuitRaceDate
     
-    let raceURL = Data.raceURL
-    let raceName = Data.raceName
-    let raceDate = Data.raceDate
-    let raceTime = Data.raceTime
-    let raceSeason = Data.f1Season
-    let finishes = Data.driverFinishes
+    let raceURL = F1DataStore.raceURL
+    let raceName = F1DataStore.raceName
+    let raceDate = F1DataStore.raceDate
+    let raceTime = F1DataStore.raceTime
+    let raceSeason = F1DataStore.f1Season
+    let finishes = F1DataStore.driverFinishes
     
-    let raceWins = Data.raceWins
-    let racePoints = Data.racePoints
-    let racePosition = Data.racePosition
-    let raceWinnerName = Data.raceWinnerName
-    let raceWinnerTeam = Data.raceWinnerTeam
+    let raceWins = F1DataStore.raceWins
+    let racePoints = F1DataStore.racePoints
+    let racePosition = F1DataStore.racePosition
+    let raceWinnerName = F1DataStore.raceWinnerName
+    let raceWinnerTeam = F1DataStore.raceWinnerTeam
     
-    let qualiResuls = Data.qualiResults
+    let qualiResuls = F1DataStore.qualiResults
     
-    let cellCountForCircuits = Data.cellCount
+    let cellCountForCircuits = F1DataStore.cellCount
     
 
     // removing data from cells to be able to load the data again
@@ -59,16 +59,16 @@ struct CollectionModel {
 
     
     func howManyCells() -> Int{
-        if Data.whichQuery == 0 {
+        if F1DataStore.whichQuery == 0 {
             return teamNames.count
         }
-        if Data.whichQuery == 1 {
+        if F1DataStore.whichQuery == 1 {
             return driverNames.count
         }
-        if Data.whichQuery == 2 {
+        if F1DataStore.whichQuery == 2 {
             return raceName.count
         }
-        if Data.whichQuery == 3 {
+        if F1DataStore.whichQuery == 3 {
             return  driverNames.count
         }
 
@@ -83,19 +83,19 @@ struct CollectionModel {
         let queryWidth:CGFloat?
         let queryHeight:CGFloat?
         
-        if Data.whichQuery == 0 {
+        if F1DataStore.whichQuery == 0 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.33
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
-        } else if Data.whichQuery == 1 {
+        } else if F1DataStore.whichQuery == 1 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.35
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
-        } else if Data.whichQuery == 2 {
+        } else if F1DataStore.whichQuery == 2 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.60
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
-        } else if Data.whichQuery == 3 {
+        } else if F1DataStore.whichQuery == 3 {
             queryWidth = availableWidth * 0.95
             queryHeight = availableHeight * 0.28
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
@@ -124,165 +124,164 @@ struct CollectionModel {
     }
 
     
-
-
-
-    
-    
-    // what data is shown in the each cell
-    func cellLogic(cell:myCell, indexPath:IndexPath, mapView:MKMapView, seasonYear: Int){
-        switch Data.whichQuery {
-        
-        case 0: // constructor
-            let imageURL = self.teamsImgs[safe: indexPath.item]
-            let cleanedURL = URL(string: imageURL?.absoluteString.components(separatedBy: ",")[1] ?? "")
-            cell.cellImage.contentMode = .scaleAspectFill
-            loadImage(withURL: cleanedURL) { image in
-                DispatchQueue.main.async {
-                    if image != nil {
-                        cell.cellImage.image = image
-                        cell.cellImage.alpha = 1.0
-
-                    } else {
-                        cell.cellImage.contentMode = .scaleAspectFit
-                        cell.cellImage.image = UIImage(named: "f1Car")
-                        cell.cellImage.alpha = 0.5
-                    }
-                    cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-                    cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
-                }
-            }
-            
-            cell.cellImage.layer.borderWidth = 1
-            cell.cellImage.layer.borderColor = UIColor.white.cgColor
-            cell.F1MapView.isHidden = true
-            cell.mapView.isHidden = true
-            cell.topCellLabel.text = "Constructor: \(self.teamNames[indexPath.item] ?? "")"
-            cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
-            break
-                
-        case 1: // WDC
-            cell.cellImage.contentMode = .scaleAspectFill
-            cell.bottomCellLabel2.isHidden = false
-            cell.bottomCellLabel.isHidden = false
-            cell.topCellLabel.isHidden = false
-            
-            var sortedIndices: [Int] = []
-            if let firstDriverIndex = racePosition.firstIndex(of: "1") {
-                for rank in 1...racePosition.count {
-                    if let index = racePosition.firstIndex(of: "\(rank)") {
-                        sortedIndices.append(index)
-                    }
-                }
-            }
-            
-            let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
-
-            let currentYear = Calendar.current.component(.year, from: Date())
-            let isCurrentYear = (Int(raceSeason[0]!) ?? 0) == currentYear
-
-            if let racePosition = racePosition[safe: dataIndex] {
-                var rankText = ""
-                if isCurrentYear && racePosition == "1" {
-                    rankText = "Championship Leader"
-                } else if racePosition == "1" {
-                    rankText = "Champion"
-                } else {
-                    rankText = "WDC Rank: \(racePosition ?? "")"
-                }
-                
-                cell.bottomCellLabel.text = "\(raceSeason[0]!) \(rankText)"
-            } else {
-                cell.bottomCellLabel.text = "\(raceSeason[0]!) WDC Rank: N/A"
-            }
-
-
-            
-            if let driverName = driverNames[safe: dataIndex] {
-                cell.topCellLabel.text = driverName
-            } else {
-                cell.topCellLabel.text = "Driver Name: N/A"
-            }
-            
-            if let racePoint = racePoints[safe: dataIndex] {
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: \(racePoint ?? "")"
-            } else {
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: N/A"
-            }
-            
-            if let teamName = teamNames[safe: dataIndex] {
-                cell.bottomCellLabel2.text = "Constructor: \(teamName ?? "")"
-            }
-            
-            if let driverTitle = driverTitles[safe: dataIndex] {
-                let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
-                let capitalizedKey = formattedKey.capitalized
-                cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(dataIndex + 1): \(capitalizedKey)\n\(driverTitle.value)-Time WDC"
-            }
-            
-            
-            cell.mapView.isHidden = true
-            cell.F1MapView.isHidden = true
-            
-            // Load driver image using the same method as case 1
-            let imageURL = Data.driverImgURL[safe: dataIndex]
-            let cleanedURL = URL(string: (imageURL ?? "lewis")!)
-            
-            loadImage(withURL: cleanedURL) { image in
-                DispatchQueue.main.async {
-                    if image != nil {
-                        cell.cellImage.image = image
-                    } else {
-                        cell.cellImage.contentMode = .scaleAspectFill
-                        cell.cellImage.image = UIImage(named: "lewis")
-                    }
-                } // end main
-            }
-            
-            if indexPath.item == 0 {
-                cell.layer.borderColor = UIColor.systemYellow.cgColor
-            } else {
-                
-            }
-
-            break
-            
-        case 2: // circuits
-            cell.F1MapView.isHidden = false
-            cell.mapView.isHidden = false
-            
-            let circuitLatStr = circuitLat[safe: indexPath.item] ?? ""
-            let circuitLongStr = circuitLong[safe: indexPath.item] ?? ""
-            let circuitNameStr = circuitName[safe: indexPath.item] ?? ""
-            let circuitCityStr = circuitCity[safe: indexPath.item] ?? "City"
-            let circuitLocationStr = circuitLocation[safe: indexPath.item] ?? "Country"
-            let circuitRaceDateStr = circuitRaceDate[safe: indexPath.item] ?? ""
-            
-            let initialLocation = CLLocation(latitude: Double(circuitLatStr!) ?? 1.0, longitude: Double(circuitLongStr!) ?? 1.0)
-            cell.F1MapView.centerToLocation(initialLocation)
-
-            let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
-            cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
-            cell.cellImage.isHidden = true
-            cell.cellImage2.image = UIImage(named: "circuitLogo")
-            cell.bottomCellLabel2.text = "\(circuitCityStr!), \(circuitLocationStr!)"
-            cell.topCellLabel.text = circuitNameStr
-            cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"+", \(circuitRaceDateStr!)"
-            cell.mapView.layer.borderWidth = 2
-            cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
-
-            break
-        case 3: // WDC
+    func cellLogic(cell: myCell, indexPath: IndexPath, mapView: MKMapView, seasonYear: Int) {
+        switch F1DataStore.whichQuery {
+        case 0:
+            configureConstructorCell(cell: cell, indexPath: indexPath)
+        case 1:
+            configureWDCCell(cell: cell, indexPath: indexPath)
+        case 2:
+            configureCircuitCell(cell: cell, indexPath: indexPath, mapView: mapView)
+        case 3:
             print("OLD QUERY")
-            break
-
-
         case .none:
             print("None")
         case .some(_):
             print("Some")
-        } // end Data.WhichQuery
+        }
     }
+
+    func configureConstructorCell(cell: myCell, indexPath: IndexPath) {
+        let imageURL = self.teamsImgs[safe: indexPath.item]
+        let cleanedURL = URL(string: (imageURL ?? "") ?? "")
+        cell.cellImage.contentMode = .scaleAspectFill
+        loadImage(withURL: cleanedURL) { image in
+            DispatchQueue.main.async {
+                if image != nil {
+                    cell.cellImage.image = image
+                    cell.cellImage.alpha = 1.0
+                } else {
+                    cell.cellImage.contentMode = .scaleAspectFit
+                    cell.cellImage.image = UIImage(named: "f1Car")
+                    cell.cellImage.alpha = 0.5
+                }
+                cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
+                cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
+            }
+        }
+
+        cell.cellImage.layer.borderWidth = 1
+        cell.cellImage.layer.borderColor = UIColor.white.cgColor
+        cell.F1MapView.isHidden = true
+        cell.mapView.isHidden = true
+    }
+
+    func configureWDCCell(cell: myCell, indexPath: IndexPath) {
+        // Existing WDC logic here...
+        cell.cellImage.contentMode = .scaleAspectFill
+        cell.bottomCellLabel2.isHidden = false
+        cell.bottomCellLabel.isHidden = false
+        cell.topCellLabel.isHidden = false
+        
+        var sortedIndices: [Int] = []
+        if let firstDriverIndex = racePosition.firstIndex(of: "1") {
+            for rank in 1...racePosition.count {
+                if let index = racePosition.firstIndex(of: "\(rank)") {
+                    sortedIndices.append(index)
+                }
+            }
+        }
+        
+        let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
+
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let isCurrentYear = (Int(raceSeason[0]!) ?? 0) == currentYear
+
+        if let racePosition = racePosition[safe: dataIndex] {
+            var rankText = ""
+            if isCurrentYear && racePosition == "1" {
+                rankText = "Championship Leader"
+            } else if racePosition == "1" {
+                rankText = "Champion"
+            } else {
+                rankText = "WDC Rank: \(racePosition ?? "")"
+            }
+            
+            cell.bottomCellLabel.text = "\(raceSeason[0]!) \(rankText)"
+        } else {
+            cell.bottomCellLabel.text = "\(raceSeason[0]!) WDC Rank: N/A"
+        }
+
+
+        
+        if let driverName = driverNames[safe: dataIndex] {
+            cell.topCellLabel.text = driverName
+        } else {
+            cell.topCellLabel.text = "Driver Name: N/A"
+        }
+        
+        if let racePoint = racePoints[safe: dataIndex] {
+            cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: \(racePoint ?? "")"
+        } else {
+            cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nPoints: N/A"
+        }
+        
+        if let teamName = teamNames[safe: dataIndex] {
+            cell.bottomCellLabel2.text = "Constructor: \(teamName ?? "")"
+        }
+        
+        if let driverTitle = driverTitles[safe: dataIndex] {
+            let formattedKey = driverTitle.key.replacingOccurrences(of: "_", with: " ")
+            let capitalizedKey = formattedKey.capitalized
+            cell.bottomCellLabel.text = "\(cell.bottomCellLabel.text ?? "")\nAll Time #\(dataIndex + 1): \(capitalizedKey)\n\(driverTitle.value)-Time WDC"
+        }
+        
+        
+        cell.mapView.isHidden = true
+        cell.F1MapView.isHidden = true
+        
+        // Load driver image using the same method as case 1
+        let imageURL = F1DataStore.driverImgURL[safe: dataIndex]
+        let cleanedURL = URL(string: (imageURL ?? "lewis")!)
+        
+        loadImage(withURL: cleanedURL) { image in
+            DispatchQueue.main.async {
+                if image != nil {
+                    cell.cellImage.image = image
+                } else {
+                    cell.cellImage.contentMode = .scaleAspectFill
+                    cell.cellImage.image = UIImage(named: "lewis")
+                }
+            } // end main
+        }
+        
+        if indexPath.item == 0 {
+            cell.layer.borderColor = UIColor.systemYellow.cgColor
+        } else {
+            
+        }
+
+    }
+
+    func configureCircuitCell(cell: myCell, indexPath: IndexPath, mapView: MKMapView) {
+        // Existing circuit logic here...
+        cell.F1MapView.isHidden = false
+        cell.mapView.isHidden = false
+        
+        let circuitLatStr = circuitLat[safe: indexPath.item] ?? ""
+        let circuitLongStr = circuitLong[safe: indexPath.item] ?? ""
+        let circuitNameStr = circuitName[safe: indexPath.item] ?? ""
+        let circuitCityStr = circuitCity[safe: indexPath.item] ?? "City"
+        let circuitLocationStr = circuitLocation[safe: indexPath.item] ?? "Country"
+        let circuitRaceDateStr = circuitRaceDate[safe: indexPath.item] ?? ""
+        
+        let initialLocation = CLLocation(latitude: Double(circuitLatStr!) ?? 1.0, longitude: Double(circuitLongStr!) ?? 1.0)
+        cell.F1MapView.centerToLocation(initialLocation)
+
+        let zoomRange = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 500000)
+        cell.F1MapView.setCameraZoomRange(zoomRange, animated: true)
+        cell.cellImage.isHidden = true
+        cell.cellImage2.image = UIImage(named: "circuitLogo")
+        cell.bottomCellLabel2.text = "\(circuitCityStr!), \(circuitLocationStr!)"
+        cell.topCellLabel.text = circuitNameStr
+        cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"+", \(circuitRaceDateStr!)"
+        cell.mapView.layer.borderWidth = 2
+        cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
+
+    }
+
+    
+
     
     // formatting the look of the cells
     func cellViewFormat(cell:myCell){

@@ -100,30 +100,37 @@ struct F1ApiRoutes  {
                            let thumbnail = page["thumbnail"] as? [String: Any],
                            let thumbnailURLString = thumbnail["source"] as? String {
                             
-                            
+                            print(thumbnailURLString)
                             
                             DispatchQueue.main.async {
-                                let tuple = (constructor.constructorID, thumbnailURLString)
-                                let string = "\(tuple.0),\(tuple.1)"
-                                Data.teamImgURL.append(string)
-                                Data.teamNames.append(constructor.name)
-                                Data.teamNationality.append(constructor.nationality)
-                                Data.teamURL.append(constructor.url)
-                                Data.constructorID.append(constructor.constructorID)
-                                Data.f1Season.append(season)
+                                if !F1DataStore.constructorID.contains(constructor.constructorID) {
+                                    let tuple = (constructor.constructorID, thumbnailURLString)
+                                    let string = "\(tuple.0),\(tuple.1)"
+                                    print(constructor.url)
+                                    F1DataStore.teamImgURL.append(tuple.1)
+                                    F1DataStore.teamNames.append(constructor.name)
+                                    F1DataStore.teamNationality.append(constructor.nationality)
+                                    F1DataStore.teamURL.append(constructor.url)
+                                    F1DataStore.constructorID.append(constructor.constructorID)
+                                    F1DataStore.f1Season.append(season)
+                                }
                             }
                         } else {
                             DispatchQueue.main.async {
-                                Data.teamImgURL.append("\(constructor.constructorID),default")
-                                Data.teamNames.append(constructor.name)
-                                Data.teamNationality.append(constructor.nationality)
-                                Data.teamURL.append(constructor.url)
-                                Data.constructorID.append(constructor.constructorID)
-                                Data.f1Season.append(season)
+                                if !F1DataStore.constructorID.contains(constructor.constructorID) {
+                                    F1DataStore.teamImgURL.append("\(constructor.constructorID),default")
+                                    F1DataStore.teamNames.append(constructor.name)
+                                    F1DataStore.teamNationality.append(constructor.nationality)
+                                    F1DataStore.teamURL.append(constructor.url)
+                                    F1DataStore.constructorID.append(constructor.constructorID)
+                                    F1DataStore.f1Season.append(season)
+                                    print(F1DataStore.teamURL)
+                                }
                             }
+                            completion(true)
                         }
 
-                        completion(true)
+                        
                     } catch let error {
                         print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
                         // Handle error
@@ -151,16 +158,16 @@ struct F1ApiRoutes  {
             do {
                 let raceResults = try JSONDecoder().decode(RaceResults.self, from: data)
                 for race in raceResults.mrData.raceTable.races {
-                    Data.singleRaceName = "\(seasonYear)\n\(race.raceName) \nRound \(round)"
+                    F1DataStore.singleRaceName = "\(seasonYear)\n\(race.raceName) \nRound \(round)"
                     for result in race.results {
-                        Data.constructorID.append(result.constructor.name)
-                        Data.driverNames.append("\(result.driver.givenName) \(result.driver.familyName)")
-                        Data.driverLastName.append(result.driver.familyName)
-                        Data.racePosition.append(result.position)
-                        Data.racePoints.append(result.points)
-                        Data.fastestLap.append("Fastest Lap: \(result.fastestLap?.time.time ?? "")")
-                        Data.raceTime.append("Starting Grid Position: \(result.grid)\nLaps Completed: \(result.laps)\nRace Pace: \(result.time?.time ?? "Way Off")")
-                        Data.qualiResults.append(result.grid)
+                        F1DataStore.constructorID.append(result.constructor.name)
+                        F1DataStore.driverNames.append("\(result.driver.givenName) \(result.driver.familyName)")
+                        F1DataStore.driverLastName.append(result.driver.familyName)
+                        F1DataStore.racePosition.append(result.position)
+                        F1DataStore.racePoints.append(result.points)
+                        F1DataStore.fastestLap.append("Fastest Lap: \(result.fastestLap?.time.time ?? "")")
+                        F1DataStore.raceTime.append("Starting Grid Position: \(result.grid)\nLaps Completed: \(result.laps)\nRace Pace: \(result.time?.time ?? "Way Off")")
+                        F1DataStore.qualiResults.append(result.grid)
                      
                     }
                     completion(true)
@@ -318,19 +325,19 @@ struct F1ApiRoutes  {
                             let lat = location["lat"] as? String,
                             let long = location["long"] as? String {
                             
-                            Data.circuitRaceDate.append(date)
-                            Data.raceName.append(raceName)
-                            Data.circuitID.append(circuit["circuitId"] as? String ?? "")
-                            Data.circuitName.append(circuitName)
-                            Data.circuitLocation.append(country)
-                            Data.circuitCity.append(locality)
-                            Data.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
-                            Data.circuitLatitude.append(lat)
-                            Data.circuitLongitude.append(long)
+                            F1DataStore.circuitRaceDate.append(date)
+                            F1DataStore.raceName.append(raceName)
+                            F1DataStore.circuitID.append(circuit["circuitId"] as? String ?? "")
+                            F1DataStore.circuitName.append(circuitName)
+                            F1DataStore.circuitLocation.append(country)
+                            F1DataStore.circuitCity.append(locality)
+                            F1DataStore.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
+                            F1DataStore.circuitLatitude.append(lat)
+                            F1DataStore.circuitLongitude.append(long)
                         }
                     }
                     print("RACE DATA LOADED FROM CACHE")
-                    Data.cellCount = races.count - 1
+                    F1DataStore.cellCount = races.count - 1
                     completion(true)
                     return // Data is loaded from cache, so we're done
                 }
@@ -364,19 +371,19 @@ struct F1ApiRoutes  {
                             let lat = location["lat"] as? String,
                             let long = location["long"] as? String {
                             
-                            Data.circuitRaceDate.append(date)
-                            Data.raceName.append(raceName)
-                            Data.circuitID.append(circuit["circuitId"] as? String ?? "")
-                            Data.circuitName.append(circuitName)
-                            Data.circuitLocation.append(country)
-                            Data.circuitCity.append(locality)
-                            Data.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
-                            Data.circuitLatitude.append(lat)
-                            Data.circuitLongitude.append(long)
+                            F1DataStore.circuitRaceDate.append(date)
+                            F1DataStore.raceName.append(raceName)
+                            F1DataStore.circuitID.append(circuit["circuitId"] as? String ?? "")
+                            F1DataStore.circuitName.append(circuitName)
+                            F1DataStore.circuitLocation.append(country)
+                            F1DataStore.circuitCity.append(locality)
+                            F1DataStore.circuitURL.append("https://en.wikipedia.org/wiki/\(circuitName.replacingOccurrences(of: " ", with: "_"))")
+                            F1DataStore.circuitLatitude.append(lat)
+                            F1DataStore.circuitLongitude.append(long)
                             
                         }
                     }
-                    Data.cellCount = races.count - 1
+                    F1DataStore.cellCount = races.count - 1
 
                     // Cache the data to UserDefaults
                     if let jsonData = try? JSONSerialization.data(withJSONObject: f1Data ?? [:], options: []) {
@@ -468,7 +475,7 @@ struct F1ApiRoutes  {
             let standingsTable = mrData["StandingsTable"] as? [String: Any],
             let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
             
-            Data.f1Season.append(seasonYear) // Assuming Data.f1Season is a global variable or property
+            F1DataStore.f1Season.append(seasonYear) // Assuming Data.f1Season is a global variable or property
             
             for standingsList in standingsLists {
                 let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
@@ -493,11 +500,11 @@ struct F1ApiRoutes  {
                         
                         fetchDriverInfoFromWikipedia(givenName: givenName, familyName: familyName) { success in
                             if success {
-                                Data.racePosition.append(position)
-                                Data.racePoints.append(points)
-                                Data.driverNames.append("\(givenName) \(familyName)")
-                                Data.driverLastName.append(familyName)
-                                Data.teamNames.append(teamNamesString)
+                                F1DataStore.racePosition.append(position)
+                                F1DataStore.racePoints.append(points)
+                                F1DataStore.driverNames.append("\(givenName) \(familyName)")
+                                F1DataStore.driverLastName.append(familyName)
+                                F1DataStore.teamNames.append(teamNamesString)
                                 // Add other driver information...
                                 completion(true)
                             } else {
@@ -548,7 +555,7 @@ struct F1ApiRoutes  {
                 let thumbnailURLString = page.thumbnail?.source
                 
                 DispatchQueue.main.async {
-                    Data.driverImgURL.append(thumbnailURLString ?? "lewis")
+                    F1DataStore.driverImgURL.append(thumbnailURLString ?? "lewis")
                     // Append other driver information...
                     completion(true)
                 }
@@ -606,8 +613,8 @@ struct F1ApiRoutes  {
                             }
                         }
 
-                        Data.driverChampionships.append(contentsOf: driverChampionships.sorted { $0.value > $1.value })
-                        for (driverId, championships) in  Data.driverChampionships {
+                        F1DataStore.driverChampionships.append(contentsOf: driverChampionships.sorted { $0.value > $1.value })
+                        for (driverId, championships) in  F1DataStore.driverChampionships {
                             print("Driver: \(driverId), Championships: \(championships)")
                         }
                         completion(true)

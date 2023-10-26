@@ -46,6 +46,12 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController == self {
             print("Showing self now")
+            // Team Data
+            F1DataStore.constructorID.removeAll()
+            F1DataStore.teamURL.removeAll()
+            F1DataStore.teamNames.removeAll()
+            F1DataStore.teamNationality.removeAll()
+            F1DataStore.teamImgURL.removeAll()
         }
     }
     
@@ -98,7 +104,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderWidth = 0.0
         }
         if indexPath.item == 1 {
-            Data.whichQuery = 0
+            F1DataStore.whichQuery = 0
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
@@ -110,7 +116,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             
         }
         if indexPath.item == 2 {
-            Data.whichQuery = 1
+            F1DataStore.whichQuery = 1
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
             cell.homeBaseView.alpha = 1.0
@@ -122,7 +128,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         }
         if indexPath.item == 3 {
-            Data.whichQuery = 2
+            F1DataStore.whichQuery = 2
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemGray.cgColor
             cell.homeBaseView.alpha = 1.0
@@ -134,7 +140,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         }
         if indexPath.item == 4 {
-            Data.whichQuery = 3
+            F1DataStore.whichQuery = 3
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
@@ -167,7 +173,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         if indexPath.item == 1 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                 print("Constructors cell is selected")
-                Data.whichQuery = 0
+                F1DataStore.whichQuery = 0
                 cell.layer.borderColor = UIColor.clear.cgColor
                 homeModel.setQueryNum(enterYear: cell.enterF1SeasonYear, homeSelf: self, cellIndex: indexPath)
             }
@@ -175,7 +181,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         if indexPath.item == 2 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                 print("Drivers cell is selected")
-                Data.whichQuery = 1
+                F1DataStore.whichQuery = 1
                 cell.layer.borderColor = UIColor.clear.cgColor
 
                 seasonYear = Int(cell.enterF1SeasonYear.text)
@@ -185,7 +191,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         if indexPath.item == 3 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                 print("Circuits cell is selected")
-                Data.whichQuery = 2
+                F1DataStore.whichQuery = 2
                 // set season year
                 seasonYear = Int(cell.enterF1SeasonYear.text)
                 cell.layer.borderColor = UIColor.clear.cgColor
@@ -195,7 +201,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         if indexPath.item == 4 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
                 print("WDC cell is selected")
-                Data.whichQuery = 3
+                F1DataStore.whichQuery = 3
                 cell.layer.borderColor = UIColor.clear.cgColor
 
                 seasonYear = Int(cell.enterF1SeasonYear.text)

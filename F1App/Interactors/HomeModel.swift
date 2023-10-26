@@ -19,7 +19,7 @@ struct HomeModel {
 
     
     func showAlert(passSelf:HomeCollection){
-        switch Data.whichQuery {
+        switch F1DataStore.whichQuery {
         case 0:
             let alert = UIAlertController(title: "Available Years for Constructor Data", message: "Only Data 1950 - Present available.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -146,14 +146,14 @@ struct HomeModel {
         let targetYear:Int?
         let maxYear = returnYear()
         // TEAMS QUERY
-        if Data.whichQuery == 0 {
+        if F1DataStore.whichQuery == 0 {
             targetYear = 1950
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
+                F1DataStore.seasonYearSelected = enterYear.text
+                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
                 print(thisSeason)
                 F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
                     if Success {
@@ -167,15 +167,15 @@ struct HomeModel {
         }
         
         // WORLD DRIVERS' CHAMPIONSHIP QUERY
-        else if Data.whichQuery == 1 {
+        else if F1DataStore.whichQuery == 1 {
 
             targetYear = 1950
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
                 showAlert(passSelf: homeSelf)
             } else {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
+                F1DataStore.seasonYearSelected = enterYear.text
+                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
                 print(thisSeason)
                 F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
                     if Success {
@@ -192,13 +192,13 @@ struct HomeModel {
             }
         }
         // GRAND PRIX QUERY
-        else if Data.whichQuery == 2 {
+        else if F1DataStore.whichQuery == 2 {
             let targetYear = 1950
             let upperBound = 2023
 
             if year >= targetYear && year <= upperBound {
-                Data.seasonYearSelected = enterYear.text
-                guard let thisSeason = Data.seasonYearSelected else { return }
+                F1DataStore.seasonYearSelected = enterYear.text
+                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
                 print("RUNNING QUERY")
                 print(thisSeason)
             } else {
@@ -206,7 +206,7 @@ struct HomeModel {
                 showAlert(passSelf: homeSelf)
             }
 
-            F1ApiRoutes.allRaceSchedule(seasonYear: Data.seasonYearSelected ?? "2023") { Success in
+            F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2023") { Success in
                 if Success {
                     showResults(qTime: 0.10, homeSelf: homeSelf)
                 } else {
@@ -216,7 +216,7 @@ struct HomeModel {
 
         }
         // WDC QUERY
-        else if Data.whichQuery == 3 {
+        else if F1DataStore.whichQuery == 3 {
 
         }
 

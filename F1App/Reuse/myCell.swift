@@ -27,7 +27,7 @@ class myCell: UICollectionViewCell {
     
     func getCellIndexPath(myCell:myCell, myCellIP: Int){
         myCellIndexPath = myCellIP
-        Data.cellIndexPassed = myCellIndexPath
+        F1DataStore.cellIndexPassed = myCellIndexPath
     }
     
    

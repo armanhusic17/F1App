@@ -134,20 +134,20 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             cell.getCellIndexPath(myCell: cell, myCellIP: cellIndexPath)
             playerIndex = cellIndexPath
 
-            if Data.whichQuery == 1 {
+            if F1DataStore.whichQuery == 1 {
                 print("THIS SHOULD TRIGGER GRABBING THE DRIVERS NAME AND USING IT TO QUERY THEIR STATS")
                 var sortedIndices: [Int] = []
-                if let firstDriverIndex = Data.racePosition.firstIndex(of: "1") {
-                    for rank in 1...Data.racePosition.count {
-                        if let index = Data.racePosition.firstIndex(of: "\(rank)") {
+                if let firstDriverIndex = F1DataStore.racePosition.firstIndex(of: "1") {
+                    for rank in 1...F1DataStore.racePosition.count {
+                        if let index = F1DataStore.racePosition.firstIndex(of: "\(rank)") {
                             sortedIndices.append(index)
                         }
                     }
                 }
                 
                 let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
-                print(Data.driverLastName[safe: dataIndex] ?? "")
-                F1ApiRoutes.getDriverResults(driverId: ((Data.driverLastName[safe: dataIndex] ?? "") ?? ""), limit: 1000) {  success, races in
+                print(F1DataStore.driverLastName[safe: dataIndex] ?? "")
+                F1ApiRoutes.getDriverResults(driverId: ((F1DataStore.driverLastName[safe: dataIndex] ?? "") ?? ""), limit: 1000) {  success, races in
                     print(success)
                     if success {
                         // Process the 'races' array containing the driver's race results
@@ -155,15 +155,15 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                             // Access race information like raceName, circuit, date, etc.
                             for result in race.results {
                                 // Access driver-specific information like position, points, fastest lap, etc.
-                                Data.raceName.append("\(race.raceName)")
-                                Data.circuitName.append(race.circuit.circuitName)
-                                Data.raceDate.append(race.date)
-                                Data.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
-                                Data.driverFinishes.append("\(result.status) : P\(result.position) ")
-                                Data.raceTime.append("Pace: \(result.time?.time ?? "")")
-                                Data.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
-                                Data.driverPoles.append("Qualified : P\(result.grid) ")
-                                Data.driverTotalStarts.append(races.count)
+                                F1DataStore.raceName.append("\(race.raceName)")
+                                F1DataStore.circuitName.append(race.circuit.circuitName)
+                                F1DataStore.raceDate.append(race.date)
+                                F1DataStore.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
+                                F1DataStore.driverFinishes.append("\(result.status) : P\(result.position) ")
+                                F1DataStore.raceTime.append("Pace: \(result.time?.time ?? "")")
+                                F1DataStore.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
+                                F1DataStore.driverPoles.append("Qualified : P\(result.grid) ")
+                                F1DataStore.driverTotalStarts.append(races.count)
                             }
                         }
 
@@ -175,11 +175,11 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                     }
                 }
             }
-            else if Data.whichQuery == 2 {
+            else if F1DataStore.whichQuery == 2 {
                 print("SEASON YEAR BELOW")
                 print(seasonYear, cellIndexPath + 1)
-                F1ApiRoutes.allRaceResults(seasonYear: Data.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
-                    Data.seasonRound = cellIndexPath
+                F1ApiRoutes.allRaceResults(seasonYear: F1DataStore.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
+                    F1DataStore.seasonRound = cellIndexPath
                     if Success {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
                             self.performSegue(withIdentifier: "closerLookTransition", sender: self)
@@ -191,7 +191,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                 }
 
             }
-            else if Data.whichQuery == 3 {
+            else if F1DataStore.whichQuery == 3 {
           
                 
             } // end whichquery == 3
@@ -218,47 +218,47 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        Data.driverNationality.removeAll()
-        Data.driverURL.removeAll()
-        Data.driverNames.removeAll()
-        Data.driverFirstNames.removeAll()
-        Data.driverDOB.removeAll()
-        Data.driverNumber.removeAll()
-        Data.driverCode.removeAll()
-        Data.driverImgURL.removeAll()
-        Data.driverWikiImgURL.removeAll()
-        Data.driverLastName.removeAll()
+        F1DataStore.driverNationality.removeAll()
+        F1DataStore.driverURL.removeAll()
+        F1DataStore.driverNames.removeAll()
+        F1DataStore.driverFirstNames.removeAll()
+        F1DataStore.driverDOB.removeAll()
+        F1DataStore.driverNumber.removeAll()
+        F1DataStore.driverCode.removeAll()
+        F1DataStore.driverImgURL.removeAll()
+        F1DataStore.driverWikiImgURL.removeAll()
+        F1DataStore.driverLastName.removeAll()
         // Team Data
-        Data.constructorID.removeAll()
-        Data.teamURL.removeAll()
-        Data.teamNames.removeAll()
-        Data.teamNationality.removeAll()
-        Data.teamImgURL.removeAll()
+//        F1DataStore.constructorID.removeAll()
+//        F1DataStore.teamURL.removeAll()
+//        F1DataStore.teamNames.removeAll()
+//        F1DataStore.teamNationality.removeAll()
+//        F1DataStore.teamImgURL.removeAll()
         // Circuit Data
-        Data.circuitCity.removeAll()
-        Data.circuitID.removeAll()
-        Data.circuitName.removeAll()
-        Data.circuitLocation.removeAll()
-        Data.circuitURL.removeAll()
+        F1DataStore.circuitCity.removeAll()
+        F1DataStore.circuitID.removeAll()
+        F1DataStore.circuitName.removeAll()
+        F1DataStore.circuitLocation.removeAll()
+        F1DataStore.circuitURL.removeAll()
         
         // Circuit Data Continued
-        Data.raceURL.removeAll()
-        Data.raceTime.removeAll()
-        Data.raceDate.removeAll()
-        Data.raceName.removeAll()
-        Data.f1Season.removeAll()
+        F1DataStore.raceURL.removeAll()
+        F1DataStore.raceTime.removeAll()
+        F1DataStore.raceDate.removeAll()
+        F1DataStore.raceName.removeAll()
+        F1DataStore.f1Season.removeAll()
         
-        Data.circuitLatitude.removeAll()
-        Data.circuitLongitude.removeAll()
+        F1DataStore.circuitLatitude.removeAll()
+        F1DataStore.circuitLongitude.removeAll()
         
-        Data.raceWins.removeAll()
-        Data.racePoints.removeAll()
-        Data.raceWinnerName.removeAll()
-        Data.raceDate.removeAll()
-        Data.circuitRaceDate.removeAll()
-        Data.racePosition.removeAll()
-        Data.raceWinnerTeam.removeAll()
-        Data.qualiResults.removeAll()
+        F1DataStore.raceWins.removeAll()
+        F1DataStore.racePoints.removeAll()
+        F1DataStore.raceWinnerName.removeAll()
+        F1DataStore.raceDate.removeAll()
+        F1DataStore.circuitRaceDate.removeAll()
+        F1DataStore.racePosition.removeAll()
+        F1DataStore.raceWinnerTeam.removeAll()
+        F1DataStore.qualiResults.removeAll()
         
         if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
             DispatchQueue.main.async {
