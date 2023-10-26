@@ -7,7 +7,8 @@
 
 import Foundation
 import UIKit
-import Firebase
+import FirebaseCore
+
 
 class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
