@@ -125,11 +125,9 @@ struct HomeModel {
     
     
     func showResults(qTime: Double, homeSelf: HomeCollection) {
-        DispatchQueue.main.async {
-            DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
-                homeSelf.collectionView.isUserInteractionEnabled = true
-                homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
+            homeSelf.collectionView.isUserInteractionEnabled = true
+            homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
         }
     }
 
@@ -158,7 +156,7 @@ struct HomeModel {
                 F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
                     if Success {
                         print("SUCCESSS ALL CONSTRUCTORS")
-                        showResults(qTime: 0.15, homeSelf: homeSelf)
+                        showResults(qTime: 0.75, homeSelf: homeSelf)
                     } else {
                         print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }

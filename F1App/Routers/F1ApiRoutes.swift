@@ -127,7 +127,6 @@ struct F1ApiRoutes  {
                                     print(F1DataStore.teamURL)
                                 }
                             }
-                            completion(true)
                         }
 
                         
@@ -135,9 +134,12 @@ struct F1ApiRoutes  {
                         print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
                         // Handle error
                     }
+
                 }.resume()
             }
         } // end for loop
+        completion(true)
+
     }
 
     
@@ -170,8 +172,9 @@ struct F1ApiRoutes  {
                         F1DataStore.qualiResults.append(result.grid)
                      
                     }
-                    completion(true)
                 }
+                completion(true)
+
             } catch let error {
                 completion(false)
                 print("Error decoding race results: \(error.localizedDescription)")
@@ -506,7 +509,6 @@ struct F1ApiRoutes  {
                                 F1DataStore.driverLastName.append(familyName)
                                 F1DataStore.teamNames.append(teamNamesString)
                                 // Add other driver information...
-                                completion(true)
                             } else {
                                 print("Error fetching driver info")
                                 completion(false)
@@ -514,6 +516,8 @@ struct F1ApiRoutes  {
                         }
                     }
                 }
+                completion(true)
+
             }
         } else {
             print("Error: Invalid JSON structure")

@@ -41,7 +41,6 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         if segue.identifier == "closerLookTransition" {
             if let controller = segue.destination as? SingleResultCollection {
                 controller.playerIndex = playerIndex
-
             }
             
         }
@@ -229,11 +228,11 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         F1DataStore.driverWikiImgURL.removeAll()
         F1DataStore.driverLastName.removeAll()
         // Team Data
-//        F1DataStore.constructorID.removeAll()
-//        F1DataStore.teamURL.removeAll()
-//        F1DataStore.teamNames.removeAll()
-//        F1DataStore.teamNationality.removeAll()
-//        F1DataStore.teamImgURL.removeAll()
+        F1DataStore.constructorID.removeAll()
+        F1DataStore.teamURL.removeAll()
+        F1DataStore.teamNames.removeAll()
+        F1DataStore.teamNationality.removeAll()
+        F1DataStore.teamImgURL.removeAll()
         // Circuit Data
         F1DataStore.circuitCity.removeAll()
         F1DataStore.circuitID.removeAll()

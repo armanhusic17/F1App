@@ -114,7 +114,7 @@ struct CollectionModel {
         URLSession.shared.dataTask(with: imageURL) { data, response, error in
             guard let imageData = data, error == nil else {
                 print("Error loading image from URL: \(imageURL)")
-                completion(nil)
+                completion(UIImage(named: "default"))
                 return
             }
 
