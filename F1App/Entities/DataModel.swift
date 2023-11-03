@@ -8,7 +8,7 @@
 import Foundation
 import Formula1API
 
-struct Data {
+struct F1DataStore {
 
     // Team Data
     static var teamNames: [String?] = []
@@ -81,47 +81,47 @@ struct Data {
 
     func removeAllCellData(){
         // Driver Data
-        Data.driverNationality.removeAll()
-        Data.driverURL.removeAll()
-        Data.driverNames.removeAll()
-        Data.driverFirstNames.removeAll()
-        Data.driverDOB.removeAll()
-        Data.driverNumber.removeAll()
-        Data.driverCode.removeAll()
-        Data.driverImgURL.removeAll()
-        Data.driverWikiImgURL.removeAll()
+        F1DataStore.driverNationality.removeAll()
+        F1DataStore.driverURL.removeAll()
+        F1DataStore.driverNames.removeAll()
+        F1DataStore.driverFirstNames.removeAll()
+        F1DataStore.driverDOB.removeAll()
+        F1DataStore.driverNumber.removeAll()
+        F1DataStore.driverCode.removeAll()
+        F1DataStore.driverImgURL.removeAll()
+        F1DataStore.driverWikiImgURL.removeAll()
         
         // Team Data
-        Data.constructorID.removeAll()
-        Data.teamURL.removeAll()
-        Data.teamNames.removeAll()
-        Data.teamNationality.removeAll()
-        Data.teamImgURL.removeAll()
+        F1DataStore.constructorID.removeAll()
+        F1DataStore.teamURL.removeAll()
+        F1DataStore.teamNames.removeAll()
+        F1DataStore.teamNationality.removeAll()
+        F1DataStore.teamImgURL.removeAll()
         // Circuit Data
-        Data.circuitCity.removeAll()
-        Data.circuitID.removeAll()
-        Data.circuitName.removeAll()
-        Data.circuitLocation.removeAll()
-        Data.circuitURL.removeAll()
+        F1DataStore.circuitCity.removeAll()
+        F1DataStore.circuitID.removeAll()
+        F1DataStore.circuitName.removeAll()
+        F1DataStore.circuitLocation.removeAll()
+        F1DataStore.circuitURL.removeAll()
         
         // Circuit Data Continued
-        Data.raceURL.removeAll()
-        Data.raceTime.removeAll()
-        Data.raceDate.removeAll()
-        Data.raceName.removeAll()
-        Data.f1Season.removeAll()
+        F1DataStore.raceURL.removeAll()
+        F1DataStore.raceTime.removeAll()
+        F1DataStore.raceDate.removeAll()
+        F1DataStore.raceName.removeAll()
+        F1DataStore.f1Season.removeAll()
         
-        Data.circuitLatitude.removeAll()
-        Data.circuitLongitude.removeAll()
+        F1DataStore.circuitLatitude.removeAll()
+        F1DataStore.circuitLongitude.removeAll()
         
-        Data.raceWins.removeAll()
-        Data.racePoints.removeAll()
-        Data.raceWinnerName.removeAll()
-        Data.raceDate.removeAll()
-        Data.circuitRaceDate.removeAll()
-        Data.racePosition.removeAll()
-        Data.raceWinnerTeam.removeAll()
-        Data.qualiResults.removeAll()
+        F1DataStore.raceWins.removeAll()
+        F1DataStore.racePoints.removeAll()
+        F1DataStore.raceWinnerName.removeAll()
+        F1DataStore.raceDate.removeAll()
+        F1DataStore.circuitRaceDate.removeAll()
+        F1DataStore.racePosition.removeAll()
+        F1DataStore.raceWinnerTeam.removeAll()
+        F1DataStore.qualiResults.removeAll()
         
         print("removed all data points from the arrays holding the cells")
     }
