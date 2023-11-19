@@ -9,11 +9,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>8</integer>
-=======
 			<integer>1</integer>
->>>>>>> Dev
 		</dict>
 		<key>Promises (Playground) 10.xcscheme</key>
 		<dict>
@@ -76,11 +72,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>9</integer>
-=======
 			<integer>2</integer>
->>>>>>> Dev
 		</dict>
 		<key>Promises (Playground) 3.xcscheme</key>
 		<dict>
@@ -136,11 +128,7 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-<<<<<<< HEAD
-			<integer>7</integer>
-=======
 			<integer>0</integer>
->>>>>>> Dev
 		</dict>
 	</dict>
 </dict>

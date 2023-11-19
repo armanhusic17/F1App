@@ -206,7 +206,7 @@ struct HomeModel {
 
             F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2023") { Success in
                 if Success {
-                    showResults(qTime: 0.10, homeSelf: homeSelf)
+                    showResults(qTime: 0.75, homeSelf: homeSelf)
                 } else {
                     print("ERROR?")
                 }
