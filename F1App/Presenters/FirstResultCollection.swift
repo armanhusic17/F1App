@@ -152,16 +152,16 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                         // Process the 'races' array containing the driver's race results
                         for race in races {
                             // Access race information like raceName, circuit, date, etc.
-                            for result in race.results {
+                            for result in race.results! {
                                 // Access driver-specific information like position, points, fastest lap, etc.
-                                F1DataStore.raceName.append("\(race.raceName)")
-                                F1DataStore.circuitName.append(race.circuit.circuitName)
+                                F1DataStore.raceName.append("\(race.raceName ?? "loading...")")
+                                F1DataStore.circuitName.append(race.circuit?.circuitName)
                                 F1DataStore.raceDate.append(race.date)
-                                F1DataStore.raceWinnerName.append("\(result.driver.givenName) \(result.driver.familyName)")
-                                F1DataStore.driverFinishes.append("\(result.status) : P\(result.position) ")
+                                F1DataStore.raceWinnerName.append("\(result.driver?.givenName ?? "loading...") \(result.driver?.familyName ?? "loading...")")
+                                F1DataStore.driverFinishes.append("\(result.status ?? "loading...") : P\(result.position ?? "loading...") ")
                                 F1DataStore.raceTime.append("Pace: \(result.time?.time ?? "")")
-                                F1DataStore.raceWinnerTeam.append("Constructor : \(result.constructor.name)")
-                                F1DataStore.driverPoles.append("Qualified : P\(result.grid) ")
+                                F1DataStore.raceWinnerTeam.append("Constructor : \(result.constructor?.name ?? "loading...")")
+                                F1DataStore.driverPoles.append("Qualified : P\(result.grid ?? "loading...") ")
                                 F1DataStore.driverTotalStarts.append(races.count)
                             }
                         }
@@ -179,6 +179,8 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
                 print(seasonYear, cellIndexPath + 1)
                 F1ApiRoutes.allRaceResults(seasonYear: F1DataStore.seasonYearSelected ?? "1950", round: "\(cellIndexPath + 1)") { Success in
                     F1DataStore.seasonRound = cellIndexPath
+                    
+                    
                     if Success {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
                             self.performSegue(withIdentifier: "closerLookTransition", sender: self)

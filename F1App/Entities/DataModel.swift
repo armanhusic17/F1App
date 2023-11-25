@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Formula1API
 
 struct F1DataStore {
 
@@ -79,6 +78,8 @@ struct F1DataStore {
     static var raceResults:[String?] = []
     static var driverChampionships: [(key: String, value: Int)] = []
 
+    static var driversLaps:[String] = []
+    
     func removeAllCellData(){
         // Driver Data
         F1DataStore.driverNationality.removeAll()

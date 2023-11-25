@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import Formula1API
 
 
 /**
@@ -24,123 +23,123 @@ struct F1ApiRoutes  {
     static var cache = [String: FoundationData]()
 
 
-    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
-        // Check if data is in UserDefaults
-        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "allConstructors") {
-            do {
-                let f1Data = try JSONDecoder().decode(Constructors.self, from: cachedData)
-                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
-                print("SUCCESSFULLY GATHERED SAVED DATA")
-                return
-            } catch let error {
-                print("Error decoding cached data: \(error.localizedDescription)")
-            }
-        }
-
-        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
-        guard let url = URL(string: urlString) else { return }
-
-        let sessionConfig = URLSessionConfiguration.default
-        sessionConfig.timeoutIntervalForRequest = 10
-        let session = URLSession(configuration: sessionConfig)
-        let task = session.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                print("Error: No data received")
-                completion(false)
-                return
-            }
-
-            do {
-                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
-
-                // Cache the data
-                cache[seasonYear] = data
-
-                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
-
-                // Save to UserDefaults
-                UserDefaults.standard.set(data, forKey: "cache_allConstructors_\(seasonYear)")
-
-            } catch let error {
-                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
-                completion(false)
-            }
-        }
-
-        task.resume()
-    }
-            
+//    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
+//        // Check if data is in UserDefaults
+//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "allConstructors") {
+//            do {
+//                let f1Data = try JSONDecoder().decode(Constructor.self, from: cachedData)
+//                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
+//                print("SUCCESSFULLY GATHERED SAVED DATA")
+//                return
+//            } catch let error {
+//                print("Error decoding cached data: \(error.localizedDescription)")
+//            }
+//        }
+//
+//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
+//        guard let url = URL(string: urlString) else { return }
+//
+//        let sessionConfig = URLSessionConfiguration.default
+//        sessionConfig.timeoutIntervalForRequest = 10
+//        let session = URLSession(configuration: sessionConfig)
+//        let task = session.dataTask(with: url) { (data, response, error) in
+//            guard let data = data else {
+//                print("Error: No data received")
+//                completion(false)
+//                return
+//            }
+//
+//            do {
+//                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
+//
+//                // Cache the data
+//                cache[seasonYear] = data
+//
+//                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
+//
+//                // Save to UserDefaults
+//                UserDefaults.standard.set(data, forKey: "cache_allConstructors_\(seasonYear)")
+//
+//            } catch let error {
+//                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
+//                completion(false)
+//            }
+//        }
+//
+//        task.resume()
+//    }
+//            
     static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
         if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
             return cachedData
         }
         return nil
     }
-
-    static func handleFetchedData(_ f1Data: Constructors, seasonYear: String, completion: @escaping (Bool) -> Void) {
-        let constructorTable = f1Data.data.constructorTable
-        let constructorsArray = constructorTable.constructors
-        let season = constructorTable.season?.capitalized
-
-        for constructor in constructorsArray {
-            if let encodedConstructorName = constructor.name.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
-                let constructorPageTitle = encodedConstructorName
-                let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
-                guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
-
-                URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
-                    guard let data = data else { return }
-
-                    do {
-                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                           let query = json["query"] as? [String: Any],
-                           let pages = query["pages"] as? [String: Any],
-                           let pageID = pages.keys.first,
-                           let page = pages[pageID] as? [String: Any],
-                           let thumbnail = page["thumbnail"] as? [String: Any],
-                           let thumbnailURLString = thumbnail["source"] as? String {
-                            
-                            print(thumbnailURLString)
-                            
-                            DispatchQueue.main.async {
-                                if !F1DataStore.constructorID.contains(constructor.constructorID) {
-                                    let tuple = (constructor.constructorID, thumbnailURLString)
-                                    let string = "\(tuple.0),\(tuple.1)"
-                                    print(constructor.url)
-                                    F1DataStore.teamImgURL.append(tuple.1)
-                                    F1DataStore.teamNames.append(constructor.name)
-                                    F1DataStore.teamNationality.append(constructor.nationality)
-                                    F1DataStore.teamURL.append(constructor.url)
-                                    F1DataStore.constructorID.append(constructor.constructorID)
-                                    F1DataStore.f1Season.append(season)
-                                }
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                if !F1DataStore.constructorID.contains(constructor.constructorID) {
-                                    F1DataStore.teamImgURL.append("\(constructor.constructorID),default")
-                                    F1DataStore.teamNames.append(constructor.name)
-                                    F1DataStore.teamNationality.append(constructor.nationality)
-                                    F1DataStore.teamURL.append(constructor.url)
-                                    F1DataStore.constructorID.append(constructor.constructorID)
-                                    F1DataStore.f1Season.append(season)
-                                    print(F1DataStore.teamURL)
-                                }
-                            }
-                        }
-
-                        
-                    } catch let error {
-                        print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-                        // Handle error
-                    }
-
-                }.resume()
-            }
-        } // end for loop
-        completion(true)
-
-    }
+//
+//    static func handleFetchedData(_ f1Data: ConstructorStandings, seasonYear: String, completion: @escaping (Bool) -> Void) {
+//        let constructorTable = f1Data.data.standingsTable
+//        let constructorsArray = constructorTable.standingsLists
+//        let season = f1Data.data.season
+//
+//        for constructor in constructorsArray {
+//            let encodedConstructorName = constructor
+//            let constructorPageTitle = encodedConstructorName
+//            let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
+//            guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
+//
+//            URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+//                guard let data = data else { return }
+//
+//                do {
+//                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+//                       let query = json["query"] as? [String: Any],
+//                       let pages = query["pages"] as? [String: Any],
+//                       let pageID = pages.keys.first,
+//                       let page = pages[pageID] as? [String: Any],
+//                       let thumbnail = page["thumbnail"] as? [String: Any],
+//                       let thumbnailURLString = thumbnail["source"] as? String {
+//                        
+//                        print(thumbnailURLString)
+//                        
+//                        DispatchQueue.main.async {
+//                            if !F1DataStore.constructorID.contains(constructor.constructorStandings) {
+//                                let tuple = (constructor, thumbnailURLString)
+//                                let string = "\(tuple.0),\(tuple.1)"
+//                                print(constructor.url)
+//                                F1DataStore.teamImgURL.append(tuple.1)
+//                                F1DataStore.teamNames.append(constructor.name)
+//                                F1DataStore.teamNationality.append(constructor.nationality)
+//                                F1DataStore.teamURL.append(constructor.url)
+//                                F1DataStore.constructorID.append(constructor.constructorID)
+//                                F1DataStore.f1Season.append(season)
+//                            }
+//                        }
+//                    } else {
+//                        DispatchQueue.main.async {
+//                            if !F1DataStore.constructorID.contains(constructor.constructorID) {
+//                                F1DataStore.teamImgURL.append("\(constructor.constructorID),default")
+//                                F1DataStore.teamNames.append(constructor.name)
+//                                F1DataStore.teamNationality.append(constructor.nationality)
+//                                F1DataStore.teamURL.append(constructor.url)
+//                                F1DataStore.constructorID.append(constructor.constructorID)
+//                                F1DataStore.f1Season.append(season)
+//                                print(F1DataStore.teamURL)
+//                            }
+//                        }
+//                    }
+//
+//                    
+//                } catch let error {
+//                    print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
+//                    // Handle error
+//                }
+//
+//            }.resume()
+//            
+//        } // end for loop
+//        completion(true)
+//
+//    }
 
     
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
@@ -159,16 +158,17 @@ struct F1ApiRoutes  {
             }
             do {
                 let raceResults = try JSONDecoder().decode(RaceResults.self, from: data)
-                for race in raceResults.mrData.raceTable.races {
-                    F1DataStore.singleRaceName = "\(seasonYear)\n\(race.raceName) \nRound \(round)"
-                    for result in race.results {
-                        F1DataStore.constructorID.append(result.constructor.name)
-                        F1DataStore.driverNames.append("\(result.driver.givenName) \(result.driver.familyName)")
-                        F1DataStore.driverLastName.append(result.driver.familyName)
-                        F1DataStore.racePosition.append(result.position)
+                guard let unwrappedRaces = raceResults.mrData?.raceTable?.races else {return}
+                for race in unwrappedRaces {
+                    F1DataStore.singleRaceName = "\(seasonYear)\n\(race.raceName ?? "") \nRound \(round)"
+                    for result in race.results! {
+                        F1DataStore.constructorID.append(result.constructor?.name)
+                        F1DataStore.driverNames.append("\(result.driver?.givenName ?? "") \(result.driver?.familyName ?? "")")
+                        F1DataStore.driverLastName.append(result.driver?.familyName)
+                        F1DataStore.racePosition.append(result.position ?? "")
                         F1DataStore.racePoints.append(result.points)
                         F1DataStore.fastestLap.append("Fastest Lap: \(result.fastestLap?.time.time ?? "")")
-                        F1DataStore.raceTime.append("Starting Grid Position: \(result.grid)\nLaps Completed: \(result.laps)\nRace Pace: \(result.time?.time ?? "Way Off")")
+                        F1DataStore.raceTime.append("Starting Grid Position: \(result.grid ?? "")\nLaps Completed: \(result.laps ?? "")\nRace Pace: \(result.time?.time ?? "Way Off")")
                         F1DataStore.qualiResults.append(result.grid)
                      
                     }
@@ -257,7 +257,7 @@ struct F1ApiRoutes  {
         }
         
         let circuit = Circuit(circuitName: circuitName, location: Location(locality: locality, country: country))
-        return Race(raceName: raceName, circuit: circuit, date: date, results: results)
+        return Race(raceName: raceName, circuit: circuit, date: date, time: nil, results: results, laps: nil)
     }
 
     private static func createResult(from data: [String: Any]) -> Result? {
@@ -573,7 +573,69 @@ struct F1ApiRoutes  {
 
 
 
+    // Laps https://ergast.com/api/f1/2007/1/drivers/hamilton/laps
+    // All drivers that have driven for a certain constructor
+    // https://ergast.com/api/f1/constructors/mclaren/circuits/monza/drivers
+    // https://ergast.com/api/f1/2023/21/drivers/hamilton/laps.json?limit=100
+    // https://ergast.com/api/f1/current/constructorStandings.json?limit=100
+    static func getLapTimes(index: Int, seasonYear: String, round: Int, limit: Int = 100, driverId: String, completion: @escaping (Bool) -> Void) {
+        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/\(round)/drivers/\(driverId)/laps.json?limit=\(limit)"
+        guard let url = URL(string: stringURL) else {
+            completion(false)
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                completion(false)
+                return
+            }
+
+            do {
+                let root = try JSONDecoder().decode(Root.self, from: data)
+                // Now you have the lap times in the root object
+      
+                F1DataStore.driversLaps.append("\(root.mrData?.raceTable?.races?[index].laps)")
+                // print(root.mrData.raceTable.races[index].laps?)
+                print(F1DataStore.driversLaps)
+
+                // Process the data as needed
+                completion(true)
+            } catch {
+                completion(false)
+                print("Error decoding JSON: \(error)")
+            }
+        }
+        task.resume()
+    }
     
+    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
+        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
+        guard let url = URL(string: stringURL) else {
+            completion(false)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                completion(false)
+                return
+            }
+            
+            do {
+                let root = try JSONDecoder().decode(Constructor.self, from: data)
+                print(root)
+                
+                completion(true)
+            } catch {
+                print("Error in do catch")
+                completion(false)
+            }
+        }
+        task.resume()
+        
+        
+    }
     
 
 } // End F1APIRoutes

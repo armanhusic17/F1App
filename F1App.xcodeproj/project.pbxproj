@@ -17,7 +17,6 @@
 		0F343C9329C97BF000DA001A /* singleResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9229C97BF000DA001A /* singleResultCell.swift */; };
 		0F3703FD27F13C1400968C5F /* myCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3703FC27F13C1400968C5F /* myCell.swift */; };
 		0F3A0A1B2A1AA060000A813F /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A0A1A2A1AA060000A813F /* CoreDataHelper.swift */; };
-		0F4B74F22884E75900A4B3CE /* Formula1API in Frameworks */ = {isa = PBXBuildFile; productRef = 0F4B74F12884E75900A4B3CE /* Formula1API */; };
 		0F4DDC7A2A93023A0070CDE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F4DDC792A93023A0070CDE9 /* GoogleService-Info.plist */; };
 		0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */; };
 		0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A1127EC1BFE002129D7 /* SceneDelegate.swift */; };
@@ -33,7 +32,6 @@
 		0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F6BB1612875535500C5ED94 /* 107761-formula-one.json */; };
 		0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA079287F99CC000E8F49 /* teamLH.png */; };
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
-		0F9F7CA92890DD80002383C2 /* Formula1API in Frameworks */ = {isa = PBXBuildFile; productRef = 0F9F7CA82890DD80002383C2 /* Formula1API */; };
 		0FA3B5F628068F0D00A334D8 /* FirstResultCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResultCollection.swift */; };
 		0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
@@ -105,8 +103,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F1021172A17161700695E8A /* CoreData.framework in Frameworks */,
-				0F9F7CA92890DD80002383C2 /* Formula1API in Frameworks */,
-				0F4B74F22884E75900A4B3CE /* Formula1API in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,8 +213,8 @@
 		0FB765A22805408100C32514 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
 				0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */,
+				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
 				0F3A0A1A2A1AA060000A813F /* CoreDataHelper.swift */,
 				0F6458C12B09F83D00C48F1B /* WikiData.swift */,
 				0F6458C32B09F90000C48F1B /* ErgastData.swift */,
@@ -293,8 +289,6 @@
 			);
 			name = F1App;
 			packageProductDependencies = (
-				0F4B74F12884E75900A4B3CE /* Formula1API */,
-				0F9F7CA82890DD80002383C2 /* Formula1API */,
 			);
 			productName = F1App;
 			productReference = 0F515A0C27EC1BFE002129D7 /* F1App.app */;
@@ -369,8 +363,6 @@
 			);
 			mainGroup = 0F515A0327EC1BFE002129D7;
 			packageReferences = (
-				0F4B74F02884E75900A4B3CE /* XCRemoteSwiftPackageReference "Formula1API" */,
-				0F9F7CA72890DD80002383C2 /* XCRemoteSwiftPackageReference "Formula1API" */,
 			);
 			productRefGroup = 0F515A0D27EC1BFE002129D7 /* Products */;
 			projectDirPath = "";
@@ -822,38 +814,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0F4B74F02884E75900A4B3CE /* XCRemoteSwiftPackageReference "Formula1API" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/armanhusic17/Formula1API";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		0F9F7CA72890DD80002383C2 /* XCRemoteSwiftPackageReference "Formula1API" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/armanhusic17/Formula1API";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0F4B74F12884E75900A4B3CE /* Formula1API */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0F4B74F02884E75900A4B3CE /* XCRemoteSwiftPackageReference "Formula1API" */;
-			productName = Formula1API;
-		};
-		0F9F7CA82890DD80002383C2 /* Formula1API */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0F9F7CA72890DD80002383C2 /* XCRemoteSwiftPackageReference "Formula1API" */;
-			productName = Formula1API;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */ = {

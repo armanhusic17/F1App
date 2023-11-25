@@ -153,7 +153,7 @@ struct HomeModel {
                 F1DataStore.seasonYearSelected = enterYear.text
                 guard let thisSeason = F1DataStore.seasonYearSelected else { return }
                 print(thisSeason)
-                F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
+                F1ApiRoutes.getConstructorStandings(seasonYear: thisSeason) { Success in
                     if Success {
                         print("SUCCESSS ALL CONSTRUCTORS")
                         showResults(qTime: 0.75, homeSelf: homeSelf)
@@ -161,6 +161,14 @@ struct HomeModel {
                         print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }
                 }
+//                F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
+//                    if Success {
+//                        print("SUCCESSS ALL CONSTRUCTORS")
+//                        showResults(qTime: 0.75, homeSelf: homeSelf)
+//                    } else {
+//                        print("FAILURE TO SHOW ALL CONSTRUCTORS")
+//                    }
+//                }
             }
         }
         

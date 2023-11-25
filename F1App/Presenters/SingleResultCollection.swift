@@ -198,37 +198,13 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
 
         // Grand Prix
         if F1DataStore.whichQuery == 2 {
-//            F1ApiRoutes.getDriverResults(driverId: driverLastName?.removingPercentEncoding ?? "", limit: 2000 ) { [self] success, races in
-//                print(driverLastName ?? "")
-//                if success {
-//                    // Process the 'races' array containing the driver's race results
-//                    for race in races {
-//                        // Access race information like raceName, circuit, date, etc.
-//                        for result in race.results {
-//                            // Access driver-specific information like position, points, fastest lap, etc.
-//                            print("========================================================")
-//                            print(race.raceName)
-//                            print(race.circuit.circuitName)
-//                            print(race.date)
-//                            print("\(result.driver.givenName) \(result.driver.familyName) ")
-//                            print("\(result.status) : P\(result.position)")
-//                            F1DataStore.driverFinishes.append("\(result.status) : P\(result.position)")
-//                            print("Pace: \(result.time?.time ?? "")")
-//                            print("\(result.constructor.name)")
-//                            print("Qualifying Position : P\(result.grid) ")
-//                            F1DataStore.driverPoles.append("Qualifying Position : P\(result.grid) ")
-//                            print("========================================================")
-//                        }
-//
-//                    }
-//
-//                } else {
-//                    // Handle the error case
-//                    print(driverLastName?.removingPercentEncoding)
-//                    print("error")
-//                }
-//            }
-
+            F1ApiRoutes.getLapTimes(index: indexPath.item, seasonYear: F1DataStore.seasonYearSelected ?? "2023", round: F1DataStore.seasonRound ?? 1, driverId: driverLastName ?? "") { Success in
+                if Success {
+                    print("Successfully returned driver laps")
+                } else {
+                    print("Failed to get driver laps from this race")
+                }
+            }
         }
         if F1DataStore.whichQuery == 3 {
             print(driverName ?? "")
@@ -245,7 +221,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+        super.viewDidDisappear(animated)
         F1DataStore.constructorID.removeAll()
 //        Data.racePosition.removeAll()
         F1DataStore.fastestLap.removeAll()
