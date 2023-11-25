@@ -161,14 +161,6 @@ struct HomeModel {
                         print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }
                 }
-//                F1ApiRoutes.allConstructors(seasonYear: thisSeason) { Success in
-//                    if Success {
-//                        print("SUCCESSS ALL CONSTRUCTORS")
-//                        showResults(qTime: 0.75, homeSelf: homeSelf)
-//                    } else {
-//                        print("FAILURE TO SHOW ALL CONSTRUCTORS")
-//                    }
-//                }
             }
         }
         

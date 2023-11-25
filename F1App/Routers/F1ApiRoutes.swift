@@ -22,124 +22,79 @@ struct F1ApiRoutes  {
     typealias FoundationData = Foundation.Data
     static var cache = [String: FoundationData]()
 
-
-//    static func allConstructors(seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        // Check if data is in UserDefaults
-//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "allConstructors") {
-//            do {
-//                let f1Data = try JSONDecoder().decode(Constructor.self, from: cachedData)
-//                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
-//                print("SUCCESSFULLY GATHERED SAVED DATA")
-//                return
-//            } catch let error {
-//                print("Error decoding cached data: \(error.localizedDescription)")
-//            }
-//        }
-//
-//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructors.json"
-//        guard let url = URL(string: urlString) else { return }
-//
-//        let sessionConfig = URLSessionConfiguration.default
-//        sessionConfig.timeoutIntervalForRequest = 10
-//        let session = URLSession(configuration: sessionConfig)
-//        let task = session.dataTask(with: url) { (data, response, error) in
-//            guard let data = data else {
-//                print("Error: No data received")
-//                completion(false)
-//                return
-//            }
-//
-//            do {
-//                let f1Data = try JSONDecoder().decode(Constructors.self, from: data)
-//
-//                // Cache the data
-//                cache[seasonYear] = data
-//
-//                handleFetchedData(f1Data, seasonYear: seasonYear, completion: completion)
-//
-//                // Save to UserDefaults
-//                UserDefaults.standard.set(data, forKey: "cache_allConstructors_\(seasonYear)")
-//
-//            } catch let error {
-//                print("Error decoding CONSTRUCTORS json data: \(error.localizedDescription)")
-//                completion(false)
-//            }
-//        }
-//
-//        task.resume()
-//    }
-//            
     static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
         if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
             return cachedData
         }
         return nil
     }
-//
-//    static func handleFetchedData(_ f1Data: ConstructorStandings, seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        let constructorTable = f1Data.data.standingsTable
-//        let constructorsArray = constructorTable.standingsLists
-//        let season = f1Data.data.season
-//
-//        for constructor in constructorsArray {
-//            let encodedConstructorName = constructor
-//            let constructorPageTitle = encodedConstructorName
-//            let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
-//            guard let constructorPageURL = URL(string: constructorPageURLString) else { continue }
-//
-//            URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
-//                guard let data = data else { return }
-//
-//                do {
-//                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-//                       let query = json["query"] as? [String: Any],
-//                       let pages = query["pages"] as? [String: Any],
-//                       let pageID = pages.keys.first,
-//                       let page = pages[pageID] as? [String: Any],
-//                       let thumbnail = page["thumbnail"] as? [String: Any],
-//                       let thumbnailURLString = thumbnail["source"] as? String {
-//                        
-//                        print(thumbnailURLString)
-//                        
-//                        DispatchQueue.main.async {
-//                            if !F1DataStore.constructorID.contains(constructor.constructorStandings) {
-//                                let tuple = (constructor, thumbnailURLString)
-//                                let string = "\(tuple.0),\(tuple.1)"
-//                                print(constructor.url)
-//                                F1DataStore.teamImgURL.append(tuple.1)
-//                                F1DataStore.teamNames.append(constructor.name)
-//                                F1DataStore.teamNationality.append(constructor.nationality)
-//                                F1DataStore.teamURL.append(constructor.url)
-//                                F1DataStore.constructorID.append(constructor.constructorID)
-//                                F1DataStore.f1Season.append(season)
-//                            }
-//                        }
-//                    } else {
-//                        DispatchQueue.main.async {
-//                            if !F1DataStore.constructorID.contains(constructor.constructorID) {
-//                                F1DataStore.teamImgURL.append("\(constructor.constructorID),default")
-//                                F1DataStore.teamNames.append(constructor.name)
-//                                F1DataStore.teamNationality.append(constructor.nationality)
-//                                F1DataStore.teamURL.append(constructor.url)
-//                                F1DataStore.constructorID.append(constructor.constructorID)
-//                                F1DataStore.f1Season.append(season)
-//                                print(F1DataStore.teamURL)
-//                            }
-//                        }
-//                    }
-//
-//                    
-//                } catch let error {
-//                    print("Error decoding Wikipedia JSON data: \(error.localizedDescription)")
-//                    // Handle error
-//                }
-//
-//            }.resume()
-//            
-//        } // end for loop
-//        completion(true)
-//
-//    }
+    
+    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
+        // Check the cache
+        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "constructorStandings") {
+            do {
+                let root = try JSONDecoder().decode(Root.self, from: cachedData)
+                processConstructorStandings(root: root)
+                print("Successfully gathering data from cache")
+
+                completion(true)
+                return
+            } catch {
+                print("Error decoding cached data: \(error)")
+            }
+        }
+        
+        
+        // Proceed with network call
+        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
+        guard let url = URL(string: stringURL) else {
+            completion(false)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                completion(false)
+                return
+            }
+            
+            do {
+                let root = try JSONDecoder().decode(Root.self, from: data)
+                processConstructorStandings(root: root)
+                
+                // cache the data
+                cache[seasonYear] = data
+
+                UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
+                
+                completion(true)
+            } catch {
+                print("Error in do catch")
+                completion(false)
+            }
+        }
+        task.resume()
+        
+    }
+    
+    private static func processConstructorStandings(root: Root) {
+        if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
+            // Loop through each constructor standing
+            for constructorStanding in standingsList.constructorStandings ?? [] {
+                F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
+                F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
+                F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
+                F1DataStore.teamURL.append(constructorStanding.constructor?.url ?? "N/A")
+            }
+        } else {
+            print("Standings table not found")
+        }
+    }
+
+  
+
+
+
 
     
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
@@ -609,47 +564,7 @@ struct F1ApiRoutes  {
         task.resume()
     }
     
-    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
-        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
-        guard let url = URL(string: stringURL) else {
-            completion(false)
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                completion(false)
-                return
-            }
-            
-            do {
-                let root = try JSONDecoder().decode(Root.self, from: data)
-                if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
-                    // Loop through each constructor standing
-                    for constructorStanding in standingsList.constructorStandings ?? [] {
-                        print("Constructor Name: \(constructorStanding.constructor?.name ?? "N/A")")
-                        print("Wins: \(constructorStanding.wins ?? "N/A")")
-                        print("Points: \(constructorStanding.points ?? "N/A")")
-                        print("Nation: \(constructorStanding.constructor?.nationality ?? "N/A")\n")
-                        
-                        F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
-                        F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
-                        F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
-                    }
-                    completion(true)
-                } else {
-                    print("Standings table not found")
-                    completion(false)
-                }
-            } catch {
-                print("Error in do catch")
-                completion(false)
-            }
-        }
-        task.resume()
-        
-        
-    }
+
     
 
 } // End F1APIRoutes
