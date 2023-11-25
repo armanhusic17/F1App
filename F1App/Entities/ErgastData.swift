@@ -24,6 +24,17 @@ struct Root: Decodable {
     }
 }
 
+struct MRData: Decodable {
+    let raceTable: RaceTable?
+    let standingsTable: StandingsTable?
+
+    
+    private enum CodingKeys: String, CodingKey {
+        case raceTable = "RaceTable"
+        case standingsTable = "StandingsTable"
+
+    }
+}
 
 struct Time: Decodable {
     let millis: String?
@@ -42,11 +53,57 @@ struct RaceResults: Decodable {
     }
 }
 
-struct MRData: Decodable {
-    let raceTable: RaceTable?
-    
-    private enum CodingKeys: String, CodingKey {
-        case raceTable = "RaceTable"
+
+
+struct StandingsTable: Decodable {
+    let season: String?
+    let standingsLists: [StandingsList]?
+
+    enum CodingKeys: String, CodingKey {
+        case season
+        case standingsLists = "StandingsLists"
+    }
+}
+
+struct StandingsList: Decodable {
+    let season: String?
+    let round: String?
+    let constructorStandings: [ConstructorStanding]?
+
+    enum CodingKeys: String, CodingKey {
+        case season
+        case round
+        case constructorStandings = "ConstructorStandings"
+    }
+}
+
+struct ConstructorStanding: Decodable {
+    let position: String?
+    let positionText: String?
+    let points: String?
+    let wins: String?
+    let constructor: Constructor?
+
+    enum CodingKeys: String, CodingKey {
+        case position
+        case positionText
+        case points
+        case wins
+        case constructor = "Constructor"
+    }
+}
+
+struct Constructor: Decodable {
+    let constructorId: String?
+    let url: String?
+    let name: String?
+    let nationality: String?
+
+    enum CodingKeys: String, CodingKey {
+        case constructorId = "constructorId"
+        case url = "url"
+        case name = "name"
+        case nationality = "nationality"
     }
 }
 
@@ -152,57 +209,13 @@ struct Driver: Decodable {
     }
 }
 
-struct Constructor: Decodable {
-    let constructorId: String
-    let url: String
-    let name: String
-    let nationality: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case constructorId = "constructorId"
-        case url = "url"
-        case name = "name"
-        case nationality = "nationality"
-    }
-}
 
-struct ConstructorStandings: Decodable {
-    let data: StandingsData
-
-    struct StandingsData: Decodable {
-        let season: String?
-        let standingsTable: StandingsTable
-
-        struct StandingsTable: Decodable {
-            let standingsLists: [StandingsList]
-
-            struct StandingsList: Decodable {
-                let season: String
-                let constructorStandings: [ConstructorStanding]
-
-                struct ConstructorStanding: Decodable {
-                    let position: String
-                    let points: String
-                    let wins: String
-                    let constructor: Constructor
-
-                    struct Constructor: Decodable {
-                        let constructorID: String
-                        let url: String
-                        let name: String
-                        let nationality: String
-                    }
-                }
-            }
-        }
-    }
-}
 
 
 
 struct FastestLap: Decodable {
-    let lap: String
-    let time: LapTime
+    let lap: String?
+    let time: LapTime?
     let averageSpeed: AverageSpeed?
 
     enum CodingKeys: String, CodingKey {
@@ -213,7 +226,7 @@ struct FastestLap: Decodable {
 }
 
 struct LapTime: Decodable {
-    let time: String
+    let time: String?
 
     enum CodingKeys: String, CodingKey {
         case time = "time"
@@ -221,8 +234,8 @@ struct LapTime: Decodable {
 }
 
 struct AverageSpeed: Decodable {
-    let units: String
-    let speed: String
+    let units: String?
+    let speed: String?
 
     enum CodingKeys: String, CodingKey {
         case units = "units"
@@ -232,8 +245,8 @@ struct AverageSpeed: Decodable {
 
 // New struct for Lap
 struct Lap: Decodable {
-    let number: String
-    let timings: [Timing]
+    let number: String?
+    let timings: [Timing]?
 
     enum CodingKeys: String, CodingKey {
         case number
@@ -243,7 +256,7 @@ struct Lap: Decodable {
 
 // New struct for Timing
 struct Timing: Decodable {
-    let driverId: String
-    let position: String
-    let time: String
+    let driverId: String?
+    let position: String?
+    let time: String?
 }

@@ -156,7 +156,7 @@ struct CollectionModel {
                     cell.cellImage.alpha = 0.5
                 }
                 cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-                cell.bottomCellLabel.text = "Nationality: \(self.teamNationality[indexPath.item] ?? "")"
+                cell.bottomCellLabel.text = "\(raceWinnerTeam[indexPath.item] ?? "")\nNationality: \(self.teamNationality[indexPath.item] ?? "")"
             }
         }
 

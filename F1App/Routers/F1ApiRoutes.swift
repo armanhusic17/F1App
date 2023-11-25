@@ -167,7 +167,7 @@ struct F1ApiRoutes  {
                         F1DataStore.driverLastName.append(result.driver?.familyName)
                         F1DataStore.racePosition.append(result.position ?? "")
                         F1DataStore.racePoints.append(result.points)
-                        F1DataStore.fastestLap.append("Fastest Lap: \(result.fastestLap?.time.time ?? "")")
+                        F1DataStore.fastestLap.append("Fastest Lap: \(result.fastestLap?.time?.time ?? "")")
                         F1DataStore.raceTime.append("Starting Grid Position: \(result.grid ?? "")\nLaps Completed: \(result.laps ?? "")\nRace Pace: \(result.time?.time ?? "Way Off")")
                         F1DataStore.qualiResults.append(result.grid)
                      
@@ -623,10 +623,24 @@ struct F1ApiRoutes  {
             }
             
             do {
-                let root = try JSONDecoder().decode(Constructor.self, from: data)
-                print(root)
-                
-                completion(true)
+                let root = try JSONDecoder().decode(Root.self, from: data)
+                if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
+                    // Loop through each constructor standing
+                    for constructorStanding in standingsList.constructorStandings ?? [] {
+                        print("Constructor Name: \(constructorStanding.constructor?.name ?? "N/A")")
+                        print("Wins: \(constructorStanding.wins ?? "N/A")")
+                        print("Points: \(constructorStanding.points ?? "N/A")")
+                        print("Nation: \(constructorStanding.constructor?.nationality ?? "N/A")\n")
+                        
+                        F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
+                        F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
+                        F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
+                    }
+                    completion(true)
+                } else {
+                    print("Standings table not found")
+                    completion(false)
+                }
             } catch {
                 print("Error in do catch")
                 completion(false)
