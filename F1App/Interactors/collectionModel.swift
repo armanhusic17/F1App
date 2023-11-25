@@ -124,7 +124,7 @@ struct CollectionModel {
     }
 
     
-    func cellLogic(cell: myCell, indexPath: IndexPath, mapView: MKMapView, seasonYear: Int) {
+    func cellLogic(cell: frCell, indexPath: IndexPath, mapView: MKMapView, seasonYear: Int) {
         switch F1DataStore.whichQuery {
         case 0:
             configureConstructorCell(cell: cell, indexPath: indexPath)
@@ -141,7 +141,7 @@ struct CollectionModel {
         }
     }
 
-    func configureConstructorCell(cell: myCell, indexPath: IndexPath) {
+    func configureConstructorCell(cell: frCell, indexPath: IndexPath) {
         let imageURL = self.teamsImgs[safe: indexPath.item]
         let cleanedURL = URL(string: (imageURL ?? "") ?? "")
         cell.cellImage.contentMode = .scaleAspectFill
@@ -166,7 +166,7 @@ struct CollectionModel {
         cell.mapView.isHidden = true
     }
 
-    func configureWDCCell(cell: myCell, indexPath: IndexPath) {
+    func configureWDCCell(cell: frCell, indexPath: IndexPath) {
         // Existing WDC logic here...
         cell.cellImage.contentMode = .scaleAspectFill
         cell.bottomCellLabel2.isHidden = false
@@ -253,7 +253,7 @@ struct CollectionModel {
 
     }
 
-    func configureCircuitCell(cell: myCell, indexPath: IndexPath, mapView: MKMapView) {
+    func configureCircuitCell(cell: frCell, indexPath: IndexPath, mapView: MKMapView) {
         // Existing circuit logic here...
         cell.F1MapView.isHidden = false
         cell.mapView.isHidden = false
@@ -284,7 +284,7 @@ struct CollectionModel {
 
     
     // formatting the look of the cells
-    func cellViewFormat(cell:myCell){
+    func cellViewFormat(cell:frCell){
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.cornerRadius = 15

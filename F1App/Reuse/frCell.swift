@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class myCell: UICollectionViewCell {
+class frCell: UICollectionViewCell {
     
     
     @IBOutlet weak var cellBaseView: UIView!
@@ -25,7 +25,7 @@ class myCell: UICollectionViewCell {
     
     var myCellIndexPath:Int?
     
-    func getCellIndexPath(myCell:myCell, myCellIP: Int){
+    func getCellIndexPath(myCell:frCell, myCellIP: Int){
         myCellIndexPath = myCellIP
         F1DataStore.cellIndexPassed = myCellIndexPath
     }

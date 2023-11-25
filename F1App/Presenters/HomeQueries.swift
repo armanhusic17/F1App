@@ -10,7 +10,7 @@ import UIKit
 import FirebaseCore
 
 
-class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
+class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
     
     let f1routes = F1ApiRoutes()
@@ -31,12 +31,12 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? FirstResultCollection {
+        if let destinationVC = segue.destination as? FirstResults {
             // Pass data to destinationVC here
             print("prepare function fires")
             destinationVC.seasonYear = seasonYear
         }
-        if let cell = collectionView.cellForItem(at:  [0,myIndexPath ?? 0]) as? myHomeCell {
+        if let cell = collectionView.cellForItem(at:  [0,myIndexPath ?? 0]) as? hqCell {
             cell.cellActivitySpinner.stopAnimating()
             cell.cellActivitySpinner.isHidden = true
         }
@@ -93,7 +93,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! myHomeCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! hqCell
         if indexPath.item == 0 {
             cell.bottomLabel.text = ""
             cell.topLabel.text = "Enter F1 Season"
@@ -109,7 +109,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
             cell.homeBaseView.alpha = 1.0
-            cell.bottomLabel.text = "Constructors"
+            cell.bottomLabel.text = "WCC"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "genericF1Car")
@@ -133,7 +133,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemGray.cgColor
             cell.homeBaseView.alpha = 1.0
-            cell.bottomLabel.text = "Grand Prix"
+            cell.bottomLabel.text = "GP"
             cell.topLabel.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
@@ -172,7 +172,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
            
         }
         if indexPath.item == 1 {
-            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? hqCell {
                 print("Constructors cell is selected")
                 F1DataStore.whichQuery = 0
                 cell.layer.borderColor = UIColor.clear.cgColor
@@ -180,7 +180,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
         }
         if indexPath.item == 2 {
-            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? hqCell {
                 print("Drivers cell is selected")
                 F1DataStore.whichQuery = 1
                 cell.layer.borderColor = UIColor.clear.cgColor
@@ -190,7 +190,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
         }
         if indexPath.item == 3 {
-            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? hqCell {
                 print("Circuits cell is selected")
                 F1DataStore.whichQuery = 2
                 // set season year
@@ -200,7 +200,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
         }
         if indexPath.item == 4 {
-            if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+            if let cell = collectionView.cellForItem(at:  [0,0]) as? hqCell {
                 print("WDC cell is selected")
                 F1DataStore.whichQuery = 3
                 cell.layer.borderColor = UIColor.clear.cgColor
@@ -212,7 +212,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         // This check makes sure the first cell does not animate when being pressed
         if myIndexPath != 0 {
-            if let cell = collectionView.cellForItem(at:  indexPath) as? myHomeCell {
+            if let cell = collectionView.cellForItem(at:  indexPath) as? hqCell {
                 DispatchQueue.main.async {
                     cell.cellActivitySpinner.startAnimating()
                     cell.cellActivitySpinner.isHidden = false
@@ -232,7 +232,7 @@ class HomeCollection: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         dismissKeyboard()
-        if let cell = collectionView.cellForItem(at:  [0,0]) as? myHomeCell {
+        if let cell = collectionView.cellForItem(at:  [0,0]) as? hqCell {
             cell.cellActivitySpinner.stopAnimating()
             cell.cellActivitySpinner.isHidden = true
         }

@@ -10,7 +10,7 @@ import UIKit
 
 /// This is the single race result collection that appears when you select any cellin the grandprix's query
 /// We can adapt this collection to display more than race results, for example quali results from that race, etc
-class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var midContentView: UIView!
@@ -97,7 +97,7 @@ class SingleResultCollection: UIViewController, UICollectionViewDelegateFlowLayo
     
     @objc(collectionView:cellForItemAtIndexPath:)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! singleResultCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! srCell
 
         // Constructors
         if F1DataStore.whichQuery == 0 {

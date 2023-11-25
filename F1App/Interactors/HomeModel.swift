@@ -18,7 +18,7 @@ struct HomeModel {
     
 
     
-    func showAlert(passSelf:HomeCollection){
+    func showAlert(passSelf:HomeQueries){
         switch F1DataStore.whichQuery {
         case 0:
             let alert = UIAlertController(title: "Available Years for Constructor Data", message: "Only Data 1950 - Present available.", preferredStyle: .alert)
@@ -124,7 +124,7 @@ struct HomeModel {
     } // end showAlert
     
     
-    func showResults(qTime: Double, homeSelf: HomeCollection) {
+    func showResults(qTime: Double, homeSelf: HomeQueries) {
         DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
             homeSelf.collectionView.isUserInteractionEnabled = true
             homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
@@ -139,7 +139,7 @@ struct HomeModel {
     }
     
     
-    func setQueryNum(enterYear:UITextView, homeSelf:HomeCollection, cellIndex:IndexPath) {
+    func setQueryNum(enterYear:UITextView, homeSelf:HomeQueries, cellIndex:IndexPath) {
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
         let maxYear = returnYear()

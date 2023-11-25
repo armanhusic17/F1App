@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class singleResultCell: UICollectionViewCell {
+class srCell: UICollectionViewCell {
     
     
     @IBOutlet weak var baseView: UIView!

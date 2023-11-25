@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class myHomeCell: UICollectionViewCell {
+class hqCell: UICollectionViewCell {
     
     @IBOutlet weak var homeBaseView: UIView!
     @IBOutlet weak var bottomLabel: UILabel!

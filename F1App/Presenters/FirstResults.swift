@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 /// This is the inital collectionof results that appears when a user selects one of the 3 maain queries 
-class FirstResultCollection : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
+class FirstResults : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
     
     var seasonYear:Int?
@@ -39,13 +39,13 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "closerLookTransition" {
-            if let controller = segue.destination as? SingleResultCollection {
+            if let controller = segue.destination as? SecondaryResults {
                 controller.playerIndex = playerIndex
             }
             
         }
         
-        if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
+        if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? frCell {
             DispatchQueue.main.async {
                 cell.activitySpinner.stopAnimating()
                 cell.activitySpinner.isHidden = true
@@ -88,7 +88,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     }
 
     func performSwipeTransition() {
-        let homeVC = HomeCollection()
+        let homeVC = HomeQueries()
         homeVC.modalPresentationStyle = .fullScreen
         present(homeVC, animated: true, completion: nil)
     }
@@ -101,7 +101,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
     
     // setup for each individual cell, setting mapview delegate to each cell
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! myCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! frCell
         
         cell.F1MapView.delegate = self
         
@@ -119,9 +119,9 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         let resultsModel = ResultsModel()
 
         let cellIndexPath = indexPath.item
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? myCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? frCell {
             
-            if let cell = collectionView.cellForItem(at:  indexPath) as? myCell {
+            if let cell = collectionView.cellForItem(at:  indexPath) as? frCell {
                 DispatchQueue.main.async {
                     cell.activitySpinner.startAnimating()
                     cell.activitySpinner.isHidden = false
@@ -200,7 +200,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
             
             else {
                 resultsModel.loadResults(myself: self)
-                if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
+                if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? frCell {
                     DispatchQueue.main.async {
                         cell.activitySpinner.stopAnimating()
                         cell.activitySpinner.isHidden = true
@@ -261,7 +261,7 @@ class FirstResultCollection : UICollectionViewController, UICollectionViewDelega
         F1DataStore.raceWinnerTeam.removeAll()
         F1DataStore.qualiResults.removeAll()
         
-        if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? myCell {
+        if let cell = collectionView.cellForItem(at:  [0,playerIndex ?? 0] ) as? frCell {
             DispatchQueue.main.async {
                 cell.activitySpinner.stopAnimating()
                 cell.activitySpinner.isHidden = true
