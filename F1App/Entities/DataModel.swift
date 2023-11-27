@@ -14,7 +14,7 @@ struct F1DataStore {
     static var teamNationality: [String?] = []
     static var teamURL: [String?] = []
     static var teamImgURL: [String?] = [] // <-- Add new property to hold team image URLs
-    static var teamImages: [String] = []
+    static var teamImages = [String: String]() // Dictionary where the key is the team name and the value is the image URL
 
     static var constructorID: [String?] = []
 

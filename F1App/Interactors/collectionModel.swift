@@ -24,7 +24,7 @@ struct CollectionModel {
     let driversGivenName = F1DataStore.driverFirstNames
     let driverDOB = F1DataStore.driverDOB
     let driverImgs = F1DataStore.driverImgURL.compactMap { URL(string: $0!) }
-    let teamsImgs = F1DataStore.teamImgURL
+    let teamsImgs = F1DataStore.teamImages
     let driverImgWiki = F1DataStore.driverWikiImgURL
     let driverTitles = F1DataStore.driverChampionships
     
@@ -142,10 +142,14 @@ struct CollectionModel {
     }
 
     func configureConstructorCell(cell: frCell, indexPath: IndexPath) {
-        let imageURL = self.teamsImgs[safe: indexPath.item]
-        let cleanedURL = URL(string: (imageURL ?? "") ?? "")
+        let teamName = F1DataStore.teamNames[indexPath.item] ?? ""
+        guard let imageUrlString = F1DataStore.teamImages[teamName] else {return}
+        
+        let imageUrl = URL(string: imageUrlString)
+        print(imageUrl)
+
         cell.cellImage.contentMode = .scaleAspectFill
-        loadImage(withURL: cleanedURL) { image in
+        loadImage(withURL: imageUrl) { image in
             DispatchQueue.main.async {
                 if image != nil {
                     cell.cellImage.image = image
@@ -156,7 +160,7 @@ struct CollectionModel {
                     cell.cellImage.alpha = 0.5
                 }
                 cell.topCellLabel.text = "\(self.teamNames[indexPath.item] ?? "")"
-                cell.bottomCellLabel.text = "\(raceWinnerTeam[indexPath.item] ?? "")\nNationality: \(self.teamNationality[indexPath.item] ?? "")"
+                cell.bottomCellLabel.text = "\(raceWinnerTeam[indexPath.item] ?? "")\nPoints: \(racePoints[indexPath.item] ?? "")\nNationality: \(self.teamNationality[indexPath.item] ?? "")"
             }
         }
 
@@ -294,7 +298,38 @@ struct CollectionModel {
     }
     
 
-    
+    func getDriverResults(indexPath: IndexPath, sortedIndices: [Int], mySelf: UIViewController){
+        let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
+        print(F1DataStore.driverLastName[safe: dataIndex] ?? "")
+        
+        F1ApiRoutes.getDriverResults(driverId: ((F1DataStore.driverLastName[safe: dataIndex] ?? "") ?? ""), limit: 1000) {  success, races in
+            print(success)
+            if success {
+                // Process the 'races' array containing the driver's race results
+                for race in races {
+                    // Access race information like raceName, circuit, date, etc.
+                    for result in race.results! {
+                        // Access driver-specific information like position, points, fastest lap, etc.
+                        F1DataStore.raceName.append("\(race.raceName ?? "loading...")")
+                        F1DataStore.circuitName.append(race.circuit?.circuitName)
+                        F1DataStore.raceDate.append(race.date)
+                        F1DataStore.raceWinnerName.append("\(result.driver?.givenName ?? "loading...") \(result.driver?.familyName ?? "loading...")")
+                        F1DataStore.driverFinishes.append("\(result.status ?? "loading...") : P\(result.position ?? "loading...") ")
+                        F1DataStore.raceTime.append("Pace: \(result.time?.time ?? "")")
+                        F1DataStore.raceWinnerTeam.append("Constructor : \(result.constructor?.name ?? "loading...")")
+                        F1DataStore.driverPoles.append("Qualified : P\(result.grid ?? "loading...") ")
+                        F1DataStore.driverTotalStarts.append(races.count)
+                    }
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
+                    mySelf.performSegue(withIdentifier: "closerLookTransition", sender: mySelf)
+                }
+            } else {
+                print("WDC CLOSER LOOK TRANSITION FAIL")
+            }
+        }
+    }
 
     
     

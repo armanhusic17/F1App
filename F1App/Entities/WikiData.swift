@@ -8,19 +8,21 @@
 import Foundation
 
 
-struct WikipediaData: Codable {
-    struct Query: Codable {
-        struct Page: Codable {
-            struct Thumbnail: Codable {
-                let source: String
-            }
-            let thumbnail: Thumbnail?
-        }
+struct WikipediaData: Decodable {
+    let query: Query
+
+    struct Query: Decodable {
         let pages: [String: Page]
     }
-    let query: Query
-}
 
+    struct Page: Decodable {
+        let thumbnail: Thumbnail?
+    }
+
+    struct Thumbnail: Decodable {
+        let source: String
+    }
+}
 
 struct WikipediaImage: Decodable {
     let source: String

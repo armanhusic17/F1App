@@ -102,11 +102,9 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
         // Constructors
         if F1DataStore.whichQuery == 0 {
            
-            
         }
         // Drivers
         else if F1DataStore.whichQuery == 1 {
-
             var sortedIndices: [Int] = []
             if let firstDriverIndex = F1DataStore.racePosition.firstIndex(of: "1") {
                 for rank in 1...F1DataStore.racePosition.count {
@@ -144,8 +142,6 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
             + (driverFinishes ?? "")
             + "\n"
             + "\(racePace!)"
-                
-            
             }
         // Grand Prix
         else if F1DataStore.whichQuery == 2 {
@@ -198,7 +194,7 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
 
         // Grand Prix
         if F1DataStore.whichQuery == 2 {
-            F1ApiRoutes.getLapTimes(index: indexPath.item, seasonYear: F1DataStore.seasonYearSelected ?? "2023", round: F1DataStore.seasonRound ?? 1, driverId: driverLastName ?? "") { Success in
+            F1ApiRoutes.getLapTimes(index: playerIndex ?? 0, seasonYear: F1DataStore.seasonYearSelected ?? "2023", round: F1DataStore.seasonRound ?? 1, driverId: driverLastName ?? "") { Success in
                 if Success {
                     print("Successfully returned driver laps")
                 } else {

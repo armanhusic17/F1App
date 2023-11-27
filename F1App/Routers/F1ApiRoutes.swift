@@ -81,10 +81,19 @@ struct F1ApiRoutes  {
         if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
             // Loop through each constructor standing
             for constructorStanding in standingsList.constructorStandings ?? [] {
-                F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
                 F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
                 F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
                 F1DataStore.teamURL.append(constructorStanding.constructor?.url ?? "N/A")
+                F1DataStore.racePoints.append(constructorStanding.points)
+                F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
+                fetchConstructorImageFromWikipedia(constructorName: constructorStanding.constructor?.name ?? "") { Success in
+                    if Success {
+                        print("SUCESSFULLY GATHEREED WIKI IMAEGES FOR CONSTRUCTORs")
+                        print(F1DataStore.teamImages)
+                    } else {
+                        print("FAILED TO GATHER WIKI IMAGES")
+                    }
+                }
             }
         } else {
             print("Standings table not found")
@@ -92,6 +101,50 @@ struct F1ApiRoutes  {
     }
 
   
+
+//
+    static func fetchConstructorImageFromWikipedia(constructorName: String, completion: @escaping (Bool) -> Void) {
+        let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        let constructorPageTitle = "\(encodedConstructorName)"
+        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
+        
+        guard let constructorPageURL = URL(string: constructorPageURLString) else {
+            completion(false)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+            guard let data = data else {
+                print("Error: No data received for \(constructorName)")
+                completion(false)
+                return
+            }
+            
+            do {
+                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+                
+                guard let pageID = wikipediaData.query.pages.keys.first,
+                      let page = wikipediaData.query.pages[pageID] else {
+                    print("Error: Invalid response for \(constructorName)")
+                    completion(false)
+                    return
+                }
+                let thumbnailURLString = page.thumbnail?.source
+                
+                DispatchQueue.main.async {
+                    if let thumbnailURL = thumbnailURLString {
+                        F1DataStore.teamImages[constructorName] = thumbnailURL
+                    } else {
+                        F1DataStore.teamImages[constructorName] = "defaultImageURL" // Use a default image URL if none is found
+                    }
+                    completion(true)
+                }
+            } catch let error {
+                print("Error decoding Wikipedia JSON data for \(constructorName): \(error.localizedDescription)")
+                completion(false)
+            }
+        }.resume()
+    }
 
 
 
@@ -550,10 +603,7 @@ struct F1ApiRoutes  {
                 let root = try JSONDecoder().decode(Root.self, from: data)
                 // Now you have the lap times in the root object
       
-                F1DataStore.driversLaps.append("\(root.mrData?.raceTable?.races?[index].laps)")
-                // print(root.mrData.raceTable.races[index].laps?)
-                print(F1DataStore.driversLaps)
-
+                print(root.mrData?.raceTable)
                 // Process the data as needed
                 completion(true)
             } catch {

@@ -12,7 +12,6 @@ import MapKit
 /// This is the inital collectionof results that appears when a user selects one of the 3 maain queries 
 class FirstResults : UICollectionViewController, UICollectionViewDelegateFlowLayout, MKMapViewDelegate {
 
-    
     var seasonYear:Int?
     var playerIndex:Int?
     var passedName:String?
@@ -26,7 +25,6 @@ class FirstResults : UICollectionViewController, UICollectionViewDelegateFlowLay
         collectionView.delegate = self
         addSwipeGesture()
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -113,7 +111,6 @@ class FirstResults : UICollectionViewController, UICollectionViewDelegateFlowLay
         return cell
     }
     
-    
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let resultsModel = ResultsModel()
@@ -144,35 +141,7 @@ class FirstResults : UICollectionViewController, UICollectionViewDelegateFlowLay
                     }
                 }
                 
-                let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
-                print(F1DataStore.driverLastName[safe: dataIndex] ?? "")
-                F1ApiRoutes.getDriverResults(driverId: ((F1DataStore.driverLastName[safe: dataIndex] ?? "") ?? ""), limit: 1000) {  success, races in
-                    print(success)
-                    if success {
-                        // Process the 'races' array containing the driver's race results
-                        for race in races {
-                            // Access race information like raceName, circuit, date, etc.
-                            for result in race.results! {
-                                // Access driver-specific information like position, points, fastest lap, etc.
-                                F1DataStore.raceName.append("\(race.raceName ?? "loading...")")
-                                F1DataStore.circuitName.append(race.circuit?.circuitName)
-                                F1DataStore.raceDate.append(race.date)
-                                F1DataStore.raceWinnerName.append("\(result.driver?.givenName ?? "loading...") \(result.driver?.familyName ?? "loading...")")
-                                F1DataStore.driverFinishes.append("\(result.status ?? "loading...") : P\(result.position ?? "loading...") ")
-                                F1DataStore.raceTime.append("Pace: \(result.time?.time ?? "")")
-                                F1DataStore.raceWinnerTeam.append("Constructor : \(result.constructor?.name ?? "loading...")")
-                                F1DataStore.driverPoles.append("Qualified : P\(result.grid ?? "loading...") ")
-                                F1DataStore.driverTotalStarts.append(races.count)
-                            }
-                        }
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25 ){
-                            self.performSegue(withIdentifier: "closerLookTransition", sender: self)
-                        }
-                    } else {
-                        print("WDC CLOSER LOOK TRANSITION FAIL")
-                    }
-                }
+                collectionmodel.getDriverResults(indexPath: indexPath, sortedIndices: sortedIndices, mySelf: self)
             }
             else if F1DataStore.whichQuery == 2 {
                 print("SEASON YEAR BELOW")

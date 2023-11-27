@@ -214,8 +214,8 @@
 			isa = PBXGroup;
 			children = (
 				0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */,
-				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
 				0F3A0A1A2A1AA060000A813F /* CoreDataHelper.swift */,
+				0FA3B5F92806920E00A334D8 /* DataModel.swift */,
 				0F6458C12B09F83D00C48F1B /* WikiData.swift */,
 				0F6458C32B09F90000C48F1B /* ErgastData.swift */,
 			);
