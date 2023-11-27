@@ -34,7 +34,7 @@ class TertiaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.30)
+        return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.10)
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

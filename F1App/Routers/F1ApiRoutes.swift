@@ -612,10 +612,10 @@ struct F1ApiRoutes  {
                         // Iterate over each lap
                         if let laps = race.laps {
                             for lap in laps {
-                                print("")
+                                print("Lap \(lap.number ?? "Unknown")")
                                 if let timings = lap.timings {
                                     for timing in timings {
-                                        F1DataStore.driversLaps.append("Lap \(lap.number ?? "Unknown"), Driver: \(timing.driverId?.capitalized ?? "Unknown"), Position: \(timing.position ?? "Unknown"), Lap Time: \(timing.time ?? "Unknown")")
+                                        F1DataStore.driversLaps.append("Lap \(lap.number ?? "Unknown") Driver: \(timing.driverId?.capitalized ?? "Unknown")\nPosition: \(timing.position ?? "Unknown")\nTime: \(timing.time ?? "Unknown")")
                                     }
                                 }
                             }
