@@ -74,24 +74,18 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
     
     @objc
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(F1DataStore.driverNames)
-        
-        // Constructors
-        if F1DataStore.whichQuery == 0 {
+        switch F1DataStore.whichQuery {
+        case 0:
             return 1
-        } // Drivers
-        else if F1DataStore.whichQuery == 1 {
+        case 1:
             return F1DataStore.driverFinishes.count
-        } // Grand Prix
-        else if F1DataStore.whichQuery == 2 {
+        case 2:
             return F1DataStore.driverNames.count
-        } // WDC
-        else if F1DataStore.whichQuery == 3 {
+        case 3:
             return  F1DataStore.driverFinishes.count
-        } else {
+        default:
             return F1DataStore.driverNames.count
         }
-        return 1
     }
     
     
@@ -191,12 +185,20 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
         let fastestLap = F1DataStore.fastestLap[safe: indexPath.item] ?? "???"
         let url = F1DataStore.driverURL[safe: indexPath.item] ?? ""
         let driverLastName = F1DataStore.driverLastName[safe: indexPath.item] ?? "[Driver Last Name]"
-
+        print(passedName)
+        print(driverLastName)
         // Grand Prix
         if F1DataStore.whichQuery == 2 {
-            F1ApiRoutes.getLapTimes(index: playerIndex ?? 0, seasonYear: F1DataStore.seasonYearSelected ?? "2023", round: F1DataStore.seasonRound ?? 1, driverId: driverLastName ?? "") { Success in
+            F1ApiRoutes.getLapTimes(
+                index: playerIndex ?? 0,
+                seasonYear: F1DataStore.seasonYearSelected ?? "2023",
+                round: F1DataStore.seasonRound ?? 1,
+                driverId: driverLastName ?? "") { Success in
                 if Success {
                     print("Successfully returned driver laps")
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "tertiaryTransition", sender: self)
+                    }
                 } else {
                     print("Failed to get driver laps from this race")
                 }

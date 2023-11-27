@@ -89,7 +89,6 @@ struct F1ApiRoutes  {
                 fetchConstructorImageFromWikipedia(constructorName: constructorStanding.constructor?.name ?? "") { Success in
                     if Success {
                         print("SUCESSFULLY GATHEREED WIKI IMAEGES FOR CONSTRUCTORs")
-                        print(F1DataStore.teamImages)
                     } else {
                         print("FAILED TO GATHER WIKI IMAGES")
                     }
@@ -102,7 +101,6 @@ struct F1ApiRoutes  {
 
   
 
-//
     static func fetchConstructorImageFromWikipedia(constructorName: String, completion: @escaping (Bool) -> Void) {
         let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let constructorPageTitle = "\(encodedConstructorName)"
@@ -603,7 +601,27 @@ struct F1ApiRoutes  {
                 let root = try JSONDecoder().decode(Root.self, from: data)
                 // Now you have the lap times in the root object
       
-                print(root.mrData?.raceTable)
+                if let races = root.mrData?.raceTable?.races, !races.isEmpty {
+                    
+                    for race in races {
+                        print("\nRace: \(race.raceName ?? "Unknown Race")")
+                        print("Circuit: \(race.circuit?.circuitName ?? "Unknown Circuit")")
+                        print("Date: \(race.date ?? "Unknown Date")")
+                        print("Time: \(race.time ?? "Unknown Time")")
+                        
+                        // Iterate over each lap
+                        if let laps = race.laps {
+                            for lap in laps {
+                                print("")
+                                if let timings = lap.timings {
+                                    for timing in timings {
+                                        F1DataStore.driversLaps.append("Lap \(lap.number ?? "Unknown"), Driver: \(timing.driverId?.capitalized ?? "Unknown"), Position: \(timing.position ?? "Unknown"), Lap Time: \(timing.time ?? "Unknown")")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 // Process the data as needed
                 completion(true)
             } catch {

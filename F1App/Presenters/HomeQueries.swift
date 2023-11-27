@@ -94,7 +94,8 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! hqCell
-        if indexPath.item == 0 {
+        switch indexPath.item {
+        case 0:
             cell.bottomLabel.text = ""
             cell.topLabel.text = "Enter F1 Season"
             cell.enterF1SeasonYear.isHidden = false
@@ -103,8 +104,10 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.homeCellImageView.alpha = 0.10
             cell.homeBaseView.backgroundColor = UIColor.clear
             cell.layer.borderWidth = 0.0
-        }
-        if indexPath.item == 1 {
+            cell.cellActivitySpinner.isHidden = true
+            cell.layer.cornerRadius = 20
+            return cell
+        case 1:
             F1DataStore.whichQuery = 0
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
@@ -114,9 +117,10 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "genericF1Car")
             cell.homeCellImageView.alpha = 0.25
-            
-        }
-        if indexPath.item == 2 {
+            cell.cellActivitySpinner.isHidden = true
+            cell.layer.cornerRadius = 20
+            return cell
+        case 2:
             F1DataStore.whichQuery = 1
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
@@ -126,9 +130,10 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis2")
             cell.homeCellImageView.alpha = 0.25
-
-        }
-        if indexPath.item == 3 {
+            cell.cellActivitySpinner.isHidden = true
+            cell.layer.cornerRadius = 20
+            return cell
+        case 3:
             F1DataStore.whichQuery = 2
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemGray.cgColor
@@ -138,9 +143,11 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "circuitLogo")
             cell.homeCellImageView.alpha = 0.5
+            cell.cellActivitySpinner.isHidden = true
+            cell.layer.cornerRadius = 20
+            return cell
 
-        }
-        if indexPath.item == 4 {
+        case 4:
             F1DataStore.whichQuery = 3
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
@@ -150,11 +157,18 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.enterF1SeasonYear.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "WDCLogo")
             cell.homeCellImageView.alpha = 1.0
+            cell.cellActivitySpinner.isHidden = true
+            cell.layer.cornerRadius = 20
+            return cell
+
+        default:
+            cell.enterF1SeasonYear.isHidden = true
+            cell.topLabel.isHidden = true
+            cell.homeCellImageView.image = UIImage(named: "lewis")
+            cell.cellActivitySpinner.isHidden = false
+            cell.layer.cornerRadius = 20
+            return cell
         }
-        cell.cellActivitySpinner.isHidden = true
-        cell.layer.cornerRadius = 20
-        
-        return cell
     }
     
     

@@ -142,7 +142,7 @@ struct CollectionModel {
     }
 
     func configureConstructorCell(cell: frCell, indexPath: IndexPath) {
-        let teamName = F1DataStore.teamNames[indexPath.item] ?? ""
+        let teamName = (F1DataStore.teamNames[safe: indexPath.item] ?? "") ?? ""
         guard let imageUrlString = F1DataStore.teamImages[teamName] else {return}
         
         let imageUrl = URL(string: imageUrlString)
