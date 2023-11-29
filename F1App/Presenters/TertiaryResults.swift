@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class TertiaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-
+    
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var midView: UIView!
@@ -33,7 +33,6 @@ class TertiaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: view.frame.width * 0.95, height: view.frame.height * 0.10)
     }
 
@@ -46,11 +45,6 @@ class TertiaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UIC
 
         cell.lapsLabel.text = F1DataStore.driversLaps[indexPath.item]
         return cell
-        
     }
-    
-    
-    
-    
     
 } // end class

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 
 /**
@@ -584,7 +583,7 @@ struct F1ApiRoutes  {
     // https://ergast.com/api/f1/constructors/mclaren/circuits/monza/drivers
     // https://ergast.com/api/f1/2023/21/drivers/hamilton/laps.json?limit=100
     // https://ergast.com/api/f1/current/constructorStandings.json?limit=100
-    static func getLapTimes(index: Int, seasonYear: String, round: Int, limit: Int = 100, driverId: String, completion: @escaping (Bool) -> Void) {
+    static func getLapTimes(seasonYear: String, round: Int, limit: Int = 5, driverId: String, completion: @escaping (Bool) -> Void) {
         let stringURL = "https://ergast.com/api/f1/\(seasonYear)/\(round)/drivers/\(driverId)/laps.json?limit=\(limit)"
         guard let url = URL(string: stringURL) else {
             completion(false)
@@ -612,7 +611,6 @@ struct F1ApiRoutes  {
                         // Iterate over each lap
                         if let laps = race.laps {
                             for lap in laps {
-                                print("Lap \(lap.number ?? "Unknown")")
                                 if let timings = lap.timings {
                                     for timing in timings {
                                         F1DataStore.driversLaps.append("Lap \(lap.number ?? "Unknown") Driver: \(timing.driverId?.capitalized ?? "Unknown")\nPosition: \(timing.position ?? "Unknown")\nTime: \(timing.time ?? "Unknown")")

@@ -10,5 +10,8 @@ target 'F1App' do
   pod 'SwiftyJSON'
   pod 'lottie-ios'
   pod 'FirebaseCore'
+  pod 'FirebaseFirestore'
+  pod 'FirebaseAuth'
+  pod 'GoogleSignIn'
 
 end
