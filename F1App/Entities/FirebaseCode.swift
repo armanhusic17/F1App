@@ -14,36 +14,7 @@ import FirebaseAuth
 struct FirebaseCode {
     
     
-    func signInWithGoogle() async -> Bool {
-        guard let clientID = FirebaseApp.app()?.options.clientID else {
-            print("Fatal error - no client id")
-            fatalError()
-        }
-        
-        let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.configuration = config
-        
-        guard let windowScene = await UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = await windowScene.windows.first,
-              let rootViewController = await window.rootViewController else {
-            print("There is no view controller")
-            return false
-        }
-        
-        do {
-            let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-            let user = userAuthentication.user
-//            guard let idToken = user.idToken else {
-//
-//            }
-        } catch {
-            
-        }
-        
-        return false
-    }
-    
-    
+    // Google Sign In
     func signUpWithGoogle(thisSelf: UIViewController){
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
 
@@ -55,12 +26,12 @@ struct FirebaseCode {
         GIDSignIn.sharedInstance.signIn(withPresenting: thisSelf) { [unowned thisSelf] result, error in
             guard error == nil else {
                 // ...
-                print("Error")
+                print("error in the first part of sign in")
                 return
             }
             
             guard let user = result?.user, let idToken = user.idToken?.tokenString else {
-                print("Error")
+                print("error in the user part of sign in")
                 return
             }
             
@@ -69,11 +40,28 @@ struct FirebaseCode {
             Auth.auth().signIn(with: credential) { result, error in
                 // At this point, our user is signed in
                 print("User signed in successfully")
+                thisSelf.performSegue(withIdentifier: "successfulLoginTransition", sender: thisSelf)
             }
-                
-            
-            
+        }
+    } // end signUpWithGoogle
+    
+    // Delete User as required by App Store Guidelines
+    func deleteUserAccount(thisSelf: UIViewController){
+        let user = Auth.auth().currentUser
+
+        user?.delete { error in
+          if let error = error {
+            // An error happened.
+          } else {
+            // Account deleted.
+              print("Succe")
+              thisSelf.performSegue(withIdentifier: <#T##String#>, sender: thisSelf)
+          }
         }
     }
+    
+    
+    
+    
     
 }
