@@ -39,10 +39,20 @@ class AccountSettings: UIViewController {
     }
     
     func formatViews(){
+        self.midView.layer.borderWidth = 0.5
+        self.midView.layer.borderColor = randomTyreColor()
         self.midView.layer.cornerRadius = 12
+        self.alertView.layer.borderWidth = 0.5
+        self.alertView.layer.borderColor = randomTyreColor()
         self.alertView.layer.cornerRadius = 12
         self.alertAcceptButton.layer.cornerRadius = 12
         self.alertCancelButton.layer.cornerRadius = 12
+        
+        self.alertAcceptButton.layer.borderColor = UIColor.red.cgColor
+        self.alertAcceptButton.layer.borderWidth = 0.5
+        
+        self.alertCancelButton.layer.borderColor = UIColor.white.cgColor
+        self.alertCancelButton.layer.borderWidth = 0.5
         self.alertView.isHidden = true
     }
     
@@ -58,4 +68,11 @@ class AccountSettings: UIViewController {
     }
     
     
+}
+
+extension UIViewController {
+    func randomTyreColor() -> CGColor {
+        let colors = [UIColor.red.cgColor, UIColor.white.cgColor, UIColor.yellow.cgColor]
+        return colors.randomElement() ?? UIColor.white.cgColor
+    }
 }

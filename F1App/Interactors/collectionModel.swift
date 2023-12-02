@@ -164,7 +164,7 @@ struct CollectionModel {
             }
         }
 
-        cell.cellImage.layer.borderWidth = 1
+        cell.cellImage.layer.borderWidth = 0.5
         cell.cellImage.layer.borderColor = UIColor.white.cgColor
         cell.F1MapView.isHidden = true
         cell.mapView.isHidden = true
