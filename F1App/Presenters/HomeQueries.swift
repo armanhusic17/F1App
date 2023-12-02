@@ -12,7 +12,6 @@ import FirebaseCore
 
 class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
     
-    
     let f1routes = F1ApiRoutes()
     var homeModel = HomeModel()
     let collectionModel = CollectionModel()
@@ -27,7 +26,6 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationController?.delegate = self
-       // Analytics.logEvent("Application Launched - BoxBoxF1", parameters: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -40,9 +38,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.cellActivitySpinner.stopAnimating()
             cell.cellActivitySpinner.isHidden = true
         }
-
     }
-    
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController == self {
@@ -94,8 +90,11 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! hqCell
+        cell.delegate = self
+
         switch indexPath.item {
         case 0:
+            cell.menuButton.isHidden = false
             cell.bottomLabel.text = ""
             cell.topLabel.text = "Enter F1 Season"
             cell.enterF1SeasonYear.isHidden = false
@@ -108,6 +107,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.layer.cornerRadius = 20
             return cell
         case 1:
+            cell.menuButton.isHidden = true
             F1DataStore.whichQuery = 0
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
@@ -121,6 +121,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.layer.cornerRadius = 20
             return cell
         case 2:
+            cell.menuButton.isHidden = true
             F1DataStore.whichQuery = 1
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemYellow.cgColor
@@ -134,6 +135,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.layer.cornerRadius = 20
             return cell
         case 3:
+            cell.menuButton.isHidden = true
             F1DataStore.whichQuery = 2
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemGray.cgColor
@@ -148,6 +150,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             return cell
 
         case 4:
+            cell.menuButton.isHidden = true
             F1DataStore.whichQuery = 3
             cell.layer.borderWidth = cellBorderWidth
             cell.layer.borderColor = UIColor.systemRed.cgColor
@@ -162,6 +165,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             return cell
 
         default:
+            cell.menuButton.isHidden = true
             cell.enterF1SeasonYear.isHidden = true
             cell.topLabel.isHidden = true
             cell.homeCellImageView.image = UIImage(named: "lewis")
@@ -240,8 +244,9 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
     
     
     // deselectuing a cell - hides cell
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-    }
+//    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//
+//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -254,4 +259,11 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
     
     
     
+}
+
+extension HomeQueries: CollectionViewCellDelegate {
+    func menuButtonPressed(cell: UICollectionViewCell) {
+        // perform segue or any other action
+        performSegue(withIdentifier: "menuTransition", sender: cell)
+    }
 }
