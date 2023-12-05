@@ -27,7 +27,7 @@ class AccountSettings: UIViewController {
     
     
     
-    let firebaseCode = FirebaseCode()
+    let firebaseCode = FirebaseAuth()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

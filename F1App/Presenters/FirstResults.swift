@@ -183,6 +183,22 @@ class FirstResults : UICollectionViewController, UICollectionViewDelegateFlowLay
         
         
     }
+    
+//    func showImageFromCoreData(cell: frCell){
+//        let coreData = CoreDataHelper.shared
+//        coreData.getImageFromCoreData { img, error in
+//            if let error = error {
+//                print("error fetching img")
+//            }
+//            else if let image = img {
+//                cell.cellImage.image = image
+//            }
+//            else {
+//                print("No Image")
+//            }
+//        }
+//        
+//    }
 
     
     override func viewWillDisappear(_ animated: Bool) {

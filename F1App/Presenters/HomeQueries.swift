@@ -15,6 +15,8 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
     let f1routes = F1ApiRoutes()
     var homeModel = HomeModel()
     let collectionModel = CollectionModel()
+    let firebaseDB = FirebaseDataStorage()
+    let coreDataHelper = CoreDataHelper.shared
     
     var seasonYear:Int?
     var myIndexPath:Int?
@@ -26,6 +28,8 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationController?.delegate = self
+//        firebaseDB.getImag(coreData: coreDataHelper, img: "WDCLogo.png")
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,12 +90,13 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
         return 4
     }
     
+
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! hqCell
         cell.delegate = self
-
+        
         switch indexPath.item {
         case 0:
             cell.menuButton.isHidden = false
