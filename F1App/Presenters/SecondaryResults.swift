@@ -190,7 +190,7 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
         // Grand Prix
         if F1DataStore.whichQuery == 2 {
             F1ApiRoutes.getLapTimes(
-                seasonYear: F1DataStore.seasonYearSelected ?? "2023",
+                seasonYear: F1DataStore.seasonYearSelected ?? "2024",
                 round: F1DataStore.seasonRound ?? 1,
                 driverId: driverLastName ?? "") { Success in
                 if Success {

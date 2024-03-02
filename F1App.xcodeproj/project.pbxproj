@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */; };
+		0F0EC2552B84771800B0B639 /* QueryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2542B84771800B0B639 /* QueryData.swift */; };
+		0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2562B84789200B0B639 /* HomeScreen.swift */; };
 		0F1021122A17064000695E8A /* userStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F1021112A17064000695E8A /* userStory.storyboard */; };
 		0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */; };
 		0F1021172A17161700695E8A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1021162A17161700695E8A /* CoreData.framework */; };
@@ -66,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
+		0F0EC2542B84771800B0B639 /* QueryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryData.swift; sourceTree = "<group>"; };
+		0F0EC2562B84789200B0B639 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		0F1021112A17064000695E8A /* userStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = userStory.storyboard; sourceTree = "<group>"; };
 		0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BoxBoxCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0F1021162A17161700695E8A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -237,6 +241,7 @@
 				0F6458C32B09F90000C48F1B /* ErgastData.swift */,
 				0F3BF92F2B1715C900CF275D /* FirebaseAuth.swift */,
 				0FFC50542B1C06EC005ED8E6 /* FirebaseDataStorage.swift */,
+				0F0EC2542B84771800B0B639 /* QueryData.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				0FA428C82B145590008673C4 /* TertiaryResults.swift */,
 				0FF96F992B17D3E400C8E9BD /* UserAuth.swift */,
 				0FBD817D2B18772900151CAF /* AccountSettings.swift */,
+				0F0EC2562B84789200B0B639 /* HomeScreen.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 				0FDB0D152863DAF800A07E6A /* collectionModel.swift in Sources */,
 				0FFC50552B1C06EC005ED8E6 /* FirebaseDataStorage.swift in Sources */,
 				0F3703FD27F13C1400968C5F /* frCell.swift in Sources */,
+				0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */,
 				0FA428C92B145590008673C4 /* TertiaryResults.swift in Sources */,
 				0F343C9129C97BA100DA001A /* SecondaryResults.swift in Sources */,
 				0F1D75172880FA7600EFE42E /* HomeQueries.swift in Sources */,
@@ -493,6 +500,7 @@
 				0F3BF9302B1715C900CF275D /* FirebaseAuth.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
+				0F0EC2552B84771800B0B639 /* QueryData.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0FA428CB2B145D41008673C4 /* trCell.swift in Sources */,
@@ -668,7 +676,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = F1App/F1App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0.02;
+				CURRENT_PROJECT_VERSION = 2024.0.05;
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -684,7 +692,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.0.02;
+				MARKETING_VERSION = 2024.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -701,7 +709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = F1App/F1App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0.02;
+				CURRENT_PROJECT_VERSION = 2024.0.05;
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -717,7 +725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.0.02;
+				MARKETING_VERSION = 2024.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

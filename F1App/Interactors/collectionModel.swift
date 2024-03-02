@@ -71,7 +71,6 @@ struct CollectionModel {
         if F1DataStore.whichQuery == 3 {
             return  driverNames.count
         }
-
         // arbitrary return
         return 1
     }
@@ -101,7 +100,6 @@ struct CollectionModel {
             return CGSize(width: queryWidth!.rounded(), height: queryHeight!)
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
-
     }
     
     // Define a new method to load the driver's image asynchronously

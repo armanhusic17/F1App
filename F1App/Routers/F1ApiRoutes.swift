@@ -6,15 +6,10 @@
 //
 
 import Foundation
-
-
 /**
     Here we will  set up some routes to the ergast api
-    Set up a struct that can decode the json return by ergast
-
+    Set up a struct that can decode the json returned
  */
-
-
 struct F1ApiRoutes  {
             
     
@@ -457,7 +452,7 @@ struct F1ApiRoutes  {
                         processDriverStandings(json, seasonYear: seasonYear, completion: completion)
 
                         // Save to UserDefaults
-                        if seasonYear != "2023" {
+                        if seasonYear != "2024" {
                             UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
                         }
 
@@ -581,7 +576,7 @@ struct F1ApiRoutes  {
     // Laps https://ergast.com/api/f1/2007/1/drivers/hamilton/laps
     // All drivers that have driven for a certain constructor
     // https://ergast.com/api/f1/constructors/mclaren/circuits/monza/drivers
-    // https://ergast.com/api/f1/2023/21/drivers/hamilton/laps.json?limit=100
+    // https://ergast.com/api/f1/2024/21/drivers/hamilton/laps.json?limit=100
     // https://ergast.com/api/f1/current/constructorStandings.json?limit=100
     static func getLapTimes(seasonYear: String, round: Int, limit: Int = 5, driverId: String, completion: @escaping (Bool) -> Void) {
         let stringURL = "https://ergast.com/api/f1/\(seasonYear)/\(round)/drivers/\(driverId)/laps.json?limit=\(limit)"

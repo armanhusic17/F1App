@@ -43,7 +43,6 @@ struct ResultsModel {
         myself.present(safariVC, animated: true, completion: nil)
     }
 
-    
 
     
 }

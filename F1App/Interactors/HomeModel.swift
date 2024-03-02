@@ -11,12 +11,9 @@ import Lottie
 
 struct HomeModel {
     
-    
     var decodedJSONObject:String = ""
     var seasonRound:String?
     var seasonYear:String?
-    
-
     
     func showResults(qTime: Double, homeSelf: HomeQueries) {
         DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
@@ -86,7 +83,7 @@ struct HomeModel {
         // GRAND PRIX QUERY
         else if F1DataStore.whichQuery == 2 {
             let targetYear = 1950
-            let upperBound = 2023
+            let upperBound = 2024
 
             if year >= targetYear && year <= upperBound {
                 F1DataStore.seasonYearSelected = enterYear.text
@@ -98,7 +95,7 @@ struct HomeModel {
                 showAlert(passSelf: homeSelf)
             }
 
-            F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2023") { Success in
+            F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2024") { Success in
                 if Success {
                     showResults(qTime: 0.75, homeSelf: homeSelf)
                 } else {
