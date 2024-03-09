@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct HomeScreen: View {
     
@@ -20,14 +21,27 @@ struct HomeScreen: View {
     }
     
     let queries: [ErgastQueryButton] = [
-        ErgastQueryButton(icon: Image(systemName: "moon.fill"), label: "Drivers", action: {
-            print("Drivers Query")
+        ErgastQueryButton(
+            icon: Image(systemName: "moon.fill"),
+            label: "Drivers",
+            action: {
+                print("Drivers Query")
         }),
-        ErgastQueryButton(icon:Image(systemName: "moon.fill"), label: "Constructors", action: {
-            print("Constructors Query")
+        ErgastQueryButton(
+            icon:Image(systemName: "moon.fill"), 
+            label: "Constructors", 
+            action: {
+                print("Constructors Query")
+                F1ApiRoutes.getConstructorStandings(seasonYear: "2024") { Success in
+                    print(Success)
+                    FirstResultsWrapper()
+                }
         }),
-        ErgastQueryButton(icon: Image(systemName: "moon.fill"), label: "Grand Prix", action: {
-            print("Grand Prix Query")
+        ErgastQueryButton(
+            icon: Image(systemName: "moon.fill"),
+            label: "Grand Prix",
+            action: {
+                print("Grand Prix Query")
         })
     ]
     
@@ -75,4 +89,17 @@ struct HomeScreen: View {
 
 #Preview {
     HomeScreen(text: "Enter F1 Season Year")
+}
+
+struct FirstResultsWrapper: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> FirstResults {
+        let viewController = FirstResults()
+        // Pass homeQueries and qTime or use them directly if applicable
+        viewController.seasonYear = 2024
+        return viewController
+    }
+
+    func updateUIViewController(_ uiViewController: FirstResults, context: Context) {
+        // Update the view controller if needed, potentially with new homeQueries or qTime values
+    }
 }
