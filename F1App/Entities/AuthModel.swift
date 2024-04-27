@@ -106,7 +106,3 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
         }
     }
 }
-
-protocol AuthModelDelegate: AnyObject {
-    func didCompleteSignIn(_ viewController: UIViewController)
-}

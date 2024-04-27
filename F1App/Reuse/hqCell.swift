@@ -8,9 +8,7 @@
 import Foundation
 import UIKit
 
-
 class hqCell: UICollectionViewCell {
-    
     weak var delegate: CollectionViewCellDelegate?
     @IBOutlet weak var homeBaseView: UIView!
     @IBOutlet weak var bottomLabel: UILabel!
@@ -19,11 +17,10 @@ class hqCell: UICollectionViewCell {
     @IBOutlet weak var homeCellImageView: UIImageView!
     @IBOutlet weak var cellActivitySpinner: UIActivityIndicatorView!
     @IBOutlet weak var menuButton: UIButton!
-    
+
     @IBAction func menuButtonPressed(_ sender: UIButton) {
         delegate?.menuButtonPressed(cell: self)
     }
-    
 }
 
 protocol CollectionViewCellDelegate: AnyObject {

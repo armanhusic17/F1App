@@ -40,6 +40,7 @@
 		0FA428C92B145590008673C4 /* TertiaryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428C82B145590008673C4 /* TertiaryResults.swift */; };
 		0FA428CB2B145D41008673C4 /* trCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428CA2B145D41008673C4 /* trCell.swift */; };
 		0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA962882BDD6A9600D515F3 /* AuthModel.swift */; };
+		0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
 		0FBD817E2B18772900151CAF /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBD817D2B18772900151CAF /* AccountSettings.swift */; };
 		0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */; };
@@ -105,6 +106,7 @@
 		0FA428C82B145590008673C4 /* TertiaryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryResults.swift; sourceTree = "<group>"; };
 		0FA428CA2B145D41008673C4 /* trCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trCell.swift; sourceTree = "<group>"; };
 		0FA962882BDD6A9600D515F3 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModelDelegate.swift; sourceTree = "<group>"; };
 		0FB7659E280538F400C32514 /* viewControllerStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = viewControllerStory.storyboard; sourceTree = "<group>"; };
 		0FBD817D2B18772900151CAF /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		0FBD817F2B19ABD700151CAF /* F1App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F1App.entitlements; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				0FDB0D132863D84E00A07E6A /* Views */,
 				0FDB0D102863D77B00A07E6A /* Interactors */,
 				0FDB0D112863D7C000A07E6A /* Presenters */,
+				0FA9628A2BDDA08400D515F3 /* Protocols */,
 				0FB765A22805408100C32514 /* Entities */,
 				0F343C8F29C96A9D00DA001A /* Routers */,
 				0FDB0D122863D7CF00A07E6A /* Reuse */,
@@ -231,6 +234,14 @@
 				0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		0FA9628A2BDDA08400D515F3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		0FB765A22805408100C32514 /* Entities */ = {
@@ -504,6 +515,7 @@
 				0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
+				0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */,
 				0F0EC2552B84771800B0B639 /* QueryData.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
