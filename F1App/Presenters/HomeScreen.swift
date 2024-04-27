@@ -22,14 +22,14 @@ struct HomeScreen: View {
     
     let queries: [ErgastQueryButton] = [
         ErgastQueryButton(
-            icon: Image(systemName: "moon.fill"),
+            icon: Image(systemName: "atom"),
             label: "Drivers",
             action: {
                 print("Drivers Query")
         }),
         ErgastQueryButton(
-            icon:Image(systemName: "moon.fill"), 
-            label: "Constructors", 
+            icon:Image(systemName: "camera.aperture"),
+            label: "Constructors",
             action: {
                 print("Constructors Query")
                 F1ApiRoutes.getConstructorStandings(seasonYear: "2024") { Success in
@@ -38,7 +38,7 @@ struct HomeScreen: View {
                 }
         }),
         ErgastQueryButton(
-            icon: Image(systemName: "moon.fill"),
+            icon: Image(systemName: "kph.circle"),
             label: "Grand Prix",
             action: {
                 print("Grand Prix Query")
@@ -47,12 +47,19 @@ struct HomeScreen: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.blue, .black, .black, .black], startPoint: .bottom, endPoint: .trailing).ignoresSafeArea()
+            LinearGradient(colors: [.red.opacity(0.5), .green, .red.opacity(0.5)], startPoint: .bottom, endPoint: .top).ignoresSafeArea()
             VStack {
-                TextField("Enter Season Year", text: $text)
-                    .foregroundColor(.white)
+                Text("Box Box F1 ")
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(.white)
+                Text("Enter Season")
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 24)
-
+                TextField("", text: $text)
+                    .frame(alignment: .center)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 24)
                 ScrollView {
                     VStack {
                         LazyVGrid(
@@ -60,18 +67,25 @@ struct HomeScreen: View {
                             spacing: 24) {
                                 ForEach(queries.indices, id: \.self) { index in
                                     Button(action: queries[index].action) {
-                                        HStack {
-                                            queries[index].icon
+                                        VStack {
+                                            queries[index].icon?
+                                                .resizable()
+                                                .scaledToFit()
+                                                .padding(.all, 75)
                                             Text(queries[index].label)
+                                                .font(.title)
+                                                .bold()
                                         } // end hstack button
                                         .frame(width: 500, height: 500, alignment: .center)
                                         .cornerRadius(24)
-                                        .foregroundColor(.white)
+                                        .foregroundStyle(
+                                            LinearGradient(colors: [.indigo, .black], startPoint: .top, endPoint: .bottom)
+                                        )
                                         .padding(8)
                                     }
                                     .background(
                                         LinearGradient(
-                                            colors: [.black, .black, .blue.opacity(0.1), .blue.opacity(0.1), .blue.opacity(0.2)],
+                                            colors: [.blue.opacity(0.1), .yellow.opacity(0.2)],
                                             startPoint: .bottom, endPoint: .trailing
                                         )
                                     )
@@ -80,8 +94,7 @@ struct HomeScreen: View {
                             .padding(20)
                     }
                 }
-                .padding(.top, 100)
-                .padding(.bottom, 100)
+                .ignoresSafeArea()
             }
         }
     }

@@ -5,16 +5,14 @@
 //  Created by Arman Husic on 11/28/23.
 //
 
-import Foundation
 import FirebaseFirestore
 import FirebaseCore
 import GoogleSignIn
 import FirebaseAuth
 
 struct FirebaseAuth {
-    
     // Google Sign In
-    func signUpWithGoogle(thisSelf: UserAuth) {
+    func signUpWithGoogle(thisSelf: UserAuth, completion: @escaping (Bool) -> Void) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
 
         // Create Google Sign In configuration object.
@@ -22,24 +20,30 @@ struct FirebaseAuth {
         GIDSignIn.sharedInstance.configuration = config
 
         // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(withPresenting: thisSelf) { [unowned thisSelf] result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: thisSelf) { result, error in
             guard error == nil else {
                 // ...
                 print("error in the first part of sign in")
+                completion(false)
                 return
             }
-            
+
             guard let user = result?.user, let idToken = user.idToken?.tokenString else {
                 print("error in the user part of sign in")
+                completion(false)
                 return
             }
             
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
             
             Auth.auth().signIn(with: credential) { result, error in
-                // At this point, our user is signed in
-                print("User signed in successfully")
-                thisSelf.performSegue(withIdentifier: "successfulLoginTransition", sender: thisSelf)
+                if let error = error {
+                    print("Firebase sign in error \(error)")
+                    completion(false)
+                    return
+                }
+                // successful sign in
+                completion(true)
             }
         }
     } // end signUpWithGoogle
@@ -50,7 +54,7 @@ struct FirebaseAuth {
 
         user?.delete { error in
           if let error = error {
-            // An error happened.
+              print(error)
           } else {
             // Account deleted.
               print("Successfully deleted the account - logged out")
@@ -58,6 +62,5 @@ struct FirebaseAuth {
           }
         }
     }
-    // End Google Sign In
-    
+    // End Google Sign In    
 }

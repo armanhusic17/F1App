@@ -59,8 +59,9 @@ struct F1ApiRoutes  {
                 // cache the data
                 cache[seasonYear] = data
 
-                UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
-                
+                if seasonYear != "2024" {
+                    UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
+                }
                 completion(true)
             } catch {
                 print("Error in do catch")
