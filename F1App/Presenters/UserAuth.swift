@@ -20,7 +20,7 @@ class UserAuth: UIViewController, AuthModelDelegate {
     @IBOutlet weak var botView: UIView!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     @IBOutlet weak var appleSignInButton: ASAuthorizationAppleIDButton!
-
+    var activitySpinner: UIActivityIndicatorView?
     let model = AuthModel()
     var firebaseAuth = FirebaseAuth()
 
@@ -41,9 +41,11 @@ class UserAuth: UIViewController, AuthModelDelegate {
     }
 
     @IBAction func googleSignInButtonPressed(_ sender: GIDSignInButton) {
+        showSpinner()
         firebaseAuth.signUpWithGoogle(thisSelf: self) { success in
             if success {
                 DispatchQueue.main.async {
+                    self.hideSpinner()
                     let homeScreenView = HomeScreen(text: "2024")
                     let hostingController = UIHostingController(rootView: homeScreenView)
                     hostingController.modalPresentationStyle = .fullScreen
@@ -55,11 +57,25 @@ class UserAuth: UIViewController, AuthModelDelegate {
 
     @IBAction func appleSignInButtonpressed(_ sender: ASAuthorizationAppleIDButton) {
         print("Apple Sign In Button pressed")
+        showSpinner()
         model.triggerAppleSignIn(model: model)
     }
 
     func didCompleteSignIn(_ viewController: UIViewController) {
+        hideSpinner()
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
+    }
+    
+    func showSpinner() {
+        activitySpinner = UIActivityIndicatorView(style: .large)
+        activitySpinner?.center = self.view.center
+        activitySpinner?.startAnimating()
+        self.view.addSubview(activitySpinner ?? UIActivityIndicatorView())
+    }
+    
+    func hideSpinner() {
+        activitySpinner?.stopAnimating()
+        activitySpinner?.removeFromSuperview()
     }
 }
