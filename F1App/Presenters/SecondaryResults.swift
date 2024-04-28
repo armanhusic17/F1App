@@ -51,9 +51,6 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
                 self.closerLookCollection.reloadData()
             }
         }
-        
-        
-        
     }
   
     func countFinishedP1Occurrences(in array: [String?]) -> Int {
@@ -92,10 +89,9 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
     @objc(collectionView:cellForItemAtIndexPath:)
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "singleResultCell", for: indexPath) as! srCell
-
         // Constructors
         if F1DataStore.whichQuery == 0 {
-           
+
         }
         // Drivers
         else if F1DataStore.whichQuery == 1 {
@@ -107,9 +103,8 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
                     }
                 }
             }
-            
+
             let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
-            
             let driverFinishes = F1DataStore.driverFinishes[safe: indexPath.item] ?? "[Driver Frinishes]"
             let driverPoles = F1DataStore.driverPoles[safe: indexPath.item] ?? "[Driver Poles]"
             let race = F1DataStore.raceName[safe: indexPath.item] ?? "[Grand Prix]"
@@ -121,7 +116,7 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
             let totalWins = countFinishedP1Occurrences(in: F1DataStore.driverFinishes)
             let totalStarts = F1DataStore.driverTotalStarts[safe: playerIndex ?? 0] ?? 0
             let name = passedName ?? ""
-            
+
             topBarLabel.text = "\(name)\nPoles: \(totalPoles)\nWins: \(totalWins)\nRaces: \(totalStarts!)"
             topBarLabel.textColor = .white
             cell.driverName.text = "\(race!)"
@@ -145,15 +140,12 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
             let constructorID = F1DataStore.constructorID[safe: indexPath.item] ?? "[Constructor Name]"
             let topSpeed = F1DataStore.raceTime[safe: indexPath.item] ?? ""
             let fastestLap = F1DataStore.fastestLap[safe: indexPath.item] ?? "???"
-            
             // Configure the cell using the extracted variables
             cell.driverName.text = "P\(driverPosition!) - \(driverName!)"
             cell.botLabel.text = "Constructor: \(constructorID!)\n\(fastestLap!)\n\(topSpeed!)"
-            
             if let singleRaceName = F1DataStore.singleRaceName {
                 topBarLabel.text = singleRaceName
             }
-            
         }
         // WDC
         else if F1DataStore.whichQuery == 3 {
@@ -168,15 +160,14 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
         } else {
             cell.layer.borderColor = UIColor.white.cgColor
         }
-        
+
         // Set other cell properties
         cell.layer.borderWidth = 2
         cell.layer.cornerRadius = 8
-        
-        
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let driverName = F1DataStore.driverNames[safe: indexPath.item] ?? "[Driver Name]"
         let driverPosition = F1DataStore.racePosition[safe: indexPath.item] ?? "???"
@@ -207,16 +198,12 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
             print(driverName ?? "")
             print(driverPosition ?? "")
         }
-
-     
     }
-
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         F1DataStore.constructorID.removeAll()
@@ -234,6 +221,5 @@ class SecondaryResults: UIViewController, UICollectionViewDelegateFlowLayout, UI
             F1DataStore.driverNames.removeAll()
             F1DataStore.driverFirstNames.removeAll()
         }
-        
     }
 }

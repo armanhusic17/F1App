@@ -7,12 +7,9 @@
 
 import Foundation
 
-
 /**
- 
  https://ergast.com/api/f1/2008/results/1
  working on adding results that show up for drivers or teams or as a standalone not sure yet
-
  */
 
 struct Root: Decodable {
@@ -26,7 +23,6 @@ struct Root: Decodable {
 struct MRData: Decodable {
     let raceTable: RaceTable?
     let standingsTable: StandingsTable?
-
     
     private enum CodingKeys: String, CodingKey {
         case raceTable = "RaceTable"
@@ -207,10 +203,6 @@ struct Driver: Decodable {
         case nationality = "nationality"
     }
 }
-
-
-
-
 
 struct FastestLap: Decodable {
     let lap: String?

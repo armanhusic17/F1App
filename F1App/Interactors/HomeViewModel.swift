@@ -16,12 +16,13 @@ class HomeViewModel: ObservableObject {
     func queriesArray() -> [ErgastQueryButton] {
         let queries: [ErgastQueryButton] = [
             ErgastQueryButton(icon: Image(systemName: "person.3.fill"), label: "Drivers", action: {
+                F1DataStore.whichQuery = 1
                 print("Drivers Query Fires Here")
                 F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear) { Success in
                     DispatchQueue.main.async {
                         if Success {
                             print("Success = \(Success)")
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 8.5) {
                                 self.shouldNavigateToFirstResults = true
                             }
                         }

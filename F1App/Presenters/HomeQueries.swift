@@ -9,29 +9,25 @@ import Foundation
 import UIKit
 import FirebaseCore
 
-
 class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
-    
     let f1routes = F1ApiRoutes()
     var homeModel = HomeModel()
     let collectionModel = CollectionModel()
     let firebaseDB = FirebaseDataStorage()
     let coreDataHelper = CoreDataHelper.shared
-    
     var seasonYear:Int?
     var myIndexPath:Int?
     let cellBorderWidth = 2.5
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationController?.delegate = self
 //        firebaseDB.getImag(coreData: coreDataHelper, img: "WDCLogo.png")
         
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? FirstResults {
             // Pass data to destinationVC here
@@ -43,7 +39,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.cellActivitySpinner.isHidden = true
         }
     }
-    
+
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if viewController == self {
             print("Showing self now")
@@ -55,7 +51,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             F1DataStore.teamImgURL.removeAll()
         }
     }
-    
+
     func recognizeTap(){
         //Looks for single or multiple taps.
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
@@ -63,15 +59,13 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
         //tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-    
+
     //Calls this function when the tap is recognized.
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
             return CGSize(width: view.frame.width * 1.0, height: view.frame.height * 0.20)
@@ -83,16 +77,11 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             return CGSize(width: view.frame.width * 0.90, height: view.frame.height * 0.22)
         }
     }
-    
-    
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
     }
-    
 
-    
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myHomeCell", for: indexPath) as! hqCell
         cell.delegate = self
@@ -179,12 +168,7 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             return cell
         }
     }
-    
-    
-    
 
-    
-    
     // selecting a cell
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         dismissKeyboard()
@@ -192,7 +176,6 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
         // have to disable cells so that the user doesnt send multiple queries as the data loads
         if indexPath.item == 0 {
             print("THIS IS THE TITLE CELL, maybe place to select year")
-           
         }
         if indexPath.item == 1 {
             if let cell = collectionView.cellForItem(at:  [0,0]) as? hqCell {
@@ -243,16 +226,13 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
                 
             }
         }
-       
-        
     }
-    
-    
+
     // deselectuing a cell - hides cell
 //    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 //
 //    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         dismissKeyboard()
@@ -261,9 +241,6 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
             cell.cellActivitySpinner.isHidden = true
         }
     }
-    
-    
-    
 }
 
 extension HomeQueries: CollectionViewCellDelegate {

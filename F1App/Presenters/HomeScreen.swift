@@ -74,7 +74,7 @@ struct HomeScreen: View {
                 spacing: 24) {
                     ForEach(viewModel.queriesArray().indices, id: \.self) { index in
                         QueryButton(query: viewModel.queriesArray()[index])
-                            .fullScreenCover(isPresented: $viewModel.shouldNavigateToFirstResults) {
+                            .sheet(isPresented: $viewModel.shouldNavigateToFirstResults) {
                                 MyViewControllerWrapper()
                             }
                     }

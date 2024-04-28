@@ -248,6 +248,17 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		0FA962912BDF0D9B00D515F3 /* UIKit Components */ = {
+			isa = PBXGroup;
+			children = (
+				0F1D75182881286500EFE42E /* hqCell.swift */,
+				0F3703FC27F13C1400968C5F /* frCell.swift */,
+				0F343C9229C97BF000DA001A /* srCell.swift */,
+				0FA428CA2B145D41008673C4 /* trCell.swift */,
+			);
+			path = "UIKit Components";
+			sourceTree = "<group>";
+		};
 		0FB765A22805408100C32514 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,10 +303,7 @@
 		0FDB0D122863D7CF00A07E6A /* Reuse */ = {
 			isa = PBXGroup;
 			children = (
-				0F1D75182881286500EFE42E /* hqCell.swift */,
-				0F3703FC27F13C1400968C5F /* frCell.swift */,
-				0F343C9229C97BF000DA001A /* srCell.swift */,
-				0FA428CA2B145D41008673C4 /* trCell.swift */,
+				0FA962912BDF0D9B00D515F3 /* UIKit Components */,
 				0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */,
 			);
 			path = Reuse;

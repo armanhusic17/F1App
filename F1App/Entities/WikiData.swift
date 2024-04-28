@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct WikipediaData: Decodable {
     let query: Query
 

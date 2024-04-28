@@ -66,14 +66,14 @@ class UserAuth: UIViewController, AuthModelDelegate {
         viewController.modalPresentationStyle = .fullScreen
         self.present(viewController, animated: true, completion: nil)
     }
-    
+
     func showSpinner() {
         activitySpinner = UIActivityIndicatorView(style: .large)
         activitySpinner?.center = self.view.center
         activitySpinner?.startAnimating()
         self.view.addSubview(activitySpinner ?? UIActivityIndicatorView())
     }
-    
+
     func hideSpinner() {
         activitySpinner?.stopAnimating()
         activitySpinner?.removeFromSuperview()

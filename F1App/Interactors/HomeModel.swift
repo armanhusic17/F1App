@@ -10,11 +10,10 @@ import UIKit
 import Lottie
 
 struct HomeModel {
-    
     var decodedJSONObject:String = ""
     var seasonRound:String?
     var seasonYear:String?
-    
+
     func showResults(qTime: Double, homeSelf: HomeQueries) {
         DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
             homeSelf.collectionView.isUserInteractionEnabled = true
@@ -28,8 +27,7 @@ struct HomeModel {
         let currentYear = dateFormatter.string(from: Date())
         return Int(currentYear) ?? 2000
     }
-    
-    
+
     func setQueryNum(enterYear:UITextView, homeSelf:HomeQueries, cellIndex:IndexPath) {
         guard let year = Int(enterYear.text) else {return}
         let targetYear:Int?
@@ -54,10 +52,9 @@ struct HomeModel {
                 }
             }
         }
-        
+
         // WORLD DRIVERS' CHAMPIONSHIP QUERY
         else if F1DataStore.whichQuery == 1 {
-
             targetYear = 1950
             if year < targetYear! || year > maxYear {
                 print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
@@ -110,8 +107,7 @@ struct HomeModel {
         }
 
     }
-    
-    
+
     func showAlert(passSelf:HomeQueries){
         switch F1DataStore.whichQuery {
         case 0:
@@ -151,7 +147,7 @@ struct HomeModel {
                 }
             }))
             passSelf.present(alert, animated: true, completion: nil)
-            
+
         case 2:
             let alert = UIAlertController(title: "Available Years for Circuit Data", message: "Only 1950 to Present", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -170,7 +166,7 @@ struct HomeModel {
                 }
             }))
             passSelf.present(alert, animated: true, completion: nil)
-            
+
         case 3:
             let alert = UIAlertController(title: "Available Years for Standings Data", message: "Only 1950 to Present", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -189,7 +185,7 @@ struct HomeModel {
                 }
             }))
             passSelf.present(alert, animated: true, completion: nil)
-            
+
         case 4:
             let alert = UIAlertController(title: "Available Years for Qualifying Data", message: "Only 2004 to Present", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
@@ -208,14 +204,9 @@ struct HomeModel {
                 }
             }))
             passSelf.present(alert, animated: true, completion: nil)
-            
+
         default:
             break
         }
-
-        
-        
     } // end showAlert
-    
-    
 }
