@@ -9,110 +9,127 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    
-    let homeModel = HomeModel()
+    @ObservedObject var viewModel = HomeViewModel()
     @State var text: String
-    
-    
-    struct ErgastQueryButton {
-        let icon: Image?
-        let label: String
-        var action: () -> Void
-    }
-    
-    let queries: [ErgastQueryButton] = [
-        ErgastQueryButton(
-            icon: Image(systemName: "atom"),
-            label: "Drivers",
-            action: {
-                print("Drivers Query")
-        }),
-        ErgastQueryButton(
-            icon:Image(systemName: "camera.aperture"),
-            label: "Constructors",
-            action: {
-                print("Constructors Query")
-                F1ApiRoutes.getConstructorStandings(seasonYear: "2024") { Success in
-                    print(Success)
-                    FirstResultsWrapper()
-                }
-        }),
-        ErgastQueryButton(
-            icon: Image(systemName: "kph.circle"),
-            label: "Grand Prix",
-            action: {
-                print("Grand Prix Query")
-        })
-    ]
-    
+    let homeModel = HomeModel()
+
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.red.opacity(0.5), .green, .red.opacity(0.5)], startPoint: .bottom, endPoint: .top).ignoresSafeArea()
-            VStack {
-                Text("Box Box F1 ")
-                    .font(.title)
-                    .bold()
-                    .foregroundStyle(.white)
-                Text("Enter Season")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 24)
-                TextField("", text: $text)
-                    .frame(alignment: .center)
-                    .foregroundColor(.black)
-                    .padding(.horizontal, 24)
-                ScrollView {
-                    VStack {
-                        LazyVGrid(
-                            columns: [GridItem(.fixed(UIScreen.main.bounds.width / 2))],
-                            spacing: 24) {
-                                ForEach(queries.indices, id: \.self) { index in
-                                    Button(action: queries[index].action) {
-                                        VStack {
-                                            queries[index].icon?
-                                                .resizable()
-                                                .scaledToFit()
-                                                .padding(.all, 75)
-                                            Text(queries[index].label)
-                                                .font(.title)
-                                                .bold()
-                                        } // end hstack button
-                                        .frame(width: 500, height: 500, alignment: .center)
-                                        .cornerRadius(24)
-                                        .foregroundStyle(
-                                            LinearGradient(colors: [.indigo, .black], startPoint: .top, endPoint: .bottom)
-                                        )
-                                        .padding(8)
-                                    }
-                                    .background(
-                                        LinearGradient(
-                                            colors: [.blue.opacity(0.1), .yellow.opacity(0.2)],
-                                            startPoint: .bottom, endPoint: .trailing
-                                        )
-                                    )
-                                }
+            backgroundGradient
+            content
+        }
+    }
+
+    @ViewBuilder
+    private var backgroundGradient: some View {
+        LinearGradient(
+            colors: [.black.opacity(0.75), .red.opacity(0.95), .cyan.opacity(0.75), .black],
+            startPoint: .bottomTrailing,
+            endPoint: .topTrailing
+        )
+            .ignoresSafeArea()
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        VStack {
+            HomeTopBar
+            QueriesScrollView
+        }
+    }
+
+    @ViewBuilder
+    private var HomeTopBar: some View {
+        VStack {
+            Text("Box Box F1")
+                .font(.title)
+                .bold()
+                .foregroundStyle(.white)
+                .padding([.bottom, .top], 32)
+            Text("Enter Season")
+                .font(.caption2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 32)
+            TextField("", text: $text)
+                .font(.title)
+                .frame(alignment: .center)
+                .foregroundColor(.white)
+                .padding(.horizontal, 32)
+        }
+    }
+
+    @ViewBuilder
+    private var QueriesScrollView: some View {
+        ScrollView {
+            QueriesCollection
+        }
+        .ignoresSafeArea()
+    }
+
+    private var QueriesCollection: some View {
+        VStack {
+            LazyVGrid(
+                columns: [GridItem(.fixed(UIScreen.main.bounds.width / 2))],
+                spacing: 24) {
+                    ForEach(viewModel.queriesArray().indices, id: \.self) { index in
+                        QueryButton(query: viewModel.queriesArray()[index])
+                            .fullScreenCover(isPresented: $viewModel.shouldNavigateToFirstResults) {
+                                MyViewControllerWrapper()
                             }
-                            .padding(20)
                     }
                 }
+                .padding(20)
+        }
+    }
+
+    struct QueryButton: View {
+        var query: ErgastQueryButton
+        
+        var body: some View {
+            Button(action: query.action) {
+                VStack {
+                    query.icon?
+                        .resizable()
+                        .font(.title2)
+                        .scaledToFit()
+                        .foregroundStyle(
+                            LinearGradient(colors: [
+                                .white.opacity(0.75),
+                                .gray.opacity(0.25),
+                                .yellow.opacity(0.25)
+                            ], 
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing
+                            )
+                        )
+                        .padding(24)
+                    Text(query.label)
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .padding([.bottom, .top], 16)
+                }
+                .frame(minWidth: UIScreen.main.bounds.width - 16, minHeight: UIScreen.main.bounds.height/2)
                 .ignoresSafeArea()
+                .background(
+                    LinearGradient(colors: [
+                        .indigo.opacity(0.25),
+                        .black,
+                        .black
+                    ], 
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing
+                    )
+                )
+                .cornerRadius(24)
+                .padding(8)
             }
+            .buttonStyle(.plain)
         }
     }
 }
 
 #Preview {
-    HomeScreen(text: "Enter F1 Season Year")
-}
-
-struct FirstResultsWrapper: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> FirstResults {
-        let viewController = FirstResults()
-        // Pass homeQueries and qTime or use them directly if applicable
-        viewController.seasonYear = 2024
-        return viewController
-    }
-
-    func updateUIViewController(_ uiViewController: FirstResults, context: Context) {
-        // Update the view controller if needed, potentially with new homeQueries or qTime values
-    }
+    HomeScreen(text: "2024")
 }

@@ -41,6 +41,8 @@
 		0FA428CB2B145D41008673C4 /* trCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428CA2B145D41008673C4 /* trCell.swift */; };
 		0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA962882BDD6A9600D515F3 /* AuthModel.swift */; };
 		0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */; };
+		0FA9628E2BDDB71000D515F3 /* ErgastQueryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */; };
+		0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
 		0FBD817E2B18772900151CAF /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBD817D2B18772900151CAF /* AccountSettings.swift */; };
 		0FDB0D0D2863CC5D00A07E6A /* ResultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */; };
@@ -107,6 +109,8 @@
 		0FA428CA2B145D41008673C4 /* trCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trCell.swift; sourceTree = "<group>"; };
 		0FA962882BDD6A9600D515F3 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModelDelegate.swift; sourceTree = "<group>"; };
+		0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgastQueryButton.swift; sourceTree = "<group>"; };
+		0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0FB7659E280538F400C32514 /* viewControllerStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = viewControllerStory.storyboard; sourceTree = "<group>"; };
 		0FBD817D2B18772900151CAF /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		0FBD817F2B19ABD700151CAF /* F1App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F1App.entitlements; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				0FDB0D0E2863D76000A07E6A /* HomeModel.swift */,
 				0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */,
 				0FDB0D142863DAF800A07E6A /* collectionModel.swift */,
+				0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 				0F3703FC27F13C1400968C5F /* frCell.swift */,
 				0F343C9229C97BF000DA001A /* srCell.swift */,
 				0FA428CA2B145D41008673C4 /* trCell.swift */,
+				0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */,
 			);
 			path = Reuse;
 			sourceTree = "<group>";
@@ -508,6 +514,7 @@
 				0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */,
+				0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* FirstResults.swift in Sources */,
 				0F343C9329C97BF000DA001A /* srCell.swift in Sources */,
 				0FBD817E2B18772900151CAF /* AccountSettings.swift in Sources */,
@@ -516,6 +523,7 @@
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */,
+				0FA9628E2BDDB71000D515F3 /* ErgastQueryButton.swift in Sources */,
 				0F0EC2552B84771800B0B639 /* QueryData.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
