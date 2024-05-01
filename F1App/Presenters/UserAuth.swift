@@ -69,6 +69,7 @@ class UserAuth: UIViewController, AuthModelDelegate {
 
     func showSpinner() {
         activitySpinner = UIActivityIndicatorView(style: .large)
+        activitySpinner?.color = UIColor.green
         activitySpinner?.center = self.view.center
         activitySpinner?.startAnimating()
         self.view.addSubview(activitySpinner ?? UIActivityIndicatorView())

@@ -10,14 +10,11 @@ import UIKit
 import MapKit
 
 struct CollectionModel {
-    
-    
     let teamNames = F1DataStore.teamNames
     let driverNames = F1DataStore.driverNames
     let constructorID = F1DataStore.constructorID
     let teamNationality = F1DataStore.teamNationality
     let driverNationality = F1DataStore.driverNationality
-    
 
     let driverCode = F1DataStore.driverCode
     let driverNumbers = F1DataStore.driverNumber
@@ -27,7 +24,7 @@ struct CollectionModel {
     let teamsImgs = F1DataStore.teamImages
     let driverImgWiki = F1DataStore.driverWikiImgURL
     let driverTitles = F1DataStore.driverChampionships
-    
+
     let circuitName = F1DataStore.circuitName
     let circuitId = F1DataStore.circuitID
     let circuitLocation = F1DataStore.circuitLocation
@@ -35,29 +32,25 @@ struct CollectionModel {
     let circuitLong = F1DataStore.circuitLongitude
     let circuitLat = F1DataStore.circuitLatitude
     let circuitRaceDate = F1DataStore.circuitRaceDate
-    
+
     let raceURL = F1DataStore.raceURL
     let raceName = F1DataStore.raceName
     let raceDate = F1DataStore.raceDate
     let raceTime = F1DataStore.raceTime
     let raceSeason = F1DataStore.f1Season
     let finishes = F1DataStore.driverFinishes
-    
+
     let raceWins = F1DataStore.raceWins
     let racePoints = F1DataStore.racePoints
     let racePosition = F1DataStore.racePosition
     let raceWinnerName = F1DataStore.raceWinnerName
     let raceWinnerTeam = F1DataStore.raceWinnerTeam
-    
-    let qualiResuls = F1DataStore.qualiResults
-    
-    let cellCountForCircuits = F1DataStore.cellCount
-    
 
+    let qualiResuls = F1DataStore.qualiResults
+    let cellCountForCircuits = F1DataStore.cellCount
     // removing data from cells to be able to load the data again
     // should expand this to actually keep the data but hide it when the old queries are selected
 
-    
     func howManyCells() -> Int{
         if F1DataStore.whichQuery == 0 {
             return teamNames.count
@@ -74,7 +67,7 @@ struct CollectionModel {
         // arbitrary return
         return 1
     }
-    
+
     // setting size of each cell
     func cellSizeFromQuery(view:UIView) -> CGSize{
         let availableWidth = view.frame.width
@@ -101,7 +94,7 @@ struct CollectionModel {
         }
         return CGSize(width: availableWidth * 0.95, height: availableHeight * 0.33)
     }
-    
+
     // Define a new method to load the driver's image asynchronously
     func loadImage(withURL imageURL: URL?, completion: @escaping (UIImage?) -> Void) {
         guard let imageURL = imageURL else {
@@ -121,8 +114,7 @@ struct CollectionModel {
         }.resume()
     }
 
-    
-    func cellLogic(cell: frCell, indexPath: IndexPath, mapView: MKMapView, seasonYear: Int) {
+    @MainActor func cellLogic(cell: frCell, indexPath: IndexPath, mapView: MKMapView, seasonYear: Int) {
         switch F1DataStore.whichQuery {
         case 0:
             configureConstructorCell(cell: cell, indexPath: indexPath)
@@ -255,7 +247,7 @@ struct CollectionModel {
 
     }
 
-    func configureCircuitCell(cell: frCell, indexPath: IndexPath, mapView: MKMapView) {
+    @MainActor func configureCircuitCell(cell: frCell, indexPath: IndexPath, mapView: MKMapView) {
         // Existing circuit logic here...
         cell.F1MapView.isHidden = false
         cell.mapView.isHidden = false
@@ -279,12 +271,8 @@ struct CollectionModel {
         cell.bottomCellLabel.text = "Round \(indexPath.item + 1)"+", \(circuitRaceDateStr!)"
         cell.mapView.layer.borderWidth = 2
         cell.mapView.layer.borderColor = UIColor.lightGray.cgColor
-
     }
 
-    
-
-    
     // formatting the look of the cells
     func cellViewFormat(cell:frCell){
         cell.layer.borderWidth = 2
@@ -294,7 +282,6 @@ struct CollectionModel {
         cell.mapView.layer.cornerRadius = 12
         cell.F1MapView.layer.cornerRadius = 12
     }
-    
 
     func getDriverResults(indexPath: IndexPath, sortedIndices: [Int], mySelf: UIViewController){
         let dataIndex = sortedIndices[safe:indexPath.item] ?? 0
@@ -329,8 +316,6 @@ struct CollectionModel {
         }
     }
 
-    
-    
 }
 
 // mapkit extension

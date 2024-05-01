@@ -289,13 +289,13 @@
 		0FDB0D112863D7C000A07E6A /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				0FF96F992B17D3E400C8E9BD /* UserAuth.swift */,
+				0F0EC2562B84789200B0B639 /* HomeScreen.swift */,
 				0F1D75162880FA7600EFE42E /* HomeQueries.swift */,
 				0FA3B5F528068F0D00A334D8 /* FirstResults.swift */,
 				0F343C9029C97BA100DA001A /* SecondaryResults.swift */,
 				0FA428C82B145590008673C4 /* TertiaryResults.swift */,
-				0FF96F992B17D3E400C8E9BD /* UserAuth.swift */,
 				0FBD817D2B18772900151CAF /* AccountSettings.swift */,
-				0F0EC2562B84789200B0B639 /* HomeScreen.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -643,6 +643,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -696,6 +697,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

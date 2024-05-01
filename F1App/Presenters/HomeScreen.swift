@@ -23,7 +23,12 @@ struct HomeScreen: View {
     @ViewBuilder
     private var backgroundGradient: some View {
         LinearGradient(
-            colors: [.black.opacity(0.75), .red.opacity(0.95), .cyan.opacity(0.75), .black],
+            colors: [
+                .black.opacity(0.75),
+                .blue.opacity(0.95),
+                .cyan.opacity(0.75),
+                .black
+            ],
             startPoint: .bottomTrailing,
             endPoint: .topTrailing
         )
@@ -67,13 +72,14 @@ struct HomeScreen: View {
         .ignoresSafeArea()
     }
 
+    @ViewBuilder
     private var QueriesCollection: some View {
         VStack {
             LazyVGrid(
                 columns: [GridItem(.fixed(UIScreen.main.bounds.width / 2))],
                 spacing: 24) {
                     ForEach(viewModel.queriesArray().indices, id: \.self) { index in
-                        QueryButton(query: viewModel.queriesArray()[index])
+                        QueryButton(ErgastQuery: viewModel.queriesArray()[index])
                             .sheet(isPresented: $viewModel.shouldNavigateToFirstResults) {
                                 MyViewControllerWrapper()
                             }
@@ -84,12 +90,12 @@ struct HomeScreen: View {
     }
 
     struct QueryButton: View {
-        var query: ErgastQueryButton
+        var ErgastQuery: ErgastQueryButton
         
         var body: some View {
-            Button(action: query.action) {
+            Button(action: ErgastQuery.action) {
                 VStack {
-                    query.icon?
+                    ErgastQuery.icon?
                         .resizable()
                         .font(.title2)
                         .scaledToFit()
@@ -104,13 +110,16 @@ struct HomeScreen: View {
                             )
                         )
                         .padding(24)
-                    Text(query.label)
+                    Text(ErgastQuery.label)
                         .font(.title)
                         .bold()
                         .foregroundStyle(.white)
                         .padding([.bottom, .top], 16)
                 }
-                .frame(minWidth: UIScreen.main.bounds.width - 16, minHeight: UIScreen.main.bounds.height/2)
+                .frame(
+                    minWidth: UIScreen.main.bounds.width - 16,
+                    minHeight: UIScreen.main.bounds.height/2 - 75
+                )
                 .ignoresSafeArea()
                 .background(
                     LinearGradient(colors: [

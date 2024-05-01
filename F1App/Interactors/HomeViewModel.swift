@@ -15,7 +15,10 @@ class HomeViewModel: ObservableObject {
 
     func queriesArray() -> [ErgastQueryButton] {
         let queries: [ErgastQueryButton] = [
-            ErgastQueryButton(icon: Image(systemName: "person.3.fill"), label: "Drivers", action: {
+            ErgastQueryButton(
+                icon: Image("lewis"),
+                label: "Drivers",
+                action: {
                 F1DataStore.whichQuery = 1
                 print("Drivers Query Fires Here")
                 F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear) { Success in
@@ -29,7 +32,10 @@ class HomeViewModel: ObservableObject {
                     }
                 }
             }),
-            ErgastQueryButton(icon: Image(systemName: "gearshape.fill"), label: "Constructors", action: {
+            ErgastQueryButton(
+                icon: Image("f1Car"),
+                label: "Constructors",
+                action: {
                 print("Constructors Query Fires Here")
                 F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear) { Success in
                     DispatchQueue.main.async {
@@ -42,7 +48,10 @@ class HomeViewModel: ObservableObject {
                     }
                 }
             }),
-            ErgastQueryButton(icon: Image(systemName: "flag.checkered"), label: "Grand Prix", action: {
+            ErgastQueryButton(
+                icon: Image("circuitLogo"),
+                label: "Grand Prix",
+                action: {
                 print("Grand Prix Query Fires Here")
                 F1ApiRoutes.allRaceSchedule(seasonYear: self.seasonYear) { Success in
                     if Success {
@@ -56,13 +65,13 @@ class HomeViewModel: ObservableObject {
         ]
         return queries
     }
-    
+
     private func returnYear() -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
         return Int(dateFormatter.string(from: Date())) ?? 2024
     }
-    
+
     private func showResults(qTime: Double) {
         // Simulate loading time
         DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {

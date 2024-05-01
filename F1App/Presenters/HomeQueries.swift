@@ -25,7 +25,6 @@ class HomeQueries: UICollectionViewController, UICollectionViewDelegateFlowLayou
         collectionView.dataSource = self
         navigationController?.delegate = self
 //        firebaseDB.getImag(coreData: coreDataHelper, img: "WDCLogo.png")
-        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
