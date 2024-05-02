@@ -10,7 +10,6 @@ import UIKit
 
 struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel()
-    @State var text: String
     let homeModel = HomeModel()
 
     var body: some View {
@@ -134,5 +133,5 @@ struct HomeScreen: View {
 }
 
 #Preview {
-    HomeScreen(text: "2024")
+    HomeScreen()
 }

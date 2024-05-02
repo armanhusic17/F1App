@@ -46,7 +46,7 @@ class UserAuth: UIViewController, AuthModelDelegate {
             if success {
                 DispatchQueue.main.async {
                     self.hideSpinner()
-                    let homeScreenView = HomeScreen(text: "2024")
+                    let homeScreenView = HomeScreen()
                     let hostingController = UIHostingController(rootView: homeScreenView)
                     hostingController.modalPresentationStyle = .fullScreen
                     self.present(hostingController, animated: true, completion: nil)

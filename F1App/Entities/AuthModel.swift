@@ -75,7 +75,7 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
                 }
 
                 DispatchQueue.main.async {
-                    let homeScreenView = HomeScreen(text: "2024")
+                    let homeScreenView = HomeScreen()
                     let hostingController = UIHostingController(rootView: homeScreenView)
                     self?.delegate?.didCompleteSignIn(hostingController)
                 }

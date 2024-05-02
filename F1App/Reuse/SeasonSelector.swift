@@ -37,7 +37,7 @@ struct SeasonSelector: View {
         } label: {
             HStack {
                 Text("Select F1 Season: \(currentSeason)")
-                    .font(.headline)
+                    .font(.body)
                     .bold()
                 Spacer()
                 Image(systemName: "chevron.down")
