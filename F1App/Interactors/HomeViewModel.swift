@@ -8,7 +8,6 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @Published var text = "2024"
     @Published var seasonYear: String = "2024"
     @Published var shouldNavigateToFirstResults = false
     let homeModel = HomeModel()

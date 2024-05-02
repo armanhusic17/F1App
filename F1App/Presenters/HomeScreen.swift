@@ -51,16 +51,10 @@ struct HomeScreen: View {
                 .bold()
                 .foregroundStyle(.white)
                 .padding([.bottom, .top], 32)
-            Text("Enter Season")
-                .font(.caption2)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(.white)
-                .padding(.horizontal, 32)
-            TextField("", text: $text)
-                .font(.title)
-                .frame(alignment: .center)
-                .foregroundColor(.white)
-                .padding(.horizontal, 32)
+            SeasonSelector(currentSeason: viewModel.seasonYear) { season in
+                viewModel.seasonYear = season
+                print(season)
+            }
         }
     }
 
