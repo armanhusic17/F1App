@@ -83,7 +83,7 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
         }
     }
 
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    @MainActor func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         let thisSelf = UserAuth()
         return thisSelf.view.window ?? UIWindow()
     }

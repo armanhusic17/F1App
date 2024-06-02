@@ -23,9 +23,10 @@ struct HomeScreen: View {
     private var backgroundGradient: some View {
         LinearGradient(
             colors: [
-                .black.opacity(0.75),
-                .blue.opacity(0.95),
-                .cyan.opacity(0.75),
+                .black,
+                .red,
+                .red.opacity(0.95),
+                .mint.opacity(0.75),
                 .black
             ],
             startPoint: .bottomTrailing,

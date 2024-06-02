@@ -69,7 +69,7 @@ struct CollectionModel {
     }
 
     // setting size of each cell
-    func cellSizeFromQuery(view:UIView) -> CGSize{
+    @MainActor func cellSizeFromQuery(view:UIView) -> CGSize{
         let availableWidth = view.frame.width
         let availableHeight = view.frame.height
         let queryWidth:CGFloat?
@@ -131,7 +131,7 @@ struct CollectionModel {
         }
     }
 
-    func configureConstructorCell(cell: frCell, indexPath: IndexPath) {
+    @MainActor func configureConstructorCell(cell: frCell, indexPath: IndexPath) {
         let teamName = (F1DataStore.teamNames[safe: indexPath.item] ?? "") ?? ""
         guard let imageUrlString = F1DataStore.teamImages[teamName] else {return}
         
@@ -160,7 +160,7 @@ struct CollectionModel {
         cell.mapView.isHidden = true
     }
 
-    func configureWDCCell(cell: frCell, indexPath: IndexPath) {
+    @MainActor func configureWDCCell(cell: frCell, indexPath: IndexPath) {
         // Existing WDC logic here...
         cell.cellImage.contentMode = .scaleAspectFill
         cell.bottomCellLabel2.isHidden = false
@@ -274,7 +274,7 @@ struct CollectionModel {
     }
 
     // formatting the look of the cells
-    func cellViewFormat(cell:frCell){
+    @MainActor func cellViewFormat(cell:frCell){
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.lightGray.cgColor
         cell.layer.cornerRadius = 15

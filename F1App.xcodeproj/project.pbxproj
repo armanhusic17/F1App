@@ -36,6 +36,8 @@
 		0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA079287F99CC000E8F49 /* teamLH.png */; };
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
+		0F865B0D2BE3ED7B008A8076 /* QueryResultsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */; };
+		0F865B0F2C0290CA008A8076 /* HorizontalGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* HorizontalGridCell.swift */; };
 		0FA3B5F628068F0D00A334D8 /* FirstResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResults.swift */; };
 		0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FA428C92B145590008673C4 /* TertiaryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428C82B145590008673C4 /* TertiaryResults.swift */; };
@@ -105,6 +107,8 @@
 		0F6FA079287F99CC000E8F49 /* teamLH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teamLH.png; sourceTree = "<group>"; };
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
+		0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResultsGrid.swift; sourceTree = "<group>"; };
+		0F865B0E2C0290CA008A8076 /* HorizontalGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalGridCell.swift; sourceTree = "<group>"; };
 		0FA3B5F528068F0D00A334D8 /* FirstResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResults.swift; sourceTree = "<group>"; };
 		0FA3B5F92806920E00A334D8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		0FA428C82B145590008673C4 /* TertiaryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryResults.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 				0F343C9029C97BA100DA001A /* SecondaryResults.swift */,
 				0FA428C82B145590008673C4 /* TertiaryResults.swift */,
 				0FBD817D2B18772900151CAF /* AccountSettings.swift */,
+				0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -308,6 +313,7 @@
 				0FA962912BDF0D9B00D515F3 /* UIKit Components */,
 				0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */,
 				0F865B0A2BE34965008A8076 /* SeasonSelector.swift */,
+				0F865B0E2C0290CA008A8076 /* HorizontalGridCell.swift */,
 			);
 			path = Reuse;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 				0F1D75172880FA7600EFE42E /* HomeQueries.swift in Sources */,
 				0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
+				0F865B0F2C0290CA008A8076 /* HorizontalGridCell.swift in Sources */,
 				0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */,
 				0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* FirstResults.swift in Sources */,
@@ -543,6 +550,7 @@
 				0FF96F9A2B17D3E400C8E9BD /* UserAuth.swift in Sources */,
 				0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */,
 				0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */,
+				0F865B0D2BE3ED7B008A8076 /* QueryResultsGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

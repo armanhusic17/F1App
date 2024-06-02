@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SeasonSelector: View {
-    @State internal var currentSeason = "2024"
+    @State internal var currentSeason = String(Calendar.current.component(.year, from: Date()))
     internal var action: (String) -> Void
 
     var years: [String] {
