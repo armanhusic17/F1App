@@ -9,10 +9,8 @@ import Foundation
 import SwiftUI
 
 class QueryData: ObservableObject {
-
     @Published var teamNames: [String] = []
     @Published var driverName: [String] = []
     @Published var grandPrix: [String] = []
-    
 }
 

@@ -27,7 +27,6 @@ struct MRData: Decodable {
     private enum CodingKeys: String, CodingKey {
         case raceTable = "RaceTable"
         case standingsTable = "StandingsTable"
-
     }
 }
 
@@ -47,8 +46,6 @@ struct RaceResults: Decodable {
         case mrData = "MRData"
     }
 }
-
-
 
 struct StandingsTable: Decodable {
     let season: String?
@@ -122,7 +119,6 @@ struct Race: Decodable {
     let results: [Result]?
     let laps: [Lap]?  // Add this line to include Laps
 
-    
     private enum CodingKeys: String, CodingKey {
         case raceName = "raceName"
         case circuit = "Circuit"

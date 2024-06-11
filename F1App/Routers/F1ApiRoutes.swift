@@ -11,8 +11,6 @@ import Foundation
     Set up a struct that can decode the json returned
  */
 struct F1ApiRoutes  {
-            
-    
     typealias FoundationData = Foundation.Data
     static var cache = [String: FoundationData]()
 
@@ -406,12 +404,7 @@ struct F1ApiRoutes  {
         }.resume()
     }
 
-
-
-
-    
     static func worldDriversChampionshipStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
-
         // Check if data is in UserDefaults
         if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings")  {
             do {
@@ -455,6 +448,7 @@ struct F1ApiRoutes  {
                         // Save to UserDefaults
                         if seasonYear != "2024" {
                             UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
+                            print(UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)"))
                         }
 
                     } else {

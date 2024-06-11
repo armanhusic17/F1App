@@ -14,13 +14,6 @@ struct HomeModel {
     var seasonRound:String?
     var seasonYear:String?
 
-    func showResults(qTime: Double, homeSelf: HomeQueries) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + qTime) {
-            homeSelf.collectionView.isUserInteractionEnabled = true
-            homeSelf.performSegue(withIdentifier: "homeCollectionTransition", sender: self)
-        }
-    }
-
     func returnYear() -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
@@ -45,7 +38,6 @@ struct HomeModel {
                 F1ApiRoutes.getConstructorStandings(seasonYear: thisSeason) { Success in
                     if Success {
                         print("SUCCESSS ALL CONSTRUCTORS")
-                        showResults(qTime: 0.75, homeSelf: homeSelf)
                     } else {
                         print("FAILURE TO SHOW ALL CONSTRUCTORS")
                     }
@@ -67,7 +59,6 @@ struct HomeModel {
                     if Success {
                         if Success {
                             print("SUCCESSS TO SHOW ALL WORLD DRIVER CHAMPIONSHIPS STATS")
-                            showResults(qTime: 0.75, homeSelf: homeSelf)
                         } else {
                             print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
                         }
@@ -94,18 +85,12 @@ struct HomeModel {
 
             F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2024") { Success in
                 if Success {
-                    showResults(qTime: 0.75, homeSelf: homeSelf)
                 } else {
                     print("ERROR?")
                 }
             }
 
         }
-        // WDC QUERY
-        else if F1DataStore.whichQuery == 3 {
-
-        }
-
     }
 
     func showAlert(passSelf:HomeQueries){

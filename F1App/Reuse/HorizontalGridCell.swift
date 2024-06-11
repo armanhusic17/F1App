@@ -29,7 +29,9 @@ struct HorizontalGridCell: View {
                             .font(.title)
                             .padding()
                     }
-                    .background(Color.red)
+                    .background(
+                        LinearGradient(colors: [.black, .clear, .mint], startPoint: .bottomLeading, endPoint: .topTrailing)
+                    )
                     .cornerRadius(12)
                     .padding(.horizontal, 2)
                 }

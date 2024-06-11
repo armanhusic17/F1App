@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel = HomeViewModel()
+    @ObservedObject var viewModel = HomeViewModel(seasonYear: "2024")
     let homeModel = HomeModel()
 
     var body: some View {
@@ -71,64 +71,14 @@ struct HomeScreen: View {
         VStack {
             LazyVGrid(
                 columns: [GridItem(.fixed(UIScreen.main.bounds.width / 2))],
-                spacing: 24) {
-                    ForEach(viewModel.queriesArray().indices, id: \.self) { index in
-                        QueryButton(ErgastQuery: viewModel.queriesArray()[index])
-                            .sheet(isPresented: $viewModel.shouldNavigateToFirstResults) {
-                                MyViewControllerWrapper()
-                            }
+                spacing: 10) {
+                    Group {
+                        HorizontalGridCell(items: ["1", "2", "3", "4", "5", "6", "7", "8"])
+                        HorizontalGridCell(items: ["1", "2", "3", "4", "5", "6", "7", "8"])
+                        HorizontalGridCell(items: ["1", "2", "3", "4", "5", "6", "7", "8"])
                     }
+                    .frame(width: UIScreen.main.bounds.width)
                 }
-                .padding(20)
-        }
-    }
-
-    struct QueryButton: View {
-        var ErgastQuery: ErgastQueryButton
-        
-        var body: some View {
-            Button(action: ErgastQuery.action) {
-                VStack {
-                    ErgastQuery.icon?
-                        .resizable()
-                        .font(.title2)
-                        .scaledToFit()
-                        .foregroundStyle(
-                            LinearGradient(colors: [
-                                .white.opacity(0.75),
-                                .gray.opacity(0.25),
-                                .yellow.opacity(0.25)
-                            ], 
-                               startPoint: .topLeading,
-                               endPoint: .bottomTrailing
-                            )
-                        )
-                        .padding(24)
-                    Text(ErgastQuery.label)
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.white)
-                        .padding([.bottom, .top], 16)
-                }
-                .frame(
-                    minWidth: UIScreen.main.bounds.width - 16,
-                    minHeight: UIScreen.main.bounds.height/2 - 75
-                )
-                .ignoresSafeArea()
-                .background(
-                    LinearGradient(colors: [
-                        .indigo.opacity(0.25),
-                        .black,
-                        .black
-                    ], 
-                       startPoint: .topLeading,
-                       endPoint: .bottomTrailing
-                    )
-                )
-                .cornerRadius(24)
-                .padding(8)
-            }
-            .buttonStyle(.plain)
         }
     }
 }
