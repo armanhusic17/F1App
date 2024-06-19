@@ -55,17 +55,17 @@ struct HomeModel {
                 F1DataStore.seasonYearSelected = enterYear.text
                 guard let thisSeason = F1DataStore.seasonYearSelected else { return }
                 print(thisSeason)
-                F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
-                    if Success {
-                        if Success {
-                            print("SUCCESSS TO SHOW ALL WORLD DRIVER CHAMPIONSHIPS STATS")
-                        } else {
-                            print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                        }
-                    } else {
-                        print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-                    }
-                }
+//                F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
+//                    if Success {
+//                        if Success {
+//                            print("SUCCESSS TO SHOW ALL WORLD DRIVER CHAMPIONSHIPS STATS")
+//                        } else {
+//                            print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+//                        }
+//                    } else {
+//                        print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+//                    }
+//                }
             }
         }
         // GRAND PRIX QUERY

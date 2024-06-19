@@ -8,9 +8,23 @@
 import SwiftUI
 
 struct HorizontalGridCell: View {
+    let poles: String
+    let wins: String
+    let races: String
+    let image: String
     let items: [String]
     
-    init(items: [String]) {
+    init(
+        poles: String,
+        wins: String,
+        races: String,
+        image: String,
+        items: [String]
+    ) {
+        self.poles = poles
+        self.wins = wins
+        self.races = races
+        self.image = image
         self.items = items
     }
     
@@ -19,27 +33,45 @@ struct HorizontalGridCell: View {
             LazyHGrid(rows: [GridItem(.flexible())]) {
                 ForEach(items, id: \.self) { item in
                     VStack {
-                        Image(item)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 250, height: 100)
-                            .padding()
-                        Text(item.capitalized)
-                            .foregroundStyle(.white)
+                        HStack {
+                            Image(systemName: image)
+                                .font(.largeTitle)
+                                .aspectRatio(contentMode: .fit)
+                                .ignoresSafeArea()
+                            Text(item.capitalized)
+                                .bold()
+                                .font(.largeTitle)
+                            Spacer()
+                        }
+                        .padding(25)
+                        HStack {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(poles)
+                                Text(wins)
+                                Text(races)
+                                Text(poles)
+                                Text(wins)
+                                Text(races)
+                                Text(poles)
+                            }
                             .font(.title)
-                            .padding()
+                            .fixedSize(horizontal: false, vertical: true)
+                            Spacer()
+                        }
+                       
                     }
+                    .padding()
+                    .foregroundStyle(.white)
                     .background(
-                        LinearGradient(colors: [.black, .clear, .mint], startPoint: .bottomLeading, endPoint: .topTrailing)
+                        LinearGradient(
+                            colors: [.black, .clear, .red],
+                            startPoint: .bottomLeading,
+                            endPoint: .topTrailing
+                        )
                     )
                     .cornerRadius(12)
-                    .padding(.horizontal, 2)
                 }
             }
         }
     }
-}
-
-#Preview {
-    HorizontalGridCell(items: ["1", "2", "3"])
 }

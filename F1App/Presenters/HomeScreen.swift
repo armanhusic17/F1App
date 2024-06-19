@@ -17,6 +17,11 @@ struct HomeScreen: View {
             backgroundGradient
             content
         }
+        .onAppear {
+            Task {
+                await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
+            }
+        }
     }
 
     @ViewBuilder
@@ -24,8 +29,8 @@ struct HomeScreen: View {
         LinearGradient(
             colors: [
                 .black,
-                .red,
-                .red.opacity(0.95),
+                .black,
+                .black.opacity(0.95),
                 .mint.opacity(0.75),
                 .black
             ],
@@ -63,22 +68,59 @@ struct HomeScreen: View {
         ScrollView {
             QueriesCollection
         }
-        .ignoresSafeArea()
     }
 
     @ViewBuilder
     private var QueriesCollection: some View {
-        VStack {
-            LazyVGrid(
-                columns: [GridItem(.fixed(UIScreen.main.bounds.width / 2))],
-                spacing: 10) {
-                    Group {
-                        HorizontalGridCell(items: ["1", "2", "3", "4", "5", "6", "7", "8"])
-                        HorizontalGridCell(items: ["1", "2", "3", "4", "5", "6", "7", "8"])
-                        HorizontalGridCell(items: ["1", "2", "3", "4", "5", "6", "7", "8"])
-                    }
-                    .frame(width: UIScreen.main.bounds.width)
+        ScrollView(.horizontal) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                spacing: 15
+            ) {
+                ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
+                    HorizontalGridCell(
+                        poles: "WDC: \(driverStanding.position)",
+                        wins: "Points \(driverStanding.points)",
+                        races: "\(driverStanding.teamNames)",
+                        image: driverStanding.imageUrl,
+                        items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
+                    )
                 }
+            }
+        }
+
+        ScrollView(.horizontal) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                spacing: 15
+            ) {
+                ForEach(viewModel.uniqueTeams, id: \.self) { driverStanding in
+                    HorizontalGridCell(
+                        poles: "WCC: ",
+                        wins: "Points ",
+                        races: "",
+                        image: driverStanding.imageUrl,
+                        items: [" \(driverStanding.teamNames)"]
+                    )
+                }
+            }
+        }
+
+        ScrollView(.horizontal) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                spacing: 15
+            ) {
+                ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
+                    HorizontalGridCell(
+                        poles: "WDC: \(driverStanding.position)",
+                        wins: "Points \(driverStanding.points)",
+                        races: "\(driverStanding.teamNames)",
+                        image: driverStanding.imageUrl,
+                        items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
+                    )
+                }
+            }
         }
     }
 }

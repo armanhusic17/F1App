@@ -247,3 +247,17 @@ struct Timing: Decodable {
     let position: String?
     let time: String?
 }
+
+struct DriverStanding: Codable, Hashable {
+    var givenName: String
+    var familyName: String
+    var position: String
+    var points: String
+    var teamNames: String
+    var imageUrl: String
+}
+
+struct SeasonStanding: Codable, Hashable {
+    var seasonYear: String
+    var drivers: [DriverStanding]
+}

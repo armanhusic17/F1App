@@ -9,14 +9,18 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     @Published var seasonYear: String = "2024"
-    @Published var drivers: [String] = []
-    let homeModel = HomeModel()
+    @Published var drivers: [String?] = []
+    @Published var driverStandings: [DriverStanding] = []
+    @Published var gridCellItems: [[String]] = []
     
     init(
         seasonYear: String
     ) {
         self.seasonYear = returnYear().description
-        self.loadInitialData()
+    }
+    
+    var uniqueTeams: [DriverStanding] {
+        return driverStandings.unique(by: { $0.teamNames })
     }
 
     private func returnYear() -> Int {
@@ -25,35 +29,24 @@ class HomeViewModel: ObservableObject {
         return Int(dateFormatter.string(from: Date())) ?? 2024
     }
     
-    private func loadInitialData() {
-        print("Drivers Query Fires Here")
-        F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear) { Success in
-            DispatchQueue.main.async {
-                if Success {
-                    print("Success = \(Success) drivers query - these will all just load on init")
-                    
-                }
-            }
-        }
-        print("Constructors Query Fires Here")
-        F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear) { Success in
-            DispatchQueue.main.async {
-                if Success {
-                    print("Success = \(Success) constructors query")
-                    
-                }
-            }
-        }
-        
-        print("Grand Prix Query Fires Here")
-        F1ApiRoutes.allRaceSchedule(seasonYear: self.seasonYear) { Success in
-            if Success {
-                print("Success = \(Success) - grand prix query")
-                
-            }
+    @MainActor
+    func loadDriverStandings(seasonYear: String) async {
+        do {
+            let standings = try await F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
+            driverStandings.append(contentsOf: standings)
+            // Update UI or state with standings
+        } catch {
+            // Handle errors such as display an error message
         }
     }
-    
-    
+}
 
+extension Array {
+    func unique<T: Hashable>(by key: (Element) -> T) -> [Element] {
+        var seenKeys = Set<T>()
+        return filter { element in
+            let key = key(element)
+            return seenKeys.insert(key).inserted
+        }
+    }
 }
