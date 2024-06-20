@@ -407,7 +407,7 @@ struct F1ApiRoutes  {
         if seasonYear != "2024" {
             UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
         }
-        print(json)
+
         return processDriverStandings(json, seasonYear: seasonYear)
     }
 
@@ -435,11 +435,10 @@ struct F1ApiRoutes  {
                 }
             }
         }
-        print(results)
         return results
     }
     
-    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String) async throws -> String {
+    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String) async throws -> [String] {
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
@@ -458,7 +457,7 @@ struct F1ApiRoutes  {
             throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(givenName) \(familyName)"])
         }
         print(thumbnailURL)
-        return thumbnailURL
+        return [thumbnailURL]
     }
 
 

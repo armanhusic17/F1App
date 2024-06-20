@@ -20,6 +20,7 @@ struct HomeScreen: View {
         .onAppear {
             Task {
                 await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
+                await viewModel.getDriverImgs()
             }
         }
     }
@@ -82,47 +83,15 @@ struct HomeScreen: View {
                         poles: "WDC: \(driverStanding.position)",
                         wins: "Points \(driverStanding.points)",
                         races: "\(driverStanding.teamNames)",
-                        image: driverStanding.imageUrl,
+                        image: [driverStanding.imageUrl],
                         items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
                     )
                 }
             }
         }
 
-        ScrollView(.horizontal) {
-            LazyHGrid(
-                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
-                spacing: 15
-            ) {
-                ForEach(viewModel.uniqueTeams, id: \.self) { driverStanding in
-                    HorizontalGridCell(
-                        poles: "WCC: ",
-                        wins: "Points ",
-                        races: "",
-                        image: driverStanding.imageUrl,
-                        items: [" \(driverStanding.teamNames)"]
-                    )
-                }
-            }
-        }
-
-        ScrollView(.horizontal) {
-            LazyHGrid(
-                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
-                spacing: 15
-            ) {
-                ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
-                    HorizontalGridCell(
-                        poles: "WDC: \(driverStanding.position)",
-                        wins: "Points \(driverStanding.points)",
-                        races: "\(driverStanding.teamNames)",
-                        image: driverStanding.imageUrl,
-                        items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
-                    )
-                }
-            }
-        }
-    }
+        
+    } // end queriescollection
 }
 
 #Preview {

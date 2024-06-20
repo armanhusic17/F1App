@@ -12,6 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var drivers: [String?] = []
     @Published var driverStandings: [DriverStanding] = []
     @Published var gridCellItems: [[String]] = []
+    @Published var driverImages: [String] = []
     
     init(
         seasonYear: String
@@ -34,6 +35,17 @@ class HomeViewModel: ObservableObject {
         do {
             let standings = try await F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
             driverStandings.append(contentsOf: standings)
+            // Update UI or state with standings
+        } catch {
+            // Handle errors such as display an error message
+        }
+    }
+    
+    @MainActor
+    func getDriverImgs() async {
+        do {
+            let driverImgs = try await F1ApiRoutes.fetchDriverInfoFromWikipedia(givenName: "Lewis", familyName: "Hamilton")
+            driverImages = driverImages
             // Update UI or state with standings
         } catch {
             // Handle errors such as display an error message
