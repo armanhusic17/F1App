@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct HorizontalGridCell: View {
-    let poles: String
-    let wins: String
-    let races: String
-    let image: [String]
+    let wdcPosition: String
+    let wdcPoints: String
+    let constructorName: String
+    let image: String
     let items: [String]
     
     init(
-        poles: String,
-        wins: String,
-        races: String,
-        image: [String],
+        wdcPosition: String,
+        wdcPoints: String,
+        constructorName: String,
+        image: String,
         items: [String]
     ) {
-        self.poles = poles
-        self.wins = wins
-        self.races = races
+        self.wdcPosition = wdcPosition
+        self.wdcPoints = wdcPoints
+        self.constructorName = constructorName
         self.image = image
         self.items = items
     }
@@ -34,49 +34,34 @@ struct HorizontalGridCell: View {
                 ForEach(items, id: \.self) { item in
                     VStack {
                         HStack {
-                            AsyncImage(url: URL(string: image[0])) { phase in
-                               switch phase {
-                               case .empty:
-                                   Image(systemName: "person.circle")
-                                       .resizable()
-                                       .aspectRatio(contentMode: .fit)
-                                       .font(.caption)
-                                       .foregroundStyle(Color.red)
-                               case .success(let image):
-                                   image
-                                       .resizable()
-                                       .font(.headline)
-                                       .foregroundStyle(Color.white)
-                               case .failure:
-                                   Image(systemName: "person.circle")
-                                       .resizable()
-                                       .font(.headline)
-                                       .foregroundStyle(Color.white)
-                               @unknown default:
-                                   EmptyView()
-                               }
-                           }
+                            Image(systemName: "person.and.background.dotted")
+                                .font(.largeTitle)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(Color.red)
                             Text(item.capitalized)
+                                .bold()
                                 .fixedSize(horizontal: true, vertical: false)
                                 .font(.largeTitle)
                             Spacer()
                         }
                         .padding(25)
-                        HStack {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(poles)
-                                Text(wins)
-                                Text(races)
-                                Text(poles)
-                                Text(wins)
-                                Text(races)
-                                Text(poles)
+
+                        VStack(alignment: .center, spacing: 16) {
+                            HStack {
+                                Image(systemName: "trophy")
+                                Text(wdcPosition)
                             }
-                            .font(.title)
-                            .fixedSize(horizontal: false, vertical: true)
-                            Spacer()
+                            HStack {
+                                Image(systemName: "car")
+                                Text(wdcPoints)
+                            }
+                            HStack {
+                                Image(systemName: "steeringwheel")
+                                Text(constructorName)
+                            }
                         }
-                       
+                        .font(.title)
+                        .fixedSize(horizontal: false, vertical: true)
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -92,4 +77,14 @@ struct HorizontalGridCell: View {
             }
         }
     }
+}
+
+#Preview {
+    HorizontalGridCell(
+        wdcPosition: "WDC Position",
+        wdcPoints: "WDC Points",
+        constructorName: "Team Name",
+        image: "Image",
+        items: ["Given Name + Family Name"]
+    )
 }

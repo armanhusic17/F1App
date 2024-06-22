@@ -20,7 +20,8 @@ struct HomeScreen: View {
         .onAppear {
             Task {
                 await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
-                await viewModel.getDriverImgs()
+//                await viewModel.getDriverImgs()
+//                await viewModel.loadRaceResults(year: viewModel.seasonYear, round: "\(1)")
             }
         }
     }
@@ -53,10 +54,10 @@ struct HomeScreen: View {
     private var HomeTopBar: some View {
         VStack {
             Text("Box Box F1")
-                .font(.title)
+                .font(.headline)
                 .bold()
-                .foregroundStyle(.white)
-                .padding([.bottom, .top], 32)
+                .foregroundStyle(.white.opacity(0.25))
+                .padding([.bottom, .top], 8)
             SeasonSelector(currentSeason: viewModel.seasonYear) { season in
                 viewModel.seasonYear = season
                 print(season)
@@ -80,17 +81,15 @@ struct HomeScreen: View {
             ) {
                 ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
                     HorizontalGridCell(
-                        poles: "WDC: \(driverStanding.position)",
-                        wins: "Points \(driverStanding.points)",
-                        races: "\(driverStanding.teamNames)",
-                        image: [driverStanding.imageUrl],
+                        wdcPosition: "WDC: \(driverStanding.position)",
+                        wdcPoints: "Points \(driverStanding.points)",
+                        constructorName: "\(driverStanding.teamNames)",
+                        image: "",
                         items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
                     )
                 }
             }
         }
-
-        
     } // end queriescollection
 }
 

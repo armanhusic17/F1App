@@ -35,10 +35,11 @@ struct SeasonSelector: View {
                 }
             }
         } label: {
-            HStack {
+            HStack(alignment: .center) {
                 Text("Select F1 Season: \(currentSeason)")
-                    .font(.body)
+                    .font(.largeTitle)
                     .bold()
+                    .multilineTextAlignment(.leading)
                 Spacer()
                 Image(systemName: "chevron.down")
             }

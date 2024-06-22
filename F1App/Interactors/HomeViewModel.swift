@@ -13,6 +13,8 @@ class HomeViewModel: ObservableObject {
     @Published var driverStandings: [DriverStanding] = []
     @Published var gridCellItems: [[String]] = []
     @Published var driverImages: [String] = []
+    @Published var raceResults: Root?
+    @Published var errorMessage: String?
     
     init(
         seasonYear: String
@@ -45,10 +47,21 @@ class HomeViewModel: ObservableObject {
     func getDriverImgs() async {
         do {
             let driverImgs = try await F1ApiRoutes.fetchDriverInfoFromWikipedia(givenName: "Lewis", familyName: "Hamilton")
-            driverImages = driverImages
+            driverImages.append(driverImgs)
             // Update UI or state with standings
         } catch {
             // Handle errors such as display an error message
+        }
+    }
+    
+    @MainActor
+    func loadRaceResults(year: String, round: String) {
+        Task {
+            do {
+                self.raceResults = try await F1ApiRoutes().fetchRaceResults(forYear: year, round: round)
+            } catch {
+                self.errorMessage = "Failed to fetch data: \(error)"
+            }
         }
     }
 }

@@ -430,15 +430,22 @@ struct F1ApiRoutes  {
                    let constructors = driverStanding["Constructors"] as? [[String: Any]] {
 
                     let teamNames = constructors.compactMap { $0["name"] as? String }.joined(separator: ", ")
-                    let standing = DriverStanding(givenName: givenName, familyName: familyName, position: position, points: points, teamNames: teamNames, imageUrl: "")
+                    let standing = DriverStanding(
+                        givenName: givenName,
+                        familyName: familyName,
+                        position: position,
+                        points: points,
+                        teamNames: teamNames,
+                        imageUrl: "")
                     results.append(standing)
                 }
             }
         }
+        print(results)
         return results
     }
     
-    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String) async throws -> [String] {
+    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String) async throws -> String {
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
@@ -457,9 +464,36 @@ struct F1ApiRoutes  {
             throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(givenName) \(familyName)"])
         }
         print(thumbnailURL)
-        return [thumbnailURL]
+        return thumbnailURL
     }
 
+   // Fetch Race Results
+   func fetchRaceResults(forYear year: String, round: String) async throws -> Root? {
+       let urlString = "https://ergast.com/api/f1/\(year)/results/\(round).json"
+       guard let url = URL(string: urlString) else {
+           print("Invalid URL")
+           return nil
+       }
+
+       let (data, response) = try await URLSession.shared.data(from: url)
+
+       guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+           print("Invalid response")
+           return nil
+       }
+
+       do {
+           let decoder = JSONDecoder()
+           let decodedData = try decoder.decode(Root.self, from: data)
+           print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
+           print(decodedData)
+           print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
+           return decodedData
+       } catch {
+           print("Error decoding data: \(error)")
+           throw error
+       }
+   }
 
 
 //    static func worldDriversChampionshipStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
