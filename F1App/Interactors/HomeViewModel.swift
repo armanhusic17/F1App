@@ -8,7 +8,7 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @Published var seasonYear: String = "2024"
+    @Published var seasonYear: String = "2020"
     @Published var drivers: [String?] = []
     @Published var driverStandings: [DriverStanding] = []
     @Published var gridCellItems: [[String]] = []
@@ -19,7 +19,7 @@ class HomeViewModel: ObservableObject {
     init(
         seasonYear: String
     ) {
-        self.seasonYear = returnYear().description
+        self.seasonYear = seasonYear
     }
     
     var uniqueTeams: [DriverStanding] {
@@ -29,7 +29,7 @@ class HomeViewModel: ObservableObject {
     private func returnYear() -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
-        return Int(dateFormatter.string(from: Date())) ?? 2024
+        return Int(dateFormatter.string(from: Date())) ?? 2020
     }
     
     @MainActor
@@ -45,12 +45,17 @@ class HomeViewModel: ObservableObject {
     
     @MainActor
     func getDriverImgs() async {
-        do {
-            let driverImgs = try await F1ApiRoutes.fetchDriverInfoFromWikipedia(givenName: "Lewis", familyName: "Hamilton")
-            driverImages.append(driverImgs)
-            // Update UI or state with standings
-        } catch {
-            // Handle errors such as display an error message
+        for index in driverStandings.indices {
+            do {
+                let driverImg = try await F1ApiRoutes.fetchDriverInfoFromWikipedia(
+                    givenName: self.driverStandings[index].givenName,
+                    familyName: self.driverStandings[index].familyName)
+                self.driverStandings[index].imageUrl = driverImg
+                driverImages.append(driverImg)
+                // Update UI or state with standings
+            } catch {
+                // Handle errors such as display an error message
+            }
         }
     }
     

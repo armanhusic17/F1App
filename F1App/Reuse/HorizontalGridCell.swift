@@ -34,10 +34,29 @@ struct HorizontalGridCell: View {
                 ForEach(items, id: \.self) { item in
                     VStack {
                         HStack {
-                            Image(systemName: "person.and.background.dotted")
-                                .font(.largeTitle)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(Color.red)
+                            AsyncImage(url: URL(string: image)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(Circle())
+                                    .overlay(
+                                        Circle()
+                                            .stroke(
+                                                LinearGradient(
+                                                    colors: [.black, .black, .mint],
+                                                    startPoint: .bottomLeading,
+                                                    endPoint: .topTrailing
+                                                ), 
+                                                lineWidth: 4
+                                            )
+                                    )
+                            } placeholder: {
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .frame(width: 100, height: 100)
+                                    .scaledToFit()
+                            }
                             Text(item.capitalized)
                                 .bold()
                                 .fixedSize(horizontal: true, vertical: false)
@@ -67,12 +86,18 @@ struct HorizontalGridCell: View {
                     .foregroundStyle(.white)
                     .background(
                         LinearGradient(
-                            colors: [.black, .clear, .red],
+                            colors: [.black, .black, .mint],
                             startPoint: .bottomLeading,
                             endPoint: .topTrailing
                         )
+                        .border(
+                            LinearGradient(
+                                colors: [.mint, .mint, .black],
+                                startPoint: .bottomLeading,
+                                endPoint: .topTrailing
+                            ),
+                            width: 4)
                     )
-                    .cornerRadius(12)
                 }
             }
         }
@@ -85,6 +110,6 @@ struct HorizontalGridCell: View {
         wdcPoints: "WDC Points",
         constructorName: "Team Name",
         image: "Image",
-        items: ["Given Name + Family Name"]
+        items: ["Driver Name"]
     )
 }

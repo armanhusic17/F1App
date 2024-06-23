@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel = HomeViewModel(seasonYear: "2024")
+    @ObservedObject var viewModel = HomeViewModel(seasonYear: "2020")
     let homeModel = HomeModel()
 
     var body: some View {
@@ -20,7 +20,7 @@ struct HomeScreen: View {
         .onAppear {
             Task {
                 await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
-//                await viewModel.getDriverImgs()
+                await viewModel.getDriverImgs()
 //                await viewModel.loadRaceResults(year: viewModel.seasonYear, round: "\(1)")
             }
         }
@@ -77,14 +77,14 @@ struct HomeScreen: View {
         ScrollView(.horizontal) {
             LazyHGrid(
                 rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
-                spacing: 15
+                spacing: 16
             ) {
                 ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
                     HorizontalGridCell(
                         wdcPosition: "WDC: \(driverStanding.position)",
                         wdcPoints: "Points \(driverStanding.points)",
                         constructorName: "\(driverStanding.teamNames)",
-                        image: "",
+                        image: driverStanding.imageUrl,
                         items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
                     )
                 }
