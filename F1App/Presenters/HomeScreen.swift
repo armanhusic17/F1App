@@ -89,13 +89,20 @@ struct HomeScreen: View {
                         items:           ["\(driverStanding.givenName)\n\(driverStanding.familyName)"], seasonYearSelected: viewModel.seasonYear
                     )
                 }
+            }
+        }
+        ScrollView(.horizontal) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                spacing: 16
+            ) {
                 ForEach(viewModel.constructorStandings, id: \.self) { constructor in
                     ConstructorsCards(
-                        wccPosition: "WCC Position: \(constructor.position ?? "...")",
-                        wccPoints: "WCC Points: \(constructor.points ?? "...")",
-                        constructorWins: "Wins: \(constructor.wins ?? "...")",
+                        wccPosition: "WCC Position: \(constructor.position ?? "⏳")",
+                        wccPoints: "WCC Points: \(constructor.points ?? "⏳")",
+                        constructorWins: "Wins: \(constructor.wins ?? "⏳")",
                         image: "",
-                        items: ["???"],
+                        items: ["\(constructor.constructor?.name ?? "⏳")"],
                         seasonYearSelected: viewModel.seasonYear
                     )
                 }

@@ -45,8 +45,11 @@ class HomeViewModel: ObservableObject {
     private func reloadDataForNewSeason() async {
         driverStandings.removeAll()
         driverImages.removeAll()
+        constructorStandings.removeAll()
+        constructorImages.removeAll()
         await loadDriverStandings(seasonYear: seasonYear)
         await getDriverImgs()
+        await loadConstructorStandings(seasonYear: seasonYear)
     }
     
     @MainActor
