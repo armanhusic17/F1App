@@ -17,119 +17,160 @@ struct F1ApiRoutes  {
         }
         return nil
     }
-
-    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
-        // Check the cache
+    
+    static func getConstructorStandings(seasonYear: String) async throws -> [ConstructorStanding] {
+        // Check the cache first
         if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "constructorStandings") {
             do {
                 let root = try JSONDecoder().decode(Root.self, from: cachedData)
-                processConstructorStandings(root: root)
-                print("Successfully gathering data from cache")
-
-                completion(true)
-                return
+                print("Successfully gathered data from cache")
+                return processConstructorStandings(root: root)
             } catch {
                 print("Error decoding cached data: \(error)")
+                // Continue to fetch fresh data if cache is corrupted
             }
         }
 
         // Proceed with network call
-        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
-        guard let url = URL(string: stringURL) else {
-            completion(false)
-            return
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
+        guard let url = URL(string: urlString) else {
+            throw URLError(.badURL)
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                completion(false)
-                return
-            }
-            
-            do {
-                let root = try JSONDecoder().decode(Root.self, from: data)
-                processConstructorStandings(root: root)
-                
-                // cache the data
-                cache[seasonYear] = data
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let root = try JSONDecoder().decode(Root.self, from: data)
+        
+        // Cache the data
+        cache[seasonYear] = data
+        if seasonYear != "2024" {
+            UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
+        }
 
-                if seasonYear != "2024" {
-                    UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
-                }
-                completion(true)
-            } catch {
-                print("Error in do catch")
-                completion(false)
-            }
-        }
-        task.resume()
-        
+        return processConstructorStandings(root: root)
     }
 
-    private static func processConstructorStandings(root: Root) {
-        if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
-            // Loop through each constructor standing
-            for constructorStanding in standingsList.constructorStandings ?? [] {
-                F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
-                F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
-                F1DataStore.teamURL.append(constructorStanding.constructor?.url ?? "N/A")
-                F1DataStore.racePoints.append(constructorStanding.points)
-                F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
-                fetchConstructorImageFromWikipedia(constructorName: constructorStanding.constructor?.name ?? "") { Success in
-                    if Success {
-                        print("SUCESSFULLY GATHEREED WIKI IMAEGES FOR CONSTRUCTORs")
-                    } else {
-                        print("FAILED TO GATHER WIKI IMAGES")
-                    }
-                }
-            }
-        } else {
+    private static func processConstructorStandings(root: Root) -> [ConstructorStanding] {
+        guard let standingsList = root.mrData?.standingsTable?.standingsLists?.first else {
             print("Standings table not found")
+            return []
         }
+        
+        return standingsList.constructorStandings ?? []
     }
 
-    static func fetchConstructorImageFromWikipedia(constructorName: String, completion: @escaping (Bool) -> Void) {
-        let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        let constructorPageTitle = "\(encodedConstructorName)"
-        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
-        
-        guard let constructorPageURL = URL(string: constructorPageURLString) else {
-            completion(false)
-            return
-        }
-        
-        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
-            guard let data = data else {
-                print("Error: No data received for \(constructorName)")
-                completion(false)
-                return
-            }
-            
-            do {
-                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-                
-                guard let pageID = wikipediaData.query.pages.keys.first,
-                      let page = wikipediaData.query.pages[pageID] else {
-                    print("Error: Invalid response for \(constructorName)")
-                    completion(false)
-                    return
-                }
-                let thumbnailURLString = page.thumbnail?.source
-                
-                DispatchQueue.main.async {
-                    if let thumbnailURL = thumbnailURLString {
-                        F1DataStore.teamImages[constructorName] = thumbnailURL
-                    } else {
-                        F1DataStore.teamImages[constructorName] = "defaultImageURL" // Use a default image URL if none is found
-                    }
-                    completion(true)
-                }
-            } catch let error {
-                print("Error decoding Wikipedia JSON data for \(constructorName): \(error.localizedDescription)")
-                completion(false)
-            }
-        }.resume()
-    }
+
+//    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
+//        // Check the cache
+//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "constructorStandings") {
+//            do {
+//                let root = try JSONDecoder().decode(Root.self, from: cachedData)
+//                processConstructorStandings(root: root)
+//                print("Successfully gathering data from cache")
+//
+//                completion(true)
+//                return
+//            } catch {
+//                print("Error decoding cached data: \(error)")
+//            }
+//        }
+//
+//        // Proceed with network call
+//        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
+//        guard let url = URL(string: stringURL) else {
+//            completion(false)
+//            return
+//        }
+//        
+//        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            guard let data = data else {
+//                completion(false)
+//                return
+//            }
+//            
+//            do {
+//                let root = try JSONDecoder().decode(Root.self, from: data)
+//                processConstructorStandings(root: root)
+//                
+//                // cache the data
+//                cache[seasonYear] = data
+//
+//                if seasonYear != "2024" {
+//                    UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
+//                }
+//                completion(true)
+//            } catch {
+//                print("Error in do catch")
+//                completion(false)
+//            }
+//        }
+//        task.resume()
+//        
+//    }
+//
+//    private static func processConstructorStandings(root: Root) {
+//        if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
+//            // Loop through each constructor standing
+//            for constructorStanding in standingsList.constructorStandings ?? [] {
+//                F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
+//                F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
+//                F1DataStore.teamURL.append(constructorStanding.constructor?.url ?? "N/A")
+//                F1DataStore.racePoints.append(constructorStanding.points)
+//                F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
+//                fetchConstructorImageFromWikipedia(constructorName: constructorStanding.constructor?.name ?? "") { Success in
+//                    if Success {
+//                        print("SUCESSFULLY GATHEREED WIKI IMAEGES FOR CONSTRUCTORs")
+//                    } else {
+//                        print("FAILED TO GATHER WIKI IMAGES")
+//                    }
+//                }
+//            }
+//        } else {
+//            print("Standings table not found")
+//        }
+//    }
+//
+//    static func fetchConstructorImageFromWikipedia(constructorName: String, completion: @escaping (Bool) -> Void) {
+//        let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+//        let constructorPageTitle = "\(encodedConstructorName)"
+//        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
+//        
+//        guard let constructorPageURL = URL(string: constructorPageURLString) else {
+//            completion(false)
+//            return
+//        }
+//        
+//        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
+//            guard let data = data else {
+//                print("Error: No data received for \(constructorName)")
+//                completion(false)
+//                return
+//            }
+//            
+//            do {
+//                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+//                
+//                guard let pageID = wikipediaData.query.pages.keys.first,
+//                      let page = wikipediaData.query.pages[pageID] else {
+//                    print("Error: Invalid response for \(constructorName)")
+//                    completion(false)
+//                    return
+//                }
+//                let thumbnailURLString = page.thumbnail?.source
+//                
+//                DispatchQueue.main.async {
+//                    if let thumbnailURL = thumbnailURLString {
+//                        F1DataStore.teamImages[constructorName] = thumbnailURL
+//                    } else {
+//                        F1DataStore.teamImages[constructorName] = "defaultImageURL" // Use a default image URL if none is found
+//                    }
+//                    completion(true)
+//                }
+//            } catch let error {
+//                print("Error decoding Wikipedia JSON data for \(constructorName): \(error.localizedDescription)")
+//                completion(false)
+//            }
+//        }.resume()
+//    }
 
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
         print(seasonYear, round)
@@ -495,167 +536,6 @@ struct F1ApiRoutes  {
        }
    }
 
-
-//    static func worldDriversChampionshipStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        // Check if data is in UserDefaults
-//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings")  {
-//            do {
-//                if let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any] {
-//                    processDriverStandings(json, seasonYear: seasonYear, completion: completion)
-//                    print("RETRIEVED DRIVER DATA FROM USER DEFAULTS")
-//                    return
-//                }
-//            } catch let error {
-//                print("Error decoding cached data: \(error.localizedDescription)")
-//                completion(false)
-//                return
-//            }
-//        }
-//
-//        let urlString = "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json"
-//
-//        if let url = URL(string: urlString) {
-//            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//                if let error = error {
-//                    print("Error: \(error.localizedDescription)")
-//                    completion(false)
-//                    return
-//                }
-//
-//                guard let data = data else {
-//                    print("Error: No data received")
-//                    completion(false)
-//                    return
-//                }
-//
-//                // Data received successfully
-//                do {
-//                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-//                        // Cache the data
-//                        cache["worldDriversChampionshipStandings_\(seasonYear)"] = data
-//                        processDriverStandings(json, seasonYear: seasonYear, completion: completion)
-//
-//                        // Save to UserDefaults
-//                        if seasonYear != "2024" {
-//                            UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
-//                            print(UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)"))
-//                        }
-//
-//                    } else {
-//                        print("Error: Invalid JSON structure")
-//                        completion(false)
-//                    }
-//                } catch let error {
-//                    print("Error decoding JSON: \(error.localizedDescription)")
-//                    completion(false)
-//                }
-//            }
-//            task.resume()
-//        } else {
-//            print("Error: Invalid URL")
-//            completion(false)
-//        }
-//    }
-//
-//    static func processDriverStandings(_ json: [String: Any], seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        if let mrData = json["MRData"] as? [String: Any],
-//            let standingsTable = mrData["StandingsTable"] as? [String: Any],
-//            let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] {
-//            
-//            F1DataStore.f1Season.append(seasonYear) // Assuming Data.f1Season is a global variable or property
-//            
-//            for standingsList in standingsLists {
-//                let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
-//                
-//                for driverStanding in driverStandings {
-//                    if let driver = driverStanding["Driver"] as? [String: Any],
-//                       let givenName = driver["givenName"] as? String,
-//                       let familyName = driver["familyName"] as? String,
-//                       let position = driverStanding["position"] as? String,
-//                       let points = driverStanding["points"] as? String,
-//                       let constructors = driverStanding["Constructors"] as? [[String: Any]] {
-//                        
-//                        var teamNames: [String] = []
-//                        
-//                        for constructor in constructors {
-//                            if let teamName = constructor["name"] as? String {
-//                                teamNames.append(teamName)
-//                            }
-//                        }
-//                        
-//                        let teamNamesString = teamNames.joined(separator: ", ")
-//                        
-//                        fetchDriverInfoFromWikipedia(givenName: givenName, familyName: familyName) { success in
-//                            if success {
-//                                F1DataStore.racePosition.append(position)
-//                                F1DataStore.racePoints.append(points)
-//                                F1DataStore.driverNames.append("\(givenName) \(familyName)")
-//                                F1DataStore.driverLastName.append(familyName)
-//                                F1DataStore.teamNames.append(teamNamesString)
-//                                print(F1DataStore.racePosition)
-//                                print(F1DataStore.racePoints)
-//                                print(F1DataStore.driverNames)
-//                                print(F1DataStore.driverLastName)
-//                                print(F1DataStore.teamNames)
-//                                // Add other driver information...
-//                            } else {
-//                                print("Error fetching driver info")
-//                                completion(false)
-//                            }
-//                        }
-//                    }
-//                }
-//                completion(true)
-//
-//            }
-//        } else {
-//            print("Error: Invalid JSON structure")
-//            completion(false)
-//        }
-//    }
-//
-//    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String, completion: @escaping (Bool) -> Void) {
-//        let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-//        let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-//        let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
-//        let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
-//        
-//        guard let driverPageURL = URL(string: driverPageURLString) else {
-//            completion(false)
-//            return
-//        }
-//        
-//        URLSession.shared.dataTask(with: driverPageURL) { (data, response, error) in
-//            guard let data = data else {
-//                print("Error: No data received for \(givenName) \(familyName)")
-//                completion(false)
-//                return
-//            }
-//            
-//            do {
-//                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-//                
-//                guard let pageID = wikipediaData.query.pages.keys.first,
-//                    let page = wikipediaData.query.pages[pageID] else {
-//                        print("Error: Invalid response for \(givenName) \(familyName)")
-//                        completion(false)
-//                        return
-//                }
-//                
-//                let thumbnailURLString = page.thumbnail?.source
-//                
-//                DispatchQueue.main.async {
-//                    F1DataStore.driverImgURL.append(thumbnailURLString ?? "lewis")
-//                    // Append other driver information...
-//                    completion(true)
-//                }
-//            } catch let error {
-//                print("Error decoding Wikipedia JSON data for \(givenName) \(familyName): \(error.localizedDescription)")
-//                completion(false)
-//            }
-//        }.resume()
-//    }
-
     // Laps https://ergast.com/api/f1/2007/1/drivers/hamilton/laps
     // All drivers that have driven for a certain constructor
     // https://ergast.com/api/f1/constructors/mclaren/circuits/monza/drivers
@@ -708,4 +588,3 @@ struct F1ApiRoutes  {
         task.resume()
     }
 } // End F1APIRoutes
-

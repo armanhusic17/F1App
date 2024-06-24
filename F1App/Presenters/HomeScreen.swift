@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel = HomeViewModel(seasonYear: "2020")
+    @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
     let homeModel = HomeModel()
 
     var body: some View {
@@ -21,7 +21,8 @@ struct HomeScreen: View {
             Task {
                 await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
                 await viewModel.getDriverImgs()
-//                await viewModel.loadRaceResults(year: viewModel.seasonYear, round: "\(1)")
+                await viewModel.loadConstructorStandings(seasonYear: viewModel.seasonYear)
+               // await viewModel.loadRaceResults(year: viewModel.seasonYear, round: "\(1)")
             }
         }
     }
@@ -58,7 +59,7 @@ struct HomeScreen: View {
                 .bold()
                 .foregroundStyle(.white.opacity(0.25))
                 .padding([.bottom, .top], 8)
-            SeasonSelector(currentSeason: viewModel.seasonYear) { season in
+            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
                 viewModel.seasonYear = season
                 print(season)
             }
@@ -80,12 +81,22 @@ struct HomeScreen: View {
                 spacing: 16
             ) {
                 ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
-                    HorizontalGridCell(
-                        wdcPosition: "WDC: \(driverStanding.position)",
-                        wdcPoints: "Points \(driverStanding.points)",
+                    DriversCards(
+                        wdcPosition:     "WDC Position: \(driverStanding.position)",
+                        wdcPoints:       "Points \(driverStanding.points)",
                         constructorName: "\(driverStanding.teamNames)",
-                        image: driverStanding.imageUrl,
-                        items: [" \(driverStanding.givenName) \(driverStanding.familyName)"]
+                        image:           driverStanding.imageUrl,
+                        items:           ["\(driverStanding.givenName)\n\(driverStanding.familyName)"], seasonYearSelected: viewModel.seasonYear
+                    )
+                }
+                ForEach(viewModel.constructorStandings, id: \.self) { constructor in
+                    ConstructorsCards(
+                        wccPosition: "WCC Position: \(constructor.position ?? "...")",
+                        wccPoints: "WCC Points: \(constructor.points ?? "...")",
+                        constructorWins: "Wins: \(constructor.wins ?? "...")",
+                        image: "",
+                        items: ["???"],
+                        seasonYearSelected: viewModel.seasonYear
                     )
                 }
             }

@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */; };
-		0F0EC2552B84771800B0B639 /* QueryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2542B84771800B0B639 /* QueryData.swift */; };
 		0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2562B84789200B0B639 /* HomeScreen.swift */; };
 		0F1021122A17064000695E8A /* userStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F1021112A17064000695E8A /* userStory.storyboard */; };
 		0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */; };
 		0F1021172A17161700695E8A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1021162A17161700695E8A /* CoreData.framework */; };
 		0F1D75172880FA7600EFE42E /* HomeQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75162880FA7600EFE42E /* HomeQueries.swift */; };
 		0F1D75192881286500EFE42E /* hqCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D75182881286500EFE42E /* hqCell.swift */; };
+		0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B23C62C2929F90017860D /* ConstructorsCards.swift */; };
 		0F343C9129C97BA100DA001A /* SecondaryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9029C97BA100DA001A /* SecondaryResults.swift */; };
 		0F343C9329C97BF000DA001A /* srCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F343C9229C97BF000DA001A /* srCell.swift */; };
 		0F3703FD27F13C1400968C5F /* frCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3703FC27F13C1400968C5F /* frCell.swift */; };
@@ -37,7 +37,7 @@
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0D2BE3ED7B008A8076 /* QueryResultsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */; };
-		0F865B0F2C0290CA008A8076 /* HorizontalGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* HorizontalGridCell.swift */; };
+		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
 		0FA3B5F628068F0D00A334D8 /* FirstResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResults.swift */; };
 		0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FA428C92B145590008673C4 /* TertiaryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428C82B145590008673C4 /* TertiaryResults.swift */; };
@@ -75,13 +75,13 @@
 
 /* Begin PBXFileReference section */
 		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
-		0F0EC2542B84771800B0B639 /* QueryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryData.swift; sourceTree = "<group>"; };
 		0F0EC2562B84789200B0B639 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		0F1021112A17064000695E8A /* userStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = userStory.storyboard; sourceTree = "<group>"; };
 		0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BoxBoxCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0F1021162A17161700695E8A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0F1D75162880FA7600EFE42E /* HomeQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeQueries.swift; sourceTree = "<group>"; };
 		0F1D75182881286500EFE42E /* hqCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hqCell.swift; sourceTree = "<group>"; };
+		0F2B23C62C2929F90017860D /* ConstructorsCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructorsCards.swift; sourceTree = "<group>"; };
 		0F343C9029C97BA100DA001A /* SecondaryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryResults.swift; sourceTree = "<group>"; };
 		0F343C9229C97BF000DA001A /* srCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = srCell.swift; sourceTree = "<group>"; };
 		0F3703FC27F13C1400968C5F /* frCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = frCell.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResultsGrid.swift; sourceTree = "<group>"; };
-		0F865B0E2C0290CA008A8076 /* HorizontalGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalGridCell.swift; sourceTree = "<group>"; };
+		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
 		0FA3B5F528068F0D00A334D8 /* FirstResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResults.swift; sourceTree = "<group>"; };
 		0FA3B5F92806920E00A334D8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		0FA428C82B145590008673C4 /* TertiaryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryResults.swift; sourceTree = "<group>"; };
@@ -164,6 +164,29 @@
 				1592D2015F1B5A42BECB7B6E /* Pods-F1App.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		0F2B23C42C2929910017860D /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				0FBD817D2B18772900151CAF /* AccountSettings.swift */,
+				0FF96F992B17D3E400C8E9BD /* UserAuth.swift */,
+				0F1D75162880FA7600EFE42E /* HomeQueries.swift */,
+				0FA3B5F528068F0D00A334D8 /* FirstResults.swift */,
+				0F343C9029C97BA100DA001A /* SecondaryResults.swift */,
+				0FA428C82B145590008673C4 /* TertiaryResults.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		0F2B23C52C2929BE0017860D /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				0FDB0D0E2863D76000A07E6A /* HomeModel.swift */,
+				0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */,
+				0FDB0D142863DAF800A07E6A /* collectionModel.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		0F343C8F29C96A9D00DA001A /* Routers */ = {
@@ -275,7 +298,6 @@
 				0F6458C32B09F90000C48F1B /* ErgastData.swift */,
 				0F3BF92F2B1715C900CF275D /* FirebaseAuth.swift */,
 				0FFC50542B1C06EC005ED8E6 /* FirebaseDataStorage.swift */,
-				0F0EC2542B84771800B0B639 /* QueryData.swift */,
 				0FA962882BDD6A9600D515F3 /* AuthModel.swift */,
 			);
 			path = Entities;
@@ -284,9 +306,7 @@
 		0FDB0D102863D77B00A07E6A /* Interactors */ = {
 			isa = PBXGroup;
 			children = (
-				0FDB0D0E2863D76000A07E6A /* HomeModel.swift */,
-				0FDB0D0C2863CC5D00A07E6A /* ResultsModel.swift */,
-				0FDB0D142863DAF800A07E6A /* collectionModel.swift */,
+				0F2B23C52C2929BE0017860D /* UIKit */,
 				0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */,
 			);
 			path = Interactors;
@@ -295,13 +315,10 @@
 		0FDB0D112863D7C000A07E6A /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
-				0FF96F992B17D3E400C8E9BD /* UserAuth.swift */,
+				0F2B23C42C2929910017860D /* UIKit */,
 				0F0EC2562B84789200B0B639 /* HomeScreen.swift */,
-				0F1D75162880FA7600EFE42E /* HomeQueries.swift */,
-				0FA3B5F528068F0D00A334D8 /* FirstResults.swift */,
-				0F343C9029C97BA100DA001A /* SecondaryResults.swift */,
-				0FA428C82B145590008673C4 /* TertiaryResults.swift */,
-				0FBD817D2B18772900151CAF /* AccountSettings.swift */,
+				0F865B0E2C0290CA008A8076 /* DriversCards.swift */,
+				0F2B23C62C2929F90017860D /* ConstructorsCards.swift */,
 				0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */,
 			);
 			path = Presenters;
@@ -313,7 +330,6 @@
 				0FA962912BDF0D9B00D515F3 /* UIKit Components */,
 				0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */,
 				0F865B0A2BE34965008A8076 /* SeasonSelector.swift */,
-				0F865B0E2C0290CA008A8076 /* HorizontalGridCell.swift */,
 			);
 			path = Reuse;
 			sourceTree = "<group>";
@@ -530,7 +546,8 @@
 				0F1D75172880FA7600EFE42E /* HomeQueries.swift in Sources */,
 				0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
-				0F865B0F2C0290CA008A8076 /* HorizontalGridCell.swift in Sources */,
+				0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */,
+				0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */,
 				0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */,
 				0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */,
 				0FA3B5F628068F0D00A334D8 /* FirstResults.swift in Sources */,
@@ -542,7 +559,6 @@
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */,
 				0FA9628E2BDDB71000D515F3 /* ErgastQueryButton.swift in Sources */,
-				0F0EC2552B84771800B0B639 /* QueryData.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0FA428CB2B145D41008673C4 /* trCell.swift in Sources */,

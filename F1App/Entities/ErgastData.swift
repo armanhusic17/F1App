@@ -69,7 +69,7 @@ struct StandingsList: Decodable {
     }
 }
 
-struct ConstructorStanding: Decodable {
+struct ConstructorStanding: Decodable, Hashable {
     let position: String?
     let positionText: String?
     let points: String?
@@ -85,7 +85,7 @@ struct ConstructorStanding: Decodable {
     }
 }
 
-struct Constructor: Decodable {
+struct Constructor: Decodable, Hashable {
     let constructorId: String?
     let url: String?
     let name: String?

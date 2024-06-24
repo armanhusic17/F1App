@@ -22,75 +22,75 @@ struct HomeModel {
     }
 
     func setQueryNum(enterYear:UITextView, homeSelf:HomeQueries, cellIndex:IndexPath) {
-        guard let year = Int(enterYear.text) else {return}
-        let targetYear:Int?
-        let maxYear = returnYear()
-        // TEAMS QUERY
-        if F1DataStore.whichQuery == 0 {
-            targetYear = 1950
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
-                F1DataStore.seasonYearSelected = enterYear.text
-                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
-                print(thisSeason)
-                F1ApiRoutes.getConstructorStandings(seasonYear: thisSeason) { Success in
-                    if Success {
-                        print("SUCCESSS ALL CONSTRUCTORS")
-                    } else {
-                        print("FAILURE TO SHOW ALL CONSTRUCTORS")
-                    }
-                }
-            }
-        }
-
-        // WORLD DRIVERS' CHAMPIONSHIP QUERY
-        else if F1DataStore.whichQuery == 1 {
-            targetYear = 1950
-            if year < targetYear! || year > maxYear {
-                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            } else {
-                F1DataStore.seasonYearSelected = enterYear.text
-                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
-                print(thisSeason)
-//                F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
+//        guard let year = Int(enterYear.text) else {return}
+//        let targetYear:Int?
+//        let maxYear = returnYear()
+//        // TEAMS QUERY
+//        if F1DataStore.whichQuery == 0 {
+//            targetYear = 1950
+//            if year < targetYear! || year > maxYear {
+//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+//            } else {
+//                F1DataStore.seasonYearSelected = enterYear.text
+//                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
+//                print(thisSeason)
+//                F1ApiRoutes.getConstructorStandings(seasonYear: thisSeason) { Success in
 //                    if Success {
-//                        if Success {
-//                            print("SUCCESSS TO SHOW ALL WORLD DRIVER CHAMPIONSHIPS STATS")
-//                        } else {
-//                            print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
-//                        }
+//                        print("SUCCESSS ALL CONSTRUCTORS")
 //                    } else {
-//                        print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+//                        print("FAILURE TO SHOW ALL CONSTRUCTORS")
 //                    }
 //                }
-            }
-        }
-        // GRAND PRIX QUERY
-        else if F1DataStore.whichQuery == 2 {
-            let targetYear = 1950
-            let upperBound = 2024
-
-            if year >= targetYear && year <= upperBound {
-                F1DataStore.seasonYearSelected = enterYear.text
-                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
-                print("RUNNING QUERY")
-                print(thisSeason)
-            } else {
-                print("WE DON'T HAVE DATA FOR THIS SEASON")
-                showAlert(passSelf: homeSelf)
-            }
-
-            F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2024") { Success in
-                if Success {
-                } else {
-                    print("ERROR?")
-                }
-            }
-
-        }
+//            }
+//        }
+//
+//        // WORLD DRIVERS' CHAMPIONSHIP QUERY
+//        else if F1DataStore.whichQuery == 1 {
+//            targetYear = 1950
+//            if year < targetYear! || year > maxYear {
+//                print("WE DONT HAVE DATA ON TEAMS BEFORE THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+//            } else {
+//                F1DataStore.seasonYearSelected = enterYear.text
+//                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
+//                print(thisSeason)
+////                F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: thisSeason) { Success in
+////                    if Success {
+////                        if Success {
+////                            print("SUCCESSS TO SHOW ALL WORLD DRIVER CHAMPIONSHIPS STATS")
+////                        } else {
+////                            print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+////                        }
+////                    } else {
+////                        print("FAILURE TO SHOW ALL TIME DRIVER CHAMPIONSHIPS")
+////                    }
+////                }
+//            }
+//        }
+//        // GRAND PRIX QUERY
+//        else if F1DataStore.whichQuery == 2 {
+//            let targetYear = 1950
+//            let upperBound = 2024
+//
+//            if year >= targetYear && year <= upperBound {
+//                F1DataStore.seasonYearSelected = enterYear.text
+//                guard let thisSeason = F1DataStore.seasonYearSelected else { return }
+//                print("RUNNING QUERY")
+//                print(thisSeason)
+//            } else {
+//                print("WE DON'T HAVE DATA FOR THIS SEASON")
+//                showAlert(passSelf: homeSelf)
+//            }
+//
+//            F1ApiRoutes.allRaceSchedule(seasonYear: F1DataStore.seasonYearSelected ?? "2024") { Success in
+//                if Success {
+//                } else {
+//                    print("ERROR?")
+//                }
+//            }
+//
+//        }
     }
 
     func showAlert(passSelf:HomeQueries){

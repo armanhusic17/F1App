@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct SeasonSelector: View {
-    @State internal var currentSeason = "2020" //String(Calendar.current.component(.year, from: Date()))
+    @Binding internal var currentSeason: String
     internal var action: (String) -> Void
 
     var years: [String] {
-        let currentYear = 2020 //Calendar.current.component(.year, from: Date())
+        let currentYear = Calendar.current.component(.year, from: Date())
         return (1950...currentYear).reversed().map(String.init)
     }
 
