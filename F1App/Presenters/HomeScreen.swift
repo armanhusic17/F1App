@@ -10,7 +10,6 @@ import UIKit
 
 struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
-    let homeModel = HomeModel()
 
     var body: some View {
         ZStack {
@@ -22,6 +21,7 @@ struct HomeScreen: View {
                 await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
                 await viewModel.getDriverImgs()
                 await viewModel.loadConstructorStandings(seasonYear: viewModel.seasonYear)
+                await viewModel.getConstructorImages()
                // await viewModel.loadRaceResults(year: viewModel.seasonYear, round: "\(1)")
             }
         }
@@ -82,11 +82,12 @@ struct HomeScreen: View {
             ) {
                 ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
                     DriversCards(
-                        wdcPosition:     "WDC Position: \(driverStanding.position)",
-                        wdcPoints:       "Points \(driverStanding.points)",
-                        constructorName: "\(driverStanding.teamNames)",
-                        image:           driverStanding.imageUrl,
-                        items:           ["\(driverStanding.givenName)\n\(driverStanding.familyName)"], seasonYearSelected: viewModel.seasonYear
+                        wdcPosition:        "WDC Position: \(driverStanding.position)",
+                        wdcPoints:          "Points \(driverStanding.points)",
+                        constructorName:    "\(driverStanding.teamNames)",
+                        image:              driverStanding.imageUrl,
+                        items:              ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
+                        seasonYearSelected: viewModel.seasonYear
                     )
                 }
             }
@@ -96,13 +97,13 @@ struct HomeScreen: View {
                 rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
                 spacing: 16
             ) {
-                ForEach(viewModel.constructorStandings, id: \.self) { constructor in
+                ForEach(Array(viewModel.constructorStandings.enumerated()), id: \.element) { index,constructorStanding in
                     ConstructorsCards(
-                        wccPosition: "WCC Position: \(constructor.position ?? "⏳")",
-                        wccPoints: "WCC Points: \(constructor.points ?? "⏳")",
-                        constructorWins: "Wins: \(constructor.wins ?? "⏳")",
-                        image: "",
-                        items: ["\(constructor.constructor?.name ?? "⏳")"],
+                        wccPosition:     "WCC Position: \(constructorStanding.position ?? "⏳")",
+                        wccPoints:       "WCC Points: \(constructorStanding.points ?? "⏳")",
+                        constructorWins: "Wins: \(constructorStanding.wins ?? "⏳")",
+                        image:           viewModel.constructorImages[safe: index] ?? "",
+                        items: ["\(constructorStanding.constructor?.name ?? "⏳")"],
                         seasonYearSelected: viewModel.seasonYear
                     )
                 }

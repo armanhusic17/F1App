@@ -90,8 +90,9 @@ struct DriversCards: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
                                     Image(systemName: "trophy.circle")
-                                    if wdcPosition.contains("1") && Int(seasonYearSelected) !=  Calendar.current.component(.year, from: Date()) {
-                                      Text("\(seasonYearSelected) WDC Champion")
+                                    if wdcPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
+                                        Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
+                                        Text("\(seasonYearSelected) WDC Champion")
                                     } else {
                                         Text(wdcPosition)
                                     }

@@ -12,11 +12,16 @@ struct F1ApiRoutes  {
     static var cache = [String: FoundationData]()
 
     static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
-        if let cachedData = UserDefaults.standard.data(forKey: "cache_\(queryKey)_\(seasonYear)") {
+        let key = "cache_\(queryKey)_\(seasonYear)"
+        if let cachedData = UserDefaults.standard.data(forKey: key) {
             return cachedData
+        } else {
+            // Log an error or handle the absence of data gracefully
+            print("No cached data available for key: \(key)")
+            return nil
         }
-        return nil
     }
+
     
     static func getConstructorStandings(seasonYear: String) async throws -> [ConstructorStanding] {
         // Check the cache first
@@ -57,6 +62,27 @@ struct F1ApiRoutes  {
         
         return standingsList.constructorStandings ?? []
     }
+    
+//    static func fetchConstructorImgFromWikipedia(constructorName: String) async throws -> String {
+//        let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+//        let constructorPageTitle = "\(encodedConstructorName)"
+//        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
+//
+//        guard let url = URL(string: constructorPageURLString) else {
+//            throw URLError(.badURL)
+//        }
+//
+//        let (data, _) = try await URLSession.shared.data(from: url)
+//        let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+//
+//        guard let pageID = wikipediaData.query.pages.keys.first,
+//              let page = wikipediaData.query.pages[pageID],
+//              let thumbnailURL = page.thumbnail?.source else {
+//            throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(constructorName)"])
+//        }
+//        print(thumbnailURL)
+//        return thumbnailURL
+//    }
 
 
 //    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
@@ -486,7 +512,7 @@ struct F1ApiRoutes  {
         return results
     }
     
-    static func fetchDriverInfoFromWikipedia(givenName: String, familyName: String) async throws -> String {
+    static func fetchDriverImgFromWikipedia(givenName: String, familyName: String) async throws -> String {
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"

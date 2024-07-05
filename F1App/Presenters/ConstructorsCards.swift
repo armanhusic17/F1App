@@ -91,8 +91,9 @@ struct ConstructorsCards: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
                                     Image(systemName: "trophy.circle")
-                                    if wccPosition.contains("1") && Int(seasonYearSelected) !=  Calendar.current.component(.year, from: Date()) {
-                                      Text("\(seasonYearSelected) WCC Champion")
+                                    if wccPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
+                                        Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
+                                        Text("\(seasonYearSelected) WCC Champion")
                                     } else {
                                         Text(wccPosition)
                                     }

@@ -17,11 +17,8 @@ class HomeViewModel: ObservableObject {
         }
     }
     @Published var driverStandings: [DriverStanding] = []
-    @Published var gridCellItems: [[String]] = []
-    @Published var driverImages: [String] = []
     @Published var raceResults: Root?
     @Published var errorMessage: String?
-    
     @Published var constructorStandings: [ConstructorStanding] = []
     @Published var constructorImages: [String] = []
     
@@ -44,7 +41,6 @@ class HomeViewModel: ObservableObject {
     @MainActor
     private func reloadDataForNewSeason() async {
         driverStandings.removeAll()
-        driverImages.removeAll()
         constructorStandings.removeAll()
         constructorImages.removeAll()
         await loadDriverStandings(seasonYear: seasonYear)
@@ -67,14 +63,13 @@ class HomeViewModel: ObservableObject {
     func getDriverImgs() async {
         for index in driverStandings.indices {
             do {
-                let driverImg = try await F1ApiRoutes.fetchDriverInfoFromWikipedia(
+                let driverImg = try await F1ApiRoutes.fetchDriverImgFromWikipedia(
                     givenName: self.driverStandings[index].givenName,
                     familyName: self.driverStandings[index].familyName)
                 self.driverStandings[index].imageUrl = driverImg
-                driverImages.append(driverImg)
-                // Update UI or state with standings
             } catch {
                 // Handle errors such as display an error message
+                print("Drivers query failed to gather data...")
             }
         }
     }
@@ -84,9 +79,8 @@ class HomeViewModel: ObservableObject {
         do {
             let standings = try await F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear)
             self.constructorStandings.append(contentsOf: standings)
-            
         } catch {
-            
+            print("Constructors query failed to gather data...")
         }
     }
     
@@ -94,29 +88,27 @@ class HomeViewModel: ObservableObject {
     func getConstructorImages() async {
         for index in constructorStandings.indices {
             do {
-                
+                let constructorImg = try await HomeViewModel.fetchConstructorImageFromWikipedia(constructorName: self.constructorStandings[index].constructor?.name ?? "Unable to get constructor name")
+                constructorImages.append(constructorImg)
             } catch {
                 // Handle errors such as display an error message
+                print("Constructors wikipedia fetch failed to gather data...")
             }
         }
     }
-    
-    @MainActor
-    // In your ViewModel or appropriate data handler
-    func fetchConstructorImages(constructors: [ConstructorStanding]) async {
-        for constructor in constructors {
-            guard let name = constructor.constructor?.name else { continue }
-            do {
-                let imageUrl = try await HomeViewModel.fetchConstructorImageFromWikipedia(constructorName: name)
-                DispatchQueue.main.async {
-                    // Assume you have a way to link images back to the constructors
-                    self.constructorImages.append(imageUrl)
-                }
-            } catch {
-                print("Failed to fetch image for \(name): \(error)")
-            }
-        }
-    }
+//    
+//    @MainActor
+//    func fetchConstructorImages(constructors: [ConstructorStanding]) async {
+//        for constructor in constructors {
+//            guard let name = constructor.constructor?.name else { continue }
+//            do {
+//                let imageUrl = try await HomeViewModel.fetchConstructorImageFromWikipedia(constructorName: name)
+//                self.constructorImages.append(imageUrl)    
+//            } catch {
+//                print("Failed to fetch image for \(name): \(error)")
+//            }
+//        }
+//    }
 
     static func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> String {
         let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -133,7 +125,7 @@ class HomeViewModel: ObservableObject {
               let thumbnailURL = page.thumbnail?.source else {
             throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(constructorName)"])
         }
-
+        print(thumbnailURL)
         return thumbnailURL
     }
 
