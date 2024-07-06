@@ -30,7 +30,6 @@ struct SeasonSelector: View {
             ForEach(years, id: \.self) { year in
                 Button(year) {
                     self.currentSeason = year
-                    self.action(year)
                     print("User selected season: \(year)")
                 }
             }

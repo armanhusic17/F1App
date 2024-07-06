@@ -28,15 +28,11 @@ class HomeViewModel: ObservableObject {
     ) {
         self.seasonYear = seasonYear
     }
-    
-    var uniqueTeams: [DriverStanding] {
-        return driverStandings.unique(by: { $0.teamNames })
-    }
 
     private func returnYear() -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy"
-        return Int(dateFormatter.string(from: Date())) ?? 2020
+        return Int(dateFormatter.string(from: Date())) ?? 2024
     }
     
     @MainActor
@@ -44,6 +40,7 @@ class HomeViewModel: ObservableObject {
         driverStandings.removeAll()
         constructorStandings.removeAll()
         constructorImages.removeAll()
+        
         await loadDriverStandings(seasonYear: seasonYear)
         await getDriverImgs()
         await loadConstructorStandings(seasonYear: seasonYear)

@@ -9,12 +9,7 @@ import Foundation
 
 struct F1ApiRoutes  {
     typealias FoundationData = Foundation.Data
-    static var cache = [String: FoundationData]()
     
-    static func clearCache() {
-        cache.removeAll()
-        print("Cachec clear \(cache.count)")
-    }
     static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
         let key = "cache_\(queryKey)_\(seasonYear)"
         if let cachedData = UserDefaults.standard.data(forKey: key) {
@@ -49,8 +44,6 @@ struct F1ApiRoutes  {
         let (data, _) = try await URLSession.shared.data(from: url)
         let root = try JSONDecoder().decode(Root.self, from: data)
         
-        // Cache the data
-        cache[seasonYear] = data
         if seasonYear != "2024" {
             UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
         }
@@ -457,29 +450,30 @@ struct F1ApiRoutes  {
     }
     
     static func worldDriversChampionshipStandings(seasonYear: String) async throws -> [DriverStanding] {
-//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings") {
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any]
-//                return processDriverStandings(json, seasonYear: seasonYear)
-//            } catch {
-//                throw error // Propagate decoding error
-//            }
-//        }
+        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings") {
+            do {
+                let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any]
+                return processDriverStandings(json, seasonYear: seasonYear)
+            } catch {
+                print("Error decoding the cached data \(error)")
+                UserDefaults.standard.removeObject(forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
+            }
+        } else {
+            // if no cache was found lets make a network requerst
+            guard let url = URL(string: "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json") else {
+                throw URLError(.badURL)
+            }
 
-        guard let url = URL(string: "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json") else {
-            throw URLError(.badURL)
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            
+            if seasonYear != "2024" {
+                UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
+            }
+
+            return processDriverStandings(json, seasonYear: seasonYear)
         }
-
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-        
-        // Optionally cache the data here
-        cache["worldDriversChampionshipStandings_\(seasonYear)"] = data
-        if seasonYear != "2024" {
-            UserDefaults.standard.set(data, forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
-        }
-
-        return processDriverStandings(json, seasonYear: seasonYear)
+        return [DriverStanding(givenName: "", familyName: "", position: "", points: "", teamNames: "", imageUrl: "")]
     }
 
     static func processDriverStandings(_ json: [String: Any]?, seasonYear: String) -> [DriverStanding] {
@@ -506,6 +500,7 @@ struct F1ApiRoutes  {
                     
                     // Check if the driver has already been processed
                     if seenDrivers.contains(driverIdentifier) {
+                        print("DRIVER SEEN < CONTINUE >")
                         continue
                     }
 
@@ -533,21 +528,35 @@ struct F1ApiRoutes  {
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
-        let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+        let cacheKey = "cache_driverImage_\(driverPageTitle)"
 
+        // Check if image URL is cached
+        if let cachedURL = UserDefaults.standard.string(forKey: cacheKey) {
+            print("Using cached image URL for \(givenName) \(familyName): \(cachedURL)")
+            return cachedURL
+        }
+
+        // Construct the URL for the Wikipedia API request
+        let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
         guard let url = URL(string: driverPageURLString) else {
             throw URLError(.badURL)
         }
 
+        // Perform the network request
         let (data, _) = try await URLSession.shared.data(from: url)
         let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
 
+        // Extract the thumbnail URL from the response
         guard let pageID = wikipediaData.query.pages.keys.first,
               let page = wikipediaData.query.pages[pageID],
               let thumbnailURL = page.thumbnail?.source else {
             throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(givenName) \(familyName)"])
         }
-        print(thumbnailURL)
+
+        // Cache the thumbnail URL
+        UserDefaults.standard.set(thumbnailURL, forKey: cacheKey)
+        print("Fetched and cached image URL for \(givenName) \(familyName): \(thumbnailURL)")
+
         return thumbnailURL
     }
 
