@@ -26,7 +26,6 @@ class HomeViewModel: ObservableObject {
     init(
         seasonYear: String
     ) {
-        F1ApiRoutes.clearCache()
         self.seasonYear = seasonYear
     }
     
