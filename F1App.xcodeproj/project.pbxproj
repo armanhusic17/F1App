@@ -44,7 +44,6 @@
 		0FA428CB2B145D41008673C4 /* trCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428CA2B145D41008673C4 /* trCell.swift */; };
 		0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA962882BDD6A9600D515F3 /* AuthModel.swift */; };
 		0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */; };
-		0FA9628E2BDDB71000D515F3 /* ErgastQueryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */; };
 		0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
 		0FBD817E2B18772900151CAF /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBD817D2B18772900151CAF /* AccountSettings.swift */; };
@@ -115,7 +114,6 @@
 		0FA428CA2B145D41008673C4 /* trCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trCell.swift; sourceTree = "<group>"; };
 		0FA962882BDD6A9600D515F3 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModelDelegate.swift; sourceTree = "<group>"; };
-		0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgastQueryButton.swift; sourceTree = "<group>"; };
 		0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0FB7659E280538F400C32514 /* viewControllerStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = viewControllerStory.storyboard; sourceTree = "<group>"; };
 		0FBD817D2B18772900151CAF /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
@@ -328,7 +326,6 @@
 			isa = PBXGroup;
 			children = (
 				0FA962912BDF0D9B00D515F3 /* UIKit Components */,
-				0FA9628D2BDDB71000D515F3 /* ErgastQueryButton.swift */,
 				0F865B0A2BE34965008A8076 /* SeasonSelector.swift */,
 			);
 			path = Reuse;
@@ -558,7 +555,6 @@
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */,
 				0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */,
-				0FA9628E2BDDB71000D515F3 /* ErgastQueryButton.swift in Sources */,
 				0FDB0D0F2863D76000A07E6A /* HomeModel.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0FA428CB2B145D41008673C4 /* trCell.swift in Sources */,

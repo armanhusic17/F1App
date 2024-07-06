@@ -41,8 +41,9 @@ struct ConstructorsCards: View {
                             AsyncImage(url: URL(string: image)) { image in
                                 image
                                     .resizable()
-                                    .scaledToFill()
+                                    .scaledToFit()
                                     .frame(width: 150, height: 200)
+                                    .background(Color.white)
                                     .clipShape(Circle())
                                     .overlay(
                                         Circle()

@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    @Published var seasonYear: String = "2024" 
+    @Published var seasonYear: String = "\(Calendar.current.component(.year, from: Date()))" 
     {
         didSet {
             Task {
@@ -44,6 +44,7 @@ class HomeViewModel: ObservableObject {
         await loadDriverStandings(seasonYear: seasonYear)
         await getDriverImgs()
         await loadConstructorStandings(seasonYear: seasonYear)
+        await getConstructorImages()
     }
     
     @MainActor
@@ -88,9 +89,11 @@ class HomeViewModel: ObservableObject {
             do {
                 let constructorImg = try await HomeViewModel.fetchConstructorImageFromWikipedia(constructorName: self.constructorStandings[index].constructor?.name ?? "Unable to get constructor name")
                 constructorImages.append(constructorImg)
+                print(self.constructorStandings[index].constructor?.name ?? "Unable to get constructor name")
             } catch {
                 // Handle errors such as display an error message
-                print("Constructors wikipedia fetch failed to gather data...")
+                constructorImages.append("bad_url")
+                print("Constructors wikipedia fetch failed to gather data...\(error)")
             }
         }
     }
@@ -112,7 +115,8 @@ class HomeViewModel: ObservableObject {
         let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let urlStr = "https://en.wikipedia.org/w/api.php?action=query&titles=\(encodedName)&prop=pageimages&format=json&pithumbsize=250"
         guard let url = URL(string: urlStr) else {
-            throw URLError(.badURL)
+            print(URLError(.badURL))
+            return "bad_url"
         }
         
         let (data, _) = try await URLSession.shared.data(from: url)
