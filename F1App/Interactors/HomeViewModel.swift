@@ -9,7 +9,8 @@ import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    @Published var seasonYear: String = "2024" {
+    @Published var seasonYear: String = "2024" 
+    {
         didSet {
             Task {
                 await self.reloadDataForNewSeason()
@@ -25,6 +26,7 @@ class HomeViewModel: ObservableObject {
     init(
         seasonYear: String
     ) {
+        F1ApiRoutes.clearCache()
         self.seasonYear = seasonYear
     }
     

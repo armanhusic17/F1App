@@ -16,15 +16,6 @@ struct HomeScreen: View {
             backgroundGradient
             content
         }
-        .onAppear {
-            Task {
-                await viewModel.loadDriverStandings(seasonYear: viewModel.seasonYear)
-                await viewModel.getDriverImgs()
-                await viewModel.loadConstructorStandings(seasonYear: viewModel.seasonYear)
-                await viewModel.getConstructorImages()
-               // await viewModel.loadRaceResults(year: viewModel.seasonYear, round: "\(1)")
-            }
-        }
     }
 
     @ViewBuilder

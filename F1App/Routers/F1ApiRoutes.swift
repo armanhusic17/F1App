@@ -10,7 +10,11 @@ import Foundation
 struct F1ApiRoutes  {
     typealias FoundationData = Foundation.Data
     static var cache = [String: FoundationData]()
-
+    
+    static func clearCache() {
+        cache.removeAll()
+        print("Cachec clear \(cache.count)")
+    }
     static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
         let key = "cache_\(queryKey)_\(seasonYear)"
         if let cachedData = UserDefaults.standard.data(forKey: key) {
@@ -453,14 +457,14 @@ struct F1ApiRoutes  {
     }
     
     static func worldDriversChampionshipStandings(seasonYear: String) async throws -> [DriverStanding] {
-        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings") {
-            do {
-                let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any]
-                return processDriverStandings(json, seasonYear: seasonYear)
-            } catch {
-                throw error // Propagate decoding error
-            }
-        }
+//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings") {
+//            do {
+//                let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any]
+//                return processDriverStandings(json, seasonYear: seasonYear)
+//            } catch {
+//                throw error // Propagate decoding error
+//            }
+//        }
 
         guard let url = URL(string: "https://ergast.com/api/f1/\(seasonYear)/driverStandings.json") else {
             throw URLError(.badURL)
@@ -486,6 +490,8 @@ struct F1ApiRoutes  {
         }
 
         var results: [DriverStanding] = []
+        var seenDrivers: Set<String> = Set()
+
         for standingsList in standingsLists {
             let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
             for driverStanding in driverStandings {
@@ -495,6 +501,16 @@ struct F1ApiRoutes  {
                    let position = driverStanding["position"] as? String,
                    let points = driverStanding["points"] as? String,
                    let constructors = driverStanding["Constructors"] as? [[String: Any]] {
+
+                    let driverIdentifier = "\(givenName) \(familyName)"
+                    
+                    // Check if the driver has already been processed
+                    if seenDrivers.contains(driverIdentifier) {
+                        continue
+                    }
+
+                    // Mark this driver as seen
+                    seenDrivers.insert(driverIdentifier)
 
                     let teamNames = constructors.compactMap { $0["name"] as? String }.joined(separator: ", ")
                     let standing = DriverStanding(
@@ -508,9 +524,10 @@ struct F1ApiRoutes  {
                 }
             }
         }
-        print(results)
+        print("RESULTS COUNT - \(results.count)")
         return results
     }
+
     
     static func fetchDriverImgFromWikipedia(givenName: String, familyName: String) async throws -> String {
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -534,33 +551,33 @@ struct F1ApiRoutes  {
         return thumbnailURL
     }
 
-   // Fetch Race Results
-   func fetchRaceResults(forYear year: String, round: String) async throws -> Root? {
-       let urlString = "https://ergast.com/api/f1/\(year)/results/\(round).json"
-       guard let url = URL(string: urlString) else {
-           print("Invalid URL")
-           return nil
-       }
+    // Fetch Race Results
+    func fetchRaceResults(forYear year: String, round: String) async throws -> Root? {
+        let urlString = "https://ergast.com/api/f1/\(year)/results/\(round).json"
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return nil
+        }
 
-       let (data, response) = try await URLSession.shared.data(from: url)
+        let (data, response) = try await URLSession.shared.data(from: url)
 
-       guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-           print("Invalid response")
-           return nil
-       }
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            print("Invalid response")
+            return nil
+        }
 
-       do {
-           let decoder = JSONDecoder()
-           let decodedData = try decoder.decode(Root.self, from: data)
-           print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
-           print(decodedData)
-           print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
-           return decodedData
-       } catch {
-           print("Error decoding data: \(error)")
-           throw error
-       }
-   }
+        do {
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(Root.self, from: data)
+            print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
+            print(decodedData)
+            print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
+            return decodedData
+        } catch {
+            print("Error decoding data: \(error)")
+            throw error
+        }
+    }
 
     // Laps https://ergast.com/api/f1/2007/1/drivers/hamilton/laps
     // All drivers that have driven for a certain constructor
