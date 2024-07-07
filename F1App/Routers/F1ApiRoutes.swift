@@ -21,6 +21,25 @@ struct F1ApiRoutes  {
         }
     }
 
+    static func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> String {
+        let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        let urlStr = "https://en.wikipedia.org/w/api.php?action=query&titles=\(encodedName)&prop=pageimages&format=json&pithumbsize=800"
+        guard let url = URL(string: urlStr) else {
+            print(URLError(.badURL))
+            return "bad_url"
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
+        
+        guard let pageID = wikipediaData.query.pages.keys.first,
+              let page = wikipediaData.query.pages[pageID],
+              let thumbnailURL = page.thumbnail?.source else {
+            throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(constructorName)"])
+        }
+        print(thumbnailURL)
+        return thumbnailURL
+    }
     
     static func getConstructorStandings(seasonYear: String) async throws -> [ConstructorStanding] {
         // Check the cache first
@@ -44,7 +63,7 @@ struct F1ApiRoutes  {
         let (data, _) = try await URLSession.shared.data(from: url)
         let root = try JSONDecoder().decode(Root.self, from: data)
         
-        if seasonYear != "2024" {
+        if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
             UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
         }
 
@@ -59,141 +78,6 @@ struct F1ApiRoutes  {
         
         return standingsList.constructorStandings ?? []
     }
-    
-//    static func fetchConstructorImgFromWikipedia(constructorName: String) async throws -> String {
-//        let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-//        let constructorPageTitle = "\(encodedConstructorName)"
-//        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
-//
-//        guard let url = URL(string: constructorPageURLString) else {
-//            throw URLError(.badURL)
-//        }
-//
-//        let (data, _) = try await URLSession.shared.data(from: url)
-//        let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-//
-//        guard let pageID = wikipediaData.query.pages.keys.first,
-//              let page = wikipediaData.query.pages[pageID],
-//              let thumbnailURL = page.thumbnail?.source else {
-//            throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(constructorName)"])
-//        }
-//        print(thumbnailURL)
-//        return thumbnailURL
-//    }
-
-
-//    static func getConstructorStandings(seasonYear: String, completion: @escaping (Bool) -> Void) {
-//        // Check the cache
-//        if let cachedData = retrieveCachedData(for: seasonYear, queryKey: "constructorStandings") {
-//            do {
-//                let root = try JSONDecoder().decode(Root.self, from: cachedData)
-//                processConstructorStandings(root: root)
-//                print("Successfully gathering data from cache")
-//
-//                completion(true)
-//                return
-//            } catch {
-//                print("Error decoding cached data: \(error)")
-//            }
-//        }
-//
-//        // Proceed with network call
-//        let stringURL = "https://ergast.com/api/f1/\(seasonYear)/constructorStandings.json?limit=100"
-//        guard let url = URL(string: stringURL) else {
-//            completion(false)
-//            return
-//        }
-//        
-//        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-//            guard let data = data else {
-//                completion(false)
-//                return
-//            }
-//            
-//            do {
-//                let root = try JSONDecoder().decode(Root.self, from: data)
-//                processConstructorStandings(root: root)
-//                
-//                // cache the data
-//                cache[seasonYear] = data
-//
-//                if seasonYear != "2024" {
-//                    UserDefaults.standard.set(data, forKey: "cache_constructorStandings_\(seasonYear)")
-//                }
-//                completion(true)
-//            } catch {
-//                print("Error in do catch")
-//                completion(false)
-//            }
-//        }
-//        task.resume()
-//        
-//    }
-//
-//    private static func processConstructorStandings(root: Root) {
-//        if let standingsList = root.mrData?.standingsTable?.standingsLists?.first {
-//            // Loop through each constructor standing
-//            for constructorStanding in standingsList.constructorStandings ?? [] {
-//                F1DataStore.teamNationality.append(constructorStanding.constructor?.nationality ?? "N/A")
-//                F1DataStore.raceWinnerTeam.append("Wins: \(constructorStanding.wins ?? "N/A")")
-//                F1DataStore.teamURL.append(constructorStanding.constructor?.url ?? "N/A")
-//                F1DataStore.racePoints.append(constructorStanding.points)
-//                F1DataStore.teamNames.append(constructorStanding.constructor?.name ?? "N/A")
-//                fetchConstructorImageFromWikipedia(constructorName: constructorStanding.constructor?.name ?? "") { Success in
-//                    if Success {
-//                        print("SUCESSFULLY GATHEREED WIKI IMAEGES FOR CONSTRUCTORs")
-//                    } else {
-//                        print("FAILED TO GATHER WIKI IMAGES")
-//                    }
-//                }
-//            }
-//        } else {
-//            print("Standings table not found")
-//        }
-//    }
-//
-//    static func fetchConstructorImageFromWikipedia(constructorName: String, completion: @escaping (Bool) -> Void) {
-//        let encodedConstructorName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-//        let constructorPageTitle = "\(encodedConstructorName)"
-//        let constructorPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(constructorPageTitle)&prop=pageimages&format=json&pithumbsize=250"
-//        
-//        guard let constructorPageURL = URL(string: constructorPageURLString) else {
-//            completion(false)
-//            return
-//        }
-//        
-//        URLSession.shared.dataTask(with: constructorPageURL) { (data, response, error) in
-//            guard let data = data else {
-//                print("Error: No data received for \(constructorName)")
-//                completion(false)
-//                return
-//            }
-//            
-//            do {
-//                let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-//                
-//                guard let pageID = wikipediaData.query.pages.keys.first,
-//                      let page = wikipediaData.query.pages[pageID] else {
-//                    print("Error: Invalid response for \(constructorName)")
-//                    completion(false)
-//                    return
-//                }
-//                let thumbnailURLString = page.thumbnail?.source
-//                
-//                DispatchQueue.main.async {
-//                    if let thumbnailURL = thumbnailURLString {
-//                        F1DataStore.teamImages[constructorName] = thumbnailURL
-//                    } else {
-//                        F1DataStore.teamImages[constructorName] = "defaultImageURL" // Use a default image URL if none is found
-//                    }
-//                    completion(true)
-//                }
-//            } catch let error {
-//                print("Error decoding Wikipedia JSON data for \(constructorName): \(error.localizedDescription)")
-//                completion(false)
-//            }
-//        }.resume()
-//    }
 
     static func allRaceResults(seasonYear: String, round: String, completion: @escaping (Bool) -> Void) {
         print(seasonYear, round)
@@ -537,7 +421,7 @@ struct F1ApiRoutes  {
         }
 
         // Construct the URL for the Wikipedia API request
-        let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=500"
+        let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=800"
         guard let url = URL(string: driverPageURLString) else {
             throw URLError(.badURL)
         }

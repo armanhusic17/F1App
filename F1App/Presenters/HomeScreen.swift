@@ -10,7 +10,7 @@ import UIKit
 
 struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
-
+    @State private var isLoading = true
     var body: some View {
         ZStack {
             backgroundGradient
@@ -71,7 +71,7 @@ struct HomeScreen: View {
                 rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
                 spacing: 16
             ) {
-                ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
+                ForEach(viewModel.driverStandings, id: \.self) { driverStanding in 
                     DriversCards(
                         wdcPosition:        "WDC Position: \(driverStanding.position)",
                         wdcPoints:          "Points \(driverStanding.points)",
@@ -83,6 +83,7 @@ struct HomeScreen: View {
                 }
             }
         }
+
         ScrollView(.horizontal) {
             LazyHGrid(
                 rows: [GridItem(.fixed(UIScreen.main.bounds.width))],

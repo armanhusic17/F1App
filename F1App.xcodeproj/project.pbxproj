@@ -38,6 +38,7 @@
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0D2BE3ED7B008A8076 /* QueryResultsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
+		0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F898BC22C39317100EE9860 /* GrandPrixCards.swift */; };
 		0FA3B5F628068F0D00A334D8 /* FirstResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F528068F0D00A334D8 /* FirstResults.swift */; };
 		0FA3B5FA2806920E00A334D8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3B5F92806920E00A334D8 /* DataModel.swift */; };
 		0FA428C92B145590008673C4 /* TertiaryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA428C82B145590008673C4 /* TertiaryResults.swift */; };
@@ -108,6 +109,7 @@
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResultsGrid.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
+		0F898BC22C39317100EE9860 /* GrandPrixCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandPrixCards.swift; sourceTree = "<group>"; };
 		0FA3B5F528068F0D00A334D8 /* FirstResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResults.swift; sourceTree = "<group>"; };
 		0FA3B5F92806920E00A334D8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		0FA428C82B145590008673C4 /* TertiaryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryResults.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				0F0EC2562B84789200B0B639 /* HomeScreen.swift */,
 				0F865B0E2C0290CA008A8076 /* DriversCards.swift */,
 				0F2B23C62C2929F90017860D /* ConstructorsCards.swift */,
+				0F898BC22C39317100EE9860 /* GrandPrixCards.swift */,
 				0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */,
 			);
 			path = Presenters;
@@ -538,6 +541,7 @@
 				0FFC50552B1C06EC005ED8E6 /* FirebaseDataStorage.swift in Sources */,
 				0F3703FD27F13C1400968C5F /* frCell.swift in Sources */,
 				0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */,
+				0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */,
 				0FA428C92B145590008673C4 /* TertiaryResults.swift in Sources */,
 				0F343C9129C97BA100DA001A /* SecondaryResults.swift in Sources */,
 				0F1D75172880FA7600EFE42E /* HomeQueries.swift in Sources */,

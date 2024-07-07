@@ -9,10 +9,12 @@ import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    @Published var seasonYear: String = "\(Calendar.current.component(.year, from: Date()))" 
+    @Published var seasonYear: String = "\(Calendar.current.component(.year, from: Date()))"
+
     {
         didSet {
             Task {
+                await loadRaceResults(year: seasonYear, round: "1")
                 await self.reloadDataForNewSeason()
             }
         }
@@ -87,7 +89,7 @@ class HomeViewModel: ObservableObject {
     func getConstructorImages() async {
         for index in constructorStandings.indices {
             do {
-                let constructorImg = try await HomeViewModel.fetchConstructorImageFromWikipedia(constructorName: self.constructorStandings[index].constructor?.name ?? "Unable to get constructor name")
+                let constructorImg = try await F1ApiRoutes.fetchConstructorImageFromWikipedia(constructorName: self.constructorStandings[index].constructor?.name ?? "Unable to get constructor name")
                 constructorImages.append(constructorImg)
                 print(self.constructorStandings[index].constructor?.name ?? "Unable to get constructor name")
             } catch {
@@ -97,40 +99,6 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-//    
-//    @MainActor
-//    func fetchConstructorImages(constructors: [ConstructorStanding]) async {
-//        for constructor in constructors {
-//            guard let name = constructor.constructor?.name else { continue }
-//            do {
-//                let imageUrl = try await HomeViewModel.fetchConstructorImageFromWikipedia(constructorName: name)
-//                self.constructorImages.append(imageUrl)    
-//            } catch {
-//                print("Failed to fetch image for \(name): \(error)")
-//            }
-//        }
-//    }
-
-    static func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> String {
-        let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        let urlStr = "https://en.wikipedia.org/w/api.php?action=query&titles=\(encodedName)&prop=pageimages&format=json&pithumbsize=250"
-        guard let url = URL(string: urlStr) else {
-            print(URLError(.badURL))
-            return "bad_url"
-        }
-        
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-        
-        guard let pageID = wikipediaData.query.pages.keys.first,
-              let page = wikipediaData.query.pages[pageID],
-              let thumbnailURL = page.thumbnail?.source else {
-            throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(constructorName)"])
-        }
-        print(thumbnailURL)
-        return thumbnailURL
-    }
-
     
     @MainActor
     func loadRaceResults(year: String, round: String) {

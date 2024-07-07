@@ -1,31 +1,32 @@
 //
-//  HorizontalGridCell.swift
+//  GrandPrixCards.swift
 //  F1App
 //
-//  Created by Arman Husic on 5/25/24.
+//  Created by Arman Husic on 6/23/24.
 //
+
 
 import SwiftUI
 
-struct DriversCards: View {
-    let wdcPosition: String
-    let wdcPoints: String
-    let constructorName: String
+struct GrandPrixCards: View {
+    let wccPosition: String
+    let wccPoints: String
+    let constructorWins: String
     let image: String
     let items: [String]
     let seasonYearSelected: String
     
     init(
-        wdcPosition: String,
-        wdcPoints: String,
-        constructorName: String,
+        wccPosition: String,
+        wccPoints: String,
+        constructorWins: String,
         image: String,
         items: [String],
         seasonYearSelected: String
     ) {
-        self.wdcPosition = wdcPosition
-        self.wdcPoints = wdcPoints
-        self.constructorName = constructorName
+        self.wccPosition = wccPosition
+        self.wccPoints = wccPoints
+        self.constructorWins = constructorWins
         self.image = image
         self.items = items
         self.seasonYearSelected = seasonYearSelected
@@ -40,14 +41,15 @@ struct DriversCards: View {
                             AsyncImage(url: URL(string: image)) { image in
                                 image
                                     .resizable()
-                                    .scaledToFill()
+                                    .scaledToFit()
                                     .frame(width: 150, height: 200)
+                                    .background(Color.white)
                                     .clipShape(Circle())
                                     .overlay(
                                         Circle()
                                             .stroke(
                                                 LinearGradient(
-                                                    colors: [ 
+                                                    colors: [
                                                         .mint,
                                                         .mint,
                                                         .black,
@@ -60,13 +62,13 @@ struct DriversCards: View {
                                             )
                                     )
                             } placeholder: {
-                                Image(systemName: "person.circle")
+                                Image(systemName: "car.circle")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 150, height: 200)
                                     .foregroundStyle(
                                         LinearGradient(
-                                            colors: [ 
+                                            colors: [
                                                 .mint,
                                                 .mint.opacity(0.5),
                                                 .mint.opacity(0.4),
@@ -90,20 +92,20 @@ struct DriversCards: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
                                     Image(systemName: "trophy.circle")
-                                    if wdcPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
+                                    if wccPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
                                         Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
-                                        Text("\(seasonYearSelected) WDC Champion")
+                                        Text("\(seasonYearSelected) WCC Champion")
                                     } else {
-                                        Text(wdcPosition)
+                                        Text(wccPosition)
                                     }
                                 }
                                 HStack {
                                     Image(systemName: "flag.checkered.circle")
-                                    Text(wdcPoints)
+                                    Text(wccPoints)
                                 }
                                 HStack {
                                     Image(systemName: "car.circle")
-                                    Text(constructorName)
+                                    Text(constructorWins)
                                 }
                             }
                             .font(.title)
@@ -116,7 +118,7 @@ struct DriversCards: View {
                     .background(
                         LinearGradient(
                             colors: [
-                                .black, 
+                                .black,
                                 .black,
                                 .mint
                             ],
@@ -132,12 +134,12 @@ struct DriversCards: View {
 }
 
 #Preview {
-    DriversCards(
-        wdcPosition: "WDC Position",
-        wdcPoints: "WDC Points",
-        constructorName: "Team Name",
-        image: "Image",
-        items: ["Driver Name"],
+    GrandPrixCards(
+        wccPosition: "WCC Position: 1",
+        wccPoints: "WCC Points: 400",
+        constructorWins: "Wins: 125",
+        image: "",
+        items: ["Scuderia\nFerrari"],
         seasonYearSelected: "2024"
     )
 }

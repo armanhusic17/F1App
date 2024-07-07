@@ -125,7 +125,7 @@ struct ConstructorsCards: View {
                             startPoint: .bottomLeading,
                             endPoint: .topTrailing
                         )
-                        .cornerRadius(4)
+                        .cornerRadius(40)
                     )
                 }
             }
