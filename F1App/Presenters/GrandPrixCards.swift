@@ -5,141 +5,142 @@
 //  Created by Arman Husic on 6/23/24.
 //
 
-
 import SwiftUI
 
 struct GrandPrixCards: View {
-    let wccPosition: String
-    let wccPoints: String
-    let constructorWins: String
-    let image: String
-    let items: [String]
-    let seasonYearSelected: String
+    let grandPrixName: String
+    let circuitName: String
+    let raceDate: String
+    let raceTime: String
+    let winnerName: String
+    let winnerTeam: String
+    let winningTime: String
+    let fastestLap: String
+    let countryFlag: String
     
     init(
-        wccPosition: String,
-        wccPoints: String,
-        constructorWins: String,
-        image: String,
-        items: [String],
-        seasonYearSelected: String
+        grandPrixName: String,
+        circuitName: String,
+        raceDate: String,
+        raceTime: String,
+        winnerName: String,
+        winnerTeam: String,
+        winningTime: String,
+        fastestLap: String,
+        countryFlag: String
     ) {
-        self.wccPosition = wccPosition
-        self.wccPoints = wccPoints
-        self.constructorWins = constructorWins
-        self.image = image
-        self.items = items
-        self.seasonYearSelected = seasonYearSelected
+        self.grandPrixName = grandPrixName
+        self.circuitName = circuitName
+        self.raceDate = raceDate
+        self.raceTime = raceTime
+        self.winnerName = winnerName
+        self.winnerTeam = winnerTeam
+        self.winningTime = winningTime
+        self.fastestLap = fastestLap
+        self.countryFlag = countryFlag
     }
     
     var body: some View {
         ScrollView(.horizontal) {
-            LazyHGrid(rows: [GridItem(.flexible())]) {
-                ForEach(items, id: \.self) { item in
+            HStack {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        if let flag = Locale.flag(for: "\(countryFlag)") {
+                            Text(flag)
+                                .font(.largeTitle)
+                        }
+                        Text(grandPrixName)
+                    }
+                    .font(.largeTitle)
+
+                    Divider()
+
+                    HStack {
+                        Image(systemName: "flag.checkered.2.crossed")
+                            .foregroundStyle(.white)
+                        Text("\(circuitName)")
+                            .font(.subheadline)
+                    }
+                    .font(.headline)
+
+                    HStack {
+                        Image(systemName: "calendar.badge.clock")
+                            .font(.title)
+                            .foregroundStyle(.secondary)
+                        Text("Race Date: \(raceDate) at \(raceTime)")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                    
+                    Divider()
+
                     VStack(alignment: .leading) {
                         HStack {
-                            AsyncImage(url: URL(string: image)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 200)
-                                    .background(Color.white)
-                                    .clipShape(Circle())
-                                    .overlay(
-                                        Circle()
-                                            .stroke(
-                                                LinearGradient(
-                                                    colors: [
-                                                        .mint,
-                                                        .mint,
-                                                        .black,
-                                                        .black
-                                                    ],
-                                                    startPoint: .bottomLeading,
-                                                    endPoint: .topTrailing
-                                                ),
-                                                lineWidth: 4
-                                            )
-                                    )
-                            } placeholder: {
-                                Image(systemName: "car.circle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 200)
-                                    .foregroundStyle(
-                                        LinearGradient(
-                                            colors: [
-                                                .mint,
-                                                .mint.opacity(0.5),
-                                                .mint.opacity(0.4),
-                                                .black
-                                            ],
-                                            startPoint: .bottomLeading,
-                                            endPoint: .topTrailing
-                                        )
-                                    )
-                            }
-
-                            Text(item.capitalized)
-                                .bold()
-                                .fixedSize(horizontal: true, vertical: false)
+                            Image(systemName: "trophy.fill")
                                 .font(.largeTitle)
-
-                            Spacer()
+                                .foregroundStyle(.yellow.opacity(0.5))
+                            Text("Race Winner")
+                            Text("\(winnerName)")
+                                .bold()
+                                .font(.title3)
                         }
-
                         HStack {
-                            VStack(alignment: .leading, spacing: 16) {
-                                HStack {
-                                    Image(systemName: "trophy.circle")
-                                    if wccPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
-                                        Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
-                                        Text("\(seasonYearSelected) WCC Champion")
-                                    } else {
-                                        Text(wccPosition)
-                                    }
-                                }
-                                HStack {
-                                    Image(systemName: "flag.checkered.circle")
-                                    Text(wccPoints)
-                                }
-                                HStack {
-                                    Image(systemName: "car.circle")
-                                    Text(constructorWins)
-                                }
-                            }
-                            .font(.title)
-                            .fixedSize(horizontal: false, vertical: true)
-                            Spacer()
+                            Image(systemName: "trophy.circle")
+                                .font(.largeTitle)
+                                .foregroundStyle(.yellow.opacity(0.5))
+                            Text("Winning Constructor")
+                                .font(.subheadline)
+                            Text("\(winnerTeam)")
+                                .bold()
+                                .font(.subheadline)
+                        }
+                        HStack {
+                            Image(systemName: "stopwatch")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white.opacity(0.5))
+                            Text("Winning Time: \(winningTime)")
+                                .font(.caption)
+                            Text("Fastest Lap: \(fastestLap)")
+                                .font(.caption)
                         }
                     }
-                    .padding()
-                    .foregroundStyle(.white)
-                    .background(
-                        LinearGradient(
-                            colors: [
-                                .black,
-                                .black,
-                                .mint
-                            ],
-                            startPoint: .bottomLeading,
-                            endPoint: .topTrailing
-                        )
-                        .cornerRadius(40)
-                    )
+                    .padding(.top, 5)
                 }
+                .foregroundStyle(.white)
+                .padding()
+                .background(
+                    LinearGradient(
+                        colors: [
+                            .black,
+                            .black,
+                            .black,
+                            .mint.opacity(0.75)
+                        ],
+                        startPoint: .bottomLeading,
+                        endPoint: .topTrailing
+                    )
+                )
+                .cornerRadius(10)
+                .shadow(radius: 5)
             }
         }
     }
 }
 
-#Preview {
-    GrandPrixCards(
-        wccPosition: "WCC Position: 1",
-        wccPoints: "WCC Points: 400",
-        constructorWins: "Wins: 125",
-        image: "",
-        items: ["Scuderia\nFerrari"],
-        seasonYearSelected: "2024"
-    )
+// Preview
+struct GrandPrixCards_Previews: PreviewProvider {
+    static var previews: some View {
+        GrandPrixCards(
+            grandPrixName: "Bahrain Grand Prix",
+            circuitName: "Bahrain International Circuit, Sakhir",
+            raceDate: "2025-03-31",
+            raceTime: "13:00:00Z",
+            winnerName: "Lewis Hamilton",
+            winnerTeam: "Scuderia Ferrari",
+            winningTime: "1:30:21.432",
+            fastestLap: "1:24.309", 
+            countryFlag: "🇧🇭"
+        )
+    }
 }
+

@@ -39,3 +39,19 @@ struct WikipediaPage: Decodable {
 struct WikipediaThumbnail: Decodable {
     let source: String
 }
+
+struct WikipediaSearchData: Decodable {
+    struct Query: Decodable {
+        struct Search: Decodable {
+            let pageid: Int
+        }
+        let search: [Search]
+    }
+    let query: Query
+}
+
+extension Collection where Indices.Iterator.Element == Index {
+   public subscript(safe index: Index) -> Iterator.Element? {
+     return (startIndex <= index && index < endIndex) ? self[index] : nil
+   }
+}

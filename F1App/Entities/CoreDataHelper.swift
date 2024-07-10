@@ -10,10 +10,11 @@ import CoreData
 import UIKit
 
 class CoreDataHelper {
+    @MainActor
     static let shared = CoreDataHelper() // Singleton instance
-    
+
     private init() {} // Ensure only one instance is created
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "BoxBoxCoreData") // Replace with your Core Data model name
         container.loadPersistentStores { _, error in
@@ -24,11 +25,11 @@ class CoreDataHelper {
         }
         return container
     }()
-    
+
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
-    
+
     func saveImage(image: UIImage, completion: @escaping (Bool, Error?) -> Void){
         let context = self.context
         context.perform {
@@ -52,7 +53,7 @@ class CoreDataHelper {
             }
         }
     }
-    
+
     func getImageFromCoreData(completion: @escaping (UIImage?, Error?) -> Void) {
         let context = self.context
         context.perform {
@@ -73,8 +74,32 @@ class CoreDataHelper {
             }
         }
     }
-    
-    
-   
+}
 
+extension Locale {
+    /// Returns the flag emoji for a given country name or nil if the country is not found.
+    static func flag(for countryName: String) -> String? {
+        // Find the country code for the given country name.
+        let countryCodes = Locale.isoRegionCodes
+        var countryCode: String?
+        
+        for code in countryCodes {
+            let identifier = Locale.identifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+            let name = Locale(identifier: identifier).localizedString(forRegionCode: code)
+            if name?.lowercased() == countryName.lowercased() {
+                countryCode = code
+                break
+            }
+        }
+        
+        // Ensure a country code was found.
+        guard let code = countryCode else { return nil }
+        
+        // Convert the country code to a flag emoji.
+        return code
+            .unicodeScalars
+            .map { UnicodeScalar(127397 + $0.value)! }
+            .map { String($0) }
+            .joined()
+    }
 }

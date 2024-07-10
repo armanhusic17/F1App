@@ -14,17 +14,18 @@ class HomeViewModel: ObservableObject {
     {
         didSet {
             Task {
-                await loadRaceResults(year: seasonYear, round: "1")
+                loadAllRacesForSeason(year: seasonYear)
                 await self.reloadDataForNewSeason()
             }
         }
     }
     @Published var driverStandings: [DriverStanding] = []
     @Published var raceResults: Root?
+    @Published var races: [Race] = []
     @Published var errorMessage: String?
     @Published var constructorStandings: [ConstructorStanding] = []
     @Published var constructorImages: [String] = []
-    
+
     init(
         seasonYear: String
     ) {
@@ -101,15 +102,19 @@ class HomeViewModel: ObservableObject {
     }
     
     @MainActor
-    func loadRaceResults(year: String, round: String) {
+    func loadAllRacesForSeason(year: String) {
         Task {
             do {
-                self.raceResults = try await F1ApiRoutes().fetchRaceResults(forYear: year, round: round)
+                let raceResults = try await F1ApiRoutes().fetchRaceResults(forYear: year)
+                DispatchQueue.main.async {
+                    self.races = raceResults?.mrData?.raceTable?.races ?? []
+                }
             } catch {
-                self.errorMessage = "Failed to fetch data: \(error)"
+                self.errorMessage = "Failed to fetch data: \(error.localizedDescription)"
             }
         }
     }
+    
 }
 
 extension Array {

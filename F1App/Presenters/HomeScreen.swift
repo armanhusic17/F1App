@@ -101,6 +101,40 @@ struct HomeScreen: View {
                 }
             }
         }
+        
+        ScrollView(.horizontal) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                spacing: 16
+            ) {
+                ForEach(viewModel.races, id: \.raceName) { race in
+                    if let raceName = race.raceName,
+                       let circuit = race.circuit,
+                       let circuitName = circuit.circuitName,
+                       let country = circuit.location?.country,
+                       let date = race.date,
+                       let time = race.time,
+                       let results = race.results?.first,
+                       let fastestLap = results.fastestLap,
+                       let fastestLapTime = fastestLap.time,
+                       let fastestLapTimeTIme = fastestLapTime.time
+                    {
+                     
+                        GrandPrixCards(
+                            grandPrixName: raceName,
+                            circuitName: "\(circuitName)",
+                            raceDate: "\(date)",
+                            raceTime: "\(time)",
+                            winnerName: "\(results.driver?.givenName ?? "") \(results.driver?.familyName ?? "")",
+                            winnerTeam: "\(results.constructor?.name ?? "")",
+                            winningTime: results.time?.time ?? "",
+                            fastestLap: "\(fastestLapTimeTIme)",
+                            countryFlag: "\(country)"
+                        )
+                    }
+                }
+            }
+        }
     } // end queriescollection
 }
 
