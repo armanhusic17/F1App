@@ -690,7 +690,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.0.05;
+				MARKETING_VERSION = 2024.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -723,7 +723,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.0.05;
+				MARKETING_VERSION = 2024.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
