@@ -15,6 +15,13 @@ struct ConstructorsCards: View {
     let image: String
     let items: [String]
     let seasonYearSelected: String
+
+    private enum Constant: String {
+        case trophyImage = "trophy.circle"
+        case checkeredFlag = "flag.checkered.circle"
+        case carCircleImage = "car.circle"
+        case WCCLabel = "WCC Champion"
+    }
     
     init(
         wccPosition: String,
@@ -91,20 +98,20 @@ struct ConstructorsCards: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
-                                    Image(systemName: "trophy.circle")
+                                    Image(systemName: Constant.trophyImage.rawValue)
                                     if wccPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
                                         Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
-                                        Text("\(seasonYearSelected) WCC Champion")
+                                        Text("\(seasonYearSelected) " + Constant.WCCLabel.rawValue)
                                     } else {
                                         Text(wccPosition)
                                     }
                                 }
                                 HStack {
-                                    Image(systemName: "flag.checkered.circle")
+                                    Image(systemName: Constant.checkeredFlag.rawValue)
                                     Text(wccPoints)
                                 }
                                 HStack {
-                                    Image(systemName: "car.circle")
+                                    Image(systemName: Constant.carCircleImage.rawValue)
                                     Text(constructorWins)
                                 }
                             }

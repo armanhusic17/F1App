@@ -61,10 +61,12 @@ class UserAuth: UIViewController, AuthModelDelegate {
         model.triggerAppleSignIn(model: model)
     }
 
-    func didCompleteSignIn(_ viewController: UIViewController) {
-        hideSpinner()
-        viewController.modalPresentationStyle = .fullScreen
-        self.present(viewController, animated: true, completion: nil)
+    nonisolated func didCompleteSignIn(_ viewController: UIViewController) {
+        Task { @MainActor in
+            hideSpinner()
+            viewController.modalPresentationStyle = .fullScreen
+            self.present(viewController, animated: true, completion: nil)
+        }
     }
 
     func showSpinner() {

@@ -11,6 +11,14 @@ import UIKit
 struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
     @State private var isLoading = true
+
+    private enum Constant: String {
+        case homescreenTitle = "Box Box F1"
+        case wdcLabel = "World Drivers' Championship Standings"
+        case wccLabel = "World Constructors' Championship Standings"
+        case grandPrixLabel = "Grand Prix Results"
+    }
+    
     var body: some View {
         ZStack {
             backgroundGradient
@@ -31,7 +39,7 @@ struct HomeScreen: View {
             startPoint: .bottomTrailing,
             endPoint: .topTrailing
         )
-            .ignoresSafeArea()
+        .ignoresSafeArea()
     }
 
     @ViewBuilder
@@ -45,7 +53,7 @@ struct HomeScreen: View {
     @ViewBuilder
     private var HomeTopBar: some View {
         VStack {
-            Text("Box Box F1")
+            Text(Constant.homescreenTitle.rawValue)
                 .font(.headline)
                 .bold()
                 .foregroundStyle(.white.opacity(0.25))
@@ -66,72 +74,107 @@ struct HomeScreen: View {
 
     @ViewBuilder
     private var QueriesCollection: some View {
-        ScrollView(.horizontal) {
-            LazyHGrid(
-                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
-                spacing: 16
-            ) {
-                ForEach(viewModel.driverStandings, id: \.self) { driverStanding in 
-                    DriversCards(
-                        wdcPosition:        "WDC Position: \(driverStanding.position)",
-                        wdcPoints:          "Points \(driverStanding.points)",
-                        constructorName:    "\(driverStanding.teamNames)",
-                        image:              driverStanding.imageUrl,
-                        items:              ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
-                        seasonYearSelected: viewModel.seasonYear
-                    )
-                }
-            }
+        HStack {
+            Text(Constant.wdcLabel.rawValue)
+                .bold()
+                .foregroundStyle(.white.opacity(0.5))
+                .font(.headline)
+                .multilineTextAlignment(.leading)
+                .padding([.top], 60)
+            Spacer()
         }
+        .padding(.horizontal, 8)
 
         ScrollView(.horizontal) {
-            LazyHGrid(
-                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
-                spacing: 16
-            ) {
-                ForEach(Array(viewModel.constructorStandings.enumerated()), id: \.element) { index,constructorStanding in
-                    ConstructorsCards(
-                        wccPosition:     "WCC Position: \(constructorStanding.position ?? "⏳")",
-                        wccPoints:       "WCC Points: \(constructorStanding.points ?? "⏳")",
-                        constructorWins: "Wins: \(constructorStanding.wins ?? "⏳")",
-                        image:           viewModel.constructorImages[safe: index] ?? "",
-                        items: ["\(constructorStanding.constructor?.name ?? "⏳")"],
-                        seasonYearSelected: viewModel.seasonYear
-                    )
+            if viewModel.isLoadingDrivers {
+                CustomProgressView()
+            } else {
+                LazyHGrid(
+                    rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                    spacing: 16
+                ) {
+                    ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
+                        DriversCards(
+                            wdcPosition:        "WDC Position: \(driverStanding.position)",
+                            wdcPoints:          "Points \(driverStanding.points)",
+                            constructorName:    "\(driverStanding.teamNames)",
+                            image:              driverStanding.imageUrl,
+                            items:              ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
+                            seasonYearSelected: viewModel.seasonYear
+                        )
+                    }
                 }
             }
         }
-        
+        Divider()
+        HStack {
+            Text(Constant.wccLabel.rawValue)
+                .bold()
+                .foregroundStyle(.white.opacity(0.5))
+                .font(.headline)
+                .multilineTextAlignment(.leading)
+                .padding([.top], 60)
+
+            Spacer()
+        }
+        .padding(.horizontal, 8)
+
         ScrollView(.horizontal) {
-            LazyHGrid(
-                rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
-                spacing: 16
-            ) {
-                ForEach(viewModel.races, id: \.raceName) { race in
-                    if let raceName = race.raceName,
-                       let circuit = race.circuit,
-                       let circuitName = circuit.circuitName,
-                       let country = circuit.location?.country,
-                       let date = race.date,
-                       let time = race.time,
-                       let results = race.results?.first,
-                       let fastestLap = results.fastestLap,
-                       let fastestLapTime = fastestLap.time,
-                       let fastestLapTimeTIme = fastestLapTime.time
-                    {
-                     
-                        GrandPrixCards(
-                            grandPrixName: raceName,
-                            circuitName: "\(circuitName)",
-                            raceDate: "\(date)",
-                            raceTime: "\(time)",
-                            winnerName: "\(results.driver?.givenName ?? "") \(results.driver?.familyName ?? "")",
-                            winnerTeam: "\(results.constructor?.name ?? "")",
-                            winningTime: results.time?.time ?? "",
-                            fastestLap: "\(fastestLapTimeTIme)",
-                            countryFlag: "\(country)"
+            if viewModel.isLoadingConstructors {
+                CustomProgressView()
+            } else {
+                LazyHGrid(
+                    rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                    spacing: 16
+                ) {
+                    ForEach(Array(viewModel.constructorStandings.enumerated()), id: \.element) { index,constructorStanding in
+                        ConstructorsCards(
+                            wccPosition:     "WCC Position: \(constructorStanding.position ?? "⏳")",
+                            wccPoints:       "WCC Points: \(constructorStanding.points ?? "⏳")",
+                            constructorWins: "Wins: \(constructorStanding.wins ?? "⏳")",
+                            image:           viewModel.constructorImages[safe: index] ?? "",
+                            items: ["\(constructorStanding.constructor?.name ?? "⏳")"],
+                            seasonYearSelected: viewModel.seasonYear
                         )
                     }
+                }
+            }
+        }
+        Divider()
+        Spacer()
+        HStack {
+            Text(Constant.grandPrixLabel.rawValue)
+                .bold()
+                .foregroundStyle(.white.opacity(0.5))
+                .font(.headline)
+                .multilineTextAlignment(.leading)
+                .padding([.top], 60)
+
+            Spacer()
+        }
+        .padding(.horizontal, 8)
+
+        ScrollView(.horizontal) {
+            if viewModel.isLoading {
+                CustomProgressView()
+            } else {
+                LazyHGrid(
+                    rows: [GridItem(.fixed(UIScreen.main.bounds.width))],
+                    spacing: 16
+                ) {
+                    ForEach(Array(viewModel.races.enumerated()), id: \.element.raceName) { index, race in
+                        GrandPrixCards(
+                            grandPrixName: "\(race.raceName ?? "Grand Prix")",
+                            circuitName: "\(race.circuit?.circuitName ?? "Circuit")",
+                            raceDate: "\(race.date ?? "Date")",
+                            raceTime: "\(race.time ?? "Time")",
+                            winnerName: viewModel.raceWinner[safe: index] ?? "",
+                            winnerTeam: viewModel.winningConstructor[safe: index] ?? "",
+                            winningTime: viewModel.winningTime[safe: index] ?? "",
+                            fastestLap: viewModel.winnerFastestLap[safe: index] ?? "",
+                            countryFlag: "\(race.circuit?.location?.country ?? "loading...")"
+                        )
+                    } // end for
                 }
             }
         }

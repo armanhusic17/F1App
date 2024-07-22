@@ -18,6 +18,18 @@ struct GrandPrixCards: View {
     let fastestLap: String
     let countryFlag: String
     
+    private enum Constant: String {
+        case circuitFlag = "flag.checkered.2.crossed"
+        case calendarImage = "calendar.badge.clock"
+        case driverTrophyImage = "trophy.fill"
+        case raceWinnerLabel = "Race Winner"
+        case winningConstructorTrophyImage = "trophy.circle"
+        case winningConstructorLabel = "Winning Constructor"
+        case stopWatchImage = "stopwatch"
+        case winningTotalTime = "Winning Time:"
+        case fastestLap = "Fastest Lap:"
+    }
+    
     init(
         grandPrixName: String,
         circuitName: String,
@@ -56,7 +68,7 @@ struct GrandPrixCards: View {
                     Divider()
 
                     HStack {
-                        Image(systemName: "flag.checkered.2.crossed")
+                        Image(systemName: Constant.circuitFlag.rawValue)
                             .foregroundStyle(.white)
                         Text("\(circuitName)")
                             .font(.subheadline)
@@ -64,10 +76,10 @@ struct GrandPrixCards: View {
                     .font(.headline)
 
                     HStack {
-                        Image(systemName: "calendar.badge.clock")
+                        Image(systemName: Constant.calendarImage.rawValue )
                             .font(.title)
                             .foregroundStyle(.secondary)
-                        Text("Race Date: \(raceDate) at \(raceTime)")
+                        Text("Race Date:" + " \(raceDate) at \(raceTime)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }
@@ -76,31 +88,31 @@ struct GrandPrixCards: View {
 
                     VStack(alignment: .leading) {
                         HStack {
-                            Image(systemName: "trophy.fill")
+                            Image(systemName: Constant.driverTrophyImage.rawValue)
                                 .font(.largeTitle)
                                 .foregroundStyle(.yellow.opacity(0.5))
-                            Text("Race Winner")
+                            Text(Constant.raceWinnerLabel.rawValue)
                             Text("\(winnerName)")
                                 .bold()
                                 .font(.title3)
                         }
                         HStack {
-                            Image(systemName: "trophy.circle")
+                            Image(systemName: Constant.winningConstructorTrophyImage.rawValue)
                                 .font(.largeTitle)
                                 .foregroundStyle(.yellow.opacity(0.5))
-                            Text("Winning Constructor")
+                            Text(Constant.winningConstructorLabel.rawValue)
                                 .font(.subheadline)
                             Text("\(winnerTeam)")
                                 .bold()
                                 .font(.subheadline)
                         }
                         HStack {
-                            Image(systemName: "stopwatch")
+                            Image(systemName: Constant.stopWatchImage.rawValue)
                                 .font(.largeTitle)
                                 .foregroundStyle(.white.opacity(0.5))
-                            Text("Winning Time: \(winningTime)")
+                            Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
                                 .font(.caption)
-                            Text("Fastest Lap: \(fastestLap)")
+                            Text(Constant.fastestLap.rawValue + " \(fastestLap)")
                                 .font(.caption)
                         }
                     }

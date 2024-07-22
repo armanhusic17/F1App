@@ -31,7 +31,6 @@
 		0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA079287F99CC000E8F49 /* teamLH.png */; };
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
-		0F865B0D2BE3ED7B008A8076 /* QueryResultsGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
 		0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F898BC22C39317100EE9860 /* GrandPrixCards.swift */; };
 		0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA962882BDD6A9600D515F3 /* AuthModel.swift */; };
@@ -39,6 +38,7 @@
 		0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */; };
 		0FB7659F280538F400C32514 /* viewControllerStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FB7659E280538F400C32514 /* viewControllerStory.storyboard */; };
 		0FBD817E2B18772900151CAF /* AccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBD817D2B18772900151CAF /* AccountSettings.swift */; };
+		0FF3D5CE2C4A515E0075FBD6 /* CustomProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF3D5CD2C4A515E0075FBD6 /* CustomProgressView.swift */; };
 		0FF96F9A2B17D3E400C8E9BD /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF96F992B17D3E400C8E9BD /* UserAuth.swift */; };
 		0FFC50552B1C06EC005ED8E6 /* FirebaseDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFC50542B1C06EC005ED8E6 /* FirebaseDataStorage.swift */; };
 		449EF1299B868ACB70CDDAB5 /* Pods_F1App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E22FC810F2A69472EFA3E1F1 /* Pods_F1App.framework */; };
@@ -90,7 +90,6 @@
 		0F6FA079287F99CC000E8F49 /* teamLH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teamLH.png; sourceTree = "<group>"; };
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
-		0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResultsGrid.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
 		0F898BC22C39317100EE9860 /* GrandPrixCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandPrixCards.swift; sourceTree = "<group>"; };
 		0FA962882BDD6A9600D515F3 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
@@ -99,6 +98,7 @@
 		0FB7659E280538F400C32514 /* viewControllerStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = viewControllerStory.storyboard; sourceTree = "<group>"; };
 		0FBD817D2B18772900151CAF /* AccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettings.swift; sourceTree = "<group>"; };
 		0FBD817F2B19ABD700151CAF /* F1App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = F1App.entitlements; sourceTree = "<group>"; };
+		0FF3D5CD2C4A515E0075FBD6 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
 		0FF96F992B17D3E400C8E9BD /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		0FFC50542B1C06EC005ED8E6 /* FirebaseDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataStorage.swift; sourceTree = "<group>"; };
 		1592D2015F1B5A42BECB7B6E /* Pods-F1App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F1App.release.xcconfig"; path = "Target Support Files/Pods-F1App/Pods-F1App.release.xcconfig"; sourceTree = "<group>"; };
@@ -269,7 +269,6 @@
 				0F865B0E2C0290CA008A8076 /* DriversCards.swift */,
 				0F2B23C62C2929F90017860D /* ConstructorsCards.swift */,
 				0F898BC22C39317100EE9860 /* GrandPrixCards.swift */,
-				0F865B0C2BE3ED7B008A8076 /* QueryResultsGrid.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -278,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				0F865B0A2BE34965008A8076 /* SeasonSelector.swift */,
+				0FF3D5CD2C4A515E0075FBD6 /* CustomProgressView.swift */,
 			);
 			path = Reuse;
 			sourceTree = "<group>";
@@ -496,13 +496,13 @@
 				0F3BF9302B1715C900CF275D /* FirebaseAuth.swift in Sources */,
 				0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */,
 				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
+				0FF3D5CE2C4A515E0075FBD6 /* CustomProgressView.swift in Sources */,
 				0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
 				0F6458C22B09F83D00C48F1B /* WikiData.swift in Sources */,
 				0FF96F9A2B17D3E400C8E9BD /* UserAuth.swift in Sources */,
 				0F515A1227EC1BFE002129D7 /* SceneDelegate.swift in Sources */,
 				0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */,
-				0F865B0D2BE3ED7B008A8076 /* QueryResultsGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +674,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = F1App/F1App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0.05;
+				CURRENT_PROJECT_VERSION = 2024.0.10;
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -707,7 +707,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = F1App/F1App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.0.05;
+				CURRENT_PROJECT_VERSION = 2024.0.10;
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;

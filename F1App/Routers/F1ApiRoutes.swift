@@ -199,30 +199,25 @@ struct F1ApiRoutes  {
         let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
         let cacheKey = "cache_driverImage_\(driverPageTitle)"
-
         // Check if image URL is cached
         if let cachedURL = UserDefaults.standard.string(forKey: cacheKey) {
             print("Using cached image URL for \(givenName) \(familyName): \(cachedURL)")
             return cachedURL
         }
-
         // Construct the URL for the Wikipedia API request
         let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=800"
         guard let url = URL(string: driverPageURLString) else {
             throw URLError(.badURL)
         }
-
         // Perform the network request
         let (data, _) = try await URLSession.shared.data(from: url)
         let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-
         // Extract the thumbnail URL from the response
         guard let pageID = wikipediaData.query.pages.keys.first,
               let page = wikipediaData.query.pages[pageID],
               let thumbnailURL = page.thumbnail?.source else {
             throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(givenName) \(familyName)"])
         }
-
         // Cache the thumbnail URL
         UserDefaults.standard.set(thumbnailURL, forKey: cacheKey)
         print("Fetched and cached image URL for \(givenName) \(familyName): \(thumbnailURL)")
@@ -230,9 +225,9 @@ struct F1ApiRoutes  {
         return thumbnailURL
     }
 
-    // Fetch Race Results
-    func fetchRaceResults(forYear year: String, limit: Int = 1000) async throws -> Root? {
-        let urlString = "https://ergast.com/api/f1/\(year)/results.json?limit=\(limit)"
+    // Fetch list of races for a specific year
+    func fetchRaceSchedule(forYear year: String) async throws -> Root? {
+        let urlString = "https://ergast.com/api/f1/\(year).json"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return nil
@@ -248,15 +243,55 @@ struct F1ApiRoutes  {
         do {
             let decoder = JSONDecoder()
             let decodedData = try decoder.decode(Root.self, from: data)
-            print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
-            print(decodedData)
-            print("[][][][][][][][][][][[][][][][][][][][][][][][][][]")
+
             return decodedData
         } catch {
             print("Error decoding data: \(error)")
             throw error
         }
     }
+
+    // https://ergast.com/api/f1/2009/4/results.json
+    func fetchRaceResults(forYear seasonYear: String, round: String) async throws -> RaceResults? {
+        let urlString = "https://ergast.com/api/f1/\(seasonYear)/\(round)/results.json"
+
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return nil
+        }
+
+        let cacheKey = urlString
+
+        if let cachedData = UserDefaults.standard.data(forKey: cacheKey) {
+            do {
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode(RaceResults.self, from: cachedData)
+                return decodedData
+            } catch {
+                print("Error decoding cached data \(error)")
+            }
+        }
+
+        let (data, response) = try await URLSession.shared.data(from: url)
+
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+            print("Invalid Response")
+            return nil
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            let decodedData = try decoder.decode(RaceResults.self, from: data)
+
+            UserDefaults.standard.set(data, forKey: cacheKey)
+            return decodedData
+        } catch {
+            print("Error decoding data: \(error)")
+            throw error
+        }
+        
+    }
+
 
 } // End F1APIRoutes
 
@@ -268,5 +303,11 @@ enum ImageFetchError: Error {
 extension String {
     func addingPercentEncodingForWikipedia() -> String {
         return self.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+    }
+}
+
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
     }
 }
