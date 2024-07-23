@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SeasonSelector: View {
     @Binding internal var currentSeason: String
-    internal var action: (String) -> Void
+    var action: (String) -> Void
 
     var years: [String] {
         let currentYear = Calendar.current.component(.year, from: Date())
@@ -25,7 +25,7 @@ struct SeasonSelector: View {
     }
     
     @ViewBuilder
-    internal var menu: some View {
+    var menu: some View {
         Menu {
             ForEach(years, id: \.self) { year in
                 Button(year) {
@@ -37,7 +37,6 @@ struct SeasonSelector: View {
             HStack(alignment: .center) {
                 Text("Select F1 Season: \(currentSeason)")
                     .font(.title2)
-//                    .bold()
                     .multilineTextAlignment(.leading)
                 Spacer()
                 Image(systemName: "chevron.down")

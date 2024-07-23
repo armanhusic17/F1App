@@ -42,8 +42,7 @@ class HomeViewModel: ObservableObject {
         return Int(dateFormatter.string(from: Date())) ?? 2024
     }
     
-    @MainActor
-    private func reloadDataForNewSeason() async {
+    @MainActor private func reloadDataForNewSeason() async {
         driverStandings.removeAll()
         constructorStandings.removeAll()
         constructorImages.removeAll()
@@ -61,8 +60,7 @@ class HomeViewModel: ObservableObject {
         await loadRaceResultsForYear(year: seasonYear)
     }
     
-    @MainActor
-    func loadDriverStandings(seasonYear: String) async {
+    @MainActor func loadDriverStandings(seasonYear: String) async {
         isLoadingDrivers = true
         do {
             let standings = try await F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
@@ -75,8 +73,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func getDriverImgs() async {
+    @MainActor func getDriverImgs() async {
         for index in driverStandings.indices {
             do {
                 let driverImg = try await F1ApiRoutes.fetchDriverImgFromWikipedia(
@@ -90,8 +87,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func loadConstructorStandings(seasonYear: String) async {
+    @MainActor func loadConstructorStandings(seasonYear: String) async {
         isLoadingConstructors = true
         do {
             let standings = try await F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear)
@@ -103,8 +99,7 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func getConstructorImages() async {
+    @MainActor func getConstructorImages() async {
         for index in constructorStandings.indices {
             do {
                 let constructorImg = try await F1ApiRoutes.fetchConstructorImageFromWikipedia(constructorName: self.constructorStandings[safe: index]?.constructor?.name ?? "Unable to get constructor name")
@@ -118,23 +113,21 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    @MainActor
-    func loadAllRacesForSeason(year: String) async {
+    @MainActor func loadAllRacesForSeason(year: String) async {
         isLoading = true
         Task {
             do {
                 let raceResults = try await F1ApiRoutes().fetchRaceSchedule(forYear: year)
                 self.races = raceResults?.mrData?.raceTable?.races ?? []
                 print("NUMBER OF RACES \(races.count)")
-                isLoading = true
+                isLoading = false
             } catch {
                 self.errorMessage = "Failed to fetch data: \(error.localizedDescription)"
             }
         }
     }
     
-    @MainActor
-    func loadRaceResultsForYear(year: String) async {
+    @MainActor func loadRaceResultsForYear(year: String) async {
         isLoading = true
         for index in Range(1...races.count + 1) {
             do {
@@ -148,13 +141,13 @@ class HomeViewModel: ObservableObject {
                 winningConstructor.append(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.constructor?.name ?? "")
                 winningTime.append(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.time?.time ?? "")
                 winnerFastestLap.append(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.fastestLap?.time?.time ?? "")
+
                 isLoading = false
             } catch {
                 print("failed to fetch data \(error.localizedDescription)")
             }
         }
     }
-    
 }
 
 extension Array {

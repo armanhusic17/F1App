@@ -13,7 +13,6 @@ class FirebaseDataStorage {
     private let storage = Storage.storage()
     
     func getDataFromFirebase(fromPath path: String, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
-        
         let storgaeRef = storage.reference()
         let dataRef = storgaeRef.child(path)
         
@@ -44,7 +43,6 @@ class FirebaseDataStorage {
                             print("SUCCESSFULLY SAVED IMAGE FROM FIREBASE")
                         }
                     }
-              
                 }
             case .failure(let error):
                 // Handle any errors

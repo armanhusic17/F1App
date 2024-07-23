@@ -49,18 +49,23 @@ struct FirebaseAuth {
     } // end signUpWithGoogle
     
     // Delete User as required by App Store Guidelines
-    func deleteUserAccount(thisSelf: AccountSettings, transitionString: String) {
+    func deleteUserAccount(completion: @escaping (Bool) -> Void) {
         let user = Auth.auth().currentUser
 
         user?.delete { error in
           if let error = error {
-              print(error)
+              print("failed to delete the user \(error)")
           } else {
             // Account deleted.
-              print("Successfully deleted the account - logged out")
-              thisSelf.performSegue(withIdentifier: transitionString, sender: thisSelf)
+              do {
+                  try Auth.auth().signOut()
+                  print("Successfully Signed user out & deleted account")
+                  completion(true)
+              } catch {
+                  print("Failed to sign out successfully \(error)")
+                  completion(true)
+              }
           }
         }
-    }
-    // End Google Sign In    
+    } // End Google Sign In    
 }

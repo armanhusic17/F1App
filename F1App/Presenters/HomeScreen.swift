@@ -10,6 +10,7 @@ import UIKit
 
 struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
+    @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
 
     private enum Constant: String {
@@ -20,9 +21,12 @@ struct HomeScreen: View {
     }
     
     var body: some View {
-        ZStack {
-            backgroundGradient
-            content
+        NavigationView { // Ensure the entire content is inside NavigationView
+            ZStack {
+                backgroundGradient
+                content
+            }
+            .navigationBarTitle("", displayMode: .inline) // Apply navigationBarTitle here
         }
     }
 
@@ -56,11 +60,11 @@ struct HomeScreen: View {
             Text(Constant.homescreenTitle.rawValue)
                 .font(.headline)
                 .bold()
-                .foregroundStyle(.white.opacity(0.25))
-                .padding([.bottom, .top], 8)
+                .foregroundStyle(.white.opacity(0.10))
+                .padding()
+
             SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
                 viewModel.seasonYear = season
-                print(season)
             }
         }
     }
@@ -69,6 +73,16 @@ struct HomeScreen: View {
     private var QueriesScrollView: some View {
         ScrollView {
             QueriesCollection
+            NavigationLink(destination: MyAccount(viewModel: myAccountViewModel)) {
+                Text("⛭")
+                    .foregroundColor(.gray.opacity(0.5))
+                    .font(.title)
+                    .padding()
+                    .background(.clear)
+                    .cornerRadius(8)
+                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+            }
+            .navigationBarTitle("")
         }
     }
 
@@ -181,6 +195,6 @@ struct HomeScreen: View {
     } // end queriescollection
 }
 
-#Preview {
-    HomeScreen()
-}
+//#Preview {
+//    HomeScreen(, myAccountViewModel: <#MyAccountViewModel#>)
+//}

@@ -82,3 +82,10 @@ class UserAuth: UIViewController, AuthModelDelegate {
         activitySpinner?.removeFromSuperview()
     }
 }
+
+extension UIViewController {
+    func randomTyreColor() -> CGColor {
+        let colors = [UIColor.red.cgColor, UIColor.white.cgColor, UIColor.yellow.cgColor]
+        return colors.randomElement() ?? UIColor.white.cgColor
+    }
+}
