@@ -21,17 +21,16 @@ struct HomeScreen: View {
     }
     
     var body: some View {
-        NavigationView { // Ensure the entire content is inside NavigationView
+        NavigationView {
             ZStack {
                 backgroundGradient
                 content
             }
-            .navigationBarTitle("", displayMode: .inline) // Apply navigationBarTitle here
+            .navigationBarTitle("", displayMode: .inline)
         }
     }
 
-    @ViewBuilder
-    private var backgroundGradient: some View {
+    @ViewBuilder private var backgroundGradient: some View {
         LinearGradient(
             colors: [
                 .black,
@@ -46,16 +45,14 @@ struct HomeScreen: View {
         .ignoresSafeArea()
     }
 
-    @ViewBuilder
-    private var content: some View {
+    @ViewBuilder private var content: some View {
         VStack {
             HomeTopBar
             QueriesScrollView
         }
     }
 
-    @ViewBuilder
-    private var HomeTopBar: some View {
+    @ViewBuilder private var HomeTopBar: some View {
         VStack {
             Text(Constant.homescreenTitle.rawValue)
                 .font(.headline)
@@ -69,11 +66,12 @@ struct HomeScreen: View {
         }
     }
 
-    @ViewBuilder
-    private var QueriesScrollView: some View {
+    @ViewBuilder private var QueriesScrollView: some View {
         ScrollView {
             QueriesCollection
-            NavigationLink(destination: MyAccount(viewModel: myAccountViewModel)) {
+            NavigationLink(
+                destination: MyAccount(viewModel: myAccountViewModel)
+            ) {
                 Text("⛭")
                     .foregroundColor(.gray.opacity(0.5))
                     .font(.title)
@@ -86,8 +84,7 @@ struct HomeScreen: View {
         }
     }
 
-    @ViewBuilder
-    private var QueriesCollection: some View {
+    @ViewBuilder private var QueriesCollection: some View {
         HStack {
             Text(Constant.wdcLabel.rawValue)
                 .bold()
@@ -195,6 +192,6 @@ struct HomeScreen: View {
     } // end queriescollection
 }
 
-//#Preview {
-//    HomeScreen(, myAccountViewModel: <#MyAccountViewModel#>)
-//}
+#Preview {
+    HomeScreen()
+}

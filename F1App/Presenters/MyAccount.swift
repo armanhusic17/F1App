@@ -10,39 +10,13 @@ import SwiftUI
 struct MyAccount: View {
     @StateObject internal var viewModel = MyAccountViewModel()
     @State internal var alertVisible = false
-    
 
     var body: some View {
         VStack {
-            // Top View
-            Text("Account Settings")
-                .font(.title)
-                .padding()
-
-            // Middle View
-            VStack {
-                HStack {
-                    Image(systemName: "trash")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .padding()
-                    Text("Delete Account")
-                        .font(.headline)
-                        .padding()
-                }
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(viewModel.randomTyreColor(), lineWidth: 0.5)
-                )
-                .onTapGesture {
-                    viewModel.showAlert = true
-                }
-            }
-            .padding()
+            accountTitle
+            deleteAccountButton
         }
-        .padding()
+        .padding(8)
         .background(Color.black.edgesIgnoringSafeArea(.all))
         .foregroundColor(.white)
         .alert(isPresented: $viewModel.showAlert) {
@@ -61,7 +35,38 @@ struct MyAccount: View {
                     Text("Cancel")
                 )
             )
-        } // end body
+        }
+    }
+
+    private var deleteAccountButton: some View {
+        HStack {
+            Image(systemName: "trash")
+                .font(.headline)
+                .padding([.leading, .top, .bottom], 16)
+            Text("Delete Account")
+                .font(.caption)
+                .padding([.trailing, .top, .bottom], 16)
+            Spacer()
+        }
+        .background(Color.gray.opacity(0.2))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(viewModel.randomTyreColor(), lineWidth: 0.5)
+        )
+        .onTapGesture {
+            viewModel.showAlert = true
+        }
+    }
+    
+    private var accountTitle: some View {
+        // Top View
+        HStack {
+            Text("Account Settings")
+                .font(.headline)
+                .padding(.top)
+            Spacer()
+        }
     }
 }
 

@@ -51,6 +51,8 @@ class UserAuth: UIViewController, AuthModelDelegate {
                     hostingController.modalPresentationStyle = .fullScreen
                     self.present(hostingController, animated: true, completion: nil)
                 }
+            } else {
+                self.hideSpinner()
             }
         }
     }
