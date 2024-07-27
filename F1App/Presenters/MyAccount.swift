@@ -16,6 +16,7 @@ struct MyAccount: View {
             accountTitle
             deleteAccountButton
         }
+        .ignoresSafeArea(.all)
         .padding(8)
         .background(Color.black.edgesIgnoringSafeArea(.all))
         .foregroundColor(.white)

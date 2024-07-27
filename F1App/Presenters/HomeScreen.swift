@@ -12,7 +12,8 @@ struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
-
+    @State private var isSheetPresented = false
+    
     private enum Constant: String {
         case homescreenTitle = "Box Box F1"
         case wdcLabel = "World Drivers' Championship Standings"
@@ -21,12 +22,9 @@ struct HomeScreen: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                backgroundGradient
-                content
-            }
-            .navigationBarTitle("", displayMode: .inline)
+        ZStack {
+            backgroundGradient
+            content
         }
     }
 
@@ -69,9 +67,9 @@ struct HomeScreen: View {
     @ViewBuilder private var QueriesScrollView: some View {
         ScrollView {
             QueriesCollection
-            NavigationLink(
-                destination: MyAccount(viewModel: myAccountViewModel)
-            ) {
+            Button(action: {
+                isSheetPresented.toggle()
+            }) {
                 Text("⛭")
                     .foregroundColor(.gray.opacity(0.5))
                     .font(.title)
@@ -80,7 +78,15 @@ struct HomeScreen: View {
                     .cornerRadius(8)
                     .frame(width: UIScreen.main.bounds.width, alignment: .leading)
             }
-            .navigationBarTitle("")
+            .sheet(isPresented: $isSheetPresented) {
+                if #available(iOS 16.0, *) {
+                    MyAccount(viewModel: myAccountViewModel)
+                        .presentationDetents([.height(100)])
+                } else {
+                    // Fallback on earlier versions
+                    MyAccount(viewModel: myAccountViewModel)
+                }
+            }
         }
     }
 
