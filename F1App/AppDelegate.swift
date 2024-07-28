@@ -9,6 +9,7 @@ import UIKit
 import CoreData
 import FirebaseCore
 import GoogleSignIn
+import FirebaseAnalytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // Enable firebase
         FirebaseApp.configure()
+        Analytics.setAnalyticsCollectionEnabled(true)
         return true
     }
     

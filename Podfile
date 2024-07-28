@@ -13,6 +13,8 @@ target 'F1App' do
   pod 'FirebaseFirestore'
   pod 'FirebaseAuth'
   pod 'GoogleSignIn'
-  pod 'FirebaseStorage' 
+  pod 'FirebaseStorage'
+  pod 'Firebase/Analytics'
+ 
 
 end
