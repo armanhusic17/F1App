@@ -23,7 +23,8 @@ struct F1ApiRoutes  {
 
     static func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> String {
         let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        let urlStr = "https://en.wikipedia.org/w/api.php?action=query&titles=\(encodedName)&prop=pageimages&format=json&pithumbsize=800"
+        let urlStr = "https://en.wikipedia.org/w/api.php?action=query&titles=\(encodedName)&prop=pageimages&redirects=1&format=json&pithumbsize=800"
+
         guard let url = URL(string: urlStr) else {
             print(URLError(.badURL))
             return "bad_url"

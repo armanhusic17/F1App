@@ -32,9 +32,7 @@ struct HomeScreen: View {
         LinearGradient(
             colors: [
                 .black,
-                .black,
-                .black.opacity(0.95),
-                .mint.opacity(0.75),
+                .red,
                 .black
             ],
             startPoint: .bottomTrailing,
@@ -62,34 +60,38 @@ struct HomeScreen: View {
                 viewModel.seasonYear = season
             }
         }
+        .padding(.bottom)
     }
 
     @ViewBuilder private var QueriesScrollView: some View {
         ScrollView {
             QueriesCollection
-            Button(action: {
-                isSheetPresented.toggle()
-            }) {
-                Text("⛭")
-                    .foregroundColor(.gray.opacity(0.5))
-                    .font(.title)
-                    .padding()
-                    .background(.clear)
-                    .cornerRadius(8)
-                    .frame(width: UIScreen.main.bounds.width, alignment: .leading)
-            }
-            .sheet(isPresented: $isSheetPresented) {
-                if #available(iOS 16.0, *) {
-                    MyAccount(viewModel: myAccountViewModel)
-                        .presentationDetents([.height(100)])
-                } else {
-                    // Fallback on earlier versions
-                    MyAccount(viewModel: myAccountViewModel)
-                }
-            }
+            SettingsButton
         }
     }
 
+    @ViewBuilder private var SettingsButton: some View {
+        Button(action: {
+            isSheetPresented.toggle()
+        }) {
+            Text("⛭")
+                .foregroundColor(.gray.opacity(0.5))
+                .font(.title)
+                .padding()
+                .background(.clear)
+                .cornerRadius(8)
+                .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+        }
+        .sheet(isPresented: $isSheetPresented) {
+            if #available(iOS 16.0, *) {
+                MyAccount(viewModel: myAccountViewModel)
+                    .presentationDetents([.height(100)])
+            } else {
+                MyAccount(viewModel: myAccountViewModel)
+            }
+        }
+    }
+    
     @ViewBuilder private var QueriesCollection: some View {
         HStack {
             Text(Constant.wdcLabel.rawValue)
@@ -97,8 +99,7 @@ struct HomeScreen: View {
                 .foregroundStyle(.white.opacity(0.5))
                 .font(.headline)
                 .multilineTextAlignment(.leading)
-                .padding([.top], 60)
-            Spacer()
+//            Spacer()
         }
         .padding(.horizontal, 8)
 
@@ -112,27 +113,26 @@ struct HomeScreen: View {
                 ) {
                     ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
                         DriversCards(
-                            wdcPosition:        "WDC Position: \(driverStanding.position)",
-                            wdcPoints:          "Points \(driverStanding.points)",
-                            constructorName:    "\(driverStanding.teamNames)",
-                            image:              driverStanding.imageUrl,
-                            items:              ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
+                            wdcPosition: "WDC Position: \(driverStanding.position)",
+                            wdcPoints: "Points \(driverStanding.points)",
+                            constructorName: "\(driverStanding.teamNames)",
+                            image: driverStanding.imageUrl,
+                            items: ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
                             seasonYearSelected: viewModel.seasonYear
                         )
                     }
                 }
             }
         }
-        Divider()
+
         HStack {
             Text(Constant.wccLabel.rawValue)
                 .bold()
                 .foregroundStyle(.white.opacity(0.5))
                 .font(.headline)
                 .multilineTextAlignment(.leading)
-                .padding([.top], 60)
 
-            Spacer()
+//            Spacer()
         }
         .padding(.horizontal, 8)
 
@@ -146,10 +146,11 @@ struct HomeScreen: View {
                 ) {
                     ForEach(Array(viewModel.constructorStandings.enumerated()), id: \.element) { index,constructorStanding in
                         ConstructorsCards(
-                            wccPosition:     "WCC Position: \(constructorStanding.position ?? "⏳")",
-                            wccPoints:       "WCC Points: \(constructorStanding.points ?? "⏳")",
+                            wccPosition: 
+                                "WCC Position: \(constructorStanding.position ?? "⏳")",
+                            wccPoints: "WCC Points: \(constructorStanding.points ?? "⏳")",
                             constructorWins: "Wins: \(constructorStanding.wins ?? "⏳")",
-                            image:           viewModel.constructorImages[safe: index] ?? "",
+                            image: viewModel.constructorImages[safe: index] ?? "",
                             items: ["\(constructorStanding.constructor?.name ?? "⏳")"],
                             seasonYearSelected: viewModel.seasonYear
                         )
@@ -157,19 +158,6 @@ struct HomeScreen: View {
                 }
             }
         }
-        Divider()
-        Spacer()
-        HStack {
-            Text(Constant.grandPrixLabel.rawValue)
-                .bold()
-                .foregroundStyle(.white.opacity(0.5))
-                .font(.headline)
-                .multilineTextAlignment(.leading)
-                .padding([.top], 60)
-
-            Spacer()
-        }
-        .padding(.horizontal, 8)
 
         ScrollView(.horizontal) {
             if viewModel.isLoading {

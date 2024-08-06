@@ -13,7 +13,7 @@ struct CustomProgressView: View {
             ProgressView()
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/3, alignment: .center)
                 .background(.white.opacity(0.25))
-                .tint(.mint)
+                .tint(.green)
                 .font(.largeTitle)
         }
         .cornerRadius(24.0)

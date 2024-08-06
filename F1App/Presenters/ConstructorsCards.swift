@@ -18,7 +18,7 @@ struct ConstructorsCards: View {
 
     private enum Constant: String {
         case trophyImage = "trophy.circle"
-        case checkeredFlag = "flag.checkered.circle"
+        case checkeredFlag = "flag.checkered.circle.fill"
         case carCircleImage = "car.circle"
         case WCCLabel = "WCC Champion"
     }
@@ -44,56 +44,52 @@ struct ConstructorsCards: View {
             LazyHGrid(rows: [GridItem(.flexible())]) {
                 ForEach(items, id: \.self) { item in
                     VStack(alignment: .leading) {
-                        HStack {
+                        ZStack(alignment: .leading) {
                             AsyncImage(url: URL(string: image)) { image in
                                 image
                                     .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 200)
-                                    .background(Color.white)
-                                    .clipShape(Circle())
+                                    .renderingMode(.original)
+                                    .frame(
+                                        width: 350,
+                                        height: 200
+                                    )
+                                    .background(self.randomTyreColor())
                                     .overlay(
-                                        Circle()
+                                        Rectangle()
                                             .stroke(
                                                 LinearGradient(
-                                                    colors: [
-                                                        .mint,
-                                                        .mint,
-                                                        .black,
-                                                        .black
-                                                    ],
+                                                    colors: [ .black, .black, .black, .black ],
                                                     startPoint: .bottomLeading,
                                                     endPoint: .topTrailing
-                                                ),
-                                                lineWidth: 4
+                                                )
                                             )
                                     )
-                            } placeholder: {
-                                Image(systemName: "car.circle")
+                                    .cornerRadius(24)
+                            }
+                            placeholder: {
+                                Image(systemName: Constant.carCircleImage.rawValue)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 150, height: 200)
-                                    .foregroundStyle(
-                                        LinearGradient(
-                                            colors: [
-                                                .mint,
-                                                .mint.opacity(0.5),
-                                                .mint.opacity(0.4),
-                                                .black
-                                            ],
-                                            startPoint: .bottomLeading,
-                                            endPoint: .topTrailing
-                                        )
+                                    .frame(
+                                        width: 350,
+                                        height: 200
                                     )
-                            }
-
-                            Text(item.capitalized)
-                                .bold()
-                                .fixedSize(horizontal: true, vertical: false)
-                                .font(.largeTitle)
-
-                            Spacer()
+                                    .foregroundStyle(
+                                        .black
+                                    )
+                                }
                         }
+
+                        Text(item.capitalized)
+                            .bold()
+                            .fixedSize(horizontal: true, vertical: false)
+                            .font(.largeTitle)
+                            .padding(.top, 16)
+                        
+                        Rectangle()
+                            .foregroundStyle(.white.opacity(0.5))
+                            .frame(height: 0.5)
+                            .padding(.bottom, 16)
 
                         HStack {
                             VStack(alignment: .leading, spacing: 16) {
@@ -117,7 +113,7 @@ struct ConstructorsCards: View {
                             }
                             .font(.title)
                             .fixedSize(horizontal: false, vertical: true)
-                            Spacer()
+
                         }
                     }
                     .padding()
@@ -126,27 +122,29 @@ struct ConstructorsCards: View {
                         LinearGradient(
                             colors: [
                                 .black,
-                                .black,
-                                .mint
+                                .red,
+                                .black
                             ],
                             startPoint: .bottomLeading,
                             endPoint: .topTrailing
                         )
-                        .cornerRadius(40)
+                        .cornerRadius(24)
                     )
                 }
             }
         }
+        .frame(height: UIScreen.main.bounds.height - 100)
     }
 }
 
 #Preview {
-    ConstructorsCards(
-        wccPosition: "WCC Position: 1",
-        wccPoints: "WCC Points: 400",
-        constructorWins: "Wins: 125",
-        image: "",
-        items: ["Scuderia\nFerrari"],
-        seasonYearSelected: "2024"
-    )
+    HomeScreen()
+//    ConstructorsCards(
+//        wccPosition: "WCC Position: 1",
+//        wccPoints: "WCC Points: 400",
+//        constructorWins: "Wins: 125",
+//        image: "",
+//        items: ["Scuderia\nFerrari"],
+//        seasonYearSelected: "2024"
+//    )
 }

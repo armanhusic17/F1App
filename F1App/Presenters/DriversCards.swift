@@ -17,7 +17,7 @@ struct DriversCards: View {
 
     private enum Constant: String {
         case personIcon = "person.circle"
-        case trophyImage = "trophy.circle"
+        case trophyImage = "trophy.circle.fill"
         case checkeredFlag = "flag.checkered.circle"
         case carCircleImage = "car.circle"
         case WDCLabel = "WDC Champion"
@@ -56,8 +56,8 @@ struct DriversCards: View {
                                             .stroke(
                                                 LinearGradient(
                                                     colors: [ 
-                                                        .mint,
-                                                        .mint,
+                                                        .red,
+                                                        .black,
                                                         .black,
                                                         .black
                                                     ],
@@ -75,13 +75,12 @@ struct DriversCards: View {
                                     .foregroundStyle(
                                         LinearGradient(
                                             colors: [ 
-                                                .mint,
-                                                .mint.opacity(0.5),
-                                                .mint.opacity(0.4),
+                                                .black,
+                                                .red.opacity(0.5),
                                                 .black
                                             ],
-                                            startPoint: .bottomLeading,
-                                            endPoint: .topTrailing
+                                            startPoint: .topTrailing,
+                                            endPoint: .bottomLeading
                                         )
                                     )
                             }
@@ -94,6 +93,11 @@ struct DriversCards: View {
                             Spacer()
                         }
 
+                        Rectangle()
+                            .foregroundStyle(.white.opacity(0.5))
+                            .frame(height: 0.5)
+                            .padding(.bottom, 16)
+                        
                         HStack {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
@@ -113,6 +117,7 @@ struct DriversCards: View {
                                     Image(systemName: Constant.carCircleImage.rawValue)
                                     Text(constructorName)
                                 }
+                                .padding(.bottom)
                             }
                             .font(.title)
                             .fixedSize(horizontal: false, vertical: true)
@@ -124,28 +129,31 @@ struct DriversCards: View {
                     .background(
                         LinearGradient(
                             colors: [
-                                .black, 
+                                .red,
                                 .black,
-                                .mint
+                                .black
                             ],
                             startPoint: .bottomLeading,
                             endPoint: .topTrailing
                         )
-                        .cornerRadius(40)
+                        .border(Color.black, width: 0.25)
                     )
                 }
             }
         }
+        .cornerRadius(24)
+
     }
 }
 
 #Preview {
-    DriversCards(
-        wdcPosition: "WDC Position",
-        wdcPoints: "WDC Points",
-        constructorName: "Team Name",
-        image: "Image",
-        items: ["Driver Name"],
-        seasonYearSelected: "2024"
-    )
+    HomeScreen()
+//    DriversCards(
+//        wdcPosition: "WDC Position",
+//        wdcPoints: "WDC Points",
+//        constructorName: "Team Name",
+//        image: "Image",
+//        items: ["Driver Name"],
+//        seasonYearSelected: "2024"
+//    )
 }

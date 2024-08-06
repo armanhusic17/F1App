@@ -121,19 +121,11 @@ struct GrandPrixCards: View {
                 .foregroundStyle(.white)
                 .padding()
                 .background(
-                    LinearGradient(
-                        colors: [
-                            .black,
-                            .black,
-                            .black,
-                            .mint.opacity(0.75)
-                        ],
-                        startPoint: .bottomLeading,
-                        endPoint: .topTrailing
-                    )
+                    .black
                 )
                 .cornerRadius(10)
                 .shadow(radius: 5)
+                .border(.red, width: 0.5)
             }
         }
     }
