@@ -44,6 +44,7 @@ struct DriversCards: View {
             LazyHGrid(rows: [GridItem(.flexible())]) {
                 ForEach(items, id: \.self) { item in
                     VStack(alignment: .leading) {
+                        // Driver Image and Name
                         HStack {
                             AsyncImage(url: URL(string: image)) { image in
                                 image
@@ -93,11 +94,13 @@ struct DriversCards: View {
                             Spacer()
                         }
 
+                        // Line Below image
                         Rectangle()
                             .foregroundStyle(.white.opacity(0.5))
                             .frame(height: 0.5)
                             .padding(.bottom, 16)
                         
+                        // Driver Stats
                         HStack {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {

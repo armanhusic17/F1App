@@ -19,7 +19,7 @@ struct ConstructorsCards: View {
     private enum Constant: String {
         case trophyImage = "trophy.circle"
         case checkeredFlag = "flag.checkered.circle.fill"
-        case carCircleImage = "car.circle"
+        case carCircleImage = "newAltLogo"
         case WCCLabel = "WCC Champion"
     }
     
@@ -50,8 +50,8 @@ struct ConstructorsCards: View {
                                     .resizable()
                                     .renderingMode(.original)
                                     .frame(
-                                        width: 350,
-                                        height: 200
+                                        width: UIScreen.main.bounds.width,
+                                        height: UIScreen.main.bounds.height/3
                                     )
                                     .background(self.randomTyreColor())
                                     .overlay(
@@ -67,17 +67,21 @@ struct ConstructorsCards: View {
                                     .cornerRadius(24)
                             }
                             placeholder: {
-                                Image(systemName: Constant.carCircleImage.rawValue)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(
-                                        width: 350,
-                                        height: 200
-                                    )
-                                    .foregroundStyle(
-                                        .black
-                                    )
+                                if let uiImage = UIImage(named: Constant.carCircleImage.rawValue) {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .frame(
+                                            width: UIScreen.main.bounds.width,
+                                            height: UIScreen.main.bounds.height/3
+                                        )
+                                        .foregroundStyle(
+                                            .black
+                                        )
+                                        .scaledToFit()
+                                        .cornerRadius(24.0)
+
                                 }
+                            }
                         }
 
                         Text(item.capitalized)

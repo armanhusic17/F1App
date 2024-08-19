@@ -99,7 +99,6 @@ struct HomeScreen: View {
                 .foregroundStyle(.white.opacity(0.5))
                 .font(.headline)
                 .multilineTextAlignment(.leading)
-//            Spacer()
         }
         .padding(.horizontal, 8)
 
@@ -131,8 +130,6 @@ struct HomeScreen: View {
                 .foregroundStyle(.white.opacity(0.5))
                 .font(.headline)
                 .multilineTextAlignment(.leading)
-
-//            Spacer()
         }
         .padding(.horizontal, 8)
 

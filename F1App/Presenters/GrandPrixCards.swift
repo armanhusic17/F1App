@@ -84,8 +84,6 @@ struct GrandPrixCards: View {
                             .foregroundColor(.gray)
                     }
                     
-                    Divider()
-
                     VStack(alignment: .leading) {
                         HStack {
                             Image(systemName: Constant.driverTrophyImage.rawValue)
@@ -123,9 +121,8 @@ struct GrandPrixCards: View {
                 .background(
                     .black
                 )
-                .cornerRadius(10)
                 .shadow(radius: 5)
-                .border(.red, width: 0.5)
+                .cornerRadius(24)
             }
         }
     }
@@ -134,17 +131,7 @@ struct GrandPrixCards: View {
 // Preview
 struct GrandPrixCards_Previews: PreviewProvider {
     static var previews: some View {
-        GrandPrixCards(
-            grandPrixName: "Bahrain Grand Prix",
-            circuitName: "Bahrain International Circuit, Sakhir",
-            raceDate: "2025-03-31",
-            raceTime: "13:00:00Z",
-            winnerName: "Lewis Hamilton",
-            winnerTeam: "Scuderia Ferrari",
-            winningTime: "1:30:21.432",
-            fastestLap: "1:24.309", 
-            countryFlag: "🇧🇭"
-        )
+        HomeScreen()
     }
 }
 

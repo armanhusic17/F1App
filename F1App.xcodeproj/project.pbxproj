@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */; };
 		0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2562B84789200B0B639 /* HomeScreen.swift */; };
 		0F1021122A17064000695E8A /* userStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F1021112A17064000695E8A /* userStory.storyboard */; };
 		0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */; };
@@ -28,8 +27,6 @@
 		0F6031EA2C4F4DFB00C621E4 /* MyAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6031E92C4F4DFB00C621E4 /* MyAccountViewModel.swift */; };
 		0F6458C22B09F83D00C48F1B /* WikiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6458C12B09F83D00C48F1B /* WikiData.swift */; };
 		0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6458C32B09F90000C48F1B /* ErgastData.swift */; };
-		0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F6BB1612875535500C5ED94 /* 107761-formula-one.json */; };
-		0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA079287F99CC000E8F49 /* teamLH.png */; };
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
@@ -62,7 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "82023-racing-car-steering-wheel.json"; sourceTree = "<group>"; };
 		0F0EC2562B84789200B0B639 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		0F1021112A17064000695E8A /* userStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = userStory.storyboard; sourceTree = "<group>"; };
 		0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BoxBoxCoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -87,8 +83,6 @@
 		0F6031E92C4F4DFB00C621E4 /* MyAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewModel.swift; sourceTree = "<group>"; };
 		0F6458C12B09F83D00C48F1B /* WikiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiData.swift; sourceTree = "<group>"; };
 		0F6458C32B09F90000C48F1B /* ErgastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgastData.swift; sourceTree = "<group>"; };
-		0F6BB1612875535500C5ED94 /* 107761-formula-one.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "107761-formula-one.json"; sourceTree = "<group>"; };
-		0F6FA079287F99CC000E8F49 /* teamLH.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teamLH.png; sourceTree = "<group>"; };
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
@@ -222,10 +216,7 @@
 		0F6BB1632875536300C5ED94 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				0F6FA079287F99CC000E8F49 /* teamLH.png */,
 				0F6FA07B287FB52C000E8F49 /* circuitLogo.png */,
-				0F6BB1612875535500C5ED94 /* 107761-formula-one.json */,
-				0F048FE5287558C90007F907 /* 82023-racing-car-steering-wheel.json */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -407,14 +398,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F048FE6287558C90007F907 /* 82023-racing-car-steering-wheel.json in Resources */,
 				0F4DDC7A2A93023A0070CDE9 /* GoogleService-Info.plist in Resources */,
 				0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */,
 				0F515A1F27EC1BFF002129D7 /* LaunchScreen.storyboard in Resources */,
 				0F1021122A17064000695E8A /* userStory.storyboard in Resources */,
 				0F515A1C27EC1BFF002129D7 /* Assets.xcassets in Resources */,
-				0F6FA07A287F99CC000E8F49 /* teamLH.png in Resources */,
-				0F6BB1622875535600C5ED94 /* 107761-formula-one.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

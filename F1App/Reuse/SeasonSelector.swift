@@ -16,6 +16,11 @@ struct SeasonSelector: View {
         let currentYear = Calendar.current.component(.year, from: Date())
         return (1950...currentYear).reversed().map(String.init)
     }
+    
+    private enum Constant: String {
+        case selectSeasonText = "Select F1 Season:"
+        case chevronImg = "chevron.down"
+    }
 
     var body: some View {
         VStack{
@@ -26,17 +31,18 @@ struct SeasonSelector: View {
         .padding(.horizontal, 16)
     }
     
-    @ViewBuilder
-    var menuButton: some View {
+    @ViewBuilder var menuButton: some View {
         Button(action: {
-            showMenu.toggle()
+            withAnimation {
+                showMenu.toggle()
+            }
         }, label: {
             HStack(alignment: .center) {
-                Text("Select F1 Season: \(currentSeason)")
+                Text("\(Constant.selectSeasonText.rawValue) \(currentSeason)")
                     .font(.title2)
                     .multilineTextAlignment(.leading)
                 Spacer()
-                Image(systemName: "chevron.down")
+                Image(systemName: Constant.chevronImg.rawValue)
             }
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -45,8 +51,7 @@ struct SeasonSelector: View {
         })
     }
     
-    @ViewBuilder
-    var dropDownMenu: some View {
+    @ViewBuilder var dropDownMenu: some View {
         if showMenu {
             VStack {
                 ScrollView {
