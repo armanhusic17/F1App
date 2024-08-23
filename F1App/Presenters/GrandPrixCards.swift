@@ -53,85 +53,118 @@ struct GrandPrixCards: View {
     }
     
     var body: some View {
+        scrollView
+    }
+    
+    @ViewBuilder private var scrollView: some View {
         ScrollView(.horizontal) {
+            content
+        }
+        .fixedSize(horizontal: false, vertical: true) 
+    }
+    
+    @ViewBuilder private var content: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                grandPrixTitle
+                Divider()
+                circuitNameAndIcon
+                raceDateAndIcon
+                raceStats
+            }
+            .foregroundStyle(.white)
+            .padding()
+            .background(
+                .black
+            )
+            .shadow(radius: 5)
+            .cornerRadius(24)
+
+        }
+    }
+    
+    @ViewBuilder private var raceStats: some View {
+        VStack(alignment: .leading) {
             HStack {
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        if let flag = Locale.flag(for: "\(countryFlag)") {
-                            Text(flag)
-                                .font(.largeTitle)
-                        }
-                        Text(grandPrixName)
-                    }
+                Image(systemName: Constant.driverTrophyImage.rawValue)
                     .font(.largeTitle)
-
-                    Divider()
-
-                    HStack {
-                        Image(systemName: Constant.circuitFlag.rawValue)
-                            .foregroundStyle(.white)
-                        Text("\(circuitName)")
-                            .font(.subheadline)
-                    }
-                    .font(.headline)
-
-                    HStack {
-                        Image(systemName: Constant.calendarImage.rawValue )
-                            .font(.title)
-                            .foregroundStyle(.secondary)
-                        Text("Race Date:" + " \(raceDate) at \(raceTime)")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Image(systemName: Constant.driverTrophyImage.rawValue)
-                                .font(.largeTitle)
-                                .foregroundStyle(.yellow.opacity(0.5))
-                            Text(Constant.raceWinnerLabel.rawValue)
-                            Text("\(winnerName)")
-                                .bold()
-                                .font(.title3)
-                        }
-                        HStack {
-                            Image(systemName: Constant.winningConstructorTrophyImage.rawValue)
-                                .font(.largeTitle)
-                                .foregroundStyle(.yellow.opacity(0.5))
-                            Text(Constant.winningConstructorLabel.rawValue)
-                                .font(.subheadline)
-                            Text("\(winnerTeam)")
-                                .bold()
-                                .font(.subheadline)
-                        }
-                        HStack {
-                            Image(systemName: Constant.stopWatchImage.rawValue)
-                                .font(.largeTitle)
-                                .foregroundStyle(.white.opacity(0.5))
-                            Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
-                                .font(.caption)
-                            Text(Constant.fastestLap.rawValue + " \(fastestLap)")
-                                .font(.caption)
-                        }
-                    }
-                    .padding(.top, 5)
-                }
-                .foregroundStyle(.white)
-                .padding()
-                .background(
-                    .black
-                )
-                .shadow(radius: 5)
-                .cornerRadius(24)
+                    .foregroundStyle(.yellow.opacity(0.5))
+                Text(Constant.raceWinnerLabel.rawValue)
+                Text("\(winnerName)")
+                    .bold()
+                    .font(.title3)
+            }
+            HStack {
+                Image(systemName: Constant.winningConstructorTrophyImage.rawValue)
+                    .font(.largeTitle)
+                    .foregroundStyle(.yellow.opacity(0.5))
+                Text(Constant.winningConstructorLabel.rawValue)
+                    .font(.subheadline)
+                Text("\(winnerTeam)")
+                    .bold()
+                    .font(.subheadline)
+            }
+            HStack {
+                Image(systemName: Constant.stopWatchImage.rawValue)
+                    .font(.largeTitle)
+                    .foregroundStyle(.white.opacity(0.5))
+                Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
+                    .font(.caption)
+                Text(Constant.fastestLap.rawValue + " \(fastestLap)")
+                    .font(.caption)
             }
         }
+        .padding(.top, 5)
+    }
+    
+    @ViewBuilder private var raceDateAndIcon: some View {
+        HStack {
+            Image(systemName: Constant.calendarImage.rawValue )
+                .font(.title)
+                .foregroundStyle(.secondary)
+            Text("Race Date:" + " \(raceDate) at \(raceTime)")
+                .font(.subheadline)
+                .foregroundColor(.gray)
+        }
+    }
+    
+    @ViewBuilder private var circuitNameAndIcon: some View {
+        HStack {
+            Image(systemName: Constant.circuitFlag.rawValue)
+                .foregroundStyle(.white)
+            Text("\(circuitName)")
+                .font(.subheadline)
+        }
+        .font(.headline)
+    }
+    
+    @ViewBuilder private var grandPrixTitle: some View {
+        HStack {
+            if let flag = Locale.flag(for: "\(countryFlag)") {
+                Text(flag)
+                    .font(.largeTitle)
+            }
+            Text(grandPrixName)
+                .padding(.all, 20)
+        }
+        .font(.largeTitle)
     }
 }
 
 // Preview
 struct GrandPrixCards_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreen()
+//        HomeScreen()
+        GrandPrixCards(grandPrixName: "Dutch Grand Prix",
+                       circuitName: "Zandvoort",
+                       raceDate: "12/22/1989",
+                       raceTime: "1pm",
+                       winnerName: "Lewis Hamilton",
+                       winnerTeam: "Mereceds AMG Petronas F1",
+                       winningTime: "1Hr 2min",
+                       fastestLap: "42",
+                       countryFlag: "🇧🇦"
+        )
     }
 }
 

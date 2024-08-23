@@ -17,7 +17,6 @@ struct HomeScreen: View {
     private enum Constant: String {
         case homescreenTitle = "Box Box F1"
         case wdcLabel = "World Drivers' Championship Standings"
-        case wccLabel = "World Constructors' Championship Standings"
         case grandPrixLabel = "Grand Prix Results"
     }
     
@@ -92,7 +91,7 @@ struct HomeScreen: View {
         }
     }
     
-    @ViewBuilder private var QueriesCollection: some View {
+    @ViewBuilder private var collectionTitle: some View {
         HStack {
             Text(Constant.wdcLabel.rawValue)
                 .bold()
@@ -101,7 +100,9 @@ struct HomeScreen: View {
                 .multilineTextAlignment(.leading)
         }
         .padding(.horizontal, 8)
-
+    }
+    
+    @ViewBuilder private var QueriesCollection: some View {
         ScrollView(.horizontal) {
             if viewModel.isLoadingDrivers {
                 CustomProgressView()
@@ -123,15 +124,6 @@ struct HomeScreen: View {
                 }
             }
         }
-
-        HStack {
-            Text(Constant.wccLabel.rawValue)
-                .bold()
-                .foregroundStyle(.white.opacity(0.5))
-                .font(.headline)
-                .multilineTextAlignment(.leading)
-        }
-        .padding(.horizontal, 8)
 
         ScrollView(.horizontal) {
             if viewModel.isLoadingConstructors {

@@ -40,92 +40,18 @@ struct DriversCards: View {
     }
     
     var body: some View {
+       scrollView
+    }
+    
+    @ViewBuilder private var scrollView: some View {
         ScrollView(.horizontal) {
             LazyHGrid(rows: [GridItem(.flexible())]) {
                 ForEach(items, id: \.self) { item in
                     VStack(alignment: .leading) {
-                        // Driver Image and Name
-                        HStack {
-                            AsyncImage(url: URL(string: image)) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 150, height: 200)
-                                    .clipShape(Circle())
-                                    .overlay(
-                                        Circle()
-                                            .stroke(
-                                                LinearGradient(
-                                                    colors: [ 
-                                                        .red,
-                                                        .black,
-                                                        .black,
-                                                        .black
-                                                    ],
-                                                    startPoint: .bottomLeading,
-                                                    endPoint: .topTrailing
-                                                ),
-                                                lineWidth: 4
-                                            )
-                                    )
-                            } placeholder: {
-                                Image(systemName: Constant.personIcon.rawValue)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 150, height: 200)
-                                    .foregroundStyle(
-                                        LinearGradient(
-                                            colors: [ 
-                                                .black,
-                                                .red.opacity(0.5),
-                                                .black
-                                            ],
-                                            startPoint: .topTrailing,
-                                            endPoint: .bottomLeading
-                                        )
-                                    )
-                            }
-
-                            Text(item.capitalized)
-                                .bold()
-                                .fixedSize(horizontal: true, vertical: false)
-                                .font(.largeTitle)
-
-                            Spacer()
-                        }
-
-                        // Line Below image
-                        Rectangle()
-                            .foregroundStyle(.white.opacity(0.5))
-                            .frame(height: 0.5)
-                            .padding(.bottom, 16)
                         
-                        // Driver Stats
-                        HStack {
-                            VStack(alignment: .leading, spacing: 16) {
-                                HStack {
-                                    Image(systemName: Constant.trophyImage.rawValue)
-                                    if wdcPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
-                                        Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
-                                        Text("\(seasonYearSelected) " + Constant.WDCLabel.rawValue)
-                                    } else {
-                                        Text(wdcPosition)
-                                    }
-                                }
-                                HStack {
-                                    Image(systemName: Constant.checkeredFlag.rawValue)
-                                    Text(wdcPoints)
-                                }
-                                HStack {
-                                    Image(systemName: Constant.carCircleImage.rawValue)
-                                    Text(constructorName)
-                                }
-                                .padding(.bottom)
-                            }
-                            .font(.title)
-                            .fixedSize(horizontal: false, vertical: true)
-                            Spacer()
-                        }
+                        driverDemographics(item: item)
+                        lineBelowImage
+                        driverStats
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -140,23 +66,112 @@ struct DriversCards: View {
                             endPoint: .topTrailing
                         )
                         .border(Color.black, width: 0.25)
+                        .cornerRadius(24)
                     )
                 }
             }
         }
-        .cornerRadius(24)
+        .fixedSize(horizontal: false, vertical: true) 
+    }
+    
+    @ViewBuilder private var lineBelowImage: some View {
+        // Line Below image
+        Rectangle()
+            .foregroundStyle(.white.opacity(0.5))
+            .frame(height: 0.5)
+            .padding(.bottom, 16)
+    }
 
+    @ViewBuilder private func driverDemographics(item: String) -> some View {
+        // Driver Image and Name
+        HStack {
+            AsyncImage(url: URL(string: image)) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 200)
+                    .clipShape(Circle())
+                    .overlay(
+                        Circle()
+                            .stroke(
+                                LinearGradient(
+                                    colors: [
+                                        .red,
+                                        .black,
+                                        .black,
+                                        .black
+                                    ],
+                                    startPoint: .bottomLeading,
+                                    endPoint: .topTrailing
+                                ),
+                                lineWidth: 4
+                            )
+                    )
+            } placeholder: {
+                Image(systemName: Constant.personIcon.rawValue)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 200)
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [
+                                .black,
+                                .red.opacity(0.5),
+                                .black
+                            ],
+                            startPoint: .topTrailing,
+                            endPoint: .bottomLeading
+                        )
+                    )
+            }
+
+            Text(item.capitalized)
+                .bold()
+                .fixedSize(horizontal: true, vertical: false)
+                .font(.largeTitle)
+
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder private var driverStats: some View {
+        // Driver Stats
+        HStack {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Image(systemName: Constant.trophyImage.rawValue)
+                    if wdcPosition.range(of: #"\b1\b"#, options: .regularExpression) != nil &&
+                        Int(seasonYearSelected) != Calendar.current.component(.year, from: Date()) {
+                        Text("\(seasonYearSelected) " + Constant.WDCLabel.rawValue)
+                    } else {
+                        Text(wdcPosition)
+                    }
+                }
+                HStack {
+                    Image(systemName: Constant.checkeredFlag.rawValue)
+                    Text(wdcPoints)
+                }
+                HStack {
+                    Image(systemName: Constant.carCircleImage.rawValue)
+                    Text(constructorName)
+                }
+                .padding(.bottom)
+            }
+            .font(.title)
+            .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    HomeScreen()
-//    DriversCards(
-//        wdcPosition: "WDC Position",
-//        wdcPoints: "WDC Points",
-//        constructorName: "Team Name",
-//        image: "Image",
-//        items: ["Driver Name"],
-//        seasonYearSelected: "2024"
-//    )
+//    HomeScreen()
+    DriversCards(
+        wdcPosition: "WDC Position",
+        wdcPoints: "WDC Points",
+        constructorName: "Team Name",
+        image: "Image",
+        items: ["Driver Name"],
+        seasonYearSelected: "2024"
+    )
 }

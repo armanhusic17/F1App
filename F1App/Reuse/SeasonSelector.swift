@@ -68,6 +68,7 @@ struct SeasonSelector: View {
                                     .font(.title)
                                     .foregroundStyle(.white.opacity(0.75))
                                     .padding(12)
+                                    .frame(maxWidth: .infinity, alignment: .center)
 
                             }
                             .frame(maxWidth: .infinity, alignment: .center)
