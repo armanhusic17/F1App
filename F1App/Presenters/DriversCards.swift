@@ -41,6 +41,7 @@ struct DriversCards: View {
     
     var body: some View {
        scrollView
+            .padding(.bottom, 25)
     }
     
     @ViewBuilder private var scrollView: some View {

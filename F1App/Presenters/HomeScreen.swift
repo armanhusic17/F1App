@@ -15,7 +15,7 @@ struct HomeScreen: View {
     @State private var isSheetPresented = false
     
     private enum Constant: String {
-        case homescreenTitle = "Box Box F1"
+        case homescreenTitle = "Grid Pulse"
         case wdcLabel = "World Drivers' Championship Standings"
         case grandPrixLabel = "Grand Prix Results"
     }

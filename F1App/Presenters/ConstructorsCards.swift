@@ -104,9 +104,9 @@ struct ConstructorsCards: View {
     @ViewBuilder private func constructorTitle(item: String) -> some View {
         Text(item.capitalized)
             .bold()
-            .fixedSize(horizontal: true, vertical: false)
             .font(.largeTitle)
             .padding(.top, 16)
+            .frame(maxWidth: .infinity, alignment: .leading)
         
         Rectangle()
             .foregroundStyle(.white.opacity(0.5))
@@ -165,7 +165,7 @@ struct ConstructorsCards: View {
         wccPoints: "WCC Points: 400",
         constructorWins: "Wins: 125",
         image: "",
-        items: ["Scuderia\nFerrari"],
+        items: ["Scuderia Ferrari"],
         seasonYearSelected: "2024"
     )
 }

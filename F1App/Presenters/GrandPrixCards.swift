@@ -60,7 +60,7 @@ struct GrandPrixCards: View {
         ScrollView(.horizontal) {
             content
         }
-        .fixedSize(horizontal: false, vertical: true) 
+        .fixedSize(horizontal: false, vertical: true)
     }
     
     @ViewBuilder private var content: some View {
@@ -73,7 +73,7 @@ struct GrandPrixCards: View {
                 raceStats
             }
             .foregroundStyle(.white)
-            .padding()
+            .padding([.horizontal, .top], 16)
             .background(
                 .black
             )
@@ -114,7 +114,7 @@ struct GrandPrixCards: View {
                     .font(.caption)
             }
         }
-        .padding(.top, 5)
+        .padding([.top, .bottom], 5)
     }
     
     @ViewBuilder private var raceDateAndIcon: some View {
@@ -126,6 +126,7 @@ struct GrandPrixCards: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
+        .padding(.bottom)
     }
     
     @ViewBuilder private var circuitNameAndIcon: some View {
@@ -145,8 +146,8 @@ struct GrandPrixCards: View {
                     .font(.largeTitle)
             }
             Text(grandPrixName)
-                .padding(.all, 20)
         }
+        .padding([.top, .bottom])
         .font(.largeTitle)
     }
 }
