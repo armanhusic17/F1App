@@ -53,6 +53,7 @@ struct ConstructorsCards: View {
                         constructorImage
                         constructorTitle(item: item)
                         constructorDetails
+                            .padding()
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -108,10 +109,10 @@ struct ConstructorsCards: View {
             .bold()
             .font(.largeTitle)
             .padding(.top, 16)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .center)
 
         Rectangle()
-            .foregroundStyle(.white.opacity(0.5))
+            .foregroundStyle(.yellow.opacity(0.5))
             .frame(height: 0.5)
             .padding(.bottom, 16)
     }
@@ -124,7 +125,7 @@ struct ConstructorsCards: View {
                     .resizable()
                     .renderingMode(.original)
                     .frame(
-                        width: UIScreen.main.bounds.width,
+                        width: UIScreen.main.bounds.width - 44,
                         height: UIScreen.main.bounds.height/3
                     )
                     .background(self.randomTyreColor())
@@ -145,7 +146,7 @@ struct ConstructorsCards: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .frame(
-                            width: UIScreen.main.bounds.width,
+                            width: UIScreen.main.bounds.width - 44,
                             height: UIScreen.main.bounds.height/3
                         )
                         .foregroundStyle(
@@ -160,13 +161,13 @@ struct ConstructorsCards: View {
 }
 
 #Preview {
-//    HomeScreen()
-    ConstructorsCards(
-        wccPosition: "WCC Position: 1",
-        wccPoints: "WCC Points: 400",
-        constructorWins: "Wins: 125",
-        image: "",
-        items: ["Scuderia Ferrari"],
-        seasonYearSelected: "2024"
-    )
+    HomeScreen()
+//    ConstructorsCards(
+//        wccPosition: "WCC Position: 1",
+//        wccPoints: "WCC Points: 400",
+//        constructorWins: "Wins: 125",
+//        image: "",
+//        items: ["Scuderia Ferrari"],
+//        seasonYearSelected: "2024"
+//    )
 }

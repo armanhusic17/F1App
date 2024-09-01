@@ -24,8 +24,9 @@ struct GrandPrixCards: View {
         case driverTrophyImage = "trophy.fill"
         case raceWinnerLabel = "Race Winner"
         case winningConstructorTrophyImage = "trophy.circle"
-        case winningConstructorLabel = "Winning Constructor"
+        case winningConstructorLabel = "Constructor:"
         case stopWatchImage = "stopwatch"
+        case clockImage = "clock"
         case winningTotalTime = "Winning Time:"
         case fastestLap = "Fastest Lap:"
     }
@@ -59,6 +60,7 @@ struct GrandPrixCards: View {
     @ViewBuilder private var scrollView: some View {
         ScrollView(.horizontal) {
             content
+                .padding()
         }
         .fixedSize(horizontal: false, vertical: true)
     }
@@ -90,10 +92,12 @@ struct GrandPrixCards: View {
                     .font(.largeTitle)
                     .foregroundStyle(.yellow.opacity(0.5))
                 Text(Constant.raceWinnerLabel.rawValue)
+                    .font(.subheadline)
                 Text("\(winnerName)")
                     .bold()
                     .font(.title3)
             }
+
             HStack {
                 Image(systemName: Constant.winningConstructorTrophyImage.rawValue)
                     .font(.largeTitle)
@@ -102,19 +106,26 @@ struct GrandPrixCards: View {
                     .font(.subheadline)
                 Text("\(winnerTeam)")
                     .bold()
-                    .font(.subheadline)
+                    .font(.title3)
             }
+
             HStack {
-                Image(systemName: Constant.stopWatchImage.rawValue)
+                Image(systemName: Constant.clockImage.rawValue)
                     .font(.largeTitle)
                     .foregroundStyle(.white.opacity(0.5))
                 Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
                     .font(.caption)
+            }
+
+            HStack {
+                Image(systemName: Constant.stopWatchImage.rawValue)
+                    .font(.largeTitle)
+                    .foregroundStyle(.white.opacity(0.5))
                 Text(Constant.fastestLap.rawValue + " \(fastestLap)")
                     .font(.caption)
             }
         }
-        .padding([.top, .bottom], 5)
+        .padding([.bottom], 32)
     }
     
     @ViewBuilder private var raceDateAndIcon: some View {
@@ -126,7 +137,6 @@ struct GrandPrixCards: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
-        .padding(.bottom)
     }
     
     @ViewBuilder private var circuitNameAndIcon: some View {
@@ -149,23 +159,24 @@ struct GrandPrixCards: View {
         }
         .padding([.top, .bottom])
         .font(.largeTitle)
+
     }
 }
 
 // Preview
 struct GrandPrixCards_Previews: PreviewProvider {
     static var previews: some View {
-//        HomeScreen()
-        GrandPrixCards(grandPrixName: "Dutch Grand Prix",
-                       circuitName: "Zandvoort",
-                       raceDate: "12/22/1989",
-                       raceTime: "1pm",
-                       winnerName: "Lewis Hamilton",
-                       winnerTeam: "Mereceds AMG Petronas F1",
-                       winningTime: "1Hr 2min",
-                       fastestLap: "42",
-                       countryFlag: "🇧🇦"
-        )
+        HomeScreen()
+//        GrandPrixCards(grandPrixName: "Dutch Grand Prix",
+//                       circuitName: "Zandvoort",
+//                       raceDate: "12/22/1989",
+//                       raceTime: "1pm",
+//                       winnerName: "Lewis Hamilton",
+//                       winnerTeam: "Mereceds AMG Petronas F1",
+//                       winningTime: "1Hr 2min",
+//                       fastestLap: "42",
+//                       countryFlag: "🇧🇦"
+//        )
     }
 }
 

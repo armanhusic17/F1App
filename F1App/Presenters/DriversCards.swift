@@ -53,6 +53,7 @@ struct DriversCards: View {
                         driverDemographics(item: item)
                         lineBelowImage
                         driverStats
+                            .padding(.horizontal)
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -78,7 +79,7 @@ struct DriversCards: View {
     @ViewBuilder private var lineBelowImage: some View {
         // Line Below image
         Rectangle()
-            .foregroundStyle(.white.opacity(0.5))
+            .foregroundStyle(.yellow.opacity(0.5))
             .frame(height: 0.5)
             .padding(.bottom, 16)
     }
