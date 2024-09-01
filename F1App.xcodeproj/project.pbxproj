@@ -667,7 +667,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = F1App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = GridPulse;
+				INFOPLIST_KEY_CFBundleDisplayName = "Grid Pulse";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -700,7 +700,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = F1App/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = GridPulse;
+				INFOPLIST_KEY_CFBundleDisplayName = "Grid Pulse";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
