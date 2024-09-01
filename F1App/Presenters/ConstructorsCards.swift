@@ -18,7 +18,8 @@ struct ConstructorsCards: View {
 
     private enum Constant: String {
         case trophyImage = "trophy.circle"
-        case checkeredFlag = "flag.checkered.circle.fill"
+        case trophyFillImage = "flag.checkered.circle.fill"
+        case checkeredFlag = "flag.checkered.circle"
         case carCircleImage = "gridPulseWhite_large"
         case WCCLabel = "WCC Champion"
         case wccLabel = "World Constructors' Championship Standings"
@@ -92,7 +93,7 @@ struct ConstructorsCards: View {
                     Text(wccPoints)
                 }
                 HStack {
-                    Image(systemName: Constant.carCircleImage.rawValue)
+                    Image(systemName: Constant.trophyFillImage.rawValue)
                         .aspectRatio(contentMode: .fit)
 
                     Text(constructorWins)

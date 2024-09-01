@@ -44,16 +44,21 @@ struct DriversCards: View {
             .padding(.bottom, 25)
     }
     
+    @ViewBuilder private func content(item: String) -> some View {
+        VStack {
+            driverDemographics(item: item)
+            lineBelowImage
+            driverStats
+                .padding(.horizontal)
+        }
+    }
+    
     @ViewBuilder private var scrollView: some View {
         ScrollView(.horizontal) {
             LazyHGrid(rows: [GridItem(.flexible())]) {
                 ForEach(items, id: \.self) { item in
                     VStack(alignment: .leading) {
-                        
-                        driverDemographics(item: item)
-                        lineBelowImage
-                        driverStats
-                            .padding(.horizontal)
+                        content(item: item)
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -167,13 +172,13 @@ struct DriversCards: View {
 }
 
 #Preview {
-//    HomeScreen()
-    DriversCards(
-        wdcPosition: "WDC Position",
-        wdcPoints: "WDC Points",
-        constructorName: "Team Name",
-        image: "Image",
-        items: ["Driver Name"],
-        seasonYearSelected: "2024"
-    )
+    HomeScreen()
+//    DriversCards(
+//        wdcPosition: "WDC Position",
+//        wdcPoints: "WDC Points",
+//        constructorName: "Team Name",
+//        image: "Image",
+//        items: ["Driver Name"],
+//        seasonYearSelected: "2024"
+//    )
 }

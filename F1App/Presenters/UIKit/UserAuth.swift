@@ -20,6 +20,8 @@ class UserAuth: UIViewController, AuthModelDelegate {
     @IBOutlet weak var botView: UIView!
     @IBOutlet weak var googleSignInButton: GIDSignInButton!
     @IBOutlet weak var appleSignInButton: ASAuthorizationAppleIDButton!
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
     var activitySpinner: UIActivityIndicatorView?
     let model = AuthModel()
     var firebaseAuth = FirebaseAuth()
