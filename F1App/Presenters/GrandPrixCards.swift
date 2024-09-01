@@ -60,7 +60,7 @@ struct GrandPrixCards: View {
     @ViewBuilder private var scrollView: some View {
         ScrollView(.horizontal) {
             content
-                .padding()
+                .padding(.horizontal, 4)
         }
         .fixedSize(horizontal: false, vertical: true)
     }
@@ -69,10 +69,16 @@ struct GrandPrixCards: View {
         HStack {
             VStack(alignment: .leading, spacing: 10) {
                 grandPrixTitle
+                    .padding(.horizontal)
+
                 Divider()
                 circuitNameAndIcon
+                    .padding(.horizontal)
+
                 raceDateAndIcon
+                    .padding(.horizontal)
                 raceStats
+                    .padding([.bottom, .horizontal])
             }
             .foregroundStyle(.white)
             .padding([.horizontal, .top], 16)
@@ -116,13 +122,14 @@ struct GrandPrixCards: View {
                 Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
                     .font(.caption)
             }
-
-            HStack {
-                Image(systemName: Constant.stopWatchImage.rawValue)
-                    .font(.largeTitle)
-                    .foregroundStyle(.white.opacity(0.5))
-                Text(Constant.fastestLap.rawValue + " \(fastestLap)")
-                    .font(.caption)
+            if !fastestLap.isEmpty {
+                HStack {
+                    Image(systemName: Constant.stopWatchImage.rawValue)
+                        .font(.largeTitle)
+                        .foregroundStyle(.white.opacity(0.5))
+                    Text(Constant.fastestLap.rawValue + " \(fastestLap)")
+                        .font(.caption)
+                }
             }
         }
         .padding([.bottom], 32)
