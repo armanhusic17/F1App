@@ -18,7 +18,7 @@ struct SeasonSelector: View {
     }
     
     private enum Constant: String {
-        case selectSeasonText = "Select F1 Season:"
+        case selectSeasonText = "Select Season:"
         case chevronImg = "chevron.down"
     }
 
@@ -60,7 +60,6 @@ struct SeasonSelector: View {
                             Button(action: {
                                 if currentSeason != year {
                                     self.currentSeason = year
-                                    print("User selected season: \(year)")
                                 }
                             }) {
                                 Text("\(year)")

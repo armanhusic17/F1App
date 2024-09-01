@@ -19,7 +19,7 @@ struct ConstructorsCards: View {
     private enum Constant: String {
         case trophyImage = "trophy.circle"
         case checkeredFlag = "flag.checkered.circle.fill"
-        case carCircleImage = "newAltLogo"
+        case carCircleImage = "gridPulseWhite_large"
         case WCCLabel = "WCC Champion"
         case wccLabel = "World Constructors' Championship Standings"
     }
@@ -92,6 +92,8 @@ struct ConstructorsCards: View {
                 }
                 HStack {
                     Image(systemName: Constant.carCircleImage.rawValue)
+                        .aspectRatio(contentMode: .fit)
+
                     Text(constructorWins)
                 }
             }
@@ -107,13 +109,13 @@ struct ConstructorsCards: View {
             .font(.largeTitle)
             .padding(.top, 16)
             .frame(maxWidth: .infinity, alignment: .leading)
-        
+
         Rectangle()
             .foregroundStyle(.white.opacity(0.5))
             .frame(height: 0.5)
             .padding(.bottom, 16)
     }
-    
+
     @MainActor
     @ViewBuilder private var constructorImage: some View {
         ZStack(alignment: .leading) {
@@ -154,7 +156,6 @@ struct ConstructorsCards: View {
                 }
             }
         }
-
     }
 }
 

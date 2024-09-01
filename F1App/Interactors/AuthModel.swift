@@ -21,7 +21,7 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
             Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
         var result = ""
         var remainingLength = length
-        
+
         while remainingLength > 0 {
             let randoms: [UInt8] = (0 ..< 16).map { _ in
                 var random: UInt8 = 0
@@ -31,7 +31,7 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
                 }
                 return random
             }
-            
+
             randoms.forEach { random in
                 if remainingLength == 0 {
                     return
@@ -88,11 +88,11 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
         return thisSelf.view.window ?? UIWindow()
     }
 
-    func triggerAppleSignIn(model: AuthModel){
+    func triggerAppleSignIn(process: @escaping () async -> Void) async {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
-        
+
         // Generate nonce for validation after authentication successful
         self.currentNonce = randomNonceString()
         // Set the SHA256 hashed nonce to ASAuthorizationAppleIDRequest
@@ -100,9 +100,10 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
         // Present Apple authorization form
         DispatchQueue.main.async {
             let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-            authorizationController.delegate = model
-            authorizationController.presentationContextProvider = model
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
             authorizationController.performRequests()
         }
+        await process()
     }
 }

@@ -58,9 +58,11 @@ class UserAuth: UIViewController, AuthModelDelegate {
     }
 
     @IBAction func appleSignInButtonpressed(_ sender: ASAuthorizationAppleIDButton) {
-        print("Apple Sign In Button pressed")
-        showSpinner()
-        model.triggerAppleSignIn(model: model)
+        Task {
+            print("Apple Sign In Button pressed")
+            showSpinner()
+            await model.triggerAppleSignIn(process: hideSpinner)
+        }
     }
 
     nonisolated func didCompleteSignIn(_ viewController: UIViewController) {
@@ -72,16 +74,20 @@ class UserAuth: UIViewController, AuthModelDelegate {
     }
 
     func showSpinner() {
-        activitySpinner = UIActivityIndicatorView(style: .large)
-        activitySpinner?.color = UIColor.green
-        activitySpinner?.center = self.view.center
-        activitySpinner?.startAnimating()
-        self.view.addSubview(activitySpinner ?? UIActivityIndicatorView())
+        Task { @MainActor [self] in
+            activitySpinner = UIActivityIndicatorView(style: .large)
+            activitySpinner?.color = UIColor.green
+            activitySpinner?.center = self.view.center
+            activitySpinner?.startAnimating()
+            self.view.addSubview(activitySpinner ?? UIActivityIndicatorView())
+        }
     }
 
     func hideSpinner() {
-        activitySpinner?.stopAnimating()
-        activitySpinner?.removeFromSuperview()
+        Task { @MainActor [self] in
+            activitySpinner?.stopAnimating()
+            activitySpinner?.removeFromSuperview()
+        }
     }
 }
 
