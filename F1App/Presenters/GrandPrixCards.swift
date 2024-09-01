@@ -174,16 +174,6 @@ struct GrandPrixCards: View {
 struct GrandPrixCards_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
-//        GrandPrixCards(grandPrixName: "Dutch Grand Prix",
-//                       circuitName: "Zandvoort",
-//                       raceDate: "12/22/1989",
-//                       raceTime: "1pm",
-//                       winnerName: "Lewis Hamilton",
-//                       winnerTeam: "Mereceds AMG Petronas F1",
-//                       winningTime: "1Hr 2min",
-//                       fastestLap: "42",
-//                       countryFlag: "🇧🇦"
-//        )
     }
 }
 

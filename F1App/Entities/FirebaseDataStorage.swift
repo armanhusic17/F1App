@@ -9,9 +9,8 @@ import Foundation
 import FirebaseStorage
 
 class FirebaseDataStorage {
-    
     private let storage = Storage.storage()
-    
+
     func getDataFromFirebase(fromPath path: String, completion: @escaping (Swift.Result<Data, Error>) -> Void) {
         let storgaeRef = storage.reference()
         let dataRef = storgaeRef.child(path)
@@ -26,8 +25,7 @@ class FirebaseDataStorage {
             }
         }
     }
-    
-    
+
     func getImag(coreData: CoreDataHelper,img: String){
         self.getDataFromFirebase(fromPath: img) { result in
             switch result {
@@ -51,8 +49,4 @@ class FirebaseDataStorage {
             }
         }
     }
-    
-    
-    
-    
 }

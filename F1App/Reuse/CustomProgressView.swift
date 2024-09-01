@@ -18,7 +18,6 @@ struct CustomProgressView: View {
         }
         .cornerRadius(24.0)
     }
-
 }
 
 #Preview {

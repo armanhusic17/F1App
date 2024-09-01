@@ -13,13 +13,13 @@ struct HomeScreen: View {
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
     @State private var isSheetPresented = false
-    
+
     private enum Constant: String {
         case homescreenTitle = "Grid Pulse"
         case wdcLabel = "World Drivers' Championship Standings"
         case grandPrixLabel = "Grand Prix Results"
     }
-    
+
     var body: some View {
         ZStack {
             backgroundGradient

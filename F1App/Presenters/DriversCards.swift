@@ -173,12 +173,4 @@ struct DriversCards: View {
 
 #Preview {
     HomeScreen()
-//    DriversCards(
-//        wdcPosition: "WDC Position",
-//        wdcPoints: "WDC Points",
-//        constructorName: "Team Name",
-//        image: "Image",
-//        items: ["Driver Name"],
-//        seasonYearSelected: "2024"
-//    )
 }
