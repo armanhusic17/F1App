@@ -173,7 +173,17 @@ struct GrandPrixCards: View {
 // Preview
 struct GrandPrixCards_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreen()
+        GrandPrixCards(
+            grandPrixName: "",
+            circuitName: "",
+            raceDate: "",
+            raceTime: "",
+            winnerName: "",
+            winnerTeam: "",
+            winningTime: "",
+            fastestLap: "",
+            countryFlag: ""
+        )
     }
 }
 

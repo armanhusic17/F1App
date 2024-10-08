@@ -98,12 +98,11 @@ class AuthModel: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationCon
         // Set the SHA256 hashed nonce to ASAuthorizationAppleIDRequest
         request.nonce = sha256(self.currentNonce!)
         // Present Apple authorization form
-        DispatchQueue.main.async {
-            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-            authorizationController.delegate = self
-            authorizationController.presentationContextProvider = self
-            authorizationController.performRequests()
-        }
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+        
         await process()
     }
 }

@@ -162,5 +162,12 @@ struct ConstructorsCards: View {
 }
 
 #Preview {
-    HomeScreen()
+    ConstructorsCards(
+        wccPosition: "",
+        wccPoints: "",
+        constructorWins: "",
+        image: "",
+        items: ["", ""],
+        seasonYearSelected: ""
+    )
 }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -67,10 +66,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="96u-pD-ybc">
-                                        <rect key="frame" x="0.0" y="100" width="390" height="644"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="744"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRF-bN-qPL">
-                                                <rect key="frame" x="16" y="560" width="358" height="60"/>
+                                                <rect key="frame" x="16" y="660" width="358" height="60"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="OAP-8l-miu"/>
@@ -101,7 +100,6 @@
                                 <constraints>
                                     <constraint firstItem="UNr-tm-nZK" firstAttribute="leading" secondItem="H4x-gP-gwK" secondAttribute="leading" id="7Fo-17-lQz"/>
                                     <constraint firstItem="UNr-tm-nZK" firstAttribute="top" secondItem="96u-pD-ybc" secondAttribute="bottom" id="7NM-3s-wuv"/>
-                                    <constraint firstItem="96u-pD-ybc" firstAttribute="top" secondItem="jdS-ki-5Uk" secondAttribute="bottom" id="HaX-rx-0hN"/>
                                     <constraint firstItem="1dG-gt-7uh" firstAttribute="trailing" secondItem="BRF-bN-qPL" secondAttribute="trailing" id="LM5-0d-bCs"/>
                                     <constraint firstAttribute="bottom" secondItem="UNr-tm-nZK" secondAttribute="bottom" id="ObI-i9-b4H"/>
                                     <constraint firstAttribute="trailing" secondItem="UNr-tm-nZK" secondAttribute="trailing" id="Ov7-rb-Omj"/>
@@ -124,6 +122,7 @@
                             <constraint firstItem="H4x-gP-gwK" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="EUr-Pg-V1w"/>
                             <constraint firstItem="H4x-gP-gwK" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="Fie-fn-zmk"/>
                             <constraint firstAttribute="trailing" secondItem="H4x-gP-gwK" secondAttribute="trailing" id="IzP-SF-i4v"/>
+                            <constraint firstItem="96u-pD-ybc" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="M1K-sZ-r7t"/>
                             <constraint firstAttribute="trailing" secondItem="GPd-5a-7gz" secondAttribute="trailing" id="OIv-Yc-fEO"/>
                             <constraint firstItem="H4x-gP-gwK" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="QS3-bF-Qfr"/>
                             <constraint firstItem="GPd-5a-7gz" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="XYC-Zp-z4s"/>
