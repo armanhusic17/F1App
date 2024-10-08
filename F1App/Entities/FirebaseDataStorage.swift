@@ -27,7 +27,7 @@ class FirebaseDataStorage {
         }
     }
 
-    func getImag(coreData: CoreDataHelper,img: String){
+    func getImag(coreData: CoreDataHelper, img: String){
         self.getDataFromFirebase(fromPath: img) { result in
             switch result {
             case .success(let data):
