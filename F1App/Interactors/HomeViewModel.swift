@@ -12,13 +12,6 @@ class HomeViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var isLoadingDrivers = false
     @Published var isLoadingConstructors = false
-    @Published var seasonYear: String = "\(Calendar.current.component(.year, from: Date()))" {
-        didSet {
-            Task {
-                await self.reloadDataForNewSeason()
-            }
-        }
-    }
     @Published var driverStandings: [DriverStanding] = []
     @Published var raceResults: Root?
     @Published var races: [Race] = []
@@ -29,6 +22,13 @@ class HomeViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var constructorStandings: [ConstructorStanding] = []
     @Published var constructorImages: [String] = []
+    @Published var seasonYear: String = "\(Calendar.current.component(.year, from: Date()))" {
+        didSet {
+            Task {
+                await self.reloadDataForNewSeason()
+            }
+        }
+    }
     
     init(
         seasonYear: String

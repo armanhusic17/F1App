@@ -35,7 +35,7 @@ class UserAuth: UIViewController, AuthModelDelegate {
     func formatViews(){
         self.appleSignInButton.layer.cornerRadius = 12
         self.appleSignInButton.layer.borderWidth = 0.51
-        self.appleSignInButton.layer.borderColor = randomTyreColor()
+        self.appleSignInButton.layer.borderColor = UIColor.lightGray.cgColor
         
         self.googleSignInButton.layer.cornerRadius = 12
         self.googleSignInButton.layer.borderWidth = 0.5

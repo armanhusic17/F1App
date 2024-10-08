@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseStorage
+import UIKit
 
 class FirebaseDataStorage {
     private let storage = Storage.storage()
