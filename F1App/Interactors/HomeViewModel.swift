@@ -154,6 +154,37 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    @MainActor func fetchRaceResults(season: String, round: String) async {
+        isLoading = true
+        do {
+            let results = try await F1ApiRoutes().fetchRaceResults(
+                forYear: season,
+                round: round
+            )
+            if let raceTable = results?.mrData?.raceTable {
+                print("Season: \(raceTable.season) Round \(raceTable.round)")
+                
+                if let races = raceTable.races {
+                    for race in races {
+                        print("Race: \(race.raceName)")
+                        print("Winner: \(race.results?.first?.driver?.givenName ?? "")")
+                        
+                        if let results = race.results {
+                            for result in results {
+                                print("Driver: \(result.driver?.givenName ?? "")")
+                                print("Position: \(result.position)")
+                                print("Points: \(result.points)")
+                                print("Constructor: \(result.constructor?.name ?? "")")
+                            }
+                        }
+                    }
+                }
+            }
+        } catch {
+            print("failed to fetch data \(error.localizedDescription)")
+        }
+    }
 }
 
 extension Array {
