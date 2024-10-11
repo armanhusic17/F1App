@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F0613492CB8E1D400ACC25E /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = 0F0613482CB8E1D400ACC25E /* Get */; };
 		0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2562B84789200B0B639 /* HomeScreen.swift */; };
 		0F1021122A17064000695E8A /* userStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F1021112A17064000695E8A /* userStory.storyboard */; };
 		0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */; };
@@ -110,6 +111,7 @@
 				0F215F0A2CB50D6F00A0DCB8 /* FirebaseAnalytics in Frameworks */,
 				0F215F0C2CB50D6F00A0DCB8 /* FirebaseAuth in Frameworks */,
 				0F215F0E2CB50D6F00A0DCB8 /* FirebaseCore in Frameworks */,
+				0F0613492CB8E1D400ACC25E /* Get in Frameworks */,
 				0F215F102CB50D6F00A0DCB8 /* FirebaseStorage in Frameworks */,
 				0F1021172A17161700695E8A /* CoreData.framework in Frameworks */,
 				0F215F132CB50DA300A0DCB8 /* GoogleSignIn in Frameworks */,
@@ -379,6 +381,7 @@
 			packageReferences = (
 				0F215F082CB50D6F00A0DCB8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0F215F112CB50DA300A0DCB8 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				0F0613472CB8E1D400ACC25E /* XCRemoteSwiftPackageReference "Get" */,
 			);
 			productRefGroup = 0F515A0D27EC1BFE002129D7 /* Products */;
 			projectDirPath = "";
@@ -794,6 +797,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0F0613472CB8E1D400ACC25E /* XCRemoteSwiftPackageReference "Get" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Get.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
 		0F215F082CB50D6F00A0DCB8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -813,6 +824,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0F0613482CB8E1D400ACC25E /* Get */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F0613472CB8E1D400ACC25E /* XCRemoteSwiftPackageReference "Get" */;
+			productName = Get;
+		};
 		0F215F092CB50D6F00A0DCB8 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0F215F082CB50D6F00A0DCB8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

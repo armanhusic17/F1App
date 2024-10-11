@@ -1,5 +1,5 @@
 {
-  "originHash" : "f26605caa55796c1b4a99e3dbcab289f7c209dffab4b967ad87d3789c478f7ee",
+  "originHash" : "b9e332b497a7d71d15e9b0ec04e3692589ae13c6ad4ea835d3359bf4e98f446b",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -35,6 +35,15 @@
       "state" : {
         "revision" : "f909f901bfba9e27e4e9da83242a4915d6dd64bb",
         "version" : "11.3.0"
+      }
+    },
+    {
+      "identity" : "get",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Get.git",
+      "state" : {
+        "revision" : "74dba201ebe42e9c15c1db6ee1cc893025bbef94",
+        "version" : "2.2.0"
       }
     },
     {
