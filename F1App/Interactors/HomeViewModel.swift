@@ -138,9 +138,15 @@ class HomeViewModel: ObservableObject {
                 raceWinner.append(
                     "\(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.driver?.givenName ?? "") \(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.driver?.familyName ?? "")"
                 )
-                winningConstructor.append(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.constructor?.name ?? "")
-                winningTime.append(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.time?.time ?? "")
-                winnerFastestLap.append(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.fastestLap?.time?.time ?? "")
+                winningConstructor.append(
+                    raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.constructor?.name ?? ""
+                )
+                winningTime.append(
+                    raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.time?.time ?? ""
+                )
+                winnerFastestLap.append(
+                    raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.fastestLap?.time?.time ?? ""
+                )
 
                 isLoading = false
             } catch {
