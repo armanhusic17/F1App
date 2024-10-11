@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Get
 
 struct F1ApiRoutes  {
     typealias FoundationData = Foundation.Data
-
+    static let baseUrl = URL(string: "https://ergast.com/api/f1/")!
+    
     static func retrieveCachedData(for seasonYear: String, queryKey: String) -> FoundationData? {
         let key = "cache_\(queryKey)_\(seasonYear)"
         if let cachedData = UserDefaults.standard.data(forKey: key) {
@@ -293,7 +295,13 @@ struct F1ApiRoutes  {
         
     }
 
-
+    static func fetchRaceResults(season: String, round: String) async throws -> Root {
+        let client = APIClient(baseURL: baseUrl)
+        let request = Request<Root>(path: "\(season)/\(round)/results.json", method: .get)
+        
+        let root = try await client.send(request).value
+        return root
+    }
 } // End F1APIRoutes
 
 enum ImageFetchError: Error {

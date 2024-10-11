@@ -23,10 +23,20 @@ struct Root: Decodable {
 struct MRData: Decodable {
     let raceTable: RaceTable?
     let standingsTable: StandingsTable?
+    let series: String?
+    let url: String?
+    let limit: String?
+    let offset: String?
+    let total: String?
     
     private enum CodingKeys: String, CodingKey {
         case raceTable = "RaceTable"
         case standingsTable = "StandingsTable"
+        case series
+        case url
+        case limit
+        case offset
+        case total
     }
 }
 
@@ -142,10 +152,14 @@ struct Circuit: Decodable {
 struct Location: Decodable {
     let locality: String?
     let country: String?
+    let lat: String?
+    let long: String?
     
     private enum CodingKeys: String, CodingKey {
         case locality = "locality"
         case country = "country"
+        case lat = "lat"
+        case long = "long"
     }
 }
 
