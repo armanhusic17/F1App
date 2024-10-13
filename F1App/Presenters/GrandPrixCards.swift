@@ -174,15 +174,15 @@ struct GrandPrixCards: View {
 struct GrandPrixCards_Previews: PreviewProvider {
     static var previews: some View {
         GrandPrixCards(
-            grandPrixName: "",
-            circuitName: "",
-            raceDate: "",
-            raceTime: "",
-            winnerName: "",
-            winnerTeam: "",
-            winningTime: "",
-            fastestLap: "",
-            countryFlag: ""
+            grandPrixName: "Monaco Grand Prix",
+            circuitName: "Circuit de Monaco",
+            raceDate: "May 12, 2025",
+            raceTime: "3:00 PM",
+            winnerName: "Lewis Hamilton",
+            winnerTeam: "Ferrari",
+            winningTime: "1:31:46",
+            fastestLap: "1:11:46",
+            countryFlag: "🇲🇨"
         )
     }
 }
