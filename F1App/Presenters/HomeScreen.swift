@@ -21,9 +21,11 @@ struct HomeScreen: View {
     }
 
     var body: some View {
-        ZStack {
-            backgroundGradient
-            content
+        NavigationStack {
+            ZStack {
+                backgroundGradient
+                content
+            }
         }
     }
 
@@ -90,7 +92,7 @@ struct HomeScreen: View {
             }
         }
     }
-    
+
     @ViewBuilder private var collectionTitle: some View {
         HStack {
             Text(Constant.wdcLabel.rawValue)
@@ -101,7 +103,7 @@ struct HomeScreen: View {
         }
         .padding(.horizontal, 8)
     }
-    
+
     @ViewBuilder private var QueriesCollection: some View {
         ScrollView(.horizontal) {
             if viewModel.isLoadingDrivers {
@@ -157,17 +159,29 @@ struct HomeScreen: View {
                     spacing: 16
                 ) {
                     ForEach(Array(viewModel.races.enumerated()), id: \.element.raceName) { index, race in
-                        GrandPrixCards(
-                            grandPrixName: "\(race.raceName ?? "Grand Prix")",
-                            circuitName: "\(race.circuit?.circuitName ?? "Circuit")",
-                            raceDate: "\(race.date ?? "Date")",
-                            raceTime: "\(race.time ?? "Time")",
-                            winnerName: viewModel.raceWinner[safe: index] ?? "",
-                            winnerTeam: viewModel.winningConstructor[safe: index] ?? "",
-                            winningTime: viewModel.winningTime[safe: index] ?? "",
-                            fastestLap: viewModel.winnerFastestLap[safe: index] ?? "",
-                            countryFlag: "\(race.circuit?.location?.country ?? "loading...")"
-                        )
+                        NavigationLink(
+                            destination: RaceResultCards(
+                                viewModel: viewModel,
+                                race: race
+                            )
+                            .onAppear {
+                                Task {
+                                    await viewModel.fetchRaceResults(season: viewModel.seasonYear, round: "\(index + 1)")
+                                }
+                            }
+                        ) {
+                            GrandPrixCards(
+                                grandPrixName: "\(race.raceName ?? "Grand Prix")",
+                                circuitName: "\(race.circuit?.circuitName ?? "Circuit")",
+                                raceDate: "\(race.date ?? "Date")",
+                                raceTime: "\(race.time ?? "Time")",
+                                winnerName: viewModel.raceWinner[safe: index] ?? "",
+                                winnerTeam: viewModel.winningConstructor[safe: index] ?? "",
+                                winningTime: viewModel.winningTime[safe: index] ?? "",
+                                fastestLap: viewModel.winnerFastestLap[safe: index] ?? "",
+                                countryFlag: "\(race.circuit?.location?.country ?? "loading...")"
+                            )
+                        }
                     } // end for
                 }
             }

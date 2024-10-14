@@ -8,21 +8,29 @@
 import SwiftUI
 
 struct RaceResultCards: View {
-    var title: String
-    var titleImg: String
-    var result: [String]
-    var rowIcon: String
+    enum Constants {
+        static let titleImg: String = "car"
+        static let rowIcon: String = "person.circle.fill"
+        static let fallbackTitle: String = "Grand Prix Results"
+    }
+    
+    @ObservedObject var viewModel: HomeViewModel
+    let race: Race
     
     var body: some View {
-        titleCard(
-            title: title,
-            titleImg: titleImg
-        )
+        VStack(spacing: 0) {
+            titleCard(
+                title: race.raceName ?? Constants.fallbackTitle,
+                titleImg: Constants.titleImg
+            )
+            .background(.black)
+            .cornerRadius(12)
 
-        raceResultsList(
-            result: result,
-            rowIcon: rowIcon
-        )
+            raceResultsList(
+                results: viewModel.raceResults2,
+                rowIcon: Constants.rowIcon
+            )
+        }
     }
     
     @MainActor func titleCard(title: String, titleImg: String) -> some View {
@@ -40,7 +48,9 @@ struct RaceResultCards: View {
                         .foregroundStyle(.white.opacity(0.5))
                 }
                 Text(title)
-                    .font(.headline)
+                    .frame(width: UIScreen.main.bounds.width, alignment: .center)
+                    .font(.title)
+                    .bold()
                     .padding([.bottom], 20)
                     .padding(.horizontal, 8)
             }
@@ -56,26 +66,26 @@ struct RaceResultCards: View {
             }
         }
         .background(
-            LinearGradient(colors: [.black.opacity(0.9), .red.opacity(0.9), .yellow], startPoint: .bottomLeading, endPoint: .topTrailing)
+            LinearGradient(colors: [.black.opacity(0.9), .red.opacity(0.9), .yellow.opacity(0.75)], startPoint: .bottomLeading, endPoint: .topTrailing)
         )
-        .cornerRadius(12)
         .padding([.top, .bottom, .horizontal], 2)
     }
     
-    @MainActor func raceResultsList(result: [String], rowIcon: String) -> some View {
+    @MainActor func raceResultsList(results: [Result], rowIcon: String) -> some View {
         List {
-            ForEach(0..<10) { index in
+            ForEach(results.indices, id: \.self) { index in
+                let result = results[index]
                 HStack {
                     HStack {
-                        Text("P\(index + 1)")
+                        Text("P\(results[index].position ?? "\(index + 1)")")
                             .bold()
                             .font(.caption)
                         Image(systemName: rowIcon)
                             .resizable()
-                            .frame(width: 50, height: 50, alignment: .trailing)
+                            .frame(width: 40, height: 40, alignment: .trailing)
                             .scaledToFit()
                             .padding(.trailing, 0)
-                        Text("\(result[index])")
+                        Text("\(result.driver?.familyName ?? "")")
                             .font(.title3)
                     }
                     .foregroundStyle(.white)
@@ -85,29 +95,14 @@ struct RaceResultCards: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .background(
-                LinearGradient(colors: [.black.opacity(0.75), .red, .yellow], startPoint: .leading, endPoint: .trailing)
+                LinearGradient(colors: [.black.opacity(0.75), .red, .yellow.opacity(0.75)], startPoint: .leading, endPoint: .trailing)
             )
             .cornerRadius(12)
         }
+        .foregroundStyle(.black)
     }
 }
 
 #Preview {
-    RaceResultCards(
-        title: "Monaco Grand Prix Race Results",
-        titleImg: "car.fill",
-        result: [
-            "Hamilton",
-            "Vettel",
-            "Leclerc",
-            "Bottas",
-            "Sainz",
-            "Piastri",
-            "Norris",
-            "Perez",
-            "Verstappen",
-            "Alonso"
-        ],
-        rowIcon: "person.circle.fill"
-    )
+    HomeScreen()
 }

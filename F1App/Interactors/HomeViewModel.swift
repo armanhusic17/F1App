@@ -14,6 +14,8 @@ class HomeViewModel: ObservableObject {
     @Published var isLoadingConstructors = false
     @Published var driverStandings: [DriverStanding] = []
     @Published var raceResults: Root?
+    @Published var raceResults2: [Result] = []
+    @Published var winner: String = ""
     @Published var races: [Race] = []
     @Published var raceWinner: [String] = []
     @Published var winningConstructor: [String] = []
@@ -162,27 +164,17 @@ class HomeViewModel: ObservableObject {
                 forYear: season,
                 round: round
             )
-            if let raceTable = results?.mrData?.raceTable {
-                print("Season: \(raceTable.season) Round \(raceTable.round)")
+            if let race = results?.mrData?.raceTable?.races?.first {
+                self.raceResults2 = race.results ?? []
                 
-                if let races = raceTable.races {
-                    for race in races {
-                        print("Race: \(race.raceName)")
-                        print("Winner: \(race.results?.first?.driver?.givenName ?? "")")
-                        
-                        if let results = race.results {
-                            for result in results {
-                                print("Driver: \(result.driver?.givenName ?? "")")
-                                print("Position: \(result.position)")
-                                print("Points: \(result.points)")
-                                print("Constructor: \(result.constructor?.name ?? "")")
-                            }
-                        }
-                    }
+                if let winner = race.results?.first {
+                    self.winner = "\(winner.driver?.givenName ?? "") \(winner.driver?.familyName ?? "")"
                 }
             }
+            isLoading = false
         } catch {
             print("failed to fetch data \(error.localizedDescription)")
+            isLoading = false
         }
     }
 }
