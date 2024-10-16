@@ -30,6 +30,9 @@ class UserAuth: UIViewController, AuthModelDelegate {
         super.viewDidLoad()
         model.delegate = self
         formatViews()
+        // DEBUG CODE
+        performTransition()
+        // REMOVE ABOVE IN RELEASE VERSION
     }
 
     func formatViews(){
@@ -41,18 +44,22 @@ class UserAuth: UIViewController, AuthModelDelegate {
         self.googleSignInButton.layer.borderWidth = 0.5
         self.googleSignInButton.layer.borderColor = randomTyreColor()
     }
+    
+    private func performTransition() {
+        DispatchQueue.main.async {
+            self.hideSpinner()
+            let homeScreenView = HomeScreen()
+            let hostingController = UIHostingController(rootView: homeScreenView)
+            hostingController.modalPresentationStyle = .fullScreen
+            self.present(hostingController, animated: true, completion: nil)
+        }
+    }
 
     @IBAction func googleSignInButtonPressed(_ sender: GIDSignInButton) {
         showSpinner()
         firebaseAuth.signUpWithGoogle(thisSelf: self) { success in
             if success {
-                DispatchQueue.main.async {
-                    self.hideSpinner()
-                    let homeScreenView = HomeScreen()
-                    let hostingController = UIHostingController(rootView: homeScreenView)
-                    hostingController.modalPresentationStyle = .fullScreen
-                    self.present(hostingController, animated: true, completion: nil)
-                }
+                self.performTransition()
             } else {
                 self.hideSpinner()
             }
@@ -60,7 +67,7 @@ class UserAuth: UIViewController, AuthModelDelegate {
     }
 
     @IBAction func appleSignInButtonpressed(_ sender: ASAuthorizationAppleIDButton) {
-        Task {
+        Task { @MainActor in
             print("Apple Sign In Button pressed")
             showSpinner()
             await model.triggerAppleSignIn(process: hideSpinner)

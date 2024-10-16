@@ -97,9 +97,9 @@ struct DriversCards: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 150, height: 200)
-                    .clipShape(Circle())
+                    .clipShape(Rectangle())
                     .overlay(
-                        Circle()
+                        Rectangle()
                             .stroke(
                                 LinearGradient(
                                     colors: [
@@ -173,11 +173,11 @@ struct DriversCards: View {
 
 #Preview {
     DriversCards(
-        wdcPosition: "",
-        wdcPoints: "",
-        constructorName: "",
-        image: "",
-        items: ["", ""],
-        seasonYearSelected: ""
+        wdcPosition: "1",
+        wdcPoints: "100",
+        constructorName: "Mercedes AMG Petronas",
+        image: "person.circle",
+        items: ["Lewis\nHamilton"],
+        seasonYearSelected: "2021"
     )
 }

@@ -53,7 +53,7 @@ struct MyAccount: View {
         .cornerRadius(12)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(viewModel.randomTyreColor(), lineWidth: 0.5)
+                .stroke(Color.gray, lineWidth: 0.5)
         )
         .onTapGesture {
             viewModel.showAlert = true

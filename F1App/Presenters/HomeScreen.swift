@@ -9,7 +9,9 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel = HomeViewModel(seasonYear: "\(Calendar.current.component(.year, from: Date()))")
+    @ObservedObject var viewModel = HomeViewModel(
+        seasonYear: "\(Calendar.current.component(.year, from: Date()))"
+    )
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
     @State private var isSheetPresented = false
@@ -27,6 +29,7 @@ struct HomeScreen: View {
                 content
             }
         }
+        .tint(.white)
     }
 
     @ViewBuilder private var backgroundGradient: some View {
