@@ -33,13 +33,13 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     enum Constant: String {
         case homescreenTitle = "Grid Pulse"
         case wdcLabel = "World Drivers' Championship Standings"
         case grandPrixLabel = "Grand Prix Results"
     }
-    
+
     init(
         seasonYear: String
     ) {
