@@ -9,9 +9,11 @@ import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    @Published var isLoading = false
+    @Published var raceResultViewModel: RaceResultViewModel? = nil
+    @Published var isLoadingGrandPrix = false
     @Published var isLoadingDrivers = false
     @Published var isLoadingConstructors = false
+    @Published var isLoadingRaceResults = false
     @Published var driverStandings: [DriverStanding] = []
     @Published var raceResults: Root?
     @Published var raceResults2: [Result] = []
@@ -32,10 +34,24 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    enum Constant: String {
+        case homescreenTitle = "Grid Pulse"
+        case wdcLabel = "World Drivers' Championship Standings"
+        case grandPrixLabel = "Grand Prix Results"
+    }
+    
     init(
         seasonYear: String
     ) {
         self.seasonYear = seasonYear
+        Task {
+            await initializeData()
+        }
+    }
+    
+    private func initializeData() async {
+        await reloadDataForNewSeason()
+        self.raceResultViewModel = RaceResultViewModel()
     }
     
     private func returnYear() -> Int {
@@ -54,12 +70,16 @@ class HomeViewModel: ObservableObject {
         raceWinner.removeAll()
         races.removeAll()
 
-        await loadAllRacesForSeason(year: seasonYear)
-        await loadDriverStandings(seasonYear: seasonYear)
-        await getDriverImgs()
-        await loadConstructorStandings(seasonYear: seasonYear)
-        await getConstructorImages()
-        await loadRaceResultsForYear(year: seasonYear)
+        async let loadRacesTask: () = loadAllRacesForSeason(year: seasonYear)
+        async let loadDriverStandingsTask: () = loadDriverStandings(seasonYear: seasonYear)
+        async let loadConstructorStandingsTask: () = loadConstructorStandings(seasonYear: seasonYear)
+        
+        await (loadRacesTask, loadDriverStandingsTask, loadConstructorStandingsTask)
+        
+        async let getDriverImgsTask: () = getDriverImgs()
+        async let getConstructorImgsTask: () = getConstructorImages()
+        
+        await (getDriverImgsTask, getConstructorImgsTask)
     }
     
     @MainActor func loadDriverStandings(seasonYear: String) async {
@@ -67,12 +87,11 @@ class HomeViewModel: ObservableObject {
         do {
             let standings = try await F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
             driverStandings.append(contentsOf: standings)
-            isLoadingDrivers = false
             // Update UI or state with standings
         } catch {
             // Handle errors such as display an error message
-            isLoadingDrivers = false
         }
+        isLoadingDrivers = false
     }
     
     @MainActor func getDriverImgs() async {
@@ -91,12 +110,13 @@ class HomeViewModel: ObservableObject {
     
     @MainActor func loadConstructorStandings(seasonYear: String) async {
         isLoadingConstructors = true
-        do {
-            let standings = try await F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear)
-            self.constructorStandings.append(contentsOf: standings)
-            isLoadingConstructors = false
-        } catch {
-            print("Constructors query failed to gather data...")
+        Task {
+            do {
+                let standings = try await F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear)
+                self.constructorStandings.append(contentsOf: standings)
+            } catch {
+                print("Constructors query failed to gather data...")
+            }
             isLoadingConstructors = false
         }
     }
@@ -116,21 +136,21 @@ class HomeViewModel: ObservableObject {
     }
     
     @MainActor func loadAllRacesForSeason(year: String) async {
-        isLoading = true
+        isLoadingGrandPrix = true
         Task {
             do {
                 let raceResults = try await F1ApiRoutes().fetchRaceSchedule(forYear: year)
                 self.races = raceResults?.mrData?.raceTable?.races ?? []
                 print("NUMBER OF RACES \(races.count)")
-                isLoading = false
             } catch {
                 self.errorMessage = "Failed to fetch data: \(error.localizedDescription)"
             }
+            isLoadingGrandPrix = false
         }
     }
     
     @MainActor func loadRaceResultsForYear(year: String) async {
-        isLoading = true
+        isLoadingRaceResults = true
         for index in Range(1...races.count + 1) {
             do {
                 let raceResultsData = try await F1ApiRoutes().fetchRaceResults(
@@ -149,16 +169,14 @@ class HomeViewModel: ObservableObject {
                 winnerFastestLap.append(
                     raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.fastestLap?.time?.time ?? ""
                 )
-
-                isLoading = false
             } catch {
                 print("failed to fetch data \(error.localizedDescription)")
             }
         }
+        isLoadingRaceResults = false
     }
     
     @MainActor func fetchRaceResults(season: String, round: String) async {
-        isLoading = true
         do {
             let results = try await F1ApiRoutes().fetchRaceResults(
                 forYear: season,
@@ -171,10 +189,8 @@ class HomeViewModel: ObservableObject {
                     self.winner = "\(winner.driver?.givenName ?? "") \(winner.driver?.familyName ?? "")"
                 }
             }
-            isLoading = false
         } catch {
             print("failed to fetch data \(error.localizedDescription)")
-            isLoading = false
         }
     }
 }

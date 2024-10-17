@@ -36,6 +36,7 @@
 		0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6458C32B09F90000C48F1B /* ErgastData.swift */; };
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F72F9512CBA49EF00F9D591 /* RaceResultCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72F9502CBA49EF00F9D591 /* RaceResultCards.swift */; };
+		0F72F9532CBF939900F9D591 /* RaceResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
 		0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F898BC22C39317100EE9860 /* GrandPrixCards.swift */; };
@@ -92,6 +93,7 @@
 		0F6458C32B09F90000C48F1B /* ErgastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgastData.swift; sourceTree = "<group>"; };
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F72F9502CBA49EF00F9D591 /* RaceResultCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResultCards.swift; sourceTree = "<group>"; };
+		0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResultViewModel.swift; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
 		0F898BC22C39317100EE9860 /* GrandPrixCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandPrixCards.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				0F3BF92F2B1715C900CF275D /* FirebaseAuth.swift */,
 				0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */,
 				0F6031E92C4F4DFB00C621E4 /* MyAccountViewModel.swift */,
+				0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */,
 			);
 			path = Interactors;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */,
 				0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */,
+				0F72F9532CBF939900F9D591 /* RaceResultViewModel.swift in Sources */,
 				0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */,
 				0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */,
 				0F3BF9302B1715C900CF275D /* FirebaseAuth.swift in Sources */,
