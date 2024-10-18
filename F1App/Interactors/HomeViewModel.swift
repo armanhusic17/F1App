@@ -73,20 +73,24 @@ class HomeViewModel: ObservableObject {
         async let loadRacesTask: () = loadAllRacesForSeason(year: seasonYear)
         async let loadDriverStandingsTask: () = loadDriverStandings(seasonYear: seasonYear)
         async let loadConstructorStandingsTask: () = loadConstructorStandings(seasonYear: seasonYear)
-        
-        await (loadRacesTask, loadDriverStandingsTask, loadConstructorStandingsTask)
-        
+
+        _ = await (loadRacesTask, loadDriverStandingsTask, loadConstructorStandingsTask)
+
         async let getDriverImgsTask: () = getDriverImgs()
         async let getConstructorImgsTask: () = getConstructorImages()
-        
-        await (getDriverImgsTask, getConstructorImgsTask)
+
+        _ = await (getDriverImgsTask, getConstructorImgsTask)
+
+        async let loadQuickLookResults: () = loadRaceResultsForYear(year: seasonYear)
+        await loadQuickLookResults
     }
     
     @MainActor func loadDriverStandings(seasonYear: String) async {
         isLoadingDrivers = true
         do {
             let standings = try await F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
-            driverStandings.append(contentsOf: standings)
+            driverStandings.removeAll()
+            driverStandings.append(contentsOf: standings.unique(by: {$0.familyName}))
             // Update UI or state with standings
         } catch {
             // Handle errors such as display an error message
@@ -113,7 +117,8 @@ class HomeViewModel: ObservableObject {
         Task {
             do {
                 let standings = try await F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear)
-                self.constructorStandings.append(contentsOf: standings)
+                constructorStandings.removeAll()
+                self.constructorStandings.append(contentsOf: standings.unique(by: { $0.constructor?.name ?? ""}))
             } catch {
                 print("Constructors query failed to gather data...")
             }
