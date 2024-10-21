@@ -50,7 +50,6 @@ class HomeViewModel: ObservableObject {
     }
     
     private func initializeData() async {
-        await reloadDataForNewSeason()
         self.raceResultViewModel = RaceResultViewModel()
     }
     

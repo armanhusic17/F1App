@@ -174,20 +174,23 @@ struct HomeScreen: View {
                                 )
                                 .onAppear {
                                     Task {
-                                        await viewModel.fetchRaceResults(season: viewModel.seasonYear, round: "\(index + 1)")
+                                        await viewModel.fetchRaceResults(
+                                            season: viewModel.seasonYear,
+                                            round: "\(index + 1)"
+                                        )
                                     }
                                 }
                             ) {
                                 GrandPrixCards(
-                                    grandPrixName: "\(race.raceName ?? "Grand Prix")",
-                                    circuitName: "\(race.circuit?.circuitName ?? "Circuit")",
-                                    raceDate: "\(race.date ?? "Date")",
-                                    raceTime: "\(race.time ?? "Time")",
-                                    winnerName: viewModel.raceWinner[safe: index] ?? "",
-                                    winnerTeam: viewModel.winningConstructor[safe: index] ?? "",
-                                    winningTime: viewModel.winningTime[safe: index] ?? "",
-                                    fastestLap: viewModel.winnerFastestLap[safe: index] ?? "",
-                                    countryFlag: "\(race.circuit?.location?.country ?? "loading...")"
+                                    grandPrixName: "\(race.raceName ?? "⏳")",
+                                    circuitName: "\(race.circuit?.circuitName ?? "⏳")",
+                                    raceDate: "\(race.date ?? "⏳")",
+                                    raceTime: "\(race.time ?? "⏳")",
+                                    winnerName: viewModel.raceWinner[safe: index] ?? "⏳",
+                                    winnerTeam: viewModel.winningConstructor[safe: index] ?? "⏳",
+                                    winningTime: viewModel.winningTime[safe: index] ?? "⏳",
+                                    fastestLap: viewModel.winnerFastestLap[safe: index] ?? "⏳",
+                                    countryFlag: "\(race.circuit?.location?.country ?? "⏳")"
                                 )
                             }
                         }
