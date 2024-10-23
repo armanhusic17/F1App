@@ -10,6 +10,7 @@ import UIKit
 
 struct HomeScreen: View {
     @ObservedObject var viewModel = HomeViewModel(
+        networkClient: NetworkClient(), 
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
     @StateObject internal var myAccountViewModel = MyAccountViewModel()

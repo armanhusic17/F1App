@@ -9,6 +9,7 @@ import SwiftUI
 
 @MainActor
 class HomeViewModel: ObservableObject {
+    private let networkClient: NetworkClient
     @Published var raceResultViewModel: RaceResultViewModel? = nil
     @Published var isLoadingGrandPrix = false
     @Published var isLoadingDrivers = false
@@ -41,8 +42,10 @@ class HomeViewModel: ObservableObject {
     }
     
     init(
+        networkClient: NetworkClient,
         seasonYear: String
     ) {
+        self.networkClient = networkClient
         self.seasonYear = seasonYear
         Task {
             await initializeData()
@@ -76,9 +79,8 @@ class HomeViewModel: ObservableObject {
         _ = await (loadRacesTask, loadDriverStandingsTask, loadConstructorStandingsTask)
 
         async let getDriverImgsTask: () = getDriverImgs()
-        async let getConstructorImgsTask: () = getConstructorImages()
 
-        _ = await (getDriverImgsTask, getConstructorImgsTask)
+        _ = await getDriverImgsTask
 
         async let loadQuickLookResults: () = loadRaceResultsForYear(year: seasonYear)
         await loadQuickLookResults
@@ -87,37 +89,40 @@ class HomeViewModel: ObservableObject {
     @MainActor func loadDriverStandings(seasonYear: String) async {
         isLoadingDrivers = true
         do {
-            let standings = try await F1ApiRoutes.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
+            let standings = try await networkClient.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
             driverStandings.removeAll()
             driverStandings.append(contentsOf: standings.unique(by: {$0.familyName}))
             // Update UI or state with standings
         } catch {
             // Handle errors such as display an error message
+            print("Error gathering driver standings... \(error.localizedDescription)")
         }
         isLoadingDrivers = false
     }
     
     @MainActor func getDriverImgs() async {
+        let nc = self.networkClient
         for index in driverStandings.indices {
-            do {
-                let driverImg = try await F1ApiRoutes.fetchDriverImgFromWikipedia(
-                    givenName: self.driverStandings[index].givenName,
-                    familyName: self.driverStandings[index].familyName)
+            Task { [weak self] in
+                guard let self else { return }
+                let driverImg = try await nc.fetchDriverImgFromWikipedia(
+                    givenName: self.driverStandings[safe: index]?.givenName ?? "⏳",
+                    familyName: self.driverStandings[safe: index]?.familyName ?? "⏳")
                 self.driverStandings[index].imageUrl = driverImg
-            } catch {
-                // Handle errors such as display an error message
-                print("Drivers query failed to gather data...")
             }
         }
     }
     
     @MainActor func loadConstructorStandings(seasonYear: String) async {
+        let nc = self.networkClient
         isLoadingConstructors = true
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
-                let standings = try await F1ApiRoutes.getConstructorStandings(seasonYear: self.seasonYear)
+                let standings = try await nc.getConstructorStandings(seasonYear: self.seasonYear)
                 constructorStandings.removeAll()
                 self.constructorStandings.append(contentsOf: standings.unique(by: { $0.constructor?.name ?? ""}))
+                await self.getConstructorImages()
             } catch {
                 print("Constructors query failed to gather data...")
             }
@@ -126,25 +131,32 @@ class HomeViewModel: ObservableObject {
     }
     
     @MainActor func getConstructorImages() async {
-        for index in constructorStandings.indices {
-            do {
-                let constructorImg = try await F1ApiRoutes.fetchConstructorImageFromWikipedia(constructorName: self.constructorStandings[safe: index]?.constructor?.name ?? "Unable to get constructor name")
-                constructorImages.append(constructorImg)
-                print(self.constructorStandings[safe: index]?.constructor?.name ?? "Unable to get constructor name")
-            } catch {
-                // Handle errors such as display an error message
-                constructorImages.append("bad_url")
-                print("Constructors wikipedia fetch failed to gather data...\(error)")
+        let nc = self.networkClient
+        isLoadingConstructors = true
+        let constructorLoop = constructorStandings.indices
+        Task { [weak self] in
+            for index in constructorLoop {
+                do {
+                    let constructorImg = try await nc.fetchConstructorImageFromWikipedia(constructorName: self?.constructorStandings[safe: index]?.constructor?.name ?? "Unable to get constructor name")
+                    self?.constructorImages.append(constructorImg)
+                    print(self?.constructorStandings[safe: index]?.constructor?.name ?? "Unable to get constructor name")
+                } catch {
+                    // Handle errors such as display an error message
+                    self?.constructorImages.append("bad_url")
+                    print("Constructors wikipedia fetch failed to gather data...\(error)")
+                }
             }
         }
     }
     
     @MainActor func loadAllRacesForSeason(year: String) async {
+        let nc = self.networkClient
         isLoadingGrandPrix = true
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
-                let raceResults = try await F1ApiRoutes().fetchRaceSchedule(forYear: year)
-                self.races = raceResults?.mrData?.raceTable?.races ?? []
+                let raceResults = try await nc.fetchRaceSchedule(forYear: year)
+                self.races = raceResults.mrData?.raceTable?.races ?? []
                 print("NUMBER OF RACES \(races.count)")
             } catch {
                 self.errorMessage = "Failed to fetch data: \(error.localizedDescription)"
@@ -154,47 +166,60 @@ class HomeViewModel: ObservableObject {
     }
     
     @MainActor func loadRaceResultsForYear(year: String) async {
+        let nc = self.networkClient
         isLoadingRaceResults = true
-        for index in Range(1...races.count + 1) {
-            do {
-                let raceResultsData = try await F1ApiRoutes().fetchRaceResults(
-                    forYear: year,
-                    round: "\(index)"
-                )
-                raceWinner.append(
-                    "\(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.driver?.givenName ?? "") \(raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.driver?.familyName ?? "")"
-                )
-                winningConstructor.append(
-                    raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.constructor?.name ?? ""
-                )
-                winningTime.append(
-                    raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.time?.time ?? ""
-                )
-                winnerFastestLap.append(
-                    raceResultsData?.mrData?.raceTable?.races?.first?.results?.first?.fastestLap?.time?.time ?? ""
-                )
-            } catch {
-                print("failed to fetch data \(error.localizedDescription)")
+        Task { [weak self] in
+            guard let self else { return }
+
+            for index in Range(1...races.count + 1) {
+                do {
+                    let raceResultsData = try await nc.fetchRaceResults(
+                        season: year,
+                        round: "\(index)"
+                    )
+                    raceWinner.append(
+                        "\(raceResultsData.mrData?.raceTable?.races?.first?.results?.first?.driver?.givenName ?? "") \(raceResultsData.mrData?.raceTable?.races?.first?.results?.first?.driver?.familyName ?? "")"
+                    )
+                    winningConstructor.append(
+                        raceResultsData.mrData?.raceTable?.races?.first?.results?.first?.constructor?.name ?? ""
+                    )
+                    winningTime.append(
+                        raceResultsData.mrData?.raceTable?.races?.first?.results?.first?.time?.time ?? ""
+                    )
+                    winnerFastestLap.append(
+                        raceResultsData.mrData?.raceTable?.races?.first?.results?.first?.fastestLap?.time?.time ?? ""
+                    )
+                } catch {
+                    print("failed to fetch data \(error.localizedDescription)")
+                }
             }
         }
+
         isLoadingRaceResults = false
     }
     
     @MainActor func fetchRaceResults(season: String, round: String) async {
-        do {
-            let results = try await F1ApiRoutes().fetchRaceResults(
-                forYear: season,
-                round: round
-            )
-            if let race = results?.mrData?.raceTable?.races?.first {
-                self.raceResults2 = race.results ?? []
-                
-                if let winner = race.results?.first {
-                    self.winner = "\(winner.driver?.givenName ?? "") \(winner.driver?.familyName ?? "")"
+        let nc = self.networkClient
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                let results = try await nc.fetchRaceResults(
+                    season: season,
+                    round: round
+                )
+
+                if let race = results.mrData?.raceTable?.races?.first {
+                    await MainActor.run {
+                        self.raceResults2 = race.results ?? []
+
+                        if let winner = race.results?.first {
+                            self.winner = "\(winner.driver?.givenName ?? "") \(winner.driver?.familyName ?? "")"
+                        }
+                    }
                 }
+            } catch {
+                print("failed to fetch data \(error.localizedDescription)")
             }
-        } catch {
-            print("failed to fetch data \(error.localizedDescription)")
         }
     }
 }

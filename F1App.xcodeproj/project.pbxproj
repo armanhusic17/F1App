@@ -30,13 +30,13 @@
 		0F515A2A27EC1C00002129D7 /* F1AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A2927EC1C00002129D7 /* F1AppTests.swift */; };
 		0F515A3427EC1C00002129D7 /* F1AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A3327EC1C00002129D7 /* F1AppUITests.swift */; };
 		0F515A3627EC1C00002129D7 /* F1AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */; };
-		0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */; };
 		0F6031EA2C4F4DFB00C621E4 /* MyAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6031E92C4F4DFB00C621E4 /* MyAccountViewModel.swift */; };
 		0F6458C22B09F83D00C48F1B /* WikiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6458C12B09F83D00C48F1B /* WikiData.swift */; };
 		0F6458C42B09F90000C48F1B /* ErgastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6458C32B09F90000C48F1B /* ErgastData.swift */; };
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F72F9512CBA49EF00F9D591 /* RaceResultCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72F9502CBA49EF00F9D591 /* RaceResultCards.swift */; };
 		0F72F9532CBF939900F9D591 /* RaceResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */; };
+		0F7C698A2CC38B2A00DF920F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7C69892CC38B2A00DF920F /* NetworkClient.swift */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
 		0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F898BC22C39317100EE9860 /* GrandPrixCards.swift */; };
@@ -87,13 +87,13 @@
 		0F515A2F27EC1C00002129D7 /* F1AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = F1AppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F515A3327EC1C00002129D7 /* F1AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1AppUITests.swift; sourceTree = "<group>"; };
 		0F515A3527EC1C00002129D7 /* F1AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1ApiRoutes.swift; sourceTree = "<group>"; };
 		0F6031E92C4F4DFB00C621E4 /* MyAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewModel.swift; sourceTree = "<group>"; };
 		0F6458C12B09F83D00C48F1B /* WikiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiData.swift; sourceTree = "<group>"; };
 		0F6458C32B09F90000C48F1B /* ErgastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErgastData.swift; sourceTree = "<group>"; };
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F72F9502CBA49EF00F9D591 /* RaceResultCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResultCards.swift; sourceTree = "<group>"; };
 		0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResultViewModel.swift; sourceTree = "<group>"; };
+		0F7C69892CC38B2A00DF920F /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
 		0F898BC22C39317100EE9860 /* GrandPrixCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandPrixCards.swift; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		0F343C8F29C96A9D00DA001A /* Routers */ = {
 			isa = PBXGroup;
 			children = (
-				0F515A4227EC1D08002129D7 /* F1ApiRoutes.swift */,
+				0F7C69892CC38B2A00DF920F /* NetworkClient.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -440,6 +440,7 @@
 				0FFC50552B1C06EC005ED8E6 /* FirebaseDataStorage.swift in Sources */,
 				0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */,
 				0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */,
+				0F7C698A2CC38B2A00DF920F /* NetworkClient.swift in Sources */,
 				0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */,
@@ -450,7 +451,6 @@
 				0F3BF9302B1715C900CF275D /* FirebaseAuth.swift in Sources */,
 				0F6031EA2C4F4DFB00C621E4 /* MyAccountViewModel.swift in Sources */,
 				0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */,
-				0F515A4327EC1D08002129D7 /* F1ApiRoutes.swift in Sources */,
 				0FF3D5CE2C4A515E0075FBD6 /* CustomProgressView.swift in Sources */,
 				0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */,
 				0F515A1A27EC1BFE002129D7 /* F1App.xcdatamodeld in Sources */,
@@ -628,7 +628,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = F1App/F1App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.1.01;
+				CURRENT_PROJECT_VERSION = 2024.1.11;
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -645,7 +645,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.1.00;
+				MARKETING_VERSION = 2024.1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -661,7 +661,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = F1App/F1App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2024.1.01;
+				CURRENT_PROJECT_VERSION = 2024.1.11;
 				DEVELOPMENT_TEAM = 2DYJ6BS3VG;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -678,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2024.1.00;
+				MARKETING_VERSION = 2024.1.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.f1app.ah.F1App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
