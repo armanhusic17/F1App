@@ -194,7 +194,7 @@ struct Result: Codable {
 }
 
 
-struct Driver: Codable {
+struct Driver: Codable, Hashable {
     let driverId: String?
     let permanentNumber: String?
     let code: String?
@@ -263,26 +263,25 @@ struct Timing: Codable {
 }
 
 struct DriverStanding: Codable, Hashable {
-    var givenName: String
-    var familyName: String
+    var givenName: String?
+    var familyName: String?
     var position: String
+    var positionText: String?
     var points: String
-    var teamNames: String
-    var imageUrl: String
-}
-
-struct DriverStandingResponse: Codable {
-    let position: String?
-    let positionText: String?
-    let points: String?
-    let wins: String?
+    var teamNames: String?
+    var imageUrl: String?
+    var wins: String?
     let driver: Driver?
     let constructor: [Constructor?]
     
     enum CodingKeys: String, CodingKey {
+        case givenName
+        case familyName
         case position
         case positionText
         case points
+        case teamNames
+        case imageUrl
         case wins
         case driver = "Driver"
         case constructor = "Constructors"

@@ -115,12 +115,13 @@ struct HomeScreen: View {
                     spacing: 16
                 ) {
                     ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
+                        let constructorName = driverStanding.constructor.first
                         DriversCards(
                             wdcPosition: "WDC Position: \(driverStanding.position)",
                             wdcPoints: "Points \(driverStanding.points)",
-                            constructorName: "\(driverStanding.teamNames)",
-                            image: driverStanding.imageUrl,
-                            items: ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
+                            constructorName: constructorName??.name ?? "Team Name",
+                            image: driverStanding.imageUrl ?? "🏎️",
+                            items: ["\(driverStanding.givenName ?? "First Name")\n\(driverStanding.familyName ?? "Last Name")"],
                             seasonYearSelected: viewModel.seasonYear
                         )
                     }
@@ -195,11 +196,12 @@ struct HomeScreen: View {
                                 )
                             }
                         }
-                    } // end for
+                    }
                 }
             }
         }
     }
+
 }
 
 #Preview {
