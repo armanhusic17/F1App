@@ -52,7 +52,7 @@ struct RaceResultCards: View {
                     .padding([.bottom], 0)
                     .padding(.horizontal, 8)
 
-                Text("\(race.date ?? ""), \(race.time ?? "")")
+                Text(resultsViewModel.raceDate(race: race))
                     .font(.callout)
                     .padding(.bottom)
                     .frame(width: UIScreen.main.bounds.width, alignment: .center)
@@ -117,15 +117,15 @@ struct RaceResultCards: View {
                         placeHolderImage(rowIcon: rowIcon)
                     }
                     VStack {
-                        Text("\(result.driver?.givenName ?? "") \(result.driver?.familyName ?? "")")
+                        Text(resultsViewModel.driverName(result: result))
                             .bold()
-                        if let driverNumber = result.driver?.permanentNumber {
-                            Text("#\(result.driver?.permanentNumber ?? "")")
+                        if let driverNumber = resultsViewModel.driverNumber(result: result) {
+                            Text(driverNumber)
                                 .bold()
                                 .font(.caption)
                                 .frame(alignment: .topTrailing)
                         }
-                        Text("\(result.constructor?.name ?? "")")
+                        Text(resultsViewModel.constructorName(result: result))
                             .font(.title2)
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .center)
@@ -166,20 +166,27 @@ struct RaceResultCards: View {
         Group {
             HStack {
                 Image(systemName: RaceResultViewModel.Constants.titleImg)
-                Text("\(result.status ?? ""): P\(result.position ?? "\(index + 1)")")
+                Text(resultsViewModel.resultsPositionAndStatus(
+                    resultStatus: result,
+                    index: index)
+                )
             }
             HStack {
                 Image(systemName: RaceResultViewModel.Constants.gridPositionIcon)
-                Text("Qualified: P\(result.grid ?? "")")
+                Text(resultsViewModel.resultsQualified(result: result))
             }
             HStack {
                 Image(systemName: RaceResultViewModel.Constants.pointsIcon)
-                Text("Points: \(result.points ?? "")")
+                Text(resultsViewModel.resultsPoints(result: result))
             }
             HStack {
-                if let fastestLap = result.fastestLap?.lap, let fastestLapTime = result.fastestLap?.time?.time {
+                if let fastestLap = result.fastestLap?.lap,
+                   let fastestLapTime = result.fastestLap?.time?.time {
                     Image(systemName: RaceResultViewModel.Constants.fastestLapIcon)
-                    Text("Fastest Lap: \(fastestLapTime), Lap: \(fastestLap)")
+                    Text(resultsViewModel.resultsFastestLap(
+                        fastestLapTime: fastestLapTime,
+                        fastestLap: fastestLap)
+                    )
                 }
             }
         }
