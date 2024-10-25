@@ -22,6 +22,9 @@ struct RaceResultCards: View {
         }
         .background(Color.black)
         .edgesIgnoringSafeArea(.all)
+        .onDisappear() {
+            viewModel.clearRaceResults()
+        }
     }
 
     @MainActor func titleCard(title: String, titleImg: String) -> some View {

@@ -62,6 +62,10 @@ class HomeViewModel: ObservableObject {
         return Int(dateFormatter.string(from: Date())) ?? 2024
     }
     
+    func clearRaceResults() {
+        raceResults2.removeAll()
+    }
+    
     @MainActor private func reloadDataForNewSeason() async {
         driverStandings.removeAll()
         constructorStandings.removeAll()
