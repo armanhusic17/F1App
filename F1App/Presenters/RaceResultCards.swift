@@ -119,10 +119,12 @@ struct RaceResultCards: View {
                     VStack {
                         Text("\(result.driver?.givenName ?? "") \(result.driver?.familyName ?? "")")
                             .bold()
-                        Text("#\(result.driver?.permanentNumber ?? "")")
-                            .bold()
-                            .font(.caption)
-                            .frame(alignment: .topTrailing)
+                        if let driverNumber = result.driver?.permanentNumber {
+                            Text("#\(result.driver?.permanentNumber ?? "")")
+                                .bold()
+                                .font(.caption)
+                                .frame(alignment: .topTrailing)
+                        }
                         Text("\(result.constructor?.name ?? "")")
                             .font(.title2)
                             .bold()
@@ -171,12 +173,14 @@ struct RaceResultCards: View {
                 Text("Qualified: P\(result.grid ?? "")")
             }
             HStack {
-                Image(systemName: RaceResultViewModel.Constants.fastestLapIcon)
-                Text("Fastest Lap: \(result.fastestLap?.time?.time ?? ""), Lap: \(result.fastestLap?.lap ?? "")")
-            }
-            HStack {
                 Image(systemName: RaceResultViewModel.Constants.pointsIcon)
                 Text("Points: \(result.points ?? "")")
+            }
+            HStack {
+                if let fastestLap = result.fastestLap?.lap, let fastestLapTime = result.fastestLap?.time?.time {
+                    Image(systemName: RaceResultViewModel.Constants.fastestLapIcon)
+                    Text("Fastest Lap: \(fastestLapTime), Lap: \(fastestLap)")
+                }
             }
         }
         .padding(.horizontal, 24)

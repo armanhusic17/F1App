@@ -62,11 +62,7 @@ class HomeViewModel: ObservableObject {
         return Int(dateFormatter.string(from: Date())) ?? 2024
     }
     
-    func clearRaceResults() {
-        raceResults2.removeAll()
-    }
-    
-    @MainActor private func reloadDataForNewSeason() async {
+    private func clearData() {
         driverStandings.removeAll()
         constructorStandings.removeAll()
         constructorImages.removeAll()
@@ -75,7 +71,14 @@ class HomeViewModel: ObservableObject {
         winningTime.removeAll()
         raceWinner.removeAll()
         races.removeAll()
-
+    }
+    
+    func clearRaceResults() {
+        raceResults2.removeAll()
+    }
+    
+    @MainActor private func reloadDataForNewSeason() async {
+        clearData()
         async let loadRacesTask: () = loadAllRacesForSeason(year: seasonYear)
         async let loadDriverStandingsTask: () = loadDriverStandings(seasonYear: seasonYear)
         async let loadConstructorStandingsTask: () = loadConstructorStandings(seasonYear: seasonYear)

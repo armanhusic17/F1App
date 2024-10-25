@@ -40,7 +40,7 @@ class NetworkClient {
     @MainActor func worldDriversChampionshipStandings(seasonYear: String) async throws -> [DriverStanding] {
         if let cachedData = getCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings") {
             do {
-                let json = try JSONSerialization.jsonObject(with: cachedData, options: []) as? [String: Any]
+                let json = try JSONDecoder().decode(Root.self, from: cachedData)
                 return processDriverStandings(json, seasonYear: seasonYear)
             } catch {
                 print("Error decoding the cached data \(error)")
@@ -52,59 +52,58 @@ class NetworkClient {
                 throw URLError(.badURL)
             }
 
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-            
-            if seasonYear != "2024" {
-                saveCachedData(data, for: seasonYear, queryKey: "cache_worldDriversChampionshipStandings_")
+            do {
+                let (data, _) = try await URLSession.shared.data(from: url)
+                let json = try JSONDecoder().decode(Root.self, from: data)
+                
+                if seasonYear != "2024" {
+                    saveCachedData(data, for: seasonYear, queryKey: "cache_worldDriversChampionshipStandings_")
+                }
+                
+                return processDriverStandings(json, seasonYear: seasonYear)
+            } catch {
+                print("Error -- \(error)")
             }
-
-            return processDriverStandings(json, seasonYear: seasonYear)
         }
-        return [DriverStanding(givenName: "", familyName: "", position: "", points: "", teamNames: "", imageUrl: "")]
+        return [
+            DriverStanding(
+                givenName: "",
+                familyName: "",
+                position: "",
+                points: "",
+                teamNames: "",
+                imageUrl: "",
+                driver: nil,
+                constructor: [nil]
+            )
+        ]
     }
 
-    func processDriverStandings(_ json: [String: Any]?, seasonYear: String) -> [DriverStanding] {
-        guard let mrData = json?["MRData"] as? [String: Any],
-              let standingsTable = mrData["StandingsTable"] as? [String: Any],
-              let standingsLists = standingsTable["StandingsLists"] as? [[String: Any]] else {
+    func processDriverStandings(_ json: Root, seasonYear: String) -> [DriverStanding] {
+        guard let standingsTable = json.mrData?.standingsTable,
+              let standingsLists = standingsTable.standingsLists else {
             return []
         }
 
         var results: [DriverStanding] = []
-        var seenDrivers: Set<String> = Set()
 
         for standingsList in standingsLists {
-            let driverStandings = standingsList["DriverStandings"] as? [[String: Any]] ?? []
+            let driverStandings = standingsList.driverStandings ?? []
             for driverStanding in driverStandings {
-                if let driver = driverStanding["Driver"] as? [String: Any],
-                   let givenName = driver["givenName"] as? String,
-                   let familyName = driver["familyName"] as? String,
-                   let position = driverStanding["position"] as? String,
-                   let points = driverStanding["points"] as? String,
-                   let constructors = driverStanding["Constructors"] as? [[String: Any]] {
 
-                    let driverIdentifier = "\(givenName) \(familyName)"
-                    
-                    // Check if the driver has already been processed
-                    if seenDrivers.contains(driverIdentifier) {
-                        print("DRIVER SEEN < CONTINUE >")
-                        continue
-                    }
-
-                    // Mark this driver as seen
-                    seenDrivers.insert(driverIdentifier)
-
-                    let teamNames = constructors.compactMap { $0["name"] as? String }.joined(separator: ", ")
-                    let standing = DriverStanding(
-                        givenName: givenName,
-                        familyName: familyName,
-                        position: position,
-                        points: points,
-                        teamNames: teamNames,
-                        imageUrl: "")
-                    results.append(standing)
-                }
+                let standing = DriverStanding(
+                    givenName: driverStanding.driver?.givenName,
+                    familyName: driverStanding.driver?.familyName,
+                    position: driverStanding.position,
+                    positionText: driverStanding.positionText,
+                    points: driverStanding.points,
+                    teamNames: driverStanding.teamNames,
+                    imageUrl: driverStanding.imageUrl,
+                    wins: driverStanding.wins,
+                    driver: driverStanding.driver,
+                    constructor: driverStanding.constructor
+                )
+                results.append(standing)
             }
         }
         print("RESULTS COUNT - \(results.count)")
