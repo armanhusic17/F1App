@@ -83,7 +83,15 @@ struct GrandPrixCards: View {
             .foregroundStyle(.white)
             .padding([.horizontal, .top], 16)
             .background(
-                .black
+                LinearGradient(
+                    colors: [
+                        .black,
+                        .black,
+                        .red.opacity(0.75)
+                    ],
+                    startPoint: .bottomLeading,
+                    endPoint: .topTrailing
+                )
             )
             .shadow(radius: 5)
             .cornerRadius(24)
@@ -122,6 +130,7 @@ struct GrandPrixCards: View {
                 Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
                     .font(.caption)
             }
+
             if !fastestLap.isEmpty {
                 HStack {
                     Image(systemName: Constant.stopWatchImage.rawValue)

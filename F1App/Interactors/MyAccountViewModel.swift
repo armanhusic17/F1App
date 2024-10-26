@@ -25,10 +25,3 @@ class MyAccountViewModel: ObservableObject {
         window.makeKeyAndVisible()
     }
 }
-
-extension View {
-    internal func randomTyreColor() -> Color {
-        let colors: [Color] = [.blue, .mint, .yellow]
-        return colors.randomElement() ?? .white
-    }
-}

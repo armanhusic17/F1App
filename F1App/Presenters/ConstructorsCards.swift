@@ -129,7 +129,15 @@ struct ConstructorsCards: View {
                         width: UIScreen.main.bounds.width - 44,
                         height: UIScreen.main.bounds.height/3
                     )
-                    .background(self.randomTyreColor())
+                    .background(LinearGradient(
+                        colors: [
+                            .black,
+                            .white,
+                            .black
+                        ],
+                        startPoint: .bottomLeading,
+                        endPoint: .topTrailing
+                    ))
                     .overlay(
                         Rectangle()
                             .stroke(
