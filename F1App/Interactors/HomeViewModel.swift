@@ -320,3 +320,31 @@ extension Array {
         }
     }
 }
+
+extension Locale {
+    /// Returns the flag emoji for a given country name or nil if the country is not found.
+    static func flag(for countryName: String) -> String? {
+        // Find the country code for the given country name.
+        let countryCodes = Locale.isoRegionCodes
+        var countryCode: String?
+        
+        for code in countryCodes {
+            let identifier = Locale.identifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+            let name = Locale(identifier: identifier).localizedString(forRegionCode: code)
+            if name?.lowercased() == countryName.lowercased() {
+                countryCode = code
+                break
+            }
+        }
+        
+        // Ensure a country code was found.
+        guard let code = countryCode else { return nil }
+        
+        // Convert the country code to a flag emoji.
+        return code
+            .unicodeScalars
+            .map { UnicodeScalar(127397 + $0.value)! }
+            .map { String($0) }
+            .joined()
+    }
+}

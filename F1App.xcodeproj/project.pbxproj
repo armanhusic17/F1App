@@ -10,7 +10,6 @@
 		0F0613492CB8E1D400ACC25E /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = 0F0613482CB8E1D400ACC25E /* Get */; };
 		0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0EC2562B84789200B0B639 /* HomeScreen.swift */; };
 		0F1021122A17064000695E8A /* userStory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F1021112A17064000695E8A /* userStory.storyboard */; };
-		0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */; };
 		0F1021172A17161700695E8A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1021162A17161700695E8A /* CoreData.framework */; };
 		0F215F0A2CB50D6F00A0DCB8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0F215F092CB50D6F00A0DCB8 /* FirebaseAnalytics */; };
 		0F215F0C2CB50D6F00A0DCB8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0F215F0B2CB50D6F00A0DCB8 /* FirebaseAuth */; };
@@ -19,7 +18,6 @@
 		0F215F132CB50DA300A0DCB8 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 0F215F122CB50DA300A0DCB8 /* GoogleSignIn */; };
 		0F215F152CB50DD700A0DCB8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0F215F142CB50DD700A0DCB8 /* FirebaseFirestore */; };
 		0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2B23C62C2929F90017860D /* ConstructorsCards.swift */; };
-		0F3A0A1B2A1AA060000A813F /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3A0A1A2A1AA060000A813F /* CoreDataHelper.swift */; };
 		0F3BF9302B1715C900CF275D /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3BF92F2B1715C900CF275D /* FirebaseAuth.swift */; };
 		0F4DDC7A2A93023A0070CDE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F4DDC792A93023A0070CDE9 /* GoogleService-Info.plist */; };
 		0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */; };
@@ -69,10 +67,8 @@
 /* Begin PBXFileReference section */
 		0F0EC2562B84789200B0B639 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		0F1021112A17064000695E8A /* userStory.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = userStory.storyboard; sourceTree = "<group>"; };
-		0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BoxBoxCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0F1021162A17161700695E8A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		0F2B23C62C2929F90017860D /* ConstructorsCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstructorsCards.swift; sourceTree = "<group>"; };
-		0F3A0A1A2A1AA060000A813F /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		0F3BF92F2B1715C900CF275D /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		0F4DDC792A93023A0070CDE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F515A0C27EC1BFE002129D7 /* F1App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = F1App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,8 +231,6 @@
 		0FB765A22805408100C32514 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */,
-				0F3A0A1A2A1AA060000A813F /* CoreDataHelper.swift */,
 				0F6458C12B09F83D00C48F1B /* WikiData.swift */,
 				0F6458C32B09F90000C48F1B /* ErgastData.swift */,
 				0FFC50542B1C06EC005ED8E6 /* FirebaseDataStorage.swift */,
@@ -434,14 +428,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F3A0A1B2A1AA060000A813F /* CoreDataHelper.swift in Sources */,
 				0FF3D5D02C4E1E840075FBD6 /* MyAccount.swift in Sources */,
 				0F72F9512CBA49EF00F9D591 /* RaceResultCards.swift in Sources */,
 				0FFC50552B1C06EC005ED8E6 /* FirebaseDataStorage.swift in Sources */,
 				0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */,
 				0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */,
 				0F7C698A2CC38B2A00DF920F /* NetworkClient.swift in Sources */,
-				0F1021152A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */,
 				0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */,
@@ -870,16 +862,6 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		0F1021132A170E1E00695E8A /* BoxBoxCoreData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */,
-			);
-			currentVersion = 0F1021142A170E1E00695E8A /* BoxBoxCoreData.xcdatamodel */;
-			path = BoxBoxCoreData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		0F515A1827EC1BFE002129D7 /* F1App.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
