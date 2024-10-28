@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel = HomeViewModel(
+    @StateObject var viewModel = HomeViewModel(
         networkClient: NetworkClient(), 
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
@@ -115,13 +115,12 @@ struct HomeScreen: View {
                     spacing: 16
                 ) {
                     ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
-                        let constructorName = driverStanding.constructor.first
                         DriversCards(
-                            wdcPosition: "WDC Position: \(driverStanding.position)",
-                            wdcPoints: "Points \(driverStanding.points)",
-                            constructorName: constructorName??.name ?? "Team Name",
-                            image: driverStanding.imageUrl ?? "🏎️",
-                            items: ["\(driverStanding.givenName ?? "First Name")\n\(driverStanding.familyName ?? "Last Name")"],
+                            wdcPosition: viewModel.wdcPosition(driverStanding: driverStanding),
+                            wdcPoints: viewModel.wdcPoints(driverStanding: driverStanding),
+                            constructorName: viewModel.constructorName(driverStanding: driverStanding),
+                            image: viewModel.driverImage(driverStanding: driverStanding),
+                            items: viewModel.driverName(driverStanding: driverStanding),
                             seasonYearSelected: viewModel.seasonYear
                         )
                     }
@@ -143,11 +142,11 @@ struct HomeScreen: View {
                     ForEach(Array(viewModel.constructorStandings.enumerated()), id: \.element) { index,constructorStanding in
                         ConstructorsCards(
                             wccPosition:
-                                "WCC Position: \(constructorStanding.position ?? "⏳")",
-                            wccPoints: "WCC Points: \(constructorStanding.points ?? "⏳")",
-                            constructorWins: "Wins: \(constructorStanding.wins ?? "⏳")",
-                            image: viewModel.constructorImages[safe: index] ?? "",
-                            items: ["\(constructorStanding.constructor?.name ?? "⏳")"],
+                                viewModel.wccPosition(constructorStanding: constructorStanding),
+                            wccPoints:  viewModel.wccPoints(constructorStanding: constructorStanding),
+                            constructorWins:  viewModel.wccWins(constructorStanding: constructorStanding),
+                            image:  viewModel.wccImage(index: index),
+                            items:  viewModel.wccName(constructorStanding: constructorStanding),
                             seasonYearSelected: viewModel.seasonYear
                         )
                     }
@@ -184,17 +183,18 @@ struct HomeScreen: View {
                                 }
                             ) {
                                 GrandPrixCards(
-                                    grandPrixName: "\(race.raceName ?? "⏳")",
-                                    circuitName: "\(race.circuit?.circuitName ?? "⏳")",
-                                    raceDate: "\(race.date ?? "⏳")",
-                                    raceTime: "\(race.time ?? "⏳")",
-                                    winnerName: viewModel.raceWinner[safe: index] ?? "⏳",
-                                    winnerTeam: viewModel.winningConstructor[safe: index] ?? "⏳",
-                                    winningTime: viewModel.winningTime[safe: index] ?? "⏳",
-                                    fastestLap: viewModel.winnerFastestLap[safe: index] ?? "⏳",
-                                    countryFlag: "\(race.circuit?.location?.country ?? "⏳")"
+                                    grandPrixName: viewModel.gpName(race: race),
+                                    circuitName: viewModel.gpCircuit(race: race),
+                                    raceDate: viewModel.gpDate(race: race),
+                                    raceTime: viewModel.gpTime(race: race),
+                                    winnerName: viewModel.gpWinner(index: index),
+                                    winnerTeam: viewModel.gpWinnerTeam(index: index),
+                                    winningTime: viewModel.gpWinnerTime(index: index),
+                                    fastestLap: viewModel.gpTeamFastestLap(index: index),
+                                    countryFlag: viewModel.gpTeamCountryFlag(race: race)
                                 )
                             }
+                            .environmentObject(viewModel)
                         }
                     }
                 }

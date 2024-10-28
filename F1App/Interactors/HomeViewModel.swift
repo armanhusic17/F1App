@@ -52,6 +52,86 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    // Drivers Collection
+    func wdcPosition(driverStanding: DriverStanding) -> String {
+        return "WDC Position: \(driverStanding.position)"
+    }
+    
+    func wdcPoints(driverStanding: DriverStanding) -> String {
+        return "Points \(driverStanding.points)"
+    }
+    
+    func constructorName(driverStanding: DriverStanding) -> String {
+        let constructorName = driverStanding.constructor.first
+        return constructorName??.name ?? "Team Name"
+    }
+    
+    func driverImage(driverStanding: DriverStanding) -> String {
+        return driverStanding.imageUrl ?? "🏎️"
+    }
+    
+    func driverName(driverStanding: DriverStanding) -> [String] {
+        return ["\(driverStanding.givenName ?? "First Name")\n\(driverStanding.familyName ?? "Last Name")"]
+    }
+    
+    // Constructor Collection
+    func wccPosition(constructorStanding: ConstructorStanding) -> String {
+        return "WCC Position: \(constructorStanding.position ?? "⏳")"
+    }
+    
+    func wccPoints(constructorStanding: ConstructorStanding) -> String {
+        return "WCC Points: \(constructorStanding.points ?? "⏳")"
+    }
+    
+    func wccWins(constructorStanding: ConstructorStanding) -> String {
+        return "Wins: \(constructorStanding.wins ?? "⏳")"
+    }
+    
+    func wccImage(index: Int) -> String {
+        return self.constructorImages[safe: index] ?? ""
+    }
+    
+    func wccName(constructorStanding: ConstructorStanding) -> [String] {
+        return ["\(constructorStanding.constructor?.name ?? "⏳")"]
+    }
+    
+    // Grand Prix Collection
+    func gpName(race: Race) -> String {
+        return "\(race.raceName ?? "⏳")"
+    }
+    
+    func gpCircuit(race: Race) -> String {
+        return "\(race.circuit?.circuitName ?? "⏳")"
+    }
+    
+    func gpDate(race: Race) -> String {
+        return "\(race.date ?? "⏳")"
+    }
+    
+    func gpTime(race: Race) -> String {
+        return "\(race.time ?? "⏳")"
+    }
+    
+    func gpWinner(index: Int) -> String {
+        return self.raceWinner[safe: index] ?? "⏳"
+    }
+    
+    func gpWinnerTeam(index: Int) -> String {
+        return self.winningConstructor[safe: index] ?? "⏳"
+    }
+    
+    func gpTeamFastestLap(index: Int) -> String {
+        return self.winnerFastestLap[safe: index] ?? "⏳"
+    }
+    
+    func gpTeamCountryFlag(race: Race) -> String {
+        return "\(race.circuit?.location?.country ?? "⏳")"
+    }
+    
+    func gpWinnerTime(index: Int) -> String {
+        return self.winningTime[safe: index] ?? "⏳"
+    }
+    
     private func initializeData() async {
         self.raceResultViewModel = RaceResultViewModel()
     }
@@ -238,5 +318,33 @@ extension Array {
             let key = key(element)
             return seenKeys.insert(key).inserted
         }
+    }
+}
+
+extension Locale {
+    /// Returns the flag emoji for a given country name or nil if the country is not found.
+    static func flag(for countryName: String) -> String? {
+        // Find the country code for the given country name.
+        let countryCodes = Locale.isoRegionCodes
+        var countryCode: String?
+        
+        for code in countryCodes {
+            let identifier = Locale.identifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+            let name = Locale(identifier: identifier).localizedString(forRegionCode: code)
+            if name?.lowercased() == countryName.lowercased() {
+                countryCode = code
+                break
+            }
+        }
+        
+        // Ensure a country code was found.
+        guard let code = countryCode else { return nil }
+        
+        // Convert the country code to a flag emoji.
+        return code
+            .unicodeScalars
+            .map { UnicodeScalar(127397 + $0.value)! }
+            .map { String($0) }
+            .joined()
     }
 }
