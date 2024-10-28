@@ -142,6 +142,7 @@ struct ConstructorsCards: View {
                 image
                     .resizable()
                     .renderingMode(.original)
+                    .scaledToFill()
                     .frame(
                         width: UIScreen.main.bounds.width - 44,
                         height: UIScreen.main.bounds.height/3
