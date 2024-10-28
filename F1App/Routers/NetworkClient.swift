@@ -233,7 +233,7 @@ class NetworkClient {
     
     func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> String {
         let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        let urlStr = "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=\(encodedName)%20racing%20team&prop=pageimages&format=json&gsrlimit=3&redirects=1&pithumbsize=250"
+        let urlStr = "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=\(encodedName)%20racing%20team&prop=pageimages&format=json&gsrlimit=3&redirects=1&pithumbsize=800"
 
         guard let url = URL(string: urlStr) else {
             print(URLError(.badURL))
@@ -274,7 +274,7 @@ class NetworkClient {
         }
 
         let pageID = firstResult.pageid
-        let pageURLStr = "https://en.wikipedia.org/w/api.php?action=query&pageids=\(pageID)&prop=pageimages&format=json&pithumbsize=250"
+        let pageURLStr = "https://en.wikipedia.org/w/api.php?action=query&pageids=\(pageID)&prop=pageimages&format=json&pithumbsize=800"
 
         guard let pageURL = URL(string: pageURLStr) else {
             throw ImageFetchError.invalidURL
