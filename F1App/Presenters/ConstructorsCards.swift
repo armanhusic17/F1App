@@ -20,7 +20,7 @@ struct ConstructorsCards: View {
         case trophyImage = "trophy.circle"
         case trophyFillImage = "flag.checkered.circle.fill"
         case checkeredFlag = "flag.checkered.circle"
-        case carCircleImage = "gridPulseWhite_large"
+        case carCircleImage = "gridPulseRed_1024"
         case WCCLabel = "WCC Champion"
         case wccLabel = "World Constructors' Championship Standings"
     }
@@ -59,15 +59,32 @@ struct ConstructorsCards: View {
                     .padding()
                     .foregroundStyle(.white)
                     .background(
-                        LinearGradient(
-                            colors: [
-                                .black,
-                                .red,
-                                .black
-                            ],
-                            startPoint: .bottomLeading,
-                            endPoint: .topTrailing
-                        )
+                        TimelineView(.animation) { timeline in
+                            let x = (cos(timeline.date.timeIntervalSince1970) + 1) / 2
+
+                            if #available(iOS 18.0, *) {
+                                MeshGradient(width: 3, height: 3, points: [
+                                    [0, 0], [Float(x), 0], [1, 0],
+                                    [0, 0.75], [Float(x), 0.5], [1, Float(x)],
+                                    [0, 1], [0.95, 1], [1, 1]
+                                ], colors: [
+                                    .black, .black, .black,
+                                    .black, .gray.opacity(0.15), .black,
+                                    .black, .black, .black
+                                ])
+                            } else {
+                                // Fallback on earlier versions
+                                LinearGradient(
+                                    colors: [
+                                        .black,
+                                        .red,
+                                        .black
+                                    ],
+                                    startPoint: .bottomLeading,
+                                    endPoint: .topTrailing
+                                )
+                            }
+                        }
                     )
                     .cornerRadius(24)
                 }
@@ -129,15 +146,19 @@ struct ConstructorsCards: View {
                         width: UIScreen.main.bounds.width - 44,
                         height: UIScreen.main.bounds.height/3
                     )
-                    .background(self.randomTyreColor())
+                    .background(LinearGradient(
+                        colors: [
+                            .black,
+                            .white,
+                            .black
+                        ],
+                        startPoint: .bottomLeading,
+                        endPoint: .topTrailing
+                    ))
                     .overlay(
                         Rectangle()
                             .stroke(
-                                LinearGradient(
-                                    colors: [ .black, .black, .black, .black ],
-                                    startPoint: .bottomLeading,
-                                    endPoint: .topTrailing
-                                )
+                                .black
                             )
                     )
                     .cornerRadius(24)
@@ -163,11 +184,11 @@ struct ConstructorsCards: View {
 
 #Preview {
     ConstructorsCards(
-        wccPosition: "",
-        wccPoints: "",
-        constructorWins: "",
-        image: "",
-        items: ["", ""],
-        seasonYearSelected: ""
+        wccPosition: "1",
+        wccPoints: "500",
+        constructorWins: "Ferrari",
+        image: "car",
+        items: ["Lewis Hamilton"],
+        seasonYearSelected: "2025"
     )
 }

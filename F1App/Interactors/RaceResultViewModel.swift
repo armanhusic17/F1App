@@ -19,6 +19,40 @@ class RaceResultViewModel: ObservableObject {
     }
 
     init() { /* No Op*/ }
+    
+    func resultsPositionAndStatus(resultStatus: Result, index: Int) -> String {
+        let resultStatusString = "\(resultStatus.status ?? ""): P\(resultStatus.position ?? "\(index + 1)")"
+        return resultStatusString
+    }
+    
+    func resultsQualified(result: Result) -> String {
+        return "Qualified: P\(result.grid ?? "")"
+    }
+    
+    func resultsPoints(result: Result) -> String {
+        return "Points: \(result.points ?? "")"
+    }
+    
+    func resultsFastestLap(fastestLapTime: String, fastestLap: String) -> String {
+        return "Fastest Lap: \(fastestLapTime), Lap: \(fastestLap)"
+    }
+    
+    func raceDate(race: Race) -> String {
+        return "\(race.date ?? ""), \(race.time ?? "")"
+    }
+    
+    func constructorName(result: Result) -> String {
+        return "\(result.constructor?.name ?? "")"
+    }
+    
+    func driverName(result: Result) -> String {
+        return "\(result.driver?.givenName ?? "") \(result.driver?.familyName ?? "")"
+    }
+    
+    func driverNumber(result: Result) -> String? {
+        guard let driverNumber = result.driver?.permanentNumber else { return nil}
+        return "#\(driverNumber)"
+    }
 
     var customGrandient: LinearGradient {
         LinearGradient(
