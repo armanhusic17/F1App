@@ -194,7 +194,6 @@ struct HomeScreen: View {
                                     countryFlag: viewModel.gpTeamCountryFlag(race: race)
                                 )
                             }
-                            .environmentObject(viewModel)
                         }
                     }
                 }
