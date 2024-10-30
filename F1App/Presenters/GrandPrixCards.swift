@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct GrandPrixCards: View {
-    @EnvironmentObject var viewMoel: HomeViewModel
     let grandPrixName: String
     let circuitName: String
     let raceDate: String
@@ -86,7 +85,7 @@ struct GrandPrixCards: View {
                 .padding([.horizontal, .top], 16)
                 .background(
                     TimelineView(.animation) { timeline in
-                        let x = (tan(timeline.date.timeIntervalSince1970) + 4) / 9
+                        let x = (sin(timeline.date.timeIntervalSince1970) + 1) / 2
 
                         MeshGradient(width: 3, height: 3, points: [
                             [0, 0], [Float(x), 0], [1, 0],
