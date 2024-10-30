@@ -60,7 +60,7 @@ struct ConstructorsCards: View {
                     .foregroundStyle(.white)
                     .background(
                         TimelineView(.animation) { timeline in
-                            let x = (cos(timeline.date.timeIntervalSince1970) + 1) / 2
+                            let x = (cos(timeline.date.timeIntervalSince1970) + 1.5) / 3
 
                             if #available(iOS 18.0, *) {
                                 MeshGradient(width: 3, height: 3, points: [
@@ -187,9 +187,9 @@ struct ConstructorsCards: View {
     ConstructorsCards(
         wccPosition: "1",
         wccPoints: "500",
-        constructorWins: "Ferrari",
+        constructorWins: "Lewis Hamilton",
         image: "car",
-        items: ["Lewis Hamilton"],
+        items: ["Ferrari"],
         seasonYearSelected: "2025"
     )
 }
