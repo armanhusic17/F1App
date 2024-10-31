@@ -5,6 +5,7 @@
 //  Created by Arman Husic on 10/18/24.
 //
 
+import SwiftUI
 import Foundation
 import Get
 
@@ -231,13 +232,23 @@ class NetworkClient {
         }
     }
     
-    func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> String {
+    func fetchConstructorImageFromWikipedia(constructorName: String) async throws -> Image {
+        let cacheIdentifier = "constructor_\(constructorName)"
+        
+        // check if the data exists in cache
+        if let cachedData = FileManager.default.loadCachedImageData(for: cacheIdentifier),
+           let uiImage = UIImage(data: cachedData) {
+            print("Using cached image for \(constructorName)")
+            return Image(uiImage: uiImage)
+        }
+        
+        // encode name for url and fetch the image url
         let encodedName = constructorName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let urlStr = "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=\(encodedName)%20racing%20team&prop=pageimages&format=json&gsrlimit=6&redirects=1&pithumbsize=800"
 
         guard let url = URL(string: urlStr) else {
             print(URLError(.badURL))
-            return "bad_url"
+            throw URLError(.badURL)
         }
 
         do {
@@ -246,9 +257,18 @@ class NetworkClient {
             
             if let pageID = wikipediaData.query.pages.keys.first,
                let page = wikipediaData.query.pages[pageID],
-               let thumbnailURL = page.thumbnail?.source {
-                print(thumbnailURL)
-                return thumbnailURL
+               let thumbnailURLString = page.thumbnail?.source,
+               let thumbnailURL = URL(string: thumbnailURLString) {
+                
+                // doanload the image data from the thumbnailURL
+                let (imageData, _) = try await URLSession.shared.data(from: thumbnailURL)
+                FileManager.default.saveImageDataToCache(imageData, for: cacheIdentifier)
+                print("Fetched and cached image for constructor: \(constructorName)")
+                
+                // return as swiftui image
+                if let uiImage = UIImage(data: imageData) {
+                    return Image(uiImage: uiImage)
+                }
             }
         } catch {
             print("Direct query failed: \(error)")
@@ -258,7 +278,7 @@ class NetworkClient {
         return try await fetchConstructorImage(constructorName: constructorName)
     }
         
-    func fetchConstructorImage(constructorName: String) async throws -> String {
+    func fetchConstructorImage(constructorName: String) async throws -> Image {
         let query = constructorName.addingPercentEncodingForWikipedia()
         let searchURLStr = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=\(query)&format=json"
 
@@ -284,12 +304,20 @@ class NetworkClient {
         let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: pageData)
         
         guard let page = wikipediaData.query.pages["\(pageID)"],
-              let thumbnailURL = page.thumbnail?.source else {
+              let thumbnailURL = page.thumbnail?.source,
+              let imageURL = URL(string: thumbnailURL) else {
             throw ImageFetchError.dataError(description: "No image found for \(constructorName)")
         }
         
-        print(thumbnailURL)
-        return thumbnailURL
+        let (imageData, _) = try await URLSession.shared.data(from: imageURL)
+        let cacheIdentifier = "constructorImage_\(constructorName)"
+        FileManager.default.saveImageDataToCache(imageData, for: cacheIdentifier)
+        
+        if let uiImage = UIImage(data: imageData) {
+            return Image(uiImage: uiImage)
+        } else {
+            throw ImageFetchError.dataError(description: "Image conversion failed for : \(constructorName)")
+        }
     }
 }
 
