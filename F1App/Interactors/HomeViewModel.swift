@@ -26,7 +26,7 @@ class HomeViewModel: ObservableObject {
     @Published var winnerFastestLap: [String] = []
     @Published var errorMessage: String?
     @Published var constructorStandings: [ConstructorStanding] = []
-    @Published var constructorImages: [String] = []
+    @Published var constructorImages: [Image] = []
     @Published var seasonYear: String = "\(Calendar.current.component(.year, from: Date()))" {
         didSet {
             Task {
@@ -87,8 +87,8 @@ class HomeViewModel: ObservableObject {
         return "Wins: \(constructorStanding.wins ?? "⏳")"
     }
     
-    func wccImage(index: Int) -> String {
-        return self.constructorImages[safe: index] ?? ""
+    func wccImage(index: Int) -> Image {
+        return self.constructorImages[safe: index] ?? Image("gridPulseRed_1024")
     }
     
     func wccName(constructorStanding: ConstructorStanding) -> [String] {
@@ -229,7 +229,7 @@ class HomeViewModel: ObservableObject {
                     print(self?.constructorStandings[safe: index]?.constructor?.name ?? "Unable to get constructor name")
                 } catch {
                     // Handle errors such as display an error message
-                    self?.constructorImages.append("bad_url")
+                    self?.constructorImages.append(Image("gridPulseRed_1024"))
                     print("Constructors wikipedia fetch failed to gather data...\(error)")
                 }
             }

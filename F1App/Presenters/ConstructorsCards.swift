@@ -12,7 +12,7 @@ struct ConstructorsCards: View {
     let wccPosition: String
     let wccPoints: String
     let constructorWins: String
-    let image: String
+    let image: Image
     let items: [String]
     let seasonYearSelected: String
 
@@ -29,7 +29,7 @@ struct ConstructorsCards: View {
         wccPosition: String,
         wccPoints: String,
         constructorWins: String,
-        image: String,
+        image: Image,
         items: [String],
         seasonYearSelected: String
     ) {
@@ -138,47 +138,22 @@ struct ConstructorsCards: View {
     @MainActor
     @ViewBuilder private var constructorImage: some View {
         ZStack(alignment: .leading) {
-            AsyncImage(url: URL(string: image)) { image in
-                image
-                    .resizable()
-                    .renderingMode(.original)
-                    .scaledToFill()
-                    .frame(
-                        width: UIScreen.main.bounds.width - 44,
-                        height: UIScreen.main.bounds.height/3
-                    )
-                    .background(LinearGradient(
-                        colors: [
-                            .black,
-                            .white,
-                            .black
-                        ],
-                        startPoint: .bottomLeading,
-                        endPoint: .topTrailing
-                    ))
-                    .overlay(
-                        Rectangle()
-                            .stroke(
-                                .black
-                            )
-                    )
-                    .cornerRadius(24)
-            }
-            placeholder: {
-                if let uiImage = UIImage(named: Constant.carCircleImage.rawValue) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .frame(
-                            width: UIScreen.main.bounds.width - 44,
-                            height: UIScreen.main.bounds.height/3
-                        )
-                        .foregroundStyle(
+            image
+                .resizable()
+                .renderingMode(.original)
+                .frame(
+                    width: UIScreen.main.bounds.width - 44,
+                    height: UIScreen.main.bounds.height/3
+                )
+                .foregroundStyle(.black.opacity(0.75))
+                .background(.white.opacity(0.85))
+                .overlay(
+                    Rectangle()
+                        .stroke(
                             .black
                         )
-                        .scaledToFit()
-                        .cornerRadius(24.0)
-                }
-            }
+                )
+                .cornerRadius(24)
         }
     }
 }
@@ -188,7 +163,7 @@ struct ConstructorsCards: View {
         wccPosition: "1",
         wccPoints: "500",
         constructorWins: "Lewis Hamilton",
-        image: "car",
+        image: Image("gridPulseRed_1024"),
         items: ["Ferrari"],
         seasonYearSelected: "2025"
     )
