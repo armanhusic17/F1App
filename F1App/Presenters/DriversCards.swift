@@ -16,7 +16,7 @@ struct DriversCards: View {
     let seasonYearSelected: String
 
     private enum Constant: String {
-        case personIcon = "person.circle"
+        case personIcon = "lewis"
         case trophyImage = "trophy.circle.fill"
         case checkeredFlag = "flag.checkered.circle"
         case carCircleImage = "car.circle"
@@ -132,7 +132,7 @@ struct DriversCards: View {
                             )
                     )
             } placeholder: {
-                Image(systemName: Constant.personIcon.rawValue)
+                Image(Constant.personIcon.rawValue)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 200)

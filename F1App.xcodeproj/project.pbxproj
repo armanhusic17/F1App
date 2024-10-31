@@ -34,6 +34,7 @@
 		0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6FA07B287FB52C000E8F49 /* circuitLogo.png */; };
 		0F72F9512CBA49EF00F9D591 /* RaceResultCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72F9502CBA49EF00F9D591 /* RaceResultCards.swift */; };
 		0F72F9532CBF939900F9D591 /* RaceResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */; };
+		0F74F6702CD2D93C00D489BE /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F74F66F2CD2D93C00D489BE /* CacheManager.swift */; };
 		0F7C698A2CC38B2A00DF920F /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7C69892CC38B2A00DF920F /* NetworkClient.swift */; };
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
@@ -89,6 +90,7 @@
 		0F6FA07B287FB52C000E8F49 /* circuitLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circuitLogo.png; sourceTree = "<group>"; };
 		0F72F9502CBA49EF00F9D591 /* RaceResultCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResultCards.swift; sourceTree = "<group>"; };
 		0F72F9522CBF939900F9D591 /* RaceResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceResultViewModel.swift; sourceTree = "<group>"; };
+		0F74F66F2CD2D93C00D489BE /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		0F7C69892CC38B2A00DF920F /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				0F6458C12B09F83D00C48F1B /* WikiData.swift */,
 				0F6458C32B09F90000C48F1B /* ErgastData.swift */,
 				0FFC50542B1C06EC005ED8E6 /* FirebaseDataStorage.swift */,
+				0F74F66F2CD2D93C00D489BE /* CacheManager.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				0F0EC2572B84789200B0B639 /* HomeScreen.swift in Sources */,
 				0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */,
 				0F7C698A2CC38B2A00DF920F /* NetworkClient.swift in Sources */,
+				0F74F6702CD2D93C00D489BE /* CacheManager.swift in Sources */,
 				0F515A1027EC1BFE002129D7 /* AppDelegate.swift in Sources */,
 				0F2B23C72C2929F90017860D /* ConstructorsCards.swift in Sources */,
 				0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */,
