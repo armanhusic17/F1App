@@ -269,7 +269,7 @@ class NetworkClient {
                 if let uiImage = UIImage(data: imageData) {
                     return Image(uiImage: uiImage)
                 } else {
-                    return Image(uiImage: UIImage(systemName: "car.fill")!)
+                    return Image(uiImage: UIImage(systemName: "car.fill") ?? UIImage())
                 }
             }
         } catch {
