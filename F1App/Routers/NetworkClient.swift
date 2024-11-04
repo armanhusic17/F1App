@@ -268,6 +268,8 @@ class NetworkClient {
                 // return as swiftui image
                 if let uiImage = UIImage(data: imageData) {
                     return Image(uiImage: uiImage)
+                } else {
+                    return Image(uiImage: UIImage(systemName: "car.fill")!)
                 }
             }
         } catch {
