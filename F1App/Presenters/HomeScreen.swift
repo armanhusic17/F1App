@@ -52,7 +52,8 @@ struct HomeScreen: View {
             Text(HomeViewModel.Constant.homescreenTitle.rawValue)
                 .font(.headline)
                 .bold()
-                .foregroundStyle(.white.opacity(0.10))
+                .italic()
+                .foregroundStyle(.white.opacity(0.1))
                 .padding()
 
             SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
