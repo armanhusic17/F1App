@@ -57,7 +57,7 @@ class NetworkClient {
                 let (data, _) = try await URLSession.shared.data(from: url)
                 let json = try JSONDecoder().decode(Root.self, from: data)
                 
-                if seasonYear != "2024" {
+                if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
                     saveCachedData(data, for: seasonYear, queryKey: "cache_worldDriversChampionshipStandings_")
                 }
                 
@@ -197,7 +197,7 @@ class NetworkClient {
         let root = try await apiClient.send(request).value
         
         if let data = try? JSONEncoder().encode(root) {
-            if season != "2024" {
+            if season != "\(Calendar.current.component(.year, from: Date()))" {
                 saveCachedData(data, for: season, queryKey: "raceResults_\(round)_\(season)")
             }
         }
@@ -221,7 +221,7 @@ class NetworkClient {
         let request = Request<Root>(path: "\(year).json", method: .get)
         do {
             let root = try await apiClient.send(request).value
-            if year != "2024" {
+            if year != "\(Calendar.current.component(.year, from: Date()))" {
                 let data = try JSONEncoder().encode(root)
                 saveCachedData(data, for: year, queryKey: cacheKey)
             }
@@ -268,6 +268,8 @@ class NetworkClient {
                 // return as swiftui image
                 if let uiImage = UIImage(data: imageData) {
                     return Image(uiImage: uiImage)
+                } else {
+                    return Image(uiImage: UIImage(systemName: "car.fill") ?? UIImage())
                 }
             }
         } catch {
