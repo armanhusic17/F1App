@@ -9,14 +9,14 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @StateObject var viewModel = HomeViewModel(
-        networkClient: NetworkClient(), 
-        seasonYear: "\(Calendar.current.component(.year, from: Date()))"
-    )
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
     @State private var isSheetPresented = false
-
+    @StateObject var viewModel = HomeViewModel(
+        networkClient: NetworkClient(),
+        seasonYear: "\(Calendar.current.component(.year, from: Date()))"
+    )
+    
     var body: some View {
         NavigationStack {
             ZStack {
