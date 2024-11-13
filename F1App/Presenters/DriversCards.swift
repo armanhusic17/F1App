@@ -16,7 +16,7 @@ struct DriversCards: View {
     let seasonYearSelected: String
 
     private enum Constant: String {
-        case personIcon = "person.circle"
+        case personIcon = "lewis"
         case trophyImage = "trophy.circle.fill"
         case checkeredFlag = "flag.checkered.circle"
         case carCircleImage = "car.circle"
@@ -63,18 +63,35 @@ struct DriversCards: View {
                     .padding()
                     .foregroundStyle(.white)
                     .background(
-                        LinearGradient(
-                            colors: [
-                                .red,
-                                .black,
-                                .black
-                            ],
-                            startPoint: .bottomLeading,
-                            endPoint: .topTrailing
-                        )
-                        .border(Color.black, width: 0.25)
-                        .cornerRadius(24)
+                        TimelineView(.animation) { timeline in
+                            let x = (sin(timeline.date.timeIntervalSince1970) + 1) / 2
+
+                            if #available(iOS 18.0, *) {
+                                MeshGradient(width: 3, height: 3, points: [
+                                    [0, 0], [Float(x), 0], [1, 0],
+                                    [0, 0.75], [0.5, 0.5], [1, Float(x)],
+                                    [0, 1], [0.95, 1], [1, 1]
+                                ], colors: [
+                                    .black, .gray.opacity(0.25), .red.opacity(0.5),
+                                    .black, .black, .black,
+                                    .black, .black, .black
+                                ])
+                            } else {
+                                // Fallback on earlier versions
+                                LinearGradient(
+                                    colors: [
+                                        .red,
+                                        .black,
+                                        .black
+                                    ],
+                                    startPoint: .bottomLeading,
+                                    endPoint: .topTrailing
+                                )
+                            }
+                        }
                     )
+                    .border(Color.black, width: 0.25)
+                    .cornerRadius(24)
                 }
             }
         }
@@ -115,7 +132,7 @@ struct DriversCards: View {
                             )
                     )
             } placeholder: {
-                Image(systemName: Constant.personIcon.rawValue)
+                Image(Constant.personIcon.rawValue)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 200)

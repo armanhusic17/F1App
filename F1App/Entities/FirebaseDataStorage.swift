@@ -26,28 +26,4 @@ class FirebaseDataStorage {
             }
         }
     }
-
-    func getImag(coreData: CoreDataHelper, img: String){
-        self.getDataFromFirebase(fromPath: img) { result in
-            switch result {
-            case .success(let data):
-                // Handle the successful retrieval of data
-                // For example, if this is image data, you can convert it to UIImage
-                guard let image = UIImage(data: data) else {return}
-                DispatchQueue.main.async {
-                    // Update your UI on the main thread
-                    print(image)
-                    coreData.saveImage(image: image) { Success, Error in
-                        if Success {
-                            print("SUCCESSFULLY SAVED IMAGE FROM FIREBASE")
-                        }
-                    }
-                }
-            case .failure(let error):
-                // Handle any errors
-                print("Error fetching data: \(error.localizedDescription)")
-                // You may also want to show an alert or some error message to the user
-            }
-        }
-    }
 }
