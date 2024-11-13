@@ -30,9 +30,6 @@ class UserAuth: UIViewController, AuthModelDelegate {
         super.viewDidLoad()
         model.delegate = self
         formatViews()
-        // DEBUG CODE
-        performTransition()
-        // REMOVE ABOVE IN RELEASE VERSION
     }
 
     func formatViews(){

@@ -34,13 +34,13 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     enum Constant: String {
         case homescreenTitle = "Grid Pulse"
         case wdcLabel = "World Drivers' Championship Standings"
         case grandPrixLabel = "Grand Prix Results"
     }
-    
+
     init(
         networkClient: NetworkClient,
         seasonYear: String
@@ -177,6 +177,7 @@ class HomeViewModel: ObservableObject {
         isLoadingDrivers = true
         do {
             let standings = try await networkClient.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
+
             driverStandings.removeAll()
             driverStandings.append(contentsOf: standings.unique(by: {$0.familyName}))
             // Update UI or state with standings
