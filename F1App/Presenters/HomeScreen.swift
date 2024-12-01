@@ -7,15 +7,16 @@
 
 import SwiftUI
 import UIKit
+import GoogleGenerativeAI
 
 struct HomeScreen: View {
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
     @State private var isSheetPresented = false
     @StateObject var viewModel = HomeViewModel(
-        networkClient: NetworkClient(),
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
+    @State var generatedText: String = "Hello, World!"
     
     var body: some View {
         NavigationStack {
@@ -201,7 +202,32 @@ struct HomeScreen: View {
             }
         }
     }
+    
+    private func generateContent() async throws -> String {
+        let generativeModel =
+          GenerativeModel(
+            // Specify a Gemini model appropriate for your use case
+            name: "gemini-1.5-flash-8b",
+            // Access your API key from your on-demand resource .plist file (see "Set up your API key"
+            // above)
+            apiKey: APIKey.default
+          )
 
+        let prompt = "Write a 2 sentence review of the 2008 Formula 1 season. Only include facts."
+        
+        do {
+            let response = try await generativeModel.generateContent(prompt)
+            if let text = response.text {
+                generatedText = text
+                print("\(text)")
+                return generatedText
+            }
+        } catch {
+            throw error
+        }
+        
+        return ""
+    }
 }
 
 #Preview {
