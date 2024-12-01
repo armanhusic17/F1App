@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UIKit
-import GoogleGenerativeAI
+@preconcurrency import GoogleGenerativeAI
 
 struct HomeScreen: View {
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
