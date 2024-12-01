@@ -45,12 +45,9 @@ struct DriversCards: View {
     }
     
     @ViewBuilder private func content(item: String) -> some View {
-        VStack {
-            driverDemographics(item: item)
-            lineBelowImage
-            driverStats
-                .padding(.horizontal)
-        }
+        driverDemographics(item: item)
+        lineBelowImage
+        driverStats
     }
     
     @ViewBuilder private var scrollView: some View {
@@ -185,6 +182,8 @@ struct DriversCards: View {
             .fixedSize(horizontal: false, vertical: true)
             Spacer()
         }
+        .padding(.horizontal)
+
     }
 }
 

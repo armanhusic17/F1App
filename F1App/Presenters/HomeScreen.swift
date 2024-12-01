@@ -7,15 +7,16 @@
 
 import SwiftUI
 import UIKit
+import GoogleGenerativeAI
 
 struct HomeScreen: View {
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
     @State private var isSheetPresented = false
     @StateObject var viewModel = HomeViewModel(
-        networkClient: NetworkClient(),
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
+    @State var generatedText: String = "Hello, World!"
     
     var body: some View {
         NavigationStack {
@@ -42,6 +43,13 @@ struct HomeScreen: View {
 
     @ViewBuilder private var content: some View {
         VStack {
+            Button(action: {
+                Task {
+                    try await generateContent()
+                }
+            }) {
+                Text("GENERATE")
+            }
             HomeTopBar
             QueriesScrollView
         }
@@ -201,7 +209,53 @@ struct HomeScreen: View {
             }
         }
     }
+    
+    private func generateContent() async throws -> String {
+        let generativeModel =
+          GenerativeModel(
+            // Specify a Gemini model appropriate for your use case
+            name: "gemini-1.5-flash-8b",
+            // Access your API key from your on-demand resource .plist file (see "Set up your API key"
+            // above)
+            apiKey: APIKey.default
+          )
 
+        let prompt = "Write a 2 sentence review of the 2008 Formula 1 season. Only include facts."
+        
+        do {
+            let response = try await generativeModel.generateContent(prompt)
+            if let text = response.text {
+                generatedText = text
+                print("\(text)")
+                return generatedText
+            }
+        } catch {
+            throw error
+        }
+        
+        return ""
+    }
+
+}
+
+enum APIKey {
+  // Fetch the API key from `GenerativeAI-Info.plist`
+  static var `default`: String {
+      guard let filePath = Bundle.main.path(forResource: "GenerativeAI-Info", ofType: "plist")
+      else {
+        fatalError("Couldn't find file 'GenerativeAI-Info.plist'.")
+      }
+      let plist = NSDictionary(contentsOfFile: filePath)
+      guard let value = plist?.object(forKey: "API_KEY") as? String else {
+        fatalError("Couldn't find key 'API_KEY' in 'GenerativeAI-Info.plist'.")
+      }
+      if value.starts(with: "_") {
+        fatalError(
+          "Follow the instructions at https://ai.google.dev/tutorials/setup to get an API key."
+        )
+      }
+      return value
+  }
 }
 
 #Preview {

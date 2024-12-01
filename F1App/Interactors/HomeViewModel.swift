@@ -42,10 +42,9 @@ class HomeViewModel: ObservableObject {
     }
     
     init(
-        networkClient: NetworkClient,
         seasonYear: String
     ) {
-        self.networkClient = networkClient
+        self.networkClient = NetworkClient()
         self.seasonYear = seasonYear
         Task {
             await initializeData()
