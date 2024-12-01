@@ -43,13 +43,6 @@ struct HomeScreen: View {
 
     @ViewBuilder private var content: some View {
         VStack {
-            Button(action: {
-                Task {
-                    try await generateContent()
-                }
-            }) {
-                Text("GENERATE")
-            }
             HomeTopBar
             QueriesScrollView
         }

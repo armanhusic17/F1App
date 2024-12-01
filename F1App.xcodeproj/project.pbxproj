@@ -40,7 +40,7 @@
 		0F865B0B2BE34965008A8076 /* SeasonSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0A2BE34965008A8076 /* SeasonSelector.swift */; };
 		0F865B0F2C0290CA008A8076 /* DriversCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F865B0E2C0290CA008A8076 /* DriversCards.swift */; };
 		0F898BC32C39317100EE9860 /* GrandPrixCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F898BC22C39317100EE9860 /* GrandPrixCards.swift */; };
-		0FA86ED12CFCFD9A0040364C /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA86ED02CFCFD9A0040364C /* GenerativeAI-Info.plist */; };
+		0FA86ED32CFD021C0040364C /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FA86ED22CFD021C0040364C /* GenerativeAI-Info.plist */; };
 		0FA962892BDD6A9600D515F3 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA962882BDD6A9600D515F3 /* AuthModel.swift */; };
 		0FA9628C2BDDA0A300D515F3 /* AuthModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */; };
 		0FA962902BDDB92300D515F3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */; };
@@ -97,7 +97,7 @@
 		0F865B0A2BE34965008A8076 /* SeasonSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonSelector.swift; sourceTree = "<group>"; };
 		0F865B0E2C0290CA008A8076 /* DriversCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversCards.swift; sourceTree = "<group>"; };
 		0F898BC22C39317100EE9860 /* GrandPrixCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrandPrixCards.swift; sourceTree = "<group>"; };
-		0FA86ED02CFCFD9A0040364C /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
+		0FA86ED22CFD021C0040364C /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		0FA962882BDD6A9600D515F3 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		0FA9628B2BDDA0A300D515F3 /* AuthModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModelDelegate.swift; sourceTree = "<group>"; };
 		0FA9628F2BDDB92300D515F3 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 				0FDB0D122863D7CF00A07E6A /* Reuse */,
 				0F515A1B27EC1BFF002129D7 /* Assets.xcassets */,
 				0F515A2027EC1BFF002129D7 /* Info.plist */,
-				0FA86ED02CFCFD9A0040364C /* GenerativeAI-Info.plist */,
+				0FA86ED22CFD021C0040364C /* GenerativeAI-Info.plist */,
 				0F4DDC792A93023A0070CDE9 /* GoogleService-Info.plist */,
 				0F515A1827EC1BFE002129D7 /* F1App.xcdatamodeld */,
 				0F515A0F27EC1BFE002129D7 /* AppDelegate.swift */,
@@ -410,7 +410,7 @@
 			files = (
 				0F4DDC7A2A93023A0070CDE9 /* GoogleService-Info.plist in Resources */,
 				0F6FA07C287FB52C000E8F49 /* circuitLogo.png in Resources */,
-				0FA86ED12CFCFD9A0040364C /* GenerativeAI-Info.plist in Resources */,
+				0FA86ED32CFD021C0040364C /* GenerativeAI-Info.plist in Resources */,
 				0F515A1F27EC1BFF002129D7 /* LaunchScreen.storyboard in Resources */,
 				0F1021122A17064000695E8A /* userStory.storyboard in Resources */,
 				0F515A1C27EC1BFF002129D7 /* Assets.xcassets in Resources */,
