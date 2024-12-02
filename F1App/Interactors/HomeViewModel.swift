@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+@preconcurrency import GoogleGenerativeAI
 
 @MainActor
 class HomeViewModel: ObservableObject {
     private let networkClient: NetworkClient
+    @Published var generatedText: String = ""
     @Published var raceResultViewModel: RaceResultViewModel? = nil
     @Published var isLoadingGrandPrix = false
     @Published var isLoadingDrivers = false
@@ -31,6 +33,7 @@ class HomeViewModel: ObservableObject {
         didSet {
             Task {
                 await self.reloadDataForNewSeason()
+                seasonSynapse()
             }
         }
     }
@@ -42,13 +45,19 @@ class HomeViewModel: ObservableObject {
     }
     
     init(
-        networkClient: NetworkClient,
         seasonYear: String
     ) {
-        self.networkClient = networkClient
+        self.networkClient = NetworkClient()
         self.seasonYear = seasonYear
         Task {
             await initializeData()
+            seasonSynapse()
+        }
+    }
+    
+    func seasonSynapse() {
+        Task {
+            generatedText = try await generateContent(seasonYear: seasonYear)
         }
     }
     
@@ -309,6 +318,32 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    private func generateContent(seasonYear: String) async throws -> String {
+        let generativeModel =
+          GenerativeModel(
+            // Specify a Gemini model appropriate for your use case
+            name: "gemini-1.5-flash-8b",
+            // Access your API key from your on-demand resource .plist file (see "Set up your API key"
+            // above)
+            apiKey: APIKey.default
+          )
+
+        let prompt = "Write a short poem summary about the \(seasonYear) Formula 1 season."
+        
+        do {
+            let response = try await generativeModel.generateContent(prompt)
+            if let text = response.text {
+                generatedText = text
+                print("GENERATED TEXT OUTPUT - \(text)")
+                return generatedText
+            }
+        } catch {
+            throw error
+        }
+        
+        return ""
+    }
 }
 
 extension Array {
@@ -347,4 +382,24 @@ extension Locale {
             .map { String($0) }
             .joined()
     }
+}
+
+enum APIKey {
+  // Fetch the API key from `GenerativeAI-Info.plist`
+  static var `default`: String {
+      guard let filePath = Bundle.main.path(forResource: "GenerativeAI-Info", ofType: "plist")
+      else {
+        fatalError("Couldn't find file 'GenerativeAI-Info.plist'.")
+      }
+      let plist = NSDictionary(contentsOfFile: filePath)
+      guard let value = plist?.object(forKey: "API_KEY") as? String else {
+        fatalError("Couldn't find key 'API_KEY' in 'GenerativeAI-Info.plist'.")
+      }
+      if value.starts(with: "_") {
+        fatalError(
+          "Follow the instructions at https://ai.google.dev/tutorials/setup to get an API key."
+        )
+      }
+      return value
+  }
 }

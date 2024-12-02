@@ -13,7 +13,6 @@ struct HomeScreen: View {
     @State private var isLoading = true
     @State private var isSheetPresented = false
     @StateObject var viewModel = HomeViewModel(
-        networkClient: NetworkClient(),
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
     
@@ -49,11 +48,11 @@ struct HomeScreen: View {
 
     @ViewBuilder private var HomeTopBar: some View {
         VStack {
-            Text(HomeViewModel.Constant.homescreenTitle.rawValue)
+            Text(viewModel.generatedText)
                 .font(.headline)
                 .bold()
                 .italic()
-                .foregroundStyle(.white.opacity(0.1))
+                .foregroundStyle(.white.opacity(0.5))
                 .padding()
 
             SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
@@ -201,7 +200,6 @@ struct HomeScreen: View {
             }
         }
     }
-
 }
 
 #Preview {
