@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+@preconcurrency import GoogleGenerativeAI
 
 @MainActor
 class HomeViewModel: ObservableObject {
     private let networkClient: NetworkClient
+    @Published var generatedText: String = ""
     @Published var raceResultViewModel: RaceResultViewModel? = nil
     @Published var isLoadingGrandPrix = false
     @Published var isLoadingDrivers = false
@@ -31,6 +33,7 @@ class HomeViewModel: ObservableObject {
         didSet {
             Task {
                 await self.reloadDataForNewSeason()
+                seasonSynapse()
             }
         }
     }
@@ -48,6 +51,13 @@ class HomeViewModel: ObservableObject {
         self.seasonYear = seasonYear
         Task {
             await initializeData()
+            seasonSynapse()
+        }
+    }
+    
+    func seasonSynapse() {
+        Task {
+            generatedText = try await generateContent(seasonYear: seasonYear)
         }
     }
     
@@ -307,6 +317,32 @@ class HomeViewModel: ObservableObject {
                 print("failed to fetch data \(error.localizedDescription)")
             }
         }
+    }
+    
+    private func generateContent(seasonYear: String) async throws -> String {
+        let generativeModel =
+          GenerativeModel(
+            // Specify a Gemini model appropriate for your use case
+            name: "gemini-1.5-flash-8b",
+            // Access your API key from your on-demand resource .plist file (see "Set up your API key"
+            // above)
+            apiKey: APIKey.default
+          )
+
+        let prompt = "Write a short poem summary about the \(seasonYear) Formula 1 season."
+        
+        do {
+            let response = try await generativeModel.generateContent(prompt)
+            if let text = response.text {
+                generatedText = text
+                print("GENERATED TEXT OUTPUT - \(text)")
+                return generatedText
+            }
+        } catch {
+            throw error
+        }
+        
+        return ""
     }
 }
 

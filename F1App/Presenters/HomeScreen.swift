@@ -7,7 +7,6 @@
 
 import SwiftUI
 import UIKit
-@preconcurrency import GoogleGenerativeAI
 
 struct HomeScreen: View {
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
@@ -16,7 +15,6 @@ struct HomeScreen: View {
     @StateObject var viewModel = HomeViewModel(
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
-    @State var generatedText: String = "Hello, World!"
     
     var body: some View {
         NavigationStack {
@@ -50,11 +48,11 @@ struct HomeScreen: View {
 
     @ViewBuilder private var HomeTopBar: some View {
         VStack {
-            Text(HomeViewModel.Constant.homescreenTitle.rawValue)
+            Text(viewModel.generatedText)
                 .font(.headline)
                 .bold()
                 .italic()
-                .foregroundStyle(.white.opacity(0.1))
+                .foregroundStyle(.white.opacity(0.5))
                 .padding()
 
             SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
@@ -201,32 +199,6 @@ struct HomeScreen: View {
                 }
             }
         }
-    }
-    
-    private func generateContent() async throws -> String {
-        let generativeModel =
-          GenerativeModel(
-            // Specify a Gemini model appropriate for your use case
-            name: "gemini-1.5-flash-8b",
-            // Access your API key from your on-demand resource .plist file (see "Set up your API key"
-            // above)
-            apiKey: APIKey.default
-          )
-
-        let prompt = "Write a 2 sentence review of the 2008 Formula 1 season. Only include facts."
-        
-        do {
-            let response = try await generativeModel.generateContent(prompt)
-            if let text = response.text {
-                generatedText = text
-                print("\(text)")
-                return generatedText
-            }
-        } catch {
-            throw error
-        }
-        
-        return ""
     }
 }
 
