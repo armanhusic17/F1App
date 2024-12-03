@@ -51,7 +51,7 @@ struct HomeScreen: View {
     @ViewBuilder private var HomeTopBar: some View {
         VStack(alignment: .center) {
             Text(viewModel.generatedText)
-                .font(.headline)
+                .font(.title)
                 .bold()
                 .italic()
                 .foregroundStyle(.white.opacity(0.5))

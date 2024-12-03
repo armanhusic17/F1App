@@ -329,7 +329,7 @@ class HomeViewModel: ObservableObject {
             apiKey: APIKey.default
           )
 
-        let prompt = "Write a short poem summary about the \(seasonYear) Formula 1 season."
+        let prompt = "Write a short, 1 sentence, summary about the \(seasonYear) Formula 1 season, it should be in the style of a breaking news article title. Temperature of model set to 2.0."
         
         do {
             let response = try await generativeModel.generateContent(prompt)
