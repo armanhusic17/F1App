@@ -38,13 +38,15 @@ struct SeasonSelector: View {
             }
         }, label: {
             HStack(alignment: .center) {
+                Spacer()
                 Text("\(Constant.selectSeasonText.rawValue) \(currentSeason)")
-                    .font(.title2)
-                    .multilineTextAlignment(.leading)
+                    .font(.title2.bold())
+                    .multilineTextAlignment(.center)
                 Spacer()
                 Image(systemName: Constant.chevronImg.rawValue)
+                Spacer()
             }
-            .padding(.horizontal, 16)
+            .padding([.horizontal, .bottom], 16)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.clear)
             .foregroundStyle(Color.white)
