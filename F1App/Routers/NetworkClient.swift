@@ -21,63 +21,60 @@ class NetworkClient {
         self.baseURL = URL(string: Endpoints.baseURL.rawValue)!
         self.apiClient = APIClient(baseURL: baseURL)
     }
-
-    private func getCachedData(for seasonYear: String, queryKey: String) -> Data? {
-        let key = "cache_\(queryKey)_\(seasonYear)"
-        if let cachedData = UserDefaults.standard.data(forKey: key) {
-            return cachedData
-        } else {
-            // Log an error or handle the absence of data gracefully
-            print("No cached data available for key: \(key)")
-            return nil
+    
+    private func getCachedDataFromFileManager(for identifier: String, type: String) -> Data? {
+        switch type {
+            case "json":
+                return FileManager.default.loadCachedJSONData(for: identifier)
+            case "txt":
+                return FileManager.default.loadCachedTextData(for: identifier)
+            case "png":
+                return FileManager.default.loadCachedImageData(for: identifier)
+            default:
+                print("Unsupported file type: \(type)")
+                return nil
         }
     }
     
-    private func saveCachedData(_ data: Data, for seasonYear: String, queryKey: String) {
-        let key = "cache_\(queryKey)_\(seasonYear)"
-        UserDefaults.standard.set(data, forKey: key)
+    private func saveCachedDataToFileManager(_ data: Data, for identifier: String, type: String) {
+        switch type {
+            case "json":
+                FileManager.default.saveJSONDataToCache(data, for: identifier)
+            case "txt":
+                FileManager.default.saveTextDataToCache(data, for: identifier)
+            case "png":
+                FileManager.default.saveImageDataToCache(data, for: identifier)
+            default:
+                print("Unsupported file type: \(type)")
+        }
     }
     
     @MainActor func worldDriversChampionshipStandings(seasonYear: String) async throws -> [DriverStanding] {
-        if let cachedData = getCachedData(for: seasonYear, queryKey: "worldDriversChampionshipStandings") {
+        let cacheIdentrifier = "cache_worldDriversChampionshipStandings_\(seasonYear)"
+        
+        if let cachedData = getCachedDataFromFileManager(for: cacheIdentrifier, type: "json") {
             do {
                 let json = try JSONDecoder().decode(Root.self, from: cachedData)
+                print("RETRIEVING DRIVER STANDINGS DATA FROM CACHE")
                 return processDriverStandings(json, seasonYear: seasonYear)
             } catch {
-                print("Error decoding the cached data \(error)")
-                UserDefaults.standard.removeObject(forKey: "cache_worldDriversChampionshipStandings_\(seasonYear)")
-            }
-        } else {
-            // if no cache was found lets make a network requerst
-            guard let url = URL(string: "\(baseURL)\(seasonYear)/driverStandings.json") else {
-                throw URLError(.badURL)
-            }
-
-            do {
-                let (data, _) = try await URLSession.shared.data(from: url)
-                let json = try JSONDecoder().decode(Root.self, from: data)
-                
-                if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
-                    saveCachedData(data, for: seasonYear, queryKey: "cache_worldDriversChampionshipStandings_")
-                }
-                
-                return processDriverStandings(json, seasonYear: seasonYear)
-            } catch {
-                print("Error -- \(error)")
+                print("Error decoding driverStandings from cached data: \(error)")
             }
         }
-        return [
-            DriverStanding(
-                givenName: "",
-                familyName: "",
-                position: "",
-                points: "",
-                teamNames: "",
-                imageUrl: "",
-                driver: nil,
-                constructor: [nil]
-            )
-        ]
+        
+        guard let url = URL(string: "\(baseURL)\(seasonYear)/driverStandings.json") else {
+            throw URLError(.badURL)
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let json = try JSONDecoder().decode(Root.self, from: data)
+        
+        if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
+            saveCachedDataToFileManager(data, for: cacheIdentrifier, type: "json")
+            print("SUCCESSFULLY SAVING JSON DRIVERSTANDSINGS TO CACHE DATA")
+        }
+        
+        return processDriverStandings(json, seasonYear: seasonYear)
     }
 
     func processDriverStandings(_ json: Root, seasonYear: String) -> [DriverStanding] {
@@ -113,49 +110,56 @@ class NetworkClient {
 
     
     func fetchDriverImgFromWikipedia(givenName: String, familyName: String) async throws -> String {
+        let cacheIdentifier = "driverImage_\(givenName)_\(familyName)"
+        
+        if let cachedData = FileManager.default.loadCachedTextData(for: cacheIdentifier),
+           let imageUrl = String(data: cachedData, encoding: .utf8) {
+            print("Using cached imageURL for driverImage_\(givenName)_\(familyName): \(imageUrl)")
+            return imageUrl
+        }
+        
         let encodedGivenName = givenName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let encodedFamilyName = familyName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         let driverPageTitle = "\(encodedGivenName)_\(encodedFamilyName)"
-        let cacheKey = "cache_driverImage_\(driverPageTitle)"
-        // Check if image URL is cached
-        if let cachedURL = UserDefaults.standard.string(forKey: cacheKey) {
-            print("Using cached image URL for \(givenName) \(familyName): \(cachedURL)")
-            return cachedURL
-        }
-        // Construct the URL for the Wikipedia API request
+
         let driverPageURLString = "https://en.wikipedia.org/w/api.php?action=query&titles=\(driverPageTitle)&prop=pageimages&format=json&pithumbsize=800"
+
         guard let url = URL(string: driverPageURLString) else {
             throw URLError(.badURL)
         }
-        // Perform the network request
+        
         let (data, _) = try await URLSession.shared.data(from: url)
         let wikipediaData = try JSONDecoder().decode(WikipediaData.self, from: data)
-        // Extract the thumbnail URL from the response
+        
         guard let pageID = wikipediaData.query.pages.keys.first,
               let page = wikipediaData.query.pages[pageID],
               let thumbnailURL = page.thumbnail?.source else {
             throw NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response for \(givenName) \(familyName)"])
         }
-        // Cache the thumbnail URL
-        UserDefaults.standard.set(thumbnailURL, forKey: cacheKey)
+        // lets cache the url as text data from the filemanager
+        if let imageData = thumbnailURL.data(using: .utf8) {
+            FileManager.default.saveTextDataToCache(imageData, for: cacheIdentifier)
+            print("SAVED ImageURL to FILEMANAGER")
+        }
+        
         print("Fetched and cached image URL for \(givenName) \(familyName): \(thumbnailURL)")
 
         return thumbnailURL
     }
     
     func getConstructorStandings(seasonYear: String) async throws -> [ConstructorStanding] {
-        // Check the cache first
-        if let cachedData = getCachedData(for: seasonYear, queryKey: "constructorStandings") {
+        let cachedIdentifier = "constructionStandings_\(seasonYear)"
+        
+        if let cachedData = getCachedDataFromFileManager(for: cachedIdentifier, type: "json") {
             do {
                 let root = try JSONDecoder().decode(Root.self, from: cachedData)
                 print("Successfully gathered data from cache")
                 return processConstructorStandings(root: root)
             } catch {
-                print("Error decoding cached data: \(error)")
-                // Continue to fetch fresh data if cache is corrupted
+                print("Error decoding constructor standings from json cached data: \(error)")
             }
         }
-
+        
         // Proceed with network call
         let urlString = "\(baseURL)\(seasonYear)/constructorStandings.json?limit=100"
         guard let url = URL(string: urlString) else {
@@ -166,7 +170,7 @@ class NetworkClient {
         let root = try JSONDecoder().decode(Root.self, from: data)
         
         if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
-            saveCachedData(data, for: seasonYear, queryKey: "cache_constructorStandings_\(seasonYear)")
+            saveCachedDataToFileManager(data, for: cachedIdentifier, type: "json")
         }
 
         return processConstructorStandings(root: root)
@@ -182,7 +186,9 @@ class NetworkClient {
     }
     
     func fetchRaceResults(season: String, round: String) async throws -> Root {
-        if let cachedData = getCachedData(for: season, queryKey: "raceResults_\(round)_\(season)") {
+        let cacheIdentifier = "raceResults_\(round)_\(season)"
+        
+        if let cachedData = getCachedDataFromFileManager(for: cacheIdentifier, type: "json") {
             do {
                 let cachedRoot = try JSONDecoder().decode(Root.self, from: cachedData)
                 print("Returnng cached race results for season: \(season), round: \(round)")
@@ -192,13 +198,14 @@ class NetworkClient {
                 throw error
             }
         }
-
+        
         let request = Request<Root>(path: "\(season)/\(round)/results.json", method: .get)
         let root = try await apiClient.send(request).value
         
         if let data = try? JSONEncoder().encode(root) {
             if season != "\(Calendar.current.component(.year, from: Date()))" {
-                saveCachedData(data, for: season, queryKey: "raceResults_\(round)_\(season)")
+                saveCachedDataToFileManager(data, for: cacheIdentifier, type: "json")
+                print("SUCCESSFULLY saved race results for season: \(season), round: \(round)")
             }
         }
 
@@ -206,9 +213,9 @@ class NetworkClient {
     }
 
     func fetchRaceSchedule(forYear year: String) async throws -> Root {
-        let cacheKey = "raceSchedule_\(year)"
+        let cacheIdentifier = "raceSchedule_\(year)"
         
-        if let cachedData = getCachedData(for: year, queryKey: cacheKey) {
+        if let cachedData = getCachedDataFromFileManager(for: cacheIdentifier, type: "json") {
             do {
                 let cachedRoot = try JSONDecoder().decode(Root.self, from: cachedData)
                 print("Returnng cached race schedule for year: \(year)")
@@ -223,7 +230,8 @@ class NetworkClient {
             let root = try await apiClient.send(request).value
             if year != "\(Calendar.current.component(.year, from: Date()))" {
                 let data = try JSONEncoder().encode(root)
-                saveCachedData(data, for: year, queryKey: cacheKey)
+                saveCachedDataToFileManager(data, for: cacheIdentifier, type: "json")
+                print("Successfully saved race schedule to cache for year: \(year)")
             }
             return root
         } catch {

@@ -41,23 +41,21 @@ struct HomeScreen: View {
 
     @ViewBuilder private var content: some View {
         VStack {
-            HomeTopBar
+            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
+                viewModel.seasonYear = season
+            }
             QueriesScrollView
         }
     }
 
     @ViewBuilder private var HomeTopBar: some View {
-        VStack {
+        VStack(alignment: .center) {
             Text(viewModel.generatedText)
                 .font(.headline)
                 .bold()
                 .italic()
                 .foregroundStyle(.white.opacity(0.5))
                 .padding()
-
-            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
-                viewModel.seasonYear = season
-            }
         }
         .padding(.bottom)
     }
@@ -99,6 +97,7 @@ struct HomeScreen: View {
     }
 
     @ViewBuilder private var QueriesCollection: some View {
+        HomeTopBar
         driversCollection
         constructorsCollection
         racesCollection
