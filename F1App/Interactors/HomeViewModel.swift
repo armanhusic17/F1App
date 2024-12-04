@@ -335,12 +335,12 @@ class HomeViewModel: ObservableObject {
             apiKey: APIKey.default,
             generationConfig: GenerationConfig(
                 temperature: 0.1,
-                candidateCount: 4,
+                candidateCount: 1,
                 maxOutputTokens: 100
             )
           )
         if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
-            prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a 1950's breaking news article title. Do not claim that the season has a champion unless one has been crowned."
+            prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a 1950's breaking news article title."
         } else {
             prompt = "What was the biggest headline of the \(seasonYear) Formula 1 season? Please only use 1 bullet point."
         }
