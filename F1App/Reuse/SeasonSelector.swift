@@ -18,7 +18,7 @@ struct SeasonSelector: View {
     }
     
     private enum Constant: String {
-        case selectSeasonText = "Select Season:"
+        case selectSeasonText = "Select Season :"
         case chevronImg = "chevron.down"
     }
 

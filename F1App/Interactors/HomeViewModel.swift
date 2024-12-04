@@ -33,7 +33,6 @@ class HomeViewModel: ObservableObject {
         didSet {
             Task {
                 await self.reloadDataForNewSeason()
-                seasonSynapse()
             }
         }
     }
@@ -51,16 +50,9 @@ class HomeViewModel: ObservableObject {
         self.seasonYear = seasonYear
         Task {
             await initializeData()
-            seasonSynapse()
         }
     }
-    
-    func seasonSynapse() {
-        Task {
-            generatedText = try await generateContent(seasonYear: seasonYear)
-        }
-    }
-    
+
     // Drivers Collection
     func wdcPosition(driverStanding: DriverStanding) -> String {
         return "WDC Position: \(driverStanding.position)"
@@ -166,6 +158,12 @@ class HomeViewModel: ObservableObject {
         raceResults2.removeAll()
     }
     
+    func seasonSynapse(driver: [String]) {
+        Task {
+            generatedText = try await generateContent(seasonYear: seasonYear, driver: driver)
+        }
+    }
+    
     @MainActor private func reloadDataForNewSeason() async {
         clearData()
         async let loadRacesTask: () = loadAllRacesForSeason(year: seasonYear)
@@ -180,6 +178,10 @@ class HomeViewModel: ObservableObject {
 
         async let loadQuickLookResults: () = loadRaceResultsForYear(year: seasonYear)
         await loadQuickLookResults
+        
+        async let loadTitleBAsedOffSeasonYEar: () = seasonSynapse(driver: driverName(driverStanding: driverStandings.first ?? DriverStanding(position: "", points: "", driver: Driver(driverId: "", permanentNumber: "", code: "", url: "", givenName: "", familyName: "", dateOfBirth: "", nationality: ""), constructor: [Constructor(constructorId: "", url: "", name: "", nationality: "")]))
+        )
+        await loadTitleBAsedOffSeasonYEar
     }
     
     @MainActor func loadDriverStandings(seasonYear: String) async {
@@ -319,7 +321,8 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    private func generateContent(seasonYear: String) async throws -> String {
+    private func generateContent(seasonYear: String, driver: [String]) async throws -> String {
+        var prompt: String = ""
         if let cachedSummary = FileManager.default.loadCachedTextData(for: "summary_\(seasonYear)") {
             print("SUCCESS: loading cached summary for generated text")
             return String(data: cachedSummary, encoding: .utf8) ?? "empty string"
@@ -336,14 +339,17 @@ class HomeViewModel: ObservableObject {
                 maxOutputTokens: 100
             )
           )
-
-        let prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season. The bullet point should be accurate and fact-based, presented in the style of a breaking news article title. Avoid exaggerations and outright incorrect facts."
+        if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
+            prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a 1950's breaking news article title. Do not claim that the season has a champion unless one has been crowned."
+        } else {
+            prompt = "What was the biggest headline of the \(seasonYear) Formula 1 season? Please only use 1 bullet point."
+        }
 
         do {
             let response = try await generativeModel.generateContent(prompt)
             if let text = response.text {
                 generatedText = removeAllOccurrences(of: "*", in: text)
-                print("GENERATED TEXT OUTPUT - \(generatedText)")
+                print("GENERATED TEXT OUTPUT - \(generatedText)\nFrom Prompt: \(prompt)")
                 FileManager.default.saveTextDataToCache(generatedText.data(using: .utf8)!, for: "summary_\(seasonYear)")
                 
                 return generatedText
