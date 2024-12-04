@@ -49,15 +49,18 @@ struct HomeScreen: View {
     }
 
     @ViewBuilder private var HomeTopBar: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .leading) {
+            Text("Grid Pulse ™ : Season Headlines")
+                .font(.caption.bold())
+                .padding(.top, 0)
+                .padding(.bottom, 1)
             Text(viewModel.generatedText)
-                .font(.headline)
-                .bold()
-                .italic()
-                .foregroundStyle(.white.opacity(0.5))
-                .padding()
+                .font(.title)
         }
-        .padding(.bottom)
+            .bold()
+            .italic()
+            .foregroundStyle(.white.opacity(0.5))
+            .padding(.horizontal)
     }
 
     @ViewBuilder private var QueriesScrollView: some View {

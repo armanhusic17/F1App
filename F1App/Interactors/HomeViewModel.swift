@@ -320,22 +320,32 @@ class HomeViewModel: ObservableObject {
     }
     
     private func generateContent(seasonYear: String) async throws -> String {
-        let generativeModel =
-          GenerativeModel(
+        if let cachedSummary = FileManager.default.loadCachedTextData(for: "summary_\(seasonYear)") {
+            print("SUCCESS: loading cached summary for generated text")
+            return String(data: cachedSummary, encoding: .utf8) ?? "empty string"
+        }
+        
+        let generativeModel = GenerativeModel(
             // Specify a Gemini model appropriate for your use case
             name: "gemini-1.5-flash-8b",
-            // Access your API key from your on-demand resource .plist file (see "Set up your API key"
-            // above)
-            apiKey: APIKey.default
+            // Access your API key from your on-demand resource .plist file (see "Set up your API key above)
+            apiKey: APIKey.default,
+            generationConfig: GenerationConfig(
+                temperature: 0.1,
+                candidateCount: 4,
+                maxOutputTokens: 100
+            )
           )
 
-        let prompt = "Write a short poem summary about the \(seasonYear) Formula 1 season."
-        
+        let prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season. The bullet point should be accurate and fact-based, presented in the style of a breaking news article title. Avoid exaggerations and outright incorrect facts."
+
         do {
             let response = try await generativeModel.generateContent(prompt)
             if let text = response.text {
-                generatedText = text
-                print("GENERATED TEXT OUTPUT - \(text)")
+                generatedText = removeAllOccurrences(of: "*", in: text)
+                print("GENERATED TEXT OUTPUT - \(generatedText)")
+                FileManager.default.saveTextDataToCache(generatedText.data(using: .utf8)!, for: "summary_\(seasonYear)")
+                
                 return generatedText
             }
         } catch {
@@ -343,6 +353,11 @@ class HomeViewModel: ObservableObject {
         }
         
         return ""
+    }
+    
+    // remove all instances of a character in a string
+    func removeAllOccurrences(of character: Character, in string: String) -> String {
+        return string.replacingOccurrences(of: String(character), with: "")
     }
 }
 
