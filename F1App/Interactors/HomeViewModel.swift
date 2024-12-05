@@ -38,9 +38,7 @@ class HomeViewModel: ObservableObject {
     }
     
     enum Constant: String {
-        case homescreenTitle = "Grid Pulse"
-        case wdcLabel = "World Drivers' Championship Standings"
-        case grandPrixLabel = "Grand Prix Results"
+        case seasonHeadlines = "Top Headlines"
     }
     
     init(
@@ -327,7 +325,7 @@ class HomeViewModel: ObservableObject {
             print("SUCCESS: loading cached summary for generated text")
             return String(data: cachedSummary, encoding: .utf8) ?? "empty string"
         }
-        
+
         let generativeModel = GenerativeModel(
             // Specify a Gemini model appropriate for your use case
             name: "gemini-1.5-flash-8b",
@@ -338,7 +336,8 @@ class HomeViewModel: ObservableObject {
                 candidateCount: 1,
                 maxOutputTokens: 100
             )
-          )
+        )
+
         if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
             prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a 1950's breaking news article title."
         } else {
@@ -357,7 +356,7 @@ class HomeViewModel: ObservableObject {
         } catch {
             throw error
         }
-        
+
         return ""
     }
     

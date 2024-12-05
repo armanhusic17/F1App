@@ -50,17 +50,13 @@ struct HomeScreen: View {
 
     @ViewBuilder private var HomeTopBar: some View {
         VStack(alignment: .leading) {
-            Text("Grid Pulse ™ : Season Headlines")
-                .font(.caption.bold())
-                .padding(.top, 0)
-                .padding(.bottom, 1)
             Text(viewModel.generatedText)
-                .font(.title)
+                .fontDesign(.serif)
+                .multilineTextAlignment(.center)
+                .font(.largeTitle)
+                .foregroundStyle(.white)
+                .bold()
         }
-            .bold()
-            .italic()
-            .foregroundStyle(.white.opacity(0.5))
-            .padding(.horizontal)
     }
 
     @ViewBuilder private var QueriesScrollView: some View {
@@ -86,17 +82,6 @@ struct HomeScreen: View {
             MyAccount(viewModel: myAccountViewModel)
                 .presentationDetents([.height(100)])
         }
-    }
-
-    @ViewBuilder private var collectionTitle: some View {
-        HStack {
-            Text(HomeViewModel.Constant.wdcLabel.rawValue)
-                .bold()
-                .foregroundStyle(.white.opacity(0.5))
-                .font(.headline)
-                .multilineTextAlignment(.leading)
-        }
-        .padding(.horizontal, 8)
     }
 
     @ViewBuilder private var QueriesCollection: some View {

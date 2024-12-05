@@ -18,12 +18,13 @@ struct SeasonSelector: View {
     }
     
     private enum Constant: String {
-        case selectSeasonText = "Select Season :"
+        case selectSeasonText = "Select a Season"
         case chevronImg = "chevron.down"
     }
 
     var body: some View {
         VStack{
+            menuTitle
             menuButton
             dropDownMenu
         }
@@ -37,20 +38,30 @@ struct SeasonSelector: View {
                 showMenu.toggle()
             }
         }, label: {
-            HStack(alignment: .center) {
-                Spacer()
-                Text("\(Constant.selectSeasonText.rawValue) \(currentSeason)")
-                    .font(.title2.bold())
-                    .multilineTextAlignment(.center)
-                Spacer()
-                Image(systemName: Constant.chevronImg.rawValue)
-                Spacer()
+            VStack(alignment: .leading) {
+                HStack(alignment: .center) {
+                    Text("\(currentSeason)")
+                        .font(.title3.bold())
+                        .multilineTextAlignment(.center)
+                    Image(systemName: Constant.chevronImg.rawValue)
+                }
+                .padding([ .bottom], 16)
+                .frame(maxWidth: 200, alignment: .center)
+                .background(.clear)
+                .foregroundStyle(Color.white)
             }
-            .padding([.horizontal, .bottom], 16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.clear)
-            .foregroundStyle(Color.white)
         })
+    }
+    
+    @ViewBuilder var menuTitle: some View {
+        VStack(alignment: .leading) {
+            Text("\(Constant.selectSeasonText.rawValue)")
+                .font(.caption)
+                .padding(.horizontal, 24)
+                .foregroundStyle(Color.white.opacity(0.5))
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                .padding(.bottom, 8)
+        }
     }
     
     @ViewBuilder var dropDownMenu: some View {
@@ -62,13 +73,14 @@ struct SeasonSelector: View {
                             Button(action: {
                                 if currentSeason != year {
                                     self.currentSeason = year
+                                    
                                 }
                             }) {
                                 Text("\(year)")
                                     .bold()
                                     .font(.title)
                                     .foregroundStyle(.white.opacity(0.75))
-                                    .padding(12)
+                                    .padding([.top, .bottom], 12)
                                     .frame(maxWidth: .infinity, alignment: .center)
 
                             }
@@ -85,5 +97,7 @@ struct SeasonSelector: View {
 }
 
 #Preview {
-    HomeScreen()
+    SeasonSelector(currentSeason: .constant("2024")) { season in
+        print(season)
+    }
 }
