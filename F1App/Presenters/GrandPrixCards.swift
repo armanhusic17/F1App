@@ -67,26 +67,70 @@ struct GrandPrixCards: View {
     
     @ViewBuilder private var content: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 10) {
-                grandPrixTitle
-                    .padding(.horizontal)
+            if #available(iOS 18.0, *) {
+                VStack(alignment: .leading, spacing: 10) {
+                    grandPrixTitle
+                        .padding(.horizontal)
+                    
+                    Divider()
+                    circuitNameAndIcon
+                        .padding(.horizontal)
+                    
+                    raceDateAndIcon
+                        .padding(.horizontal)
+                    raceStats
+                        .padding([.bottom, .horizontal])
+                }
+                .foregroundStyle(.white)
+                .padding([.horizontal, .top], 16)
+                .background(
+                    TimelineView(.animation) { timeline in
+                        let x = (sin(timeline.date.timeIntervalSince1970) + 1) / 2
 
-                Divider()
-                circuitNameAndIcon
-                    .padding(.horizontal)
-
-                raceDateAndIcon
-                    .padding(.horizontal)
-                raceStats
-                    .padding([.bottom, .horizontal])
+                        MeshGradient(width: 3, height: 3, points: [
+                            [0, 0], [Float(x), 0], [1, 0],
+                            [0, 0.75], [Float(x), 0.5], [1, 0.5],
+                            [0, 1], [0.95, 1], [1, 1]
+                        ], colors: [
+                            .black.opacity(0.75), .gray.opacity(0.10), .black.opacity(0.75),
+                            .black, .black, .black,
+                            .black, .black, .black
+                        ])
+                    }
+                )
+                .shadow(radius: 5)
+                .cornerRadius(24)
+            } else {
+                // Fallback on earlier versions
+                VStack(alignment: .leading, spacing: 10) {
+                    grandPrixTitle
+                        .padding(.horizontal)
+                    
+                    Divider()
+                    circuitNameAndIcon
+                        .padding(.horizontal)
+                    
+                    raceDateAndIcon
+                        .padding(.horizontal)
+                    raceStats
+                        .padding([.bottom, .horizontal])
+                }
+                .foregroundStyle(.white)
+                .padding([.horizontal, .top], 16)
+                .background(
+                    LinearGradient(
+                        colors: [
+                            .black,
+                            .black.opacity(0.5),
+                            .black.opacity(0.75)
+                        ],
+                        startPoint: .bottomLeading,
+                        endPoint: .topTrailing
+                    )
+                )
+                .shadow(radius: 5)
+                .cornerRadius(24)
             }
-            .foregroundStyle(.white)
-            .padding([.horizontal, .top], 16)
-            .background(
-                .black
-            )
-            .shadow(radius: 5)
-            .cornerRadius(24)
 
         }
     }
@@ -122,6 +166,7 @@ struct GrandPrixCards: View {
                 Text(Constant.winningTotalTime.rawValue + " \(winningTime)")
                     .font(.caption)
             }
+
             if !fastestLap.isEmpty {
                 HStack {
                     Image(systemName: Constant.stopWatchImage.rawValue)

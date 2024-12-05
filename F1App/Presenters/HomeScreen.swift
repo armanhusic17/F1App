@@ -9,13 +9,13 @@ import SwiftUI
 import UIKit
 
 struct HomeScreen: View {
-    @ObservedObject var viewModel = HomeViewModel(
-        seasonYear: "\(Calendar.current.component(.year, from: Date()))"
-    )
     @StateObject internal var myAccountViewModel = MyAccountViewModel()
     @State private var isLoading = true
     @State private var isSheetPresented = false
-
+    @StateObject var viewModel = HomeViewModel(
+        seasonYear: "\(Calendar.current.component(.year, from: Date()))"
+    )
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -41,24 +41,23 @@ struct HomeScreen: View {
 
     @ViewBuilder private var content: some View {
         VStack {
-            HomeTopBar
+            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
+                viewModel.seasonYear = season
+            }
             QueriesScrollView
         }
     }
 
     @ViewBuilder private var HomeTopBar: some View {
-        VStack {
-            Text(HomeViewModel.Constant.homescreenTitle.rawValue)
-                .font(.headline)
+        VStack(alignment: .leading) {
+            Text(viewModel.generatedText)
+                .fontDesign(.serif)
+                .multilineTextAlignment(.center)
+                .font(.largeTitle)
+                .foregroundStyle(.white)
                 .bold()
-                .foregroundStyle(.white.opacity(0.10))
-                .padding()
-
-            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
-                viewModel.seasonYear = season
-            }
+                .padding(.horizontal)
         }
-        .padding(.bottom)
     }
 
     @ViewBuilder private var QueriesScrollView: some View {
@@ -86,18 +85,8 @@ struct HomeScreen: View {
         }
     }
 
-    @ViewBuilder private var collectionTitle: some View {
-        HStack {
-            Text(HomeViewModel.Constant.wdcLabel.rawValue)
-                .bold()
-                .foregroundStyle(.white.opacity(0.5))
-                .font(.headline)
-                .multilineTextAlignment(.leading)
-        }
-        .padding(.horizontal, 8)
-    }
-
     @ViewBuilder private var QueriesCollection: some View {
+        HomeTopBar
         driversCollection
         constructorsCollection
         racesCollection
@@ -115,11 +104,11 @@ struct HomeScreen: View {
                 ) {
                     ForEach(viewModel.driverStandings, id: \.self) { driverStanding in
                         DriversCards(
-                            wdcPosition: "WDC Position: \(driverStanding.position)",
-                            wdcPoints: "Points \(driverStanding.points)",
-                            constructorName: "\(driverStanding.teamNames)",
-                            image: driverStanding.imageUrl,
-                            items: ["\(driverStanding.givenName)\n\(driverStanding.familyName)"],
+                            wdcPosition: viewModel.wdcPosition(driverStanding: driverStanding),
+                            wdcPoints: viewModel.wdcPoints(driverStanding: driverStanding),
+                            constructorName: viewModel.constructorName(driverStanding: driverStanding),
+                            image: viewModel.driverImage(driverStanding: driverStanding),
+                            items: viewModel.driverName(driverStanding: driverStanding),
                             seasonYearSelected: viewModel.seasonYear
                         )
                     }
@@ -141,11 +130,11 @@ struct HomeScreen: View {
                     ForEach(Array(viewModel.constructorStandings.enumerated()), id: \.element) { index,constructorStanding in
                         ConstructorsCards(
                             wccPosition:
-                                "WCC Position: \(constructorStanding.position ?? "⏳")",
-                            wccPoints: "WCC Points: \(constructorStanding.points ?? "⏳")",
-                            constructorWins: "Wins: \(constructorStanding.wins ?? "⏳")",
-                            image: viewModel.constructorImages[safe: index] ?? "",
-                            items: ["\(constructorStanding.constructor?.name ?? "⏳")"],
+                                viewModel.wccPosition(constructorStanding: constructorStanding),
+                            wccPoints:  viewModel.wccPoints(constructorStanding: constructorStanding),
+                            constructorWins:  viewModel.wccWins(constructorStanding: constructorStanding),
+                            image:  viewModel.wccImage(index: index),
+                            items:  viewModel.wccName(constructorStanding: constructorStanding),
                             seasonYearSelected: viewModel.seasonYear
                         )
                     }
@@ -174,24 +163,27 @@ struct HomeScreen: View {
                                 )
                                 .onAppear {
                                     Task {
-                                        await viewModel.fetchRaceResults(season: viewModel.seasonYear, round: "\(index + 1)")
+                                        await viewModel.fetchRaceResults(
+                                            season: viewModel.seasonYear,
+                                            round: "\(index + 1)"
+                                        )
                                     }
                                 }
                             ) {
                                 GrandPrixCards(
-                                    grandPrixName: "\(race.raceName ?? "Grand Prix")",
-                                    circuitName: "\(race.circuit?.circuitName ?? "Circuit")",
-                                    raceDate: "\(race.date ?? "Date")",
-                                    raceTime: "\(race.time ?? "Time")",
-                                    winnerName: viewModel.raceWinner[safe: index] ?? "",
-                                    winnerTeam: viewModel.winningConstructor[safe: index] ?? "",
-                                    winningTime: viewModel.winningTime[safe: index] ?? "",
-                                    fastestLap: viewModel.winnerFastestLap[safe: index] ?? "",
-                                    countryFlag: "\(race.circuit?.location?.country ?? "loading...")"
+                                    grandPrixName: viewModel.gpName(race: race),
+                                    circuitName: viewModel.gpCircuit(race: race),
+                                    raceDate: viewModel.gpDate(race: race),
+                                    raceTime: viewModel.gpTime(race: race),
+                                    winnerName: viewModel.gpWinner(index: index),
+                                    winnerTeam: viewModel.gpWinnerTeam(index: index),
+                                    winningTime: viewModel.gpWinnerTime(index: index),
+                                    fastestLap: viewModel.gpTeamFastestLap(index: index),
+                                    countryFlag: viewModel.gpTeamCountryFlag(race: race)
                                 )
                             }
                         }
-                    } // end for
+                    }
                 }
             }
         }
