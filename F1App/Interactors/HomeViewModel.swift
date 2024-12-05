@@ -36,11 +36,7 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-    
-    enum Constant: String {
-        case seasonHeadlines = "Top Headlines"
-    }
-    
+
     init(
         seasonYear: String
     ) {
