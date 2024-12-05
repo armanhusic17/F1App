@@ -293,7 +293,7 @@ class HomeViewModel: ObservableObject {
 
         isLoadingRaceResults = false
     }
-    
+
     @MainActor func fetchRaceResults(season: String, round: String) async {
         let nc = self.networkClient
         Task { [weak self] in
@@ -318,7 +318,7 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func generateContent(seasonYear: String, driver: [String]) async throws -> String {
         var prompt: String = ""
         if let cachedSummary = FileManager.default.loadCachedTextData(for: "summary_\(seasonYear)") {
@@ -350,7 +350,7 @@ class HomeViewModel: ObservableObject {
                 generatedText = removeAllOccurrences(of: "*", in: text)
                 print("GENERATED TEXT OUTPUT - \(generatedText)\nFrom Prompt: \(prompt)")
                 FileManager.default.saveTextDataToCache(generatedText.data(using: .utf8) ?? Data(), for: "summary_\(seasonYear)")
-                
+
                 return generatedText
             }
         } catch {
@@ -359,7 +359,7 @@ class HomeViewModel: ObservableObject {
 
         return ""
     }
-    
+
     // remove all instances of a character in a string
     func removeAllOccurrences(of character: Character, in string: String) -> String {
         return string.replacingOccurrences(of: String(character), with: "")

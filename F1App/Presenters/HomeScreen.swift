@@ -56,6 +56,7 @@ struct HomeScreen: View {
                 .font(.largeTitle)
                 .foregroundStyle(.white)
                 .bold()
+                .padding(.horizontal)
         }
     }
 
