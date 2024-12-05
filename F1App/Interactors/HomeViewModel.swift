@@ -339,7 +339,7 @@ class HomeViewModel: ObservableObject {
         )
 
         if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
-            prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a 1950's breaking news article title."
+            prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a breaking news article title."
         } else {
             prompt = "What was the biggest headline of the \(seasonYear) Formula 1 season? Please only use 1 bullet point."
         }
@@ -349,7 +349,7 @@ class HomeViewModel: ObservableObject {
             if let text = response.text {
                 generatedText = removeAllOccurrences(of: "*", in: text)
                 print("GENERATED TEXT OUTPUT - \(generatedText)\nFrom Prompt: \(prompt)")
-                FileManager.default.saveTextDataToCache(generatedText.data(using: .utf8)!, for: "summary_\(seasonYear)")
+                FileManager.default.saveTextDataToCache(generatedText.data(using: .utf8) ?? Data(), for: "summary_\(seasonYear)")
                 
                 return generatedText
             }
