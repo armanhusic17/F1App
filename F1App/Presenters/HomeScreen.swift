@@ -188,6 +188,7 @@ struct HomeScreen: View {
             }
         }
     }
+
 }
 
 #Preview {

@@ -21,7 +21,7 @@ class NetworkClient {
         self.baseURL = URL(string: Endpoints.baseURL.rawValue)!
         self.apiClient = APIClient(baseURL: baseURL)
     }
-    
+
     private func getCachedDataFromFileManager(for identifier: String, type: String) -> Data? {
         switch type {
             case "json":
@@ -141,7 +141,7 @@ class NetworkClient {
             FileManager.default.saveTextDataToCache(imageData, for: cacheIdentifier)
             print("SAVED ImageURL to FILEMANAGER")
         }
-        
+
         print("Fetched and cached image URL for \(givenName) \(familyName): \(thumbnailURL)")
 
         return thumbnailURL
@@ -198,7 +198,7 @@ class NetworkClient {
                 throw error
             }
         }
-        
+
         let request = Request<Root>(path: "\(season)/\(round)/results.json", method: .get)
         let root = try await apiClient.send(request).value
         
