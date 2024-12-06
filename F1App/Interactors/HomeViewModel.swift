@@ -38,7 +38,6 @@ class HomeViewModel: ObservableObject {
     }
 
     init(
-        networkClient: NetworkClient,
         seasonYear: String
     ) {
         self.networkClient = NetworkClient()
@@ -48,86 +47,6 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    // Drivers Collection
-    func wdcPosition(driverStanding: DriverStanding) -> String {
-        return "WDC Position: \(driverStanding.position)"
-    }
-    
-    func wdcPoints(driverStanding: DriverStanding) -> String {
-        return "Points \(driverStanding.points)"
-    }
-    
-    func constructorName(driverStanding: DriverStanding) -> String {
-        let constructorName = driverStanding.constructor.first
-        return constructorName??.name ?? "Team Name"
-    }
-    
-    func driverImage(driverStanding: DriverStanding) -> String {
-        return driverStanding.imageUrl ?? "🏎️"
-    }
-    
-    func driverName(driverStanding: DriverStanding) -> [String] {
-        return ["\(driverStanding.givenName ?? "First Name")\n\(driverStanding.familyName ?? "Last Name")"]
-    }
-    
-    // Constructor Collection
-    func wccPosition(constructorStanding: ConstructorStanding) -> String {
-        return "WCC Position: \(constructorStanding.position ?? "⏳")"
-    }
-    
-    func wccPoints(constructorStanding: ConstructorStanding) -> String {
-        return "WCC Points: \(constructorStanding.points ?? "⏳")"
-    }
-    
-    func wccWins(constructorStanding: ConstructorStanding) -> String {
-        return "Wins: \(constructorStanding.wins ?? "⏳")"
-    }
-    
-    func wccImage(index: Int) -> Image {
-        return self.constructorImages[safe: index] ?? Image("gridPulseRed_1024")
-    }
-    
-    func wccName(constructorStanding: ConstructorStanding) -> [String] {
-        return ["\(constructorStanding.constructor?.name ?? "⏳")"]
-    }
-    
-    // Grand Prix Collection
-    func gpName(race: Race) -> String {
-        return "\(race.raceName ?? "⏳")"
-    }
-    
-    func gpCircuit(race: Race) -> String {
-        return "\(race.circuit?.circuitName ?? "⏳")"
-    }
-    
-    func gpDate(race: Race) -> String {
-        return "\(race.date ?? "⏳")"
-    }
-    
-    func gpTime(race: Race) -> String {
-        return "\(race.time ?? "⏳")"
-    }
-    
-    func gpWinner(index: Int) -> String {
-        return self.raceWinner[safe: index] ?? "⏳"
-    }
-    
-    func gpWinnerTeam(index: Int) -> String {
-        return self.winningConstructor[safe: index] ?? "⏳"
-    }
-    
-    func gpTeamFastestLap(index: Int) -> String {
-        return self.winnerFastestLap[safe: index] ?? "⏳"
-    }
-    
-    func gpTeamCountryFlag(race: Race) -> String {
-        return "\(race.circuit?.location?.country ?? "⏳")"
-    }
-    
-    func gpWinnerTime(index: Int) -> String {
-        return self.winningTime[safe: index] ?? "⏳"
-    }
-    
     // Drivers Collection
     func wdcPosition(driverStanding: DriverStanding) -> String {
         return "WDC Position: \(driverStanding.position)"
