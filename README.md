@@ -1,4 +1,4 @@
-#Grid Pulse
+# Grid Pulse
 
 Grid Pulse is a stat tracker for Formula 1 enthusiasts. Built with Swift and SwiftUI, the app allows users to explore data from every F1 season. It leverages the Ergast API to provide self-updating, accurate, and detailed statistics on drivers, constructors, and races.
 
