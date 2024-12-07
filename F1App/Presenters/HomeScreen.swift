@@ -13,7 +13,6 @@ struct HomeScreen: View {
     @State private var isLoading = true
     @State private var isSheetPresented = false
     @StateObject var viewModel = HomeViewModel(
-        networkClient: NetworkClient(),
         seasonYear: "\(Calendar.current.component(.year, from: Date()))"
     )
     
@@ -42,25 +41,23 @@ struct HomeScreen: View {
 
     @ViewBuilder private var content: some View {
         VStack {
-            HomeTopBar
+            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
+                viewModel.seasonYear = season
+            }
             QueriesScrollView
         }
     }
 
     @ViewBuilder private var HomeTopBar: some View {
-        VStack {
-            Text(HomeViewModel.Constant.homescreenTitle.rawValue)
-                .font(.headline)
+        VStack(alignment: .leading) {
+            Text(viewModel.generatedText)
+                .fontDesign(.serif)
+                .multilineTextAlignment(.center)
+                .font(.largeTitle)
+                .foregroundStyle(.white)
                 .bold()
-                .italic()
-                .foregroundStyle(.white.opacity(0.1))
-                .padding()
-
-            SeasonSelector(currentSeason: $viewModel.seasonYear) { season in
-                viewModel.seasonYear = season
-            }
+                .padding(.horizontal)
         }
-        .padding(.bottom)
     }
 
     @ViewBuilder private var QueriesScrollView: some View {
@@ -88,18 +85,8 @@ struct HomeScreen: View {
         }
     }
 
-    @ViewBuilder private var collectionTitle: some View {
-        HStack {
-            Text(HomeViewModel.Constant.wdcLabel.rawValue)
-                .bold()
-                .foregroundStyle(.white.opacity(0.5))
-                .font(.headline)
-                .multilineTextAlignment(.leading)
-        }
-        .padding(.horizontal, 8)
-    }
-
     @ViewBuilder private var QueriesCollection: some View {
+        HomeTopBar
         driversCollection
         constructorsCollection
         racesCollection

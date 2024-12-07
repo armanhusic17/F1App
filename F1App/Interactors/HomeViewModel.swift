@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+@preconcurrency import GoogleGenerativeAI
 
 @MainActor
 class HomeViewModel: ObservableObject {
     private let networkClient: NetworkClient
+    @Published var generatedText: String = ""
     @Published var raceResultViewModel: RaceResultViewModel? = nil
     @Published var isLoadingGrandPrix = false
     @Published var isLoadingDrivers = false
@@ -35,23 +37,16 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    enum Constant: String {
-        case homescreenTitle = "Grid Pulse"
-        case wdcLabel = "World Drivers' Championship Standings"
-        case grandPrixLabel = "Grand Prix Results"
-    }
-
     init(
-        networkClient: NetworkClient,
         seasonYear: String
     ) {
-        self.networkClient = networkClient
+        self.networkClient = NetworkClient()
         self.seasonYear = seasonYear
         Task {
             await initializeData()
         }
     }
-    
+
     // Drivers Collection
     func wdcPosition(driverStanding: DriverStanding) -> String {
         return "WDC Position: \(driverStanding.position)"
@@ -157,6 +152,12 @@ class HomeViewModel: ObservableObject {
         raceResults2.removeAll()
     }
     
+    func seasonSynapse(driver: [String]) {
+        Task {
+            generatedText = try await generateContent(seasonYear: seasonYear, driver: driver)
+        }
+    }
+
     @MainActor private func reloadDataForNewSeason() async {
         clearData()
         async let loadRacesTask: () = loadAllRacesForSeason(year: seasonYear)
@@ -171,13 +172,16 @@ class HomeViewModel: ObservableObject {
 
         async let loadQuickLookResults: () = loadRaceResultsForYear(year: seasonYear)
         await loadQuickLookResults
+        
+        async let loadTitleBAsedOffSeasonYEar: () = seasonSynapse(driver: driverName(driverStanding: driverStandings.first ?? DriverStanding(position: "", points: "", driver: Driver(driverId: "", permanentNumber: "", code: "", url: "", givenName: "", familyName: "", dateOfBirth: "", nationality: ""), constructor: [Constructor(constructorId: "", url: "", name: "", nationality: "")]))
+        )
+        await loadTitleBAsedOffSeasonYEar
     }
     
     @MainActor func loadDriverStandings(seasonYear: String) async {
         isLoadingDrivers = true
         do {
             let standings = try await networkClient.worldDriversChampionshipStandings(seasonYear: self.seasonYear)
-
             driverStandings.removeAll()
             driverStandings.append(contentsOf: standings.unique(by: {$0.familyName}))
             // Update UI or state with standings
@@ -285,7 +289,7 @@ class HomeViewModel: ObservableObject {
 
         isLoadingRaceResults = false
     }
-    
+
     @MainActor func fetchRaceResults(season: String, round: String) async {
         let nc = self.networkClient
         Task { [weak self] in
@@ -309,6 +313,52 @@ class HomeViewModel: ObservableObject {
                 print("failed to fetch data \(error.localizedDescription)")
             }
         }
+    }
+
+    private func generateContent(seasonYear: String, driver: [String]) async throws -> String {
+        var prompt: String = ""
+        if let cachedSummary = FileManager.default.loadCachedTextData(for: "summary_\(seasonYear)") {
+            print("SUCCESS: loading cached summary for generated text")
+            return String(data: cachedSummary, encoding: .utf8) ?? "empty string"
+        }
+
+        let generativeModel = GenerativeModel(
+            // Specify a Gemini model appropriate for your use case
+            name: "gemini-1.5-flash-8b",
+            // Access your API key from your on-demand resource .plist file (see "Set up your API key above)
+            apiKey: APIKey.default,
+            generationConfig: GenerationConfig(
+                temperature: 0.1,
+                candidateCount: 1,
+                maxOutputTokens: 100
+            )
+        )
+
+        if seasonYear != "\(Calendar.current.component(.year, from: Date()))" {
+            prompt = "Write a concise bullet point about the \(seasonYear) Formula 1 season, won by \(driver.formatted()). The bullet point should be accurate and fact-based, presented in the style of a breaking news article title."
+        } else {
+            prompt = "What was the biggest headline of the \(seasonYear) Formula 1 season? Please only use 1 bullet point."
+        }
+
+        do {
+            let response = try await generativeModel.generateContent(prompt)
+            if let text = response.text {
+                generatedText = removeAllOccurrences(of: "*", in: text)
+                print("GENERATED TEXT OUTPUT - \(generatedText)\nFrom Prompt: \(prompt)")
+                FileManager.default.saveTextDataToCache(generatedText.data(using: .utf8) ?? Data(), for: "summary_\(seasonYear)")
+
+                return generatedText
+            }
+        } catch {
+            throw error
+        }
+
+        return ""
+    }
+
+    // remove all instances of a character in a string
+    func removeAllOccurrences(of character: Character, in string: String) -> String {
+        return string.replacingOccurrences(of: String(character), with: "")
     }
 }
 
@@ -348,4 +398,24 @@ extension Locale {
             .map { String($0) }
             .joined()
     }
+}
+
+enum APIKey {
+  // Fetch the API key from `GenerativeAI-Info.plist`
+  static var `default`: String {
+      guard let filePath = Bundle.main.path(forResource: "GenerativeAI-Info", ofType: "plist")
+      else {
+        fatalError("Couldn't find file 'GenerativeAI-Info.plist'.")
+      }
+      let plist = NSDictionary(contentsOfFile: filePath)
+      guard let value = plist?.object(forKey: "API_KEY") as? String else {
+        fatalError("Couldn't find key 'API_KEY' in 'GenerativeAI-Info.plist'.")
+      }
+      if value.starts(with: "_") {
+        fatalError(
+          "Follow the instructions at https://ai.google.dev/tutorials/setup to get an API key."
+        )
+      }
+      return value
+  }
 }

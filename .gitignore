@@ -92,3 +92,7 @@ iOSInjectionProject/
 .DS_Store
 GoogleService-Info.plist
 Info.plist
+GenerativeAI-Info.plist
+F1App/GenerativeAI-Info.plist
+F1App/GoogleService-Info.plist
+F1App/Info.plist

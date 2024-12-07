@@ -34,12 +34,20 @@ class UserAuth: UIViewController, AuthModelDelegate {
 
     func formatViews(){
         self.appleSignInButton.layer.cornerRadius = 12
-        self.appleSignInButton.layer.borderWidth = 0.51
-        self.appleSignInButton.layer.borderColor = UIColor.lightGray.cgColor
+        
+        self.appleSignInButton.layer.shadowColor = UIColor.black.cgColor
+        self.appleSignInButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+        self.appleSignInButton.layer.shadowOpacity = 0.25
+        self.appleSignInButton.layer.shadowRadius = 4
         
         self.googleSignInButton.layer.cornerRadius = 12
         self.googleSignInButton.layer.borderWidth = 0.5
         self.googleSignInButton.layer.borderColor = randomTyreColor()
+        
+        self.googleSignInButton.layer.shadowColor = UIColor.black.cgColor
+        self.googleSignInButton.layer.shadowOffset = CGSize(width: 0, height: 4)
+        self.googleSignInButton.layer.shadowOpacity = 0.25
+        self.googleSignInButton.layer.shadowRadius = 4
     }
     
     private func performTransition() {
